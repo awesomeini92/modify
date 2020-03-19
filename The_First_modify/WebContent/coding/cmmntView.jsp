@@ -25,6 +25,7 @@
 	ArrayList<CmmntBean> cmmntList = (ArrayList<CmmntBean>)request.getAttribute("cmmntList");
 	String nowPage = (String)request.getAttribute("page");
 	int post_num = (int)request.getAttribute("post_num");
+	String time = (String)request.getAttribute("time");
 	
 	// PageInfo 객체로부터 페이징 정보 가져오기
 	PageInfo cmmnt_pageInfo = (PageInfo)request.getAttribute("cmmnt_pageInfo");
@@ -44,7 +45,11 @@
 				<tr>
 					<td style="width: 20%" id="nickname"><%=cmmntList.get(i).getNickname() %></td>
 					<td style="width: 20%" id="comment" > <%=cmmntList.get(i).getComment()%></td>
-					<td style="width: 20%" id="date"><%=cmmntList.get(i).getDate()%></td>  <!-- 아니면 날짜 출력 -->
+					<%if(time.equals("")){%>
+						<td style="width: 20%" id="date"><%=time%></td>
+					<%}else{ %>
+					<td style="width: 20%" id="date"><%=cmmntList.get(i).getDate()%></td>
+					<%} %>
 				</tr>
 			</table>
 			

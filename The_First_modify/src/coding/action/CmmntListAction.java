@@ -53,9 +53,13 @@ public class CmmntListAction implements Action {
 		// PageInfo 객체에 페이지 정보 저장
 //		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, listCount);
 		PageInfo cmmnt_pageInfo = new PageInfo(cmmnt_page, cmmnt_maxPage, cmmnt_startPage, cmmnt_endPage, cmmnt_count);
-				
+		
+		//date 시간
+		String time = cmmntListService.getCmmntDate(post_num);
+		
 		
 		// request 객체의 setAttribute() 메서드를 호출하여 페이지 정보, 게시물 목록 저장
+		request.setAttribute("time", time);
 		request.setAttribute("cmmntList", cmmntList);
 		request.setAttribute("cmmnt_pageInfo", cmmnt_pageInfo);
 		request.setAttribute("post_num", post_num);

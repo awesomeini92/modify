@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import coding.vo.CmmntBean;
 import coding.vo.CodingBean;
@@ -27,6 +28,68 @@ public class CodingDAO {
 	}
 
 	//DB이름: coding_charge
+	
+	public int getToday() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		Date today = null;
+		Date date = null;
+		ResultSet rs = null;
+		int compare = 0;
+
+		try {
+			String sql = "select Date(now()) AS today";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				today = rs.getDate("today");
+			}
+			
+			sql = "select date from coding_charge where num=?";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				date = rs.getDate("date");
+			}
+			
+			compare = today.compareTo(date);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			 close(pstmt);
+		}
+		return compare;
+	}
+	
+	public String getTime(int num) {
+		PreparedStatement pstmt = null;
+		String time = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "select Time(date) AS time from coding_charge where num=?";
+
+//			String sql = "select Date(now())";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				time = rs.getString("time");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			 close(pstmt);
+		}
+		
+		return time;
+	}
 	
 	public int insertCodingArticle(CodingBean codingBean) {
 		int insertCount = 0;

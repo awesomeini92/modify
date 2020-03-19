@@ -18,7 +18,7 @@ public class CmmntListService {
 		
 		listCount = codingDAO.selectCommentListCount(num);
 		
-		close(con);
+//		close(con);
 		
 		return listCount;
 	}
@@ -34,5 +34,23 @@ public class CmmntListService {
 		
 		return cmmntList;
 	}
+	
+	public String getCmmntDate(int num) {
+		String date = "";
+		Connection con = getConnetion();
+		CodingDAO codingDAO = CodingDAO.getInstance();
+		codingDAO.setConnection(con);
+		
+		int compare = codingDAO.getToday();
+		
+		if(compare==0) {
+			date = codingDAO.getTime(num);
+		}
+		
+//		close(con);
+		
+		return date;
+	}
+	
 
 }
