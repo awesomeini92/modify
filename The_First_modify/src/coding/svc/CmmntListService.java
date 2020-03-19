@@ -4,6 +4,7 @@ import static db.JdbcUtil.close;
 import static db.JdbcUtil.*;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Date;
 
 import coding.dao.CodingDAO;
 import coding.vo.CmmntBean;
@@ -35,22 +36,6 @@ public class CmmntListService {
 		return cmmntList;
 	}
 	
-	public String getCmmntDate(int num) {
-		String date = "";
-		Connection con = getConnetion();
-		CodingDAO codingDAO = CodingDAO.getInstance();
-		codingDAO.setConnection(con);
-		
-		int compare = codingDAO.getToday();
-		
-		if(compare==0) {
-			date = codingDAO.getTime(num);
-		}
-		
-//		close(con);
-		
-		return date;
-	}
 	
 
 }

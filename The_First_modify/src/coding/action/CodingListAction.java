@@ -1,6 +1,7 @@
 package coding.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +10,7 @@ import action.Action;
 import coding.svc.CodingListService;
 import coding.vo.CodingBean;
 import coding.vo.PageInfo;
+import svc.AllService;
 import vo.ActionForward;
 
 public class CodingListAction implements Action {
@@ -53,7 +55,11 @@ public class CodingListAction implements Action {
 		// PageInfo 객체에 페이지 정보 저장
 		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, listCount);
 		
+		AllService allService = new AllService();
+		Date today = allService.getToday();
+		
 		// request 객체의 setAttribute() 메서드를 호출하여 페이지 정보, 게시물 목록 저장
+		request.setAttribute("today", today);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("articleList", articleList);
 		

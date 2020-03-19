@@ -8,6 +8,8 @@ public class CmmntBean {
 	private String nickname;
 	private String comment;
 	private Date date;
+	private String time; 
+	
 	public int getComment_num() {
 		return comment_num;
 	}
@@ -38,6 +40,13 @@ public class CmmntBean {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+	
 	
 	
 }

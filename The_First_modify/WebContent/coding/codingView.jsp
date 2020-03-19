@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="coding.vo.PageInfo"%>
 <%@page import="coding.vo.CmmntBean"%>
 <%@page import="coding.vo.Coding_refBean"%>
@@ -24,14 +25,12 @@
 	ArrayList<Coding_refBean> article_refList = (ArrayList<Coding_refBean>)request.getAttribute("article_refList");
 // 	ArrayList<CmmntBean> cmmntList = (ArrayList<CmmntBean>)request.getAttribute("cmmntList");
 	String nowPage = (String)request.getAttribute("page");
+	Date today = (Date)request.getAttribute("today");
 	
-// 	// PageInfo 객체로부터 페이징 정보 가져오기
-// 	PageInfo cmmnt_pageInfo = (PageInfo)request.getAttribute("cmmnt_pageInfo");
-// 	int cmmnt_count = cmmnt_pageInfo.getListCount();
-// 	int cmmnt_nowPage = cmmnt_pageInfo.getPage(); // page 디렉티브의 이름과 중복되므로 nowPage 라는 변수명으로 사용
-// 	int cmmnt_startPage = cmmnt_pageInfo.getStartPage();
-// 	int cmmnt_endPage = cmmnt_pageInfo.getEndPage();
-// 	int cmmnt_maxPage = cmmnt_pageInfo.getMaxPage();
+	// PageInfo 객체로부터 페이징 정보 가져오기
+	PageInfo reply_pageInfo = (PageInfo)request.getAttribute("replyPageInfo");
+	
+	
 %>    
 <!DOCTYPE html>
 <html>
@@ -108,7 +107,7 @@
 
 <script type="text/javascript">
 function openCmmnt(){  
-    window.open("CmmntList.code?post_num="+<%=article.getNum()%>, "댓글", width=800, height=700);
+    window.open("CmmntList.code?post_num="+<%=article.getNum()%>, "", width=800, height=700);
     
 }
 </script>  
@@ -134,6 +133,13 @@ function openCmmnt(){
 				<!-- 파일이름 클릭 시 새창에서 다운로드 작업 수행 -->	
 				<a href="CodingFileDown.code?file_name=<%=article.getFile()%>" target="blank"><%=article.getFile() %></a>
 			<%}%>
+			<br>
+			작성일:
+			<%if(article.getDate().compareTo(today)==0){ //날짜가 같으면 %> 
+						<td style="width: 20%" id="date"><%=article.getTime()%> <!-- 시간출력 --></td>
+					<%}else{ %>
+					<td style="width: 20%" id="date"><%=article.getDate()%></td>
+					<%} %>
 		</section>
 		<section id="articleContentArea">
 			<%=article.getContent() %> <br>
@@ -166,6 +172,13 @@ function openCmmnt(){
 				<!-- 파일이름 클릭 시 새창에서 다운로드 작업 수행 -->	
 				<a href="CodingFileDown.code?file_name=<%=article_refList.get(i).getFile()%>" target="blank"><%=article_refList.get(i).getFile() %></a>
 			<%}%>
+			<br>
+			작성일:
+			<%if(article_refList.get(i).getDate().compareTo(today)==0){ //날짜가 같으면 %> 
+						<td style="width: 20%" id="date"><%=article_refList.get(i).getTime()%> <!-- 시간출력 --></td>
+					<%}else{ %>
+					<td style="width: 20%" id="date"><%=article_refList.get(i).getDate()%></td>
+					<%} %>
 		</section>
 		<section id="article_refContentArea">
 		<img src="/codingUpload/<%=article_refList.get(i).getFile()%>" width=200px >	<br>
@@ -173,8 +186,45 @@ function openCmmnt(){
 		</section>
 	</section>
 	<%
-		} 
+		//} 
 	}%>
+	<!-- 페이지 목록 버튼 표시 -->
+	<!-- 이전 페이지 또는 다음 페이지가 존재할 경우에만 해당 하이퍼링크 활성화 -->
+	<section id="pageList">
+	<%
+	int reply_nowPage = 1;
+	if(reply_pageInfo != null){
+		int reply_count = reply_pageInfo.getListCount();
+		reply_nowPage = reply_pageInfo.getPage(); // page 디렉티브의 이름과 중복되므로 nowPage 라는 변수명으로 사용
+		int reply_startPage = reply_pageInfo.getStartPage();
+		int reply_endPage = reply_pageInfo.getEndPage();
+		int reply_maxPage = reply_pageInfo.getMaxPage();
+		
+	if(reply_nowPage <= 1) { %>
+			[이전]&nbsp;
+	<%} else {%>
+			<a href="CodingDetail.code?num=<%=article.getNum() %>&page=<%=nowPage %>&reply_page=<%=reply_nowPage - 1%>">[이전]</a>&nbsp;
+	<%} %>
+	
+	<!-- 존재하는 페이지 번호만 표시(현재 페이지는 번호만 표시하고, 나머지 페이지는 하이퍼링크 활성화) -->
+	<%for(int i = reply_startPage; i <= reply_endPage; i++) {
+		    if(i == reply_nowPage) {%>
+				[<%=i %>]
+		<%} else {%>
+				<a href="CodingDetail.code?num=<%=article.getNum() %>&page=<%=nowPage %>&reply_page=<%=i %>">[<%=i %>]</a>&nbsp;
+		<%} %>
+	<%} %>
+	
+	<%if(reply_nowPage >= reply_maxPage) {%>
+			&nbsp;[다음]
+	<%} else { %>
+			<a href="CodingDetail.code?num=<%=article.getNum() %>&page=<%=nowPage %>&reply_page=<%=reply_nowPage + 1%>">&nbsp;[다음]</a>
+	<%} %>
+	</section>
+	<%}
+	}else {%>
+	<section id="emptyArea">등록된 글이 없습니다.</section>
+<%} %>
 	
 </body>
 </html>

@@ -1,6 +1,7 @@
 package coding.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import coding.vo.CmmntBean;
 import coding.vo.CodingBean;
 import coding.vo.Coding_refBean;
 import coding.vo.PageInfo;
+import svc.AllService;
 import vo.ActionForward;
 
 public class CmmntWriteProAction implements Action {
@@ -59,7 +61,11 @@ public class CmmntWriteProAction implements Action {
 		// PageInfo 객체에 페이지 정보 저장
 		PageInfo cmmnt_pageInfo = new PageInfo(cmmnt_page, cmmnt_maxPage, cmmnt_startPage, cmmnt_endPage, cmmnt_count);
 
-				
+		AllService allService = new AllService();
+		Date today= allService.getToday();
+		
+		
+		request.setAttribute("today", today);		
 		request.setAttribute("cmmnt_pageInfo", cmmnt_pageInfo);
 //		request.setAttribute("cmmnt_page", cmmnt_page);
 		request.setAttribute("post_num", post_num);

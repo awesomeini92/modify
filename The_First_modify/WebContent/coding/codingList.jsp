@@ -11,7 +11,7 @@
 	// Action 클래스에서 request 객체의 setAttibute() 메서드로 저장되어 전달된 객체 가져오기(Object 타입이므로 형변환 필요)
 	ArrayList<CodingBean> articleList = (ArrayList<CodingBean>)request.getAttribute("articleList");
 	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
-	
+	Date today = (Date)request.getAttribute("today");
 	// PageInfo 객체로부터 페이징 정보 가져오기
 	int listCount = pageInfo.getListCount();
 	int nowPage = pageInfo.getPage(); // page 디렉티브의 이름과 중복되므로 nowPage 라는 변수명으로 사용
@@ -121,14 +121,17 @@ String nickname = (String)session.getAttribute("nickname");
 				<tr>
 					<td align="center"><%=articleList.get(i).getNum() %></td>
 					<td>
-					
 						<!-- 게시물 제목 클릭 시 BoardDetail.bo 요청(게시물번호, 페이지번호 파라미터로 전달) -->
 						<a href="CodingDetail.code?num=<%=articleList.get(i).getNum()%>&page=<%=nowPage%>">
 							<%=articleList.get(i).getSubject() %>
 						</a>
 					</td>
 					<td align="center"><%=articleList.get(i).getNickname() %></td>
-					<td align="center"><%=articleList.get(i).getDate() %></td>
+					<%if(articleList.get(i).getDate().compareTo(today)==0){ //날짜가 같으면 %> 
+						<td align="center"><%=articleList.get(i).getTime()%> <!-- 시간출력 --></td>
+					<%}else{ %>
+					<td align="center" style="width: 20%" id="date"><%=articleList.get(i).getDate()%></td>
+					<%} %>
 					<td align="center"><%=articleList.get(i).getReadcount() %></td>
 				</tr>
 			<%} %>

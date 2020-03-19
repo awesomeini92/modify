@@ -8,10 +8,13 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import action.Action;
+import coding.svc.CodingListService;
+import coding.svc.CodingReplyListService;
 import coding.svc.CodingReplyProService;
 import coding.svc.CodingWriteProService;
 import coding.vo.CodingBean;
 import coding.vo.Coding_refBean;
+import coding.vo.PageInfo;
 import vo.ActionForward;
 
 public class CodingReplyProAction implements Action {
@@ -30,7 +33,6 @@ public class CodingReplyProAction implements Action {
 		MultipartRequest multi = new MultipartRequest(request, realFolder, fileSize, "UTF-8", new DefaultFileRenamePolicy());
 		
 		//MultipartRequest 객체로부터 전달 된 파라미터들 가져오기
-//		int post_num = Integer.parseInt(request.getParameter("post_num"));
 		int post_num = Integer.parseInt(multi.getParameter("post_num"));
 //		String id = request.getParameter("id");
 		String nickname = multi.getParameter("nickname");
@@ -52,9 +54,9 @@ public class CodingReplyProAction implements Action {
 //		coding_refBean.setIsSelected(isSelected);
 //		codingBean.setPassword(password);
 		
-		
 		CodingReplyProService codingReplyProService = new CodingReplyProService();
 		boolean isSuccess = codingReplyProService.insertArticle_ref(coding_refBean);
+		
 		
 		if(isSuccess) {
 			forward = new ActionForward();

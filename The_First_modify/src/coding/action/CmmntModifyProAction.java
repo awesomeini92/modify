@@ -1,13 +1,17 @@
 package coding.action;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import coding.svc.CmmntListService;
 import coding.svc.CmmntModifyProService;
 import coding.svc.CodingModifyProService;
 import coding.vo.CmmntBean;
 import coding.vo.CodingBean;
+import svc.AllService;
 import vo.ActionForward;
 
 public class CmmntModifyProAction implements Action {
@@ -28,6 +32,13 @@ public class CmmntModifyProAction implements Action {
 		CmmntModifyProService cmmntModifyProService = new CmmntModifyProService();
 		cmmntModifyProService.modifyCmmnt(cmmntBean);
 		
+		CmmntListService cmmntListService = new CmmntListService();
+		
+		AllService allService = new AllService();
+		Date today= allService.getToday();
+		
+		
+		request.setAttribute("today", today);
 		
 		forward = new ActionForward();
 		forward.setPath("CmmntList.code");

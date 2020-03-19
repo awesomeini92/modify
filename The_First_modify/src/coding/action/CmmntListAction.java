@@ -1,6 +1,8 @@
 package coding.action;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +13,7 @@ import coding.svc.CodingListService;
 import coding.vo.CmmntBean;
 import coding.vo.CodingBean;
 import coding.vo.PageInfo;
+import svc.AllService;
 import vo.ActionForward;
 
 public class CmmntListAction implements Action {
@@ -55,11 +58,12 @@ public class CmmntListAction implements Action {
 		PageInfo cmmnt_pageInfo = new PageInfo(cmmnt_page, cmmnt_maxPage, cmmnt_startPage, cmmnt_endPage, cmmnt_count);
 		
 		//date 시간
-		String time = cmmntListService.getCmmntDate(post_num);
+		AllService allService = new AllService();
+		Date today= allService.getToday();
 		
 		
 		// request 객체의 setAttribute() 메서드를 호출하여 페이지 정보, 게시물 목록 저장
-		request.setAttribute("time", time);
+		request.setAttribute("today", today);
 		request.setAttribute("cmmntList", cmmntList);
 		request.setAttribute("cmmnt_pageInfo", cmmnt_pageInfo);
 		request.setAttribute("post_num", post_num);

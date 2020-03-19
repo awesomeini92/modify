@@ -12,6 +12,7 @@ public class Coding_refBean {
 	private String file;
 	private Date date;
 	private int isSelected;
+	private String time;
 	
 	
 	public int getRef_num() {
@@ -68,4 +69,11 @@ public class Coding_refBean {
 	public void setIsSelected(int isSelected) {
 		this.isSelected = isSelected;
 	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+	
 }

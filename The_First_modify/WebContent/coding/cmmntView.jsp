@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="coding.vo.CmmntBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="coding.vo.PageInfo"%>
@@ -25,7 +27,7 @@
 	ArrayList<CmmntBean> cmmntList = (ArrayList<CmmntBean>)request.getAttribute("cmmntList");
 	String nowPage = (String)request.getAttribute("page");
 	int post_num = (int)request.getAttribute("post_num");
-	String time = (String)request.getAttribute("time");
+	Date today = (Date)request.getAttribute("today");
 	
 	// PageInfo 객체로부터 페이징 정보 가져오기
 	PageInfo cmmnt_pageInfo = (PageInfo)request.getAttribute("cmmnt_pageInfo");
@@ -34,6 +36,7 @@
 	int cmmnt_startPage = cmmnt_pageInfo.getStartPage();
 	int cmmnt_endPage = cmmnt_pageInfo.getEndPage();
 	int cmmnt_maxPage = cmmnt_pageInfo.getMaxPage();
+	
 %>    
 </head>
 <body>
@@ -45,8 +48,8 @@
 				<tr>
 					<td style="width: 20%" id="nickname"><%=cmmntList.get(i).getNickname() %></td>
 					<td style="width: 20%" id="comment" > <%=cmmntList.get(i).getComment()%></td>
-					<%if(time.equals("")){%>
-						<td style="width: 20%" id="date"><%=time%></td>
+					<%if(cmmntList.get(i).getDate().compareTo(today)==0){ //날짜가 같으면 %> 
+						<td style="width: 20%" id="date"><%=cmmntList.get(i).getTime()%> <!-- 시간출력 --></td>
 					<%}else{ %>
 					<td style="width: 20%" id="date"><%=cmmntList.get(i).getDate()%></td>
 					<%} %>

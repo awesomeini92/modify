@@ -4,6 +4,7 @@
 <%
 
 	String sId = null;
+/*
 	// 로그인이 되지 않은 상태일 경우 로그인 페이지로 강제 이동 처리
 	if(session.getAttribute("sId") == null) {
 		out.println("<script>");
@@ -13,6 +14,7 @@
 	} else { // 로그인 된 상태일 경우 세션 ID 가져오기
 		sId = (String)session.getAttribute("sId");
 	}
+*/
 	// 전달받은 request 객체에서 데이터 가져오기
 	CodingBean article = (CodingBean)request.getAttribute("article");
 	String nowPage = (String)request.getAttribute("page");

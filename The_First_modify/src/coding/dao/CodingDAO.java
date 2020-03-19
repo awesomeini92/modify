@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import coding.vo.CmmntBean;
 import coding.vo.CodingBean;
@@ -28,68 +29,32 @@ public class CodingDAO {
 	}
 
 	//DB이름: coding_charge
+
 	
-	public int getToday() {
-		Connection con = null;
+	public Date getToday() {
 		PreparedStatement pstmt = null;
 		Date today = null;
-		Date date = null;
 		ResultSet rs = null;
-		int compare = 0;
+		
 
 		try {
 			String sql = "select Date(now()) AS today";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) {
+			while(rs.next()) {
 				today = rs.getDate("today");
 			}
 			
-			sql = "select date from coding_charge where num=?";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				date = rs.getDate("date");
-			}
-			
-			compare = today.compareTo(date);
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			 close(pstmt);
 		}
-		return compare;
+		return today;
 	}
 	
-	public String getTime(int num) {
-		PreparedStatement pstmt = null;
-		String time = null;
-		ResultSet rs = null;
-
-		try {
-			String sql = "select Time(date) AS time from coding_charge where num=?";
-
-//			String sql = "select Date(now())";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				time = rs.getString("time");
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			 close(pstmt);
-		}
-		
-		return time;
-	}
 	
 	public int insertCodingArticle(CodingBean codingBean) {
 		int insertCount = 0;
@@ -146,7 +111,7 @@ public class CodingDAO {
 		
 		// 글번호(board_num)에 해당하는 게시물 정보 조회
 		try {
-			String sql = "SELECT * FROM coding_charge WHERE num=?";
+			String sql = "SELECT *, time(date) AS time FROM coding_charge WHERE num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -164,7 +129,7 @@ public class CodingDAO {
 				article.setDate(rs.getDate("date"));
 				article.setIsPublic(rs.getInt("isPublic"));
 				article.setPassword(rs.getInt("password"));
-				
+				article.setTime(rs.getString("time"));
 			}
 			
 		} catch (SQLException e) {
@@ -207,7 +172,7 @@ public class CodingDAO {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int startRow = (page - 1) * 10;
+		int startRow = (page - 1) * limit; //리미트개수
 		/* 
 		 * 전체 게시물 중 원하는 페이지의 게시물 첫번째 row 번호 설정
 		 * - 원본 글 번호(board_re_ref) 기준으로 내림차순 정렬
@@ -224,7 +189,7 @@ public class CodingDAO {
 			// 반복문을 사용하여 1개 게시물 정보(패스워드 제외한 나머지)를 BoardBean 객체에 저장하고
 			// BoardBean 객체를 ArrayList<BoardBean> 객체에 저장 반복
 //			String sql = "SELECT * FROM board ORDER BY board_re_ref DESC, board_re_seq ASC LIMIT ?,?";
-			String sql = "SELECT * FROM coding_charge LIMIT ?,?";
+			String sql = "SELECT *, time(date) AS time FROM coding_charge LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
 			 pstmt.setInt(1, startRow);
 	          pstmt.setInt(2, limit);
@@ -243,6 +208,7 @@ public class CodingDAO {
             	codingBean.setDate(rs.getDate("date"));
             	codingBean.setIsPublic(rs.getInt("isPublic"));
             	codingBean.setPassword(rs.getInt("password"));
+            	codingBean.setTime(rs.getString("time")); 
                 
                 articleList.add(codingBean);
             }
@@ -264,7 +230,7 @@ public class CodingDAO {
 		
 		try {
 //			String sql = "UPDATE board SET board_name=?,board_subject=?,board_content=? WHERE board_num=?";
-			String sql = "UPDATE coding_charge SET subject=?, content=? WHERE num=?";
+			String sql = "UPDATE coding_charge SET subject=?, content=?, date=now() WHERE num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, article.getSubject());
 			pstmt.setString(2, article.getContent());
@@ -313,7 +279,7 @@ public class CodingDAO {
 		
 		// 글번호(board_num)에 해당하는 게시물 정보 조회
 		try {
-			String sql = "SELECT * FROM coding_charge_ref WHERE post_num=?";
+			String sql = "SELECT *, time(date) AS times FROM coding_charge_ref WHERE post_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -331,6 +297,7 @@ public class CodingDAO {
 				article_ref.setFile(rs.getString("file"));
 				article_ref.setDate(rs.getDate("date"));
 				article_ref.setIsSelected(rs.getInt("isSelected"));
+				article_ref.setTime(rs.getString("time"));
 				
 			}
 			
@@ -344,15 +311,47 @@ public class CodingDAO {
 		return article_ref;
 	}
 
-	public ArrayList<Coding_refBean> selectArticleReplyList(int num) {
+	public int selectReplyListCount(int post_num) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT COUNT(*) FROM coding_charge_ref WHERE post_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, post_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	//(num, reply_page, reply_limit
+	public ArrayList<Coding_refBean> selectArticleReplyList(int post_num, int reply_page, int reply_limit) {
 		ArrayList<Coding_refBean> article_refList = new ArrayList<Coding_refBean>();
+		int startRow = (reply_page - 1) * reply_limit;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
+		System.out.println("CodingDAO"+startRow);
+		System.out.println("CodingDAO"+reply_limit);
+		
 		try {
-			String sql = "SELECT * FROM coding_charge_ref WHERE post_num=?";
+			String sql = "SELECT *, time(date) AS time FROM coding_charge_ref WHERE post_num=? LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
-			 pstmt.setInt(1, num);
+			 pstmt.setInt(1, post_num);
+			 pstmt.setInt(2, startRow);
+			 pstmt.setInt(3, reply_limit);
+			 
             rs = pstmt.executeQuery();
             
             while(rs.next()) {
@@ -366,6 +365,7 @@ public class CodingDAO {
             	coding_refBean.setFile(rs.getString("file"));
             	coding_refBean.setDate(rs.getDate("date"));
             	coding_refBean.setIsSelected(rs.getInt("isSelected"));
+            	coding_refBean.setTime(rs.getString("time"));
                 
                 article_refList.add(coding_refBean);
             }
@@ -451,13 +451,13 @@ public class CodingDAO {
 	
 	public ArrayList<CmmntBean> selectCmmntList(int post_num, int cmmnt_page, int cmmnt_limit) {
 		ArrayList<CmmntBean> cmmntfList = new ArrayList<CmmntBean>();
-		int startRow = (cmmnt_page - 1) * 2;
+		int startRow = (cmmnt_page - 1) * cmmnt_limit;
 	
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM coding_charge_comment WHERE post_num=? LIMIT ?,?";
+			String sql = "SELECT *, time(date) AS time FROM coding_charge_comment WHERE post_num=? LIMIT ?,?";
 			 pstmt = con.prepareStatement(sql);
 			 pstmt.setInt(1, post_num);
 			 pstmt.setInt(2, startRow);
@@ -472,10 +472,12 @@ public class CodingDAO {
             	cmmntBean.setNickname(rs.getString("nickname"));
             	cmmntBean.setComment(rs.getString("comment"));
             	cmmntBean.setDate(rs.getDate("date"));
-                
+            	cmmntBean.setTime(rs.getString("time"));
             	cmmntfList.add(cmmntBean);
             }
-			
+//            time(now())
+         
+            
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -522,6 +524,8 @@ public class CodingDAO {
 		}
 		return deleteCount;
 	}
+
+
 
 	
 }
