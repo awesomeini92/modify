@@ -1,17 +1,19 @@
-<%@page import="any_community.vo.PageInfo"%>
-<%@page import="any_community.vo.CommunityBean"%>
+<%@page import="coding_free.vo.PageInfo"%>
+<%@page import="coding_free.vo.CodingFreeBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	ArrayList<CommunityBean> articleList = (ArrayList<CommunityBean>)request.getAttribute("articleList");
-	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	ArrayList<CodingFreeBean> articleList = (ArrayList<CodingFreeBean>)request.getAttribute("articleList");
+	PageInfo pageInfo2 = (PageInfo)request.getAttribute("pageInfo");
 	
-	int listCount = pageInfo.getListCount();
-	int nowPage = pageInfo.getPage(); 
-	int startPage = pageInfo.getStartPage();
-	int endPage = pageInfo.getEndPage();
-	int maxPage = pageInfo.getMaxPage();
+	int listCount = pageInfo2.getListCount();
+	int nowPage = pageInfo2.getPage(); 
+	int startPage = pageInfo2.getStartPage();
+	int endPage = pageInfo2.getEndPage();
+	int maxPage = pageInfo2.getMaxPage();
+	
+	String nickname = (String)session.getAttribute("nickname");
 %>
 <!DOCTYPE html>
 <html>
@@ -82,7 +84,7 @@
 					<td align="center"><%=articleList.get(i).getNum() %></td>
 					<td>
 					<!--  게시물 제목 클릭시 BoardDetail.bo 요청 (게시물번호, 페이지번호 파라미터로 전달) -->
-						<a href="CommunityDetail.any?num=<%=articleList.get(i).getNum()%>&page=<%=nowPage%>">
+						<a href="CodingFreeDetail.cf?num=<%=articleList.get(i).getNum()%>&page=<%=nowPage%>">
 							<%=articleList.get(i).getSubject()%>
 						</a>
 					</td>
@@ -98,30 +100,32 @@
 	<%if(nowPage <= 1) { %>
 			[이전]&nbsp;
 	<%} else {%>
-			<a href="CommunityList.any?page=<%=nowPage - 1%>">[이전]</a>&nbsp;
+			<a href="CodingFreeList.cf?page=<%=nowPage - 1%>">[이전]</a>&nbsp;
 	<%} %>
 	
 	<%for(int i = startPage; i <= endPage; i++) {
 		    if(i == nowPage) {%>
 				[<%=i %>]
 		<%} else {%>
-				<a href="CommunityList.any?page=<%=i %>">[<%=i %>]</a>&nbsp;
+				<a href="CodingFreeList.cf?page=<%=i %>">[<%=i %>]</a>&nbsp;
 		<%} %>
 	<%} %>
 	
 	<%if(nowPage >= maxPage) {%>
 			&nbsp;[다음]
 	<%} else { %>
-			<a href="CommunityList.any?page=<%=nowPage + 1%>">&nbsp;[다음]</a>
+			<a href="CodingFreeList.cf?page=<%=nowPage + 1%>">&nbsp;[다음]</a>
 	<%} %>
 	</section>
 <%} else {%>
 	<section id="emptyArea">등록된 글이 없습니다.</section>
 <%} %>
 
+	<%if(nickname != null) {%>
 	<section id="writeButton">
-		<a href="CommunityWriteForm.any"><input type="button" value="글쓰기"></a>
+		<a href="CodingFreeWriteForm.cf"><input type="button" value="글쓰기"></a>
 	</section>
+	<%} %>
 	
 </body>
 </html>

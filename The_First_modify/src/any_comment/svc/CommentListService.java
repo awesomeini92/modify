@@ -11,10 +11,11 @@ import any_comment.vo.AnyCommentBean;
 public class CommentListService {
 	
 	public ArrayList<AnyCommentBean> getCommentList(int post_num) {
-		System.out.println("CommunityWriteService");
+		System.out.println("CommentListService");
+
 		ArrayList<AnyCommentBean> list = new ArrayList<AnyCommentBean>();
 		
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		CommentDAO cdao = CommentDAO.getInstance();
 		cdao.setConnection(con);
 		
@@ -23,7 +24,6 @@ public class CommentListService {
 		close(con);
 		
 		return list;
-		
 	}
 
 }

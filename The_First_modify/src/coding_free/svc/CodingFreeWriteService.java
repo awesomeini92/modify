@@ -1,4 +1,4 @@
-package any_community.svc;
+package coding_free.svc;
 
 import static db.JdbcUtil.close;
 import static db.JdbcUtil.commit;
@@ -7,17 +7,17 @@ import static db.JdbcUtil.rollback;
 
 import java.sql.Connection;
 
-import any_community.dao.CommunityDAO;
-import any_community.vo.CommunityBean;
+import coding_free.dao.CodingFreeDAO;
+import coding_free.vo.CodingFreeBean;
 
-public class CommunityWriteService {
+public class CodingFreeWriteService {
 
-	public boolean writeArticle(CommunityBean cb) {
-		System.out.println("CommunityWriteService");
+	public boolean writeArticle(CodingFreeBean cb) {
+		System.out.println("CodingFreeWriteService");
 		boolean isWriteSuccess = false;
 
 		Connection con = getConnection();
-		CommunityDAO cdao = CommunityDAO.getInstance();
+		CodingFreeDAO cdao = CodingFreeDAO.getInstance();
 		cdao.setConnection(con);
 		
 		int insertCount = cdao.writeArticle(cb);

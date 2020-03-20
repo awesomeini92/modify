@@ -1,4 +1,4 @@
-package any_community.controller;
+package coding_free.controller;
 
 import java.io.IOException;
 
@@ -9,20 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import any_community.action.Action;
-import any_community.action.CommunityDeleteProAction;
-import any_community.action.CommunityDetailAction;
-import any_community.action.CommunityListAction;
-import any_community.action.CommunityModifyFormAction;
-import any_community.action.CommunityModifyProAction;
-import any_community.action.CommunityWriteProAction;
-import any_community.action.NewLoginFormAction;
-import any_community.action.RecCountAction;
-import any_community.action.RecUpdateAction;
-import any_community.vo.ActionForward;
+import coding_free.action.Action;
+import coding_free.action.CodingFreeDetailAction;
+import coding_free.action.CodingFreeListAction;
+import coding_free.action.CodingFreeWriteProAction;
+import coding_free.action.CodingFreeDeleteProAction;
+import coding_free.action.CodingFreeModifyFormAction;
+import coding_free.action.CodingFreeModifyProAction;
+import coding_free.vo.ActionForward;
 
-@WebServlet("*.any")
-public class CommunityFrontController extends HttpServlet{
+@WebServlet("*.cf")
+public class CodingFreeFrontController extends HttpServlet{
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -34,77 +31,55 @@ public class CommunityFrontController extends HttpServlet{
 		System.out.println("command : " + command);
 	
 		//
-		if (command.equals("/CommunityList.any")) {
-			action = new CommunityListAction();
+		if (command.equals("/CodingFreeList.cf")) {
+			action = new CodingFreeListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/CommunityWriteForm.any")) {
+		} else if(command.equals("/CodingFreeWriteForm.cf")) {
 			forward = new ActionForward();
-			forward.setPath("/any_community/communityWrite.jsp");
-		} else if(command.equals("/CommunityWritePro.any")) {
-			action = new CommunityWriteProAction();
+			forward.setPath("/coding_free/codingFreeWrite.jsp");
+		} else if(command.equals("/CodingFreeWritePro.cf")) {
+			action = new CodingFreeWriteProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/CommunityDetail.any")) {
-			action = new CommunityDetailAction();
+		} else if(command.equals("/CodingFreeDetail.cf")) {
+			action = new CodingFreeDetailAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/CommunityModifyForm.any")) {
-			action = new CommunityModifyFormAction();
+		} else if(command.equals("/CodingFreeModifyForm.cf")) {
+			action = new CodingFreeModifyFormAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/CommunityModifyPro.any")) {
-			action = new CommunityModifyProAction();
+		} else if(command.equals("/CodingFreeModifyPro.cf")) {
+			action = new CodingFreeModifyProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/CommunityDeletePro.any")) {
-			action = new CommunityDeleteProAction();
+		} else if(command.equals("/CodingFreeDeletePro.cf")) {
+			action = new CodingFreeDeleteProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} 
-		// 추천
-		else if(command.equals("/RecUpdate.any")) {
-			action = new RecUpdateAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/RecCount.any")) {
-			action = new RecCountAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} 
-		// 새로운 로그인창
-		else if(command.equals("/NewLoginForm.any")) {
-			action = new NewLoginFormAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} 
+		} else if(command.equals("/CodingFreeFileDown.cf")) {
+			forward = new ActionForward();
+			forward.setPath("/coding_free/file_down.jsp");
+		}
 		
 		//
 		if (forward != null) {

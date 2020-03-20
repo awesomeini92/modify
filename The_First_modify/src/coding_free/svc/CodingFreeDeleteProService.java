@@ -1,20 +1,20 @@
-package any_community.svc;
+package coding_free.svc;
 
 import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 
-import any_community.dao.CommunityDAO;
+import coding_free.dao.CodingFreeDAO;
 
-public class CommunityDeleteProService {
+public class CodingFreeDeleteProService {
 
 	public boolean deleteArticle(int num) {
-		System.out.println("CommunityDeleteProService");
+		System.out.println("CodingFreeDeleteProService");
 		boolean isDeleteSuccess = false;
 		int updateCount = 0;
 
 		Connection con = getConnection();
-		CommunityDAO cdao = CommunityDAO.getInstance();
+		CodingFreeDAO cdao = CodingFreeDAO.getInstance();
 		cdao.setConnection(con);
 		
 		updateCount = cdao.deleteArticle(num);

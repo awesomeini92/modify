@@ -1,21 +1,21 @@
-package any_community.svc;
+package coding_free.svc;
 
 import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import any_community.dao.CommunityDAO;
-import any_community.vo.CommunityBean;
+import coding_free.dao.CodingFreeDAO;
+import coding_free.vo.CodingFreeBean;
 
-public class CommunityListService {
+public class CodingFreeListService {
 
 	public int getListCount() {
-		System.out.println("CommunityListService - getListCount");
+		System.out.println("CodingFreeListService - getListCount");
 		int listCount = 0; 
 		
 		Connection con = getConnection();
-		CommunityDAO cdao = CommunityDAO.getInstance();
+		CodingFreeDAO cdao = CodingFreeDAO.getInstance();
 		cdao.setConnection(con);
 		
 		listCount = cdao.selectListCount();
@@ -25,12 +25,12 @@ public class CommunityListService {
 		return listCount;
 	}
 	
-	public ArrayList<CommunityBean> getArticleList(int page, int limit) {
+	public ArrayList<CodingFreeBean> getArticleList(int page, int limit) {
 		System.out.println("CommunityListService - getArticleList");
-		ArrayList<CommunityBean> articleList = null;
+		ArrayList<CodingFreeBean> articleList = null;
 		
 		Connection con = getConnection();
-		CommunityDAO cdao = CommunityDAO.getInstance();
+		CodingFreeDAO cdao = CodingFreeDAO.getInstance();
 		cdao.setConnection(con);
 		
 		articleList = cdao.selectArticleList(page, limit);

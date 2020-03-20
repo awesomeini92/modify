@@ -1,4 +1,4 @@
-package any_comment.controller;
+package coding_free_comment.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,13 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import any_comment.action.Action;
-import any_comment.action.CommentListAction;
-import any_comment.action.CommentWriteAction;
-import any_comment.vo.ActionForward;
+import coding_free_comment.action.Action;
+import coding_free_comment.action.CodingFreeCommentWriteAction;
+import coding_free_comment.vo.ActionForward;
 
-@WebServlet("*.anyC")
-public class CommentFrontController extends HttpServlet{
+@WebServlet("*.cfC")
+public class CodingFreeCommentFrontController extends HttpServlet{
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -24,15 +23,8 @@ public class CommentFrontController extends HttpServlet{
 		Action action = null;
 		System.out.println("command : " + command);
 		
-		if (command.equals("/CommentWritePro.anyC")) {
-			action = new CommentWriteAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if (command.equals("/CommentList.anyC")) {
-			action = new CommentListAction();
+		if (command.equals("/CodingFreeCommentWritePro.cfC")) {
+			action = new CodingFreeCommentWriteAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

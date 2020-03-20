@@ -18,19 +18,25 @@ public class CommunityDetailAction implements Action {
 		System.out.println("CommunityDetailAction!");
 		
 		int num = Integer.parseInt(request.getParameter("num"));
-		String page = request.getParameter("page");
+		String nowPage = request.getParameter("page");
+		System.out.println("nowPage : " + nowPage);
 		
 		CommunityDetailService communityDetailService = new CommunityDetailService();
 		CommunityBean article = communityDetailService.getArticle(num);
 		
 		CommentListService commentListService = new CommentListService();
 		ArrayList<AnyCommentBean> comentList = commentListService.getCommentList(num);
+		
 		if (comentList.size() > 0) {
 			request.setAttribute("commentList", comentList);
 		}
 		
+		if (article != null) {
+			CommunityDetailService.plusReadcount(num);
+		}
+		
 		request.setAttribute("article", article);
-		request.setAttribute("page", page);
+		request.setAttribute("page", nowPage);
 		
 		ActionForward forward = new ActionForward();
 		forward.setPath("/any_community/communityView.jsp");

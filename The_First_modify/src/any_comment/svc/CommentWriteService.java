@@ -13,7 +13,7 @@ public class CommentWriteService {
 		System.out.println("CommunityWriteService");
 		boolean isWriteSuccess = false;
 
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		CommentDAO cdao = CommentDAO.getInstance();
 		cdao.setConnection(con);
 

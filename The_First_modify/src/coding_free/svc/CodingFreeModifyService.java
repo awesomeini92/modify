@@ -1,21 +1,21 @@
-package any_community.svc;
+package coding_free.svc;
 
 import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 
-import any_community.dao.CommunityDAO;
-import any_community.vo.CommunityBean;
+import coding_free.dao.CodingFreeDAO;
+import coding_free.vo.CodingFreeBean;
 
-public class CommunityModifyService {
+public class CodingFreeModifyService {
 
-	public boolean modifyArticle(CommunityBean article) {
-		System.out.println("CommunityModifyService - modifyArticle");
+	public boolean modifyArticle(CodingFreeBean article) {
+		System.out.println("CodingFreeModifyService - modifyArticle");
 		boolean isModifySuccess = false;
 		int updateCount = 0;
 		
 		Connection con = getConnection();
-		CommunityDAO cdao = CommunityDAO.getInstance();
+		CodingFreeDAO cdao = CodingFreeDAO.getInstance();
 		cdao.setConnection(con);
 		
 		updateCount = cdao.updateArticle(article);

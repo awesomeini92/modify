@@ -1,4 +1,4 @@
-package any_community.dao;
+package coding_free.dao;
 
 import static db.JdbcUtil.close;
 
@@ -7,18 +7,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
 
-import any_community.vo.CommunityBean;
+import coding_free.vo.CodingFreeBean;
 
-public class CommunityDAO {
+public class CodingFreeDAO {
 
-	private CommunityDAO() {
+	private CodingFreeDAO() {
 	}
 
-	private static CommunityDAO instance = new CommunityDAO();
+	private static CodingFreeDAO instance = new CodingFreeDAO();
 
-	public static CommunityDAO getInstance() {
+	public static CodingFreeDAO getInstance() {
 		return instance;
 	}
 
@@ -29,12 +28,12 @@ public class CommunityDAO {
 	}
 
 	// 글쓰기
-	public int writeArticle(CommunityBean cb) {
+	public int writeArticle(CodingFreeBean cb) {
 		int insertCount = 0;
 		PreparedStatement pstmt = null;
 
 		try {
-			String sql = "INSERT INTO any_community VALUES (null,?,?,?,?,?,now())";
+			String sql = "INSERT INTO coding_free VALUES (null,?,?,?,?,?,now())";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, cb.getNickname());
 			pstmt.setString(2, cb.getSubject());
@@ -59,7 +58,7 @@ public class CommunityDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT COUNT(*) FROM any_community";
+			String sql = "SELECT COUNT(*) FROM coding_free";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -78,22 +77,22 @@ public class CommunityDAO {
 	}
 
 	// 리스트 가져오기
-	public ArrayList<CommunityBean> selectArticleList(int page, int limit) {
-		ArrayList<CommunityBean> articleList = new ArrayList<CommunityBean>();
+	public ArrayList<CodingFreeBean> selectArticleList(int page, int limit) {
+		ArrayList<CodingFreeBean> articleList = new ArrayList<CodingFreeBean>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		int startRow = (page - 1) * 10;
 		
 		try {
-			String sql = "SELECT * FROM any_community ORDER BY num DESC LIMIT ?,?";
+			String sql = "SELECT * FROM coding_free ORDER BY num DESC LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				CommunityBean cb = new CommunityBean();
+				CodingFreeBean cb = new CodingFreeBean();
 				cb.setNum(rs.getInt("num"));
 				cb.setNickname(rs.getString("nickname"));
 				cb.setSubject(rs.getString("subject"));
@@ -114,40 +113,21 @@ public class CommunityDAO {
 		return articleList;
 	}
 
-	// 조회수 증가
-	public int updateReadcount(int num) {
-		int updateCount = 0;
-		PreparedStatement pstmt = null;
-		
-		try {
-			String sql = "UPDATE any_community SET readcount=readcount+1 WHERE num=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			updateCount = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return updateCount;
-	}
-	
 	// 글 상세보기
-	public CommunityBean selectArticle(int num) {
+	public CodingFreeBean selectArticle(int num) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		CommunityBean cb = null;
+		CodingFreeBean cb = null;
 		
 		try {
-			String sql = "SELECT * FROM any_community WHERE num=?";
+			String sql = "SELECT * FROM coding_free WHERE num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				cb = new CommunityBean();
+				cb = new CodingFreeBean();
 				cb.setNum(rs.getInt("num"));
 				cb.setNickname(rs.getString("nickname"));
 				cb.setSubject(rs.getString("subject"));
@@ -168,12 +148,12 @@ public class CommunityDAO {
 	}
 
 	// 글 수정
-	public int updateArticle(CommunityBean article) {
+	public int updateArticle(CodingFreeBean article) {
 		int updateCount = 0;
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "UPDATE any_community SET subject=?,content=? where num=?";
+			String sql = "UPDATE coding_free SET subject=?,content=? where num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, article.getSubject());
 			pstmt.setString(2, article.getContent());
@@ -194,7 +174,7 @@ public class CommunityDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "DELETE FROM any_community WHERE num=?";
+			String sql = "DELETE FROM coding_free WHERE num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			updateCount = pstmt.executeUpdate();
@@ -207,42 +187,15 @@ public class CommunityDAO {
 		return updateCount;
 	}
 
-	// 동일 게시물에대한 추천여부 체크
-	public int recCheck(int num, String nickname) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			String sql = "SELECT count(*) FROM any_rec WHERE post_num=? and nickname=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			pstmt.setString(2, nickname);
-			rs = pstmt.executeQuery();
-			
-			if (rs.next()) {
-				result = rs.getInt(1);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-			close(rs);
-		}
-		return result;
-	}
-	
-	// 추천
-	public int recUpdate(int num, String nickname) {
-		PreparedStatement pstmt = null;
+	// 조회수 증가
+	public int updateReadcount(int num) {
 		int updateCount = 0;
+		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "INSERT INTO any_rec VALUES(?,?)";
+			String sql = "UPDATE coding_free SET readcount=readcount+1 WHERE num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
-			pstmt.setString(2, nickname);
 			updateCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -252,57 +205,4 @@ public class CommunityDAO {
 		
 		return updateCount;
 	}
-	
-	// 추천 취소
-	public int recDelete(int num, String nickname) {
-		PreparedStatement pstmt = null;
-		int deleteCount = 0;
-		
-		try {
-			String sql = "DELETE FROM any_rec WHERE post_num=? and nickname=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			pstmt.setString(2, nickname);
-			deleteCount = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return deleteCount;
-	}
-
-	// 추천수 구하기
-	public int recCount(int num) {
-		int count = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			String sql = "SELECT count(*) FROM any_rec WHERE post_num=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			rs = pstmt.executeQuery();
-			
-			if (rs.next()) {
-				count = rs.getInt(1);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-			close(rs);
-		}
-		return count;
-	}
-	
-
-
-	
-
-	
-
-
 }

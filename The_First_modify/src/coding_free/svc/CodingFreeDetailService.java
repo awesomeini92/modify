@@ -1,4 +1,4 @@
-package any_community.svc;
+package coding_free.svc;
 
 import static db.JdbcUtil.close;
 import static db.JdbcUtil.commit;
@@ -7,19 +7,19 @@ import static db.JdbcUtil.rollback;
 
 import java.sql.Connection;
 
-import any_community.dao.CommunityDAO;
-import any_community.vo.CommunityBean;
+import coding_free.dao.CodingFreeDAO;
+import coding_free.vo.CodingFreeBean;
 
-public class CommunityDetailService {
+public class CodingFreeDetailService {
 
-	public CommunityBean getArticle(int num) {
-		System.out.println("CommunityDetailService");
+	public CodingFreeBean getArticle(int num) {
+		System.out.println("CodingFreeDetailService");
 
 		Connection con = getConnection();
-		CommunityDAO cdao = CommunityDAO.getInstance();
+		CodingFreeDAO cdao = CodingFreeDAO.getInstance();
 		cdao.setConnection(con);
 		
-		CommunityBean article = null;
+		CodingFreeBean article = null;
 		
 		article = cdao.selectArticle(num);
 		
@@ -29,10 +29,10 @@ public class CommunityDetailService {
 	}
 
 	public static void plusReadcount(int num) {
-		System.out.println("CommunityDetailService - plusReadcount");
+		System.out.println("CodingFreeDetailService - plusReadcount");
 	
 		Connection con = getConnection();
-		CommunityDAO cdao = CommunityDAO.getInstance();
+		CodingFreeDAO cdao = CodingFreeDAO.getInstance();
 		cdao.setConnection(con);
 		
 		int updateCount = cdao.updateReadcount(num);
@@ -45,4 +45,5 @@ public class CommunityDetailService {
 		
 		close(con);
 	}
+
 }
