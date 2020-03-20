@@ -27,7 +27,6 @@ public class ShopListService {
 		
 		// 4. DB 작업을 위한 DAO 객체의 메서드 호출
 				// => ShopDAO 객체의 selectShopList() 메서드를 호출하여 상품 목록 가져오기
-				// => 파라미터 : X 리턴타입 : ArrayList<ShopBean>
 		shopList = shopDAO.selectShopList();
 		
 		// 5. Connection 객체 반환하기

@@ -31,7 +31,7 @@ public class ShopFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		
+		//상품 목록
 		if(command.equals("/ShopList.shop")) {
 			action = new ShopListAction();
 			try {
@@ -39,7 +39,8 @@ public class ShopFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+		
+		//상품 등록
 		}else if(command.equals("/ShopRegistForm.shop")) {
 			forward = new ActionForward();
 			forward.setPath("/shop/shop_regist.jsp");
@@ -55,6 +56,10 @@ public class ShopFrontController extends HttpServlet {
 			
 		}
 		
+		
+		
+		
+		
 
 		
 		if(forward != null) {
@@ -67,8 +72,6 @@ public class ShopFrontController extends HttpServlet {
 		}else {
 			System.out.println("ActionForward 객체 값이 null 입니다.");
 		}
-
-		
 	}
 	
 	

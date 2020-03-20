@@ -12,6 +12,7 @@ import java.sql.Date;
 //product_info VARCHAR(1000) NOT NULL,
 //purchase_count INT NOT NULL,
 //date DATETIME NOT NULL,
+//qty INT NOT NULL,
 //FOREIGN KEY shop(buyer_id) REFERENCES member(id)
 //);
 
@@ -25,13 +26,14 @@ public class ShopBean {
 	private String product_info;
 	private int purchase_count;
 	private Date date;
+	private int qty;
 	
 	
 	public ShopBean() {}
 
 
 	public ShopBean(String product_cod, String buyer_id, String product_name, int price, int stock,
-			String product_image, String product_info, int purchase_count, Date date) {
+			String product_image, String product_info, int purchase_count, Date date, int qty) {
 		super();
 		this.product_cod = product_cod;
 		this.buyer_id = buyer_id;
@@ -42,6 +44,7 @@ public class ShopBean {
 		this.product_info = product_info;
 		this.purchase_count = purchase_count;
 		this.date = date;
+		this.qty = qty;
 	}
 
 
@@ -133,6 +136,18 @@ public class ShopBean {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+
+	public int getQty() {
+		return qty;
+	}
+
+
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+	
+	
 
 	
 	

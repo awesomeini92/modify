@@ -4,7 +4,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
-    
 <%
 	// Action 클래스에서 request 객체의 setAttibute() 메서드로 저장되어 전달된 객체 가져오기(Object 타입이므로 형변환 필요)
 	ArrayList<ShopBean> shopList = (ArrayList<ShopBean>)request.getAttribute("shopList");
@@ -110,71 +109,8 @@
 	}
 	
 </script>
-
-
 </head>
 <body>
-	
-<%-- <c:if test="${startMoney != null }">
-	<c:set var="startMoney" value="${startMoney }"></c:set>
-</c:if>
-<c:if test="${endMoney != null }">
-	<c:set var="endMoney" value="${endMoney }"></c:set>
-</c:if>
-	<section id="listForm">
-	<c:if test="${shopList != null && shopList.size() > 0 }">
-		<h2>상품 목록</h2>
-		<form method="post" id="shopListForm">
-			<table>
-				<tr class="tr_top">
-					<td>
-						<input type="checkbox" id="allCheck" name="allCheck" onclick="checkAll(this.form)" />
-					</td>
-					<td>상품이미지</td>
-					<td>상품명</td>
-					<td>구매수량</td>
-					<td>상품금액</td>
-				</tr>
-			<c:forEach var="shop" items="${shopList}" varStatus="status">
-				<tr class="tr_list">
-					<td>
-						<input type="checkbox" id="remove" name="remove" />
-					</td>
-					<td>
-						<img src="images/${shop.product_image }" id="shopImage" />
-					</td>
-					<td>
-						${shop.product_name }
-					</td>
-					<td>
-						<a href="javascript:qtyUp(1)">▲</a>
-						<input type="text" name="qty" id="qty" size="1" value="${shop.purchase_count }" onchange="javascript:checkQty(this)">
-						<a href="javascript:qtyDown(1)">▼</a>
-						<input type="button" value="변경" onclick="qtyChange(1)"/>
-					</td>
-					<td>
-						${shop.price }
-					</td>
-				</tr>
-			</c:forEach>
-			<tr>
-				<td colspan="6" style="text-align: center;">총 금액 : ${totalMoney }원</td>
-			</tr>
-
-			</table>
-		</form>
-	</c:if>
-	
-
-	
-	<nav id="commandList">
-		<a href="DogList.dog">결제하기</a>
-	</nav>
-	</section>
-</body>
-</html>	 --%>
-	
-	
 	
 	<section id="listForm">
 		<h2>상품 목록</h2>
@@ -220,6 +156,10 @@
 	
 	<section id="paymentButton">
 		<a href="Payment.shop"><input type="button" value="결제하기"></a>
+	</section>
+	
+	<section id="registButton">
+		<a href="ShopRegistForm.shop"><input type="button" value="상품등록"></a>	
 	</section>
 	
 

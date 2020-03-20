@@ -31,6 +31,51 @@ public class ShopDAO {
 	public void setConnection(Connection con) {
 		this.con = con;
 	}
+	
+	// ========== 상품 목록 조회 ===========
+	public ArrayList<ShopBean> selectShopList() {
+		
+		System.out.println("ShopDAO - selectShopList()");
+		
+		// shop 테이블 내의 목록을 조회하여 ArrayList<ShopBean> 객체에 저장 후 리턴
+		ArrayList<ShopBean> shopList = new ArrayList<ShopBean>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// 조회 결과(ResultSet) 객체가 존재할 경우
+			// 반복문을 사용하여 1개 상품 정보를 ShopBean 객체에 저장하고
+			// ShopBean 객체를 ArrayList<ShopBean> 객체에 저장 반복
+			String sql = "SELECT * FROM shop";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ShopBean shopBean = new ShopBean();
+				shopBean.setProduct_cod(rs.getString("product_cod"));
+				shopBean.setBuyer_id(rs.getString("buyer_id"));
+				shopBean.setProduct_name(rs.getString("product_name"));		
+				shopBean.setPrice(rs.getInt("price"));	
+				shopBean.setStock(rs.getInt("stock"));
+				shopBean.setProduct_image(rs.getString("product_image"));			
+				shopBean.setProduct_info(rs.getString("product_info"));	
+				shopBean.setPurchase_count(rs.getInt("purchase_count"));
+				shopBean.setDate(rs.getDate("date"));
+				
+				shopList.add(shopBean);
+			}
+			
+		} catch (SQLException e) {
+//			e.printStackTrace();
+			System.out.println("selectShopList() 에러! - " + e.getMessage());
+ 		} finally {
+ 			close(rs);
+ 			close(pstmt);
+ 		}
+				
+		return shopList;
+	}
 
 	
 	// =============== 상품 등록 ================
@@ -68,60 +113,6 @@ public class ShopDAO {
 	
 	
 
-	// ========== 상품 목록 조회 ===========
-	public ArrayList<ShopBean> selectShopList() {
-		
-		System.out.println("ShopDAO - selectShopList()");
-		
-		// shop 테이블 내의 목록을 조회하여 ArrayList<ShopBean> 객체에 저장 후 리턴
-		
-		ArrayList<ShopBean> shopList = new ArrayList<ShopBean>();
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		
-		
-		try {
-			// 조회 결과(ResultSet) 객체가 존재할 경우
-			// 반복문을 사용하여 1개 상품 정보를 ShopBean 객체에 저장하고
-			// ShopBean 객체를 ArrayList<ShopBean> 객체에 저장 반복
-			String sql = "SELECT * FROM shop";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			
-			
-			while(rs.next()) {
-				ShopBean shopBean = new ShopBean();
-				shopBean.setProduct_cod(rs.getString("product_cod"));
-				shopBean.setBuyer_id(rs.getString("buyer_id"));
-				shopBean.setProduct_name(rs.getString("product_name"));		
-				shopBean.setPrice(rs.getInt("price"));	
-				shopBean.setStock(rs.getInt("stock"));
-				shopBean.setProduct_image(rs.getString("product_image"));			
-				shopBean.setProduct_info(rs.getString("product_info"));	
-				shopBean.setPurchase_count(rs.getInt("purchase_count"));
-				shopBean.setDate(rs.getDate("date"));
-						
-				
-				
-				shopList.add(shopBean);
-				
-				System.out.println("객체저장완료");
-			}
-			
-		} catch (SQLException e) {
-//			e.printStackTrace();
-			System.out.println("selectShopList() 에러! - " + e.getMessage());
- 		} finally {
- 			close(rs);
- 			close(pstmt);
- 		}
-		
-				
-		return shopList;
-	}
 
 	
 
