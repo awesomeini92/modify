@@ -1,4 +1,4 @@
-package coding_free_comment.dao;
+package coding_free.dao;
 
 import static db.JdbcUtil.close;
 
@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import coding_free_comment.vo.CodingFreeCommentBean;
+import coding_free.vo.CodingFreeCommentBean;
 
 public class CodingFreeCommentDAO {
 

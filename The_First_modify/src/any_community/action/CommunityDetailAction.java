@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import any_comment.svc.CommentListService;
-import any_comment.vo.AnyCommentBean;
+import any_community.svc.CommentListService;
+import any_community.vo.AnyCommentBean;
 import any_community.svc.CommunityDetailService;
 import any_community.vo.ActionForward;
 import any_community.vo.CommunityBean;

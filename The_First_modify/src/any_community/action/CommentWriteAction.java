@@ -1,11 +1,11 @@
-package any_comment.action;
+package any_community.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import any_comment.svc.CommentWriteService;
-import any_comment.vo.AnyCommentBean;
-import any_comment.vo.ActionForward;
+import any_community.svc.CommentWriteService;
+import any_community.vo.AnyCommentBean;
+import any_community.vo.ActionForward;
 
 public class CommentWriteAction implements Action {
 

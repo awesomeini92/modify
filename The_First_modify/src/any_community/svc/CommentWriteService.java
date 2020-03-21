@@ -1,11 +1,11 @@
-package any_comment.svc;
+package any_community.svc;
 
 import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 
-import any_comment.dao.CommentDAO;
-import any_comment.vo.AnyCommentBean;
+import any_community.dao.CommentDAO;
+import any_community.vo.AnyCommentBean;
 
 public class CommentWriteService {
 

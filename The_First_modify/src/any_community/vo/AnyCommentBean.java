@@ -1,19 +1,19 @@
-package coding_free_comment.vo;
+package any_community.vo;
 
 import java.sql.Date;
 
-public class CodingFreeCommentBean {
+public class AnyCommentBean {
 	private int comment_num;
 	private int post_num;
 	private String nickname;
 	private String comment;
 	private Date date;
 
-	public CodingFreeCommentBean() {
+	public AnyCommentBean() {
 		super();
 	}
 
-	public CodingFreeCommentBean(int post_num, String nickname, String comment) {
+	public AnyCommentBean(int post_num, String nickname, String comment) {
 		super();
 		this.post_num = post_num;
 		this.nickname = nickname;

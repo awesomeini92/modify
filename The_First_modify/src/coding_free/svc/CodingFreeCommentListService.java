@@ -1,12 +1,12 @@
-package coding_free_comment.svc;
+package coding_free.svc;
 
 import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import coding_free_comment.dao.CodingFreeCommentDAO;
-import coding_free_comment.vo.CodingFreeCommentBean;
+import coding_free.dao.CodingFreeCommentDAO;
+import coding_free.vo.CodingFreeCommentBean;
 
 public class CodingFreeCommentListService {
 	

@@ -1,13 +1,13 @@
-package coding_free_comment.action;
+package coding_free.action;
 
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import coding_free_comment.svc.CodingFreeCommentWriteService;
-import coding_free_comment.vo.CodingFreeCommentBean;
-import coding_free_comment.vo.ActionForward;
+import coding_free.svc.CodingFreeCommentWriteService;
+import coding_free.vo.CodingFreeCommentBean;
+import coding_free.vo.ActionForward;
 
 public class CodingFreeCommentWriteAction implements Action {
 

@@ -1,4 +1,4 @@
-package any_comment.action;
+package any_community.action;
 
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import any_comment.svc.CommentListService;
-import any_comment.vo.ActionForward;
-import any_comment.vo.AnyCommentBean;
+import any_community.svc.CommentListService;
+import any_community.vo.ActionForward;
+import any_community.vo.AnyCommentBean;
 
 public class CommentListAction implements Action {
 

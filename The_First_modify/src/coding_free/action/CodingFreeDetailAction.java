@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import coding_free_comment.svc.CodingFreeCommentListService;
-import coding_free_comment.vo.CodingFreeCommentBean;
+import coding_free.svc.CodingFreeCommentListService;
+import coding_free.vo.CodingFreeCommentBean;
 import coding_free.svc.CodingFreeDetailService;
 import coding_free.vo.ActionForward;
 import coding_free.vo.CodingFreeBean;
