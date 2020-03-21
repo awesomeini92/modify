@@ -10,7 +10,7 @@ public class CodingReplyProService {
 
 	public boolean insertArticle_ref(Coding_refBean coding_refBean) {
 		boolean isSuccess = false;
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		

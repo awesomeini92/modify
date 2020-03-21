@@ -12,7 +12,7 @@ public class MemberJoinProService {
 	public boolean joinMember(MemberBean member) {
 		boolean isJoinSuccess = false;
 		
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		memberDAO.setConnection(con);
 		

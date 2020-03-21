@@ -16,7 +16,7 @@ public class NoticeWriteProService {
 		
 		// 1. Connection 객체 가져오기
 //		Connection con = JdbcUtil.getConnection(); // static 메서드 호출 시
-		Connection con = getConnetion(); // static import 를 사용했을 경우 클래스명 없이 static 메서드 호출
+		Connection con = getConnection(); // static import 를 사용했을 경우 클래스명 없이 static 메서드 호출
 		
 		// 2. DAO 객체 가져오기(싱글톤 패턴)
 		NoticeDAO noticeDAO = NoticeDAO.getInstance();

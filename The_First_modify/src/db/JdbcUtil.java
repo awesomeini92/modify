@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 public class JdbcUtil {
 	// DB 접속(커넥션풀), 자원반환, Commit, Rollback 작업 등을 수행하는 클래스
 	// => 모든 메서드는 인스턴스 생성 없이 호출 가능하도록 static 메서드로 정의
-	public static Connection getConnetion(){
+	public static Connection getConnection(){
 	// ==== DBCP 를 사용하여 커넥션 풀에서 Connection 객체 가져오기 ====
 		Connection con = null;
 		

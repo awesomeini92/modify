@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 String nickname = (String)session.getAttribute("nickname");
+
 %>
 <!DOCTYPE html>
 <html>

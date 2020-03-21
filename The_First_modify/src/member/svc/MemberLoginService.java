@@ -13,7 +13,7 @@ public class MemberLoginService {
 //		System.out.println("MemberLoginService - isLoginMember()");
 		int loginResult = 0;
 		
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		memberDAO.setConnection(con);
 		

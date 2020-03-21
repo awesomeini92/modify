@@ -24,7 +24,7 @@ public class NoticeModifyProService {
 		int updateCount = 0;
 		boolean isModifySuccess = false;
 		
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		NoticeDAO noticeDAO = NoticeDAO.getInstance();
 		noticeDAO.setConnection(con);
 		

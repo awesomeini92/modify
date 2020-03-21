@@ -89,7 +89,7 @@ public class MemberDAO {
 		String sql = "";
 		
 		try {
-			con = getConnetion();
+			con = getConnection();
 			sql = "SELECT email FROM member WHERE id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -113,7 +113,7 @@ public class MemberDAO {
 		String sql = "";
 		
 		try {
-			con = getConnetion();
+			con = getConnection();
 			sql = "SELECT emailChecked FROM member WHERE id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -135,7 +135,7 @@ public class MemberDAO {
 		String sql = "";
 		
 		try {
-			con = getConnetion();
+			con = getConnection();
 			sql = "UPDATE member SET emailChecked = true WHERE id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);

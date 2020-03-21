@@ -16,7 +16,7 @@ public class NoticeListService {
 		int listCount = 0; // 총 게시물 수 저장할 변수
 		
 		// 1. Connection 객체 가져오기
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		
 		// 2. DAO 객체 가져오기(싱글톤 패턴)
 		NoticeDAO noticeDAO = NoticeDAO.getInstance();
@@ -39,7 +39,7 @@ public class NoticeListService {
 		ArrayList<NoticeBean> articleList = null;
 		
 		// 1. Connection 객체 가져오기
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		
 		// 2. DAO 객체 가져오기(싱글톤 패턴)
 		NoticeDAO noticeDAO = NoticeDAO.getInstance();

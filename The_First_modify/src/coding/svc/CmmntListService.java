@@ -13,7 +13,7 @@ public class CmmntListService {
 
 	public int getCommentListCount(int num) {
 		int listCount = 0;
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		
@@ -27,7 +27,7 @@ public class CmmntListService {
 	public ArrayList<CmmntBean> getCmmntList(int post_num, int cmmnt_page, int cmmnt_limit) {
 		ArrayList<CmmntBean> cmmntList = null;
 		
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		
