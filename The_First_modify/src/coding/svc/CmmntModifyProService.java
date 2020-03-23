@@ -16,7 +16,7 @@ public class CmmntModifyProService {
 		int updateCount = 0;
 		boolean isModifySuccess = false;
 		
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		

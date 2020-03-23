@@ -1,7 +1,6 @@
 package any_community.svc;
 
-import static db.JdbcUtil.close;
-import static db.JdbcUtil.getConnetion;
+import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 
@@ -13,7 +12,7 @@ public class CommunityDetailService {
 	public CommunityBean getArticle(int num) {
 		System.out.println("CommunityDetailService");
 
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		CommunityDAO cdao = CommunityDAO.getInstance();
 		cdao.setConnection(con);
 		
@@ -26,4 +25,21 @@ public class CommunityDetailService {
 		return article;
 	}
 
+	public static void plusReadcount(int num) {
+		System.out.println("CommunityDetailService - plusReadcount");
+	
+		Connection con = getConnection();
+		CommunityDAO cdao = CommunityDAO.getInstance();
+		cdao.setConnection(con);
+		
+		int updateCount = cdao.updateReadcount(num);
+		
+		if(updateCount > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+	}
 }

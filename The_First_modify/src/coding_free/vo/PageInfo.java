@@ -1,4 +1,4 @@
-package any_comment.vo;
+package coding_free.vo;
 
 public class PageInfo {
 	// 페이징 처리를 위한 페이지 정보를 저장하는 객체

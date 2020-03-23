@@ -15,7 +15,7 @@ public class NoticeDetailService {
 	public NoticeBean getArticle(int num) throws Exception {
 		System.out.println("NoticeDetailService - getArticle()");
 
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		NoticeDAO noticeDAO = NoticeDAO.getInstance();
 		noticeDAO.setConnection(con);
 		
@@ -32,7 +32,7 @@ public class NoticeDetailService {
 	
 	public void plusReadcount(int num) throws Exception {
 		// 조회수 1 증가
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		NoticeDAO noticeDAO = NoticeDAO.getInstance();
 		noticeDAO.setConnection(con);
 		

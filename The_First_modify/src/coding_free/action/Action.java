@@ -1,9 +1,9 @@
-package any_comment.action;
+package coding_free.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import any_comment.vo.ActionForward;
+import coding_free.vo.ActionForward;
 
 public interface Action {
 

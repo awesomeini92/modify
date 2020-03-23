@@ -1,4 +1,4 @@
-package any_comment.dao;
+package any_community.dao;
 
 import static db.JdbcUtil.close;
 
@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import any_comment.vo.AnyCommentBean;
+import any_community.vo.AnyCommentBean;
 
 public class CommentDAO {
 

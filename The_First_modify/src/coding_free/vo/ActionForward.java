@@ -1,4 +1,4 @@
-package any_comment.vo; //vo Value Object 정보를 저장하는 객체
+package coding_free.vo; //vo Value Object 정보를 저장하는 객체
 
 public class ActionForward {
 	//서블릿에서 클라이언트로부터의 요청을 받아 처리한 후 View 페이지로 이동(포워딩)할 때

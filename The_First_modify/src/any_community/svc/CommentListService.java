@@ -1,20 +1,21 @@
-package any_comment.svc;
+package any_community.svc;
 
 import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import any_comment.dao.CommentDAO;
-import any_comment.vo.AnyCommentBean;
+import any_community.dao.CommentDAO;
+import any_community.vo.AnyCommentBean;
 
 public class CommentListService {
 	
 	public ArrayList<AnyCommentBean> getCommentList(int post_num) {
-		System.out.println("CommunityWriteService");
+		System.out.println("CommentListService");
+
 		ArrayList<AnyCommentBean> list = new ArrayList<AnyCommentBean>();
 		
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		CommentDAO cdao = CommentDAO.getInstance();
 		cdao.setConnection(con);
 		
@@ -23,7 +24,6 @@ public class CommentListService {
 		close(con);
 		
 		return list;
-		
 	}
 
 }

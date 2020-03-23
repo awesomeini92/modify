@@ -1,4 +1,4 @@
-package any_comment.vo;
+package any_community.vo;
 
 import java.sql.Date;
 

@@ -13,7 +13,7 @@ public class ShopRegistProService {
 	public boolean registProduct(ShopBean shopBean) {
 		System.out.println("ShopRegistProService!");
 		
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		ShopDAO shopDAO = ShopDAO.getInstance();
 		shopDAO.setConnection(con);
 		

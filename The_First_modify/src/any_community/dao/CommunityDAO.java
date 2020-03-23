@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import any_community.vo.CommunityBean;
 
@@ -113,6 +114,25 @@ public class CommunityDAO {
 		return articleList;
 	}
 
+	// 조회수 증가
+	public int updateReadcount(int num) {
+		int updateCount = 0;
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "UPDATE any_community SET readcount=readcount+1 WHERE num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			updateCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
+	}
+	
 	// 글 상세보기
 	public CommunityBean selectArticle(int num) {
 		PreparedStatement pstmt = null;
@@ -168,6 +188,7 @@ public class CommunityDAO {
 		return updateCount;
 	}
 
+	// 글 삭제
 	public int deleteArticle(int num) {
 		int updateCount = 0;
 		PreparedStatement pstmt = null;
@@ -185,4 +206,103 @@ public class CommunityDAO {
 		
 		return updateCount;
 	}
+
+	// 동일 게시물에대한 추천여부 체크
+	public int recCheck(int num, String nickname) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT count(*) FROM any_rec WHERE post_num=? and nickname=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setString(2, nickname);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		return result;
+	}
+	
+	// 추천
+	public int recUpdate(int num, String nickname) {
+		PreparedStatement pstmt = null;
+		int updateCount = 0;
+		
+		try {
+			String sql = "INSERT INTO any_rec VALUES(?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setString(2, nickname);
+			updateCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
+	}
+	
+	// 추천 취소
+	public int recDelete(int num, String nickname) {
+		PreparedStatement pstmt = null;
+		int deleteCount = 0;
+		
+		try {
+			String sql = "DELETE FROM any_rec WHERE post_num=? and nickname=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setString(2, nickname);
+			deleteCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
+
+	// 추천수 구하기
+	public int recCount(int num) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT count(*) FROM any_rec WHERE post_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		return count;
+	}
+	
+
+
+	
+
+	
+
+
 }

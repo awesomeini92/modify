@@ -14,7 +14,7 @@ public class CommunityListService {
 		System.out.println("CommunityListService - getListCount");
 		int listCount = 0; 
 		
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		CommunityDAO cdao = CommunityDAO.getInstance();
 		cdao.setConnection(con);
 		
@@ -29,7 +29,7 @@ public class CommunityListService {
 		System.out.println("CommunityListService - getArticleList");
 		ArrayList<CommunityBean> articleList = null;
 		
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		CommunityDAO cdao = CommunityDAO.getInstance();
 		cdao.setConnection(con);
 		

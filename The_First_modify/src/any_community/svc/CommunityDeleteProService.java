@@ -13,7 +13,7 @@ public class CommunityDeleteProService {
 		boolean isDeleteSuccess = false;
 		int updateCount = 0;
 
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		CommunityDAO cdao = CommunityDAO.getInstance();
 		cdao.setConnection(con);
 		

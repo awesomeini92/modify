@@ -2,7 +2,7 @@ package any_community.svc;
 
 import static db.JdbcUtil.close;
 import static db.JdbcUtil.commit;
-import static db.JdbcUtil.getConnetion;
+import static db.JdbcUtil.getConnection;
 import static db.JdbcUtil.rollback;
 
 import java.sql.Connection;
@@ -16,7 +16,7 @@ public class CommunityWriteService {
 		System.out.println("CommunityWriteService");
 		boolean isWriteSuccess = false;
 
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		CommunityDAO cdao = CommunityDAO.getInstance();
 		cdao.setConnection(con);
 		

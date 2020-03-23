@@ -12,7 +12,7 @@ public class NoticeDeleteProService {
 //		System.out.println("NoticeDeleteProService - isArticleWriter()");
 		boolean isArticleWriter = false;
 		
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		NoticeDAO noticeDAO = NoticeDAO.getInstance();
 		noticeDAO.setConnection(con);
 		// NoticeDAO 클래스의 isArticleWriter() 메서드를 호출
@@ -27,7 +27,7 @@ public class NoticeDeleteProService {
 	public boolean removeArticle(int num) {
 		boolean isRemoveSuccess = false;
 		
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		NoticeDAO noticeDAO = NoticeDAO.getInstance();
 		noticeDAO.setConnection(con);
 		

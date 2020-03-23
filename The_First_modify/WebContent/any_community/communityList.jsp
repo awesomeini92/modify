@@ -1,20 +1,17 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="any_community.vo.PageInfo"%>
 <%@page import="any_community.vo.CommunityBean"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	ArrayList<CommunityBean> articleList = (ArrayList<CommunityBean>)request.getAttribute("articleList");
-	PageInfo pageInfo2 = (PageInfo)request.getAttribute("pageInfo");
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	
-	int listCount = pageInfo2.getListCount();
-	int nowPage = pageInfo2.getPage(); 
-	int startPage = pageInfo2.getStartPage();
-	int endPage = pageInfo2.getEndPage();
-	int maxPage = pageInfo2.getMaxPage();
-	
-	//
-	System.out.println("nowPage = " + nowPage);
+	int listCount = pageInfo.getListCount();
+	int nowPage = pageInfo.getPage(); 
+	int startPage = pageInfo.getStartPage();
+	int endPage = pageInfo.getEndPage();
+	int maxPage = pageInfo.getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -85,7 +82,7 @@
 					<td align="center"><%=articleList.get(i).getNum() %></td>
 					<td>
 					<!--  게시물 제목 클릭시 BoardDetail.bo 요청 (게시물번호, 페이지번호 파라미터로 전달) -->
-						<a href="CommunityDetail.any?num=<%=articleList.get(i).getNum()%>&page=${nowPage}">
+						<a href="CommunityDetail.any?num=<%=articleList.get(i).getNum()%>&page=<%=nowPage%>">
 							<%=articleList.get(i).getSubject()%>
 						</a>
 					</td>

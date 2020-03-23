@@ -17,7 +17,7 @@ public class ShopListService {
 		ArrayList<ShopBean> shopList = null;
 		
 		// 1. Connection 객체 가져오기
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		
 		// 2. DAO 객체 가져오기(싱글톤 패턴)
 		ShopDAO shopDAO = ShopDAO.getInstance();

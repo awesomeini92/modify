@@ -11,7 +11,7 @@ public class CodingWriteProService {
 	public boolean insertArticle(CodingBean codingBean) {
 		boolean isWriteSuccess = false; 
 		
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		

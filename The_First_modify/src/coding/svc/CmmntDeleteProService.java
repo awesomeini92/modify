@@ -14,7 +14,7 @@ public class CmmntDeleteProService {
 	public boolean deleteCmmnt(int comment_num) {
 		boolean isDeleteSuccess = false;
 		
-		Connection con = getConnetion();
+		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		
