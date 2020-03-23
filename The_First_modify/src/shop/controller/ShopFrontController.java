@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import shop.action.ShopListAction;
+import dog.action.DogViewAction;
+import shop.action.ShopCartListAction;
 import shop.action.ShopRegistProAction;
 import vo.ActionForward;
 
@@ -33,7 +34,7 @@ public class ShopFrontController extends HttpServlet {
 		
 		//상품 목록
 		if(command.equals("/ShopList.shop")) {
-			action = new ShopListAction();
+			action = new ShopCartListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -45,7 +46,7 @@ public class ShopFrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("/shop/shop_regist.jsp");
 			
-		}else if(command.equals("/ShopRegistPro.shop")) {
+		}else if(command.equals("/ShopRegist.shop")) {
 			action = new ShopRegistProAction();
 			
 			try {
@@ -54,7 +55,13 @@ public class ShopFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		}
+		} else if(command.equals("/ShopView.shop")) {
+			action = new ShopViewAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		
 		
 		

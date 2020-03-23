@@ -38,10 +38,10 @@ public class ShopDAO {
 		System.out.println("ShopDAO - selectShopList()");
 		
 		// shop 테이블 내의 목록을 조회하여 ArrayList<ShopBean> 객체에 저장 후 리턴
-		ArrayList<ShopBean> shopList = new ArrayList<ShopBean>();
-		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+
+		ArrayList<ShopBean> shopList=null;
 		
 		try {
 			// 조회 결과(ResultSet) 객체가 존재할 경우
@@ -51,21 +51,25 @@ public class ShopDAO {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
+			shopList = new ArrayList<ShopBean>();
+			
 			while(rs.next()) {
-				ShopBean shopBean = new ShopBean();
-				shopBean.setProduct_cod(rs.getString("product_cod"));
-				shopBean.setBuyer_id(rs.getString("buyer_id"));
-				shopBean.setProduct_name(rs.getString("product_name"));		
-				shopBean.setPrice(rs.getInt("price"));	
-				shopBean.setStock(rs.getInt("stock"));
-				shopBean.setProduct_image(rs.getString("product_image"));			
-				shopBean.setProduct_info(rs.getString("product_info"));	
-				shopBean.setPurchase_count(rs.getInt("purchase_count"));
-				shopBean.setDate(rs.getDate("date"));
+				ShopBean shopBean = new ShopBean(
+					rs.getString("product_cod"),
+					rs.getString("buyer_id"),
+					rs.getString("product_name"),
+					rs.getInt("price"),
+					rs.getInt("stock"),
+					rs.getString("product_image"),	
+					rs.getString("product_info"),
+					rs.getInt("purchase_count"),
+					rs.getDate("date"),
+					rs.getInt("qty")
+					
+				);
 				
 				shopList.add(shopBean);
 			}
-			
 		} catch (SQLException e) {
 //			e.printStackTrace();
 			System.out.println("selectShopList() 에러! - " + e.getMessage());

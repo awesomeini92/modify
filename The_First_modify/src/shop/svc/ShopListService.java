@@ -5,6 +5,7 @@ import static db.JdbcUtil.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+
 import shop.dao.ShopDAO;
 import shop.vo.ShopBean;
 
@@ -13,8 +14,6 @@ public class ShopListService {
 	public ArrayList<ShopBean> getShopList() {
 		
 		System.out.println("ShopListService - getShopList()");
-		
-		ArrayList<ShopBean> shopList = null;
 		
 		// 1. Connection 객체 가져오기
 		Connection con = getConnection();
@@ -27,7 +26,7 @@ public class ShopListService {
 		
 		// 4. DB 작업을 위한 DAO 객체의 메서드 호출
 				// => ShopDAO 객체의 selectShopList() 메서드를 호출하여 상품 목록 가져오기
-		shopList = shopDAO.selectShopList();
+		ArrayList<ShopBean> shopList = shopDAO.selectShopList();
 		
 		// 5. Connection 객체 반환하기
 		close(con);

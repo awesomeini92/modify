@@ -16,11 +16,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MVC 게시판</title>
+<title>상품 등록</title>
 <style type="text/css">
 	#registForm {
 		width: 500px;
-		height: 610px;
+		height: 500px;
 		border: 1px solid red;
 		margin: auto;
 	}
@@ -32,7 +32,6 @@
 	table {
 		margin: auto;
 		width: 450px;
-		border: 1px solid darkgray;
 	}
 	
 	textarea {
@@ -53,53 +52,49 @@
 		text-align: center;
 	}
 	
-	header {
-		text-align: right;
-	}
 </style>
 </head>
 <body>
-	<header>
-		<!-- 세션ID(sId) 가 없을 경우 로그인(LoginForm.me), 회원가입(JoinForm.me) 링크 표시 -->
-		<!-- 세션ID(sId) 가 있을 경우 회원ID, 로그아웃(Logout.me)링크 표시 -->
-		<%if(sId == null) {%>
-			<a href="LoginForm.me">로그인</a> | <a href="JoinForm.me">회원가입</a>
-		<%} else { %>
-			<%=sId %>님 | <a href="Logout.me">로그아웃</a>
-		<%} %>
-	</header>
-	<!-- 게시판 글 등록 -->
-	<section id="writeForm">
-		<h2>게시판 글 등록</h2>
-		<form action="BoardWritePro.bo" method="post" enctype="multipart/form-data" name="boardform">
+	<section id="registForm">
+		<header>
+			<h2>상품 정보 등록</h2>
+		</header>
+		<form action="ShopRegist.shop" method="post" enctype="multipart/form-data" name="registForm">
 			<table>
 				<tr>
-					<!-- label 태그를 사용하여 해당 레이블 클릭 시 for 속성에 지정된 이름과 같은 id 속성을 갖는 텍스트필드로 커서 요청 -->
-					<td class="td_left"><label for="board_name">글쓴이</label></td>
-					<td class="td_right"><input type="text" name="board_name" id="board_name" required="required" /></td>
+					<td class="td_left"><label for="product_cod">상품코드</label></td>
+					<td class="td_right"><input type="text" name="product_cod" id="product_cod" required="required"/></td>
 				</tr>
 				<tr>
-					<td class="td_left"><label for="board_pass">비밀번호</label></td>
-					<td class="td_right"><input type="password" name="board_pass" id="board_pass" required="required" /></td>
+					<td class="td_left"><label for="product_name">상품명</label></td>
+					<td class="td_right"><input type="text" name="product_name" id="product_name" required="required"/></td>
 				</tr>
 				<tr>
-					<td class="td_left"><label for="board_subject">제목</label></td>
-					<td class="td_right"><input type="text" name="board_subject" id="board_subject" required="required" /></td>
+					<td class="td_left"><label for="price">가격</label></td>
+					<td class="td_right"><input type="text" name="price" id="price" required="required"/></td>
 				</tr>
 				<tr>
-					<td class="td_left"><label for="board_content">내용</label></td>
-					<td class="td_right"><textarea name="board_content" id="board_content" cols="40" rows="15" required="required" ></textarea></td>
+					<td class="td_left"><label for="stock">재고</label></td>
+					<td class="td_right"><input type="text" name="stock" id="stock" required="required"/></td>
 				</tr>
 				<tr>
-					<td class="td_left"><label for="board_file">파일첨부</label></td>
-					<td class="td_right"><input type="file" name="board_file" id="board_file" required="required" /></td>
+					<td class="td_left"><label for="content">설명</label></td>
+					<td class="td_right">
+						<textarea rows="13" cols="40" name="content" id="content"></textarea>
+					</td>
 				</tr>
+				<tr>
+					<td class="td_left"><label for="product_image">이미지</label></td>
+					<td class="td_right"><input type="file" name="product_image" id="product_image"/></td>
+				</tr>
+				<tr>
+					<td colspan="2" id="commandCell">
+						<input type="submit" value="등록"/>
+						<input type="reset" value="다시작성"/>
+						<input type="button" value="목록보기" onclick="location.href='ShopList.dog'"/>
+					</td>
 			</table>
-			<section id="commandCell">
-				<input type="submit" value="등록" />&nbsp;&nbsp;
-				<input type="reset" value="다시쓰기" />
-			</section>
-		</form>	
+		</form>
 	</section>
 </body>
 </html>
