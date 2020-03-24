@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import dog.action.DogViewAction;
+import shop.action.ShopCartAddAction;
 import shop.action.ShopCartListAction;
+import shop.action.ShopCartQtyChangeAction;
+import shop.action.ShopCartRemoveAction;
 import shop.action.ShopRegistProAction;
+import shop.action.ShopViewAction;
 import vo.ActionForward;
 
 @WebServlet("*.shop")
@@ -62,10 +65,35 @@ public class ShopFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		
-		
-		
-		
+		} else if(command.equals("/ShopCartAdd.shop")) {
+			action = new ShopCartAddAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/ShopCartList.shop")) {
+			action = new ShopCartListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/ShopCartQtyChange.shop")) {
+			action = new ShopCartQtyChangeAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/ShopCartRemove.shop")) {
+			action = new ShopCartRemoveAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 
 		

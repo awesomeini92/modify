@@ -17,16 +17,16 @@ import java.sql.Date;
 //);
 
 public class ShopBean {
-	private String product_cod;
-	private String buyer_id;
-	private String product_name;
-	private int price;
-	private int stock;
-	private String product_image;
-	private String product_info;
-	private int purchase_count;
-	private Date date;
-	private int qty;
+	private String product_cod; //상품코드
+	private String buyer_id; //구매자 아이디
+	private String product_name; //상품명
+	private int price; //가격
+	private int stock; //재고
+	private String product_image; //상품이미지
+	private String product_info; //상품설명
+	private int purchase_count; //구매수량(누적)
+	private Date date; //날짜
+	private int qty; //구매수량
 	
 	
 	public ShopBean() {}

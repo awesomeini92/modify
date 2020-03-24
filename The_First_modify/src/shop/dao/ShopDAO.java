@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import com.sun.jndi.url.corbaname.corbanameURLContextFactory;
 
+
 import shop.vo.ShopBean;
 
 
@@ -80,6 +81,50 @@ public class ShopDAO {
 				
 		return shopList;
 	}
+	
+	
+	// =========== 상품 상세 정보 조회 ============
+		public ShopBean selectShop(String product_cod) {
+			// product_cod 값에 해당하는 레코드 조회 후 ShopBean 객체에 저장
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			ShopBean shopBean = null;
+			
+			try {
+				String sql = "SELECT * FROM shop WHERE product_cod=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, product_cod);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					shopBean = new ShopBean(
+							rs.getString("product_cod"),
+							rs.getString("buyer_id"),
+							rs.getString("product_name"),
+							rs.getInt("price"),
+							rs.getInt("stock"),
+							rs.getString("product_image"),	
+							rs.getString("product_info"),
+							rs.getInt("purchase_count"),
+							rs.getDate("date"),
+							rs.getInt("qty")
+							
+						);
+				}
+				
+			} catch (SQLException e) {
+//				e.printStackTrace();
+				System.out.println("selectShop() 에러! - " + e.getMessage());
+	 		} finally {
+	 			close(rs);
+	 			close(pstmt);
+	 		}
+			
+			return shopBean;
+		}
+	
+
 
 	
 	// =============== 상품 등록 ================
