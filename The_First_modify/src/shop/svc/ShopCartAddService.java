@@ -33,6 +33,8 @@ public class ShopCartAddService {
 	}
 
 	public void addCart(ShopBean cartShop, HttpServletRequest request) {
+		System.out.println("ShopCartAddService - addCart()");
+		
 		// Session 작업을 수행하기 위해 HttpSession 객체를 request 객체로부터 가져와야하므로 request 전달받음
 		HttpSession session = request.getSession();
 		
@@ -62,9 +64,9 @@ public class ShopCartAddService {
 		System.out.println(isNewCart);
 		
 		if(isNewCart) { // 중복되는 카트 상품이 없을 경우
-			// CartBean 객체를 생성하여 상품 정보 저장한 후 ArrayList 객체에 CartBean 객체 추가
+			// CartBean 객체를 생성하여 상품 정보 저장한 후  ArrayList 객체에 CartBean 객체 추가
 			CartBean cart = new CartBean(
-					cartShop.getProduct_cod(), 
+					cartShop.getProduct_cod(),
 					cartShop.getProduct_image(),
 					cartShop.getProduct_name(),
 					cartShop.getPrice(),
