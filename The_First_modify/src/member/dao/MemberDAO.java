@@ -52,7 +52,11 @@ public class MemberDAO {
 		
 		return loginResult;
 	}
-
+	
+	// 아이디 중복체크
+	
+	// 닉네임 중복체크
+	
 	// 회원가입
 	public int insertMember(MemberBean member) {
 		int insertCount = 0;
@@ -133,7 +137,27 @@ public class MemberDAO {
 		return updateCount;
 	}
 	
-	// 닉네임
+	// 회원삭제
+	public int deleteMember(String id) {
+		PreparedStatement pstmt = null;
+		int updateCount = 0;
+		
+		try {
+			String sql = "DELETE FROM member WHERE id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			updateCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
+	}
+	
+	// 닉네임 가져오기
 	public String getUserNickname(String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -159,7 +183,7 @@ public class MemberDAO {
 		return null; // 데이터베이스 오류
 	}
 	
-	// 
+	// Email 가져오기
 	public String getUserEmail(String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -185,6 +209,7 @@ public class MemberDAO {
 		return null; // 데이터베이스 오류
 	}
 	
+	// Email 인증여부 확인
 	public boolean getUserEmailChecked(String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -210,6 +235,7 @@ public class MemberDAO {
 		return false; // 데이터베이스 오류
 	}
 
+	// Email 인증 부여
 	public boolean setUserEmailChecked(String id) {
 		PreparedStatement pstmt = null;
 		
@@ -229,24 +255,7 @@ public class MemberDAO {
 		return false;
 	}
 
-	public int deleteMember(String id) {
-		PreparedStatement pstmt = null;
-		int updateCount = 0;
-		
-		try {
-			String sql = "DELETE FROM member WHERE id = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
-			updateCount = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return updateCount;
-	}
+
 
 	
 	

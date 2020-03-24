@@ -11,6 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
  // 아이디 정규표현식 확인
  // 4~12자리 영문,숫자 조합
@@ -42,10 +43,21 @@
 		}
  	}
  
+ // 아이디 중복확인
+	function dupIdCheck() {
+	 
+ 	}
+ 
+ // 닉네임 중복확인
+	function dupNicknameCheck() {
+	 
+ 	}
+ 
  // 비밀번호 확인
  	function pwCheck(passwordCheck) {
 	 
  	}
+ 
 </script>
 </head>
 <body>
@@ -63,6 +75,10 @@
 						</td>
 					</tr>
 					<tr>
+						<td>닉네임</td>
+						<td><input type="text" name="nickname" id="nickname" required="required"></td>
+					</tr>
+					<tr>
 						<td>패스워드</td>
 						<td>
 							<input type="password" name="password" id="password" required="required"
@@ -77,10 +93,6 @@
 							placeholder="8~16자리 영문,숫자 조합" onkeyup="pwCheck(this)">
 							<span id="pwCheckResult"></span>
 						</td>
-					</tr>
-					<tr>
-						<td>닉네임</td>
-						<td><input type="text" name="nickname" id="nickname" required="required"></td>
 					</tr>
 					<tr>
 						<td>email</td>

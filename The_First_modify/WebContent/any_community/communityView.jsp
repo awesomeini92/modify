@@ -53,7 +53,7 @@
 			}
 		});
 		
-// 		로그인 클릭 (미완성)
+		// 	로그인 클릭
 	    $(".newLogin").click(function(){
 			var ww=400;    //띄울 창의 넓이
 			var wh=250;    //띄울 창의 높이
@@ -62,7 +62,7 @@
 			var top=(screen.availHeight-wh)/2;
 			var left=(screen.availWidth-ww)/2;
 			// 새창 띄움
-			window.open("/The_First/NewLoginForm.any", "window", "width="+ww+", height="+wh+", top="+top+", left="+left+", toolbar=no, menubar=no, scrollbars=no, resizable=no");
+			window.open("/The_First/NewLoginForm.me", "window", "width="+ww+", height="+wh+", top="+top+", left="+left+", toolbar=no, menubar=no, scrollbars=no, resizable=no");
 	    });
 	    
 		// 댓글 작성
@@ -95,12 +95,17 @@
 		})
 		
 		// 댓글 삭제
-		$("#reply_delete").click(function () {
+		$("#delete_reply_btn").click(function () {
 
 		});
 		
+		// 댓글 토글
+		$("#show_reply_btn").click(function () {
+			$("#replyList").toggle()
+		});
+		
 		// 댓글리스트
-		 function getReply(){
+		function getReply(){
 	    	$.ajax({
     			url: "/The_First/CommentList.anyC", // 요청 url
                 type: "POST", // post 방식
@@ -115,15 +120,17 @@
                 	var output = ""; // 댓글 목록을 누적하여 보여주기 위한 변수
                 	
                 	for (var i = 0; i < replyList.length; i++) { // 반복문을 통해 output에 누적
-   	                    output += "<div class='w3-border w3-padding'>";
+  	                    output += "<div class='w3-border w3-padding'>";
     	                for (var j = 0; j < replyList[i].length; j++) {
     	                    var reply = replyList[i][j];
     	                    if(j === 0){
     	     					output += "<i class='fa fa-user'></i>&nbsp;&nbsp;" + reply.nickname;
-    	                    } else if(j === 1){
+    	                    }else if(j === 1){
     	     					output += "&nbsp;&nbsp;<i class='fa fa-calendar'></i>&nbsp;&nbsp;" + reply.reply_date;
-    	                    } else if(j === 2){
-    	     					output += "<pre>" + reply.comment + "</pre></div>";
+    	                    }else if(j === 2){
+    	     					output += "<pre>" + reply.comment + "</pre>";
+    	                    }else if(j === 3){
+								// ??? reply.comment_num 을 넘겨야함
     	                    }
     	                };
     	        	};
@@ -133,6 +140,7 @@
                 } 
 	    	})
 	    }
+		
 		getReply(); // 해당 페이지 실행 시 해당 함수 호출
  	});
 </script>
@@ -207,14 +215,14 @@
 						<textarea rows="5" cols="50" class="w3-input w3-border newLogin" readonly>로그인 후 댓글 달기</textarea>
 					</c:if>
 					<c:if test="${sessionScope.nickname != null}">
-						<i class="fa fa-user w3-padding-16"></i> ${article.nickname}
+						<i class="fa fa-user w3-padding-16"></i> ${sessionScope.nickname}
 						<form>
 							<input type="hidden" name="comment_board" id="comment_board" value="${article.num}"> 
 							<input type="hidden" name="comment_nickname" id="comment_nickname" value="${article.nickname}">
 							<input type="hidden" name="nowPage" id="nowPage" value="${nowPage }">
 							<textarea rows="5" cols="50" class="w3-input w3-border" placeholder="댓글 작성" name="comment_content" id="comment_content"></textarea>
 							<input type="button" class="w3-button w3-border" id="reply_btn" value="댓글 등록">
-							
+							<input type="button" class="w3-button w3-border" id="show_reply_btn" value="댓글 보기">
 						</form>
 					</c:if>
 				</div>

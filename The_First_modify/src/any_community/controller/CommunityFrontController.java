@@ -96,15 +96,9 @@ public class CommunityFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 		} 
-		// 새로운 로그인창
-		else if(command.equals("/NewLoginForm.any")) {
-			action = new NewLoginFormAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} 
+
+		
+		
 		
 		//
 		if (forward != null) {
