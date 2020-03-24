@@ -17,23 +17,24 @@ import java.sql.Date;
 //);
 
 public class ShopBean {
-	private String product_cod;
-	private String buyer_id;
-	private String product_name;
-	private int price;
-	private int stock;
-	private String product_image;
-	private String product_info;
-	private int purchase_count;
-	private Date date;
-	private int qty;
+	private String product_cod; //상품코드
+	private String buyer_id; //구매자 아이디
+	private String product_name; //상품명
+	private int price; //가격
+	private int stock; //재고
+	private String product_image; //상품이미지
+	private String product_info; //상품설명
+	private int purchase_count; //구매수량(누적)
+	private Date date; //날짜
+	private int qty; //구매수량
+	private String time;
 	
 	
 	public ShopBean() {}
 
 
 	public ShopBean(String product_cod, String buyer_id, String product_name, int price, int stock,
-			String product_image, String product_info, int purchase_count, Date date, int qty) {
+			String product_image, String product_info, int purchase_count, Date date, int qty, String time) {
 		super();
 		this.product_cod = product_cod;
 		this.buyer_id = buyer_id;
@@ -45,6 +46,7 @@ public class ShopBean {
 		this.purchase_count = purchase_count;
 		this.date = date;
 		this.qty = qty;
+		this.time = time;
 	}
 
 
@@ -146,7 +148,19 @@ public class ShopBean {
 	public void setQty(int qty) {
 		this.qty = qty;
 	}
-	
+
+
+	public String getTime() {
+		return time;
+	}
+
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+
+
 	
 
 	

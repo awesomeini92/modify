@@ -55,7 +55,7 @@ public class CodingWriteProAction implements Action {
 		
 		if(isSuccess) {
 			forward = new ActionForward();
-			forward.setPath("");
+			forward.setPath("CodingList.code");
 			forward.setRedirect(true);
 		}
 		

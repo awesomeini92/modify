@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import com.sun.jndi.url.corbaname.corbanameURLContextFactory;
 
+
 import shop.vo.ShopBean;
 
 
@@ -34,7 +35,6 @@ public class ShopDAO {
 	
 	// ========== 상품 목록 조회 ===========
 	public ArrayList<ShopBean> selectShopList() {
-		
 		System.out.println("ShopDAO - selectShopList()");
 		
 		// shop 테이블 내의 목록을 조회하여 ArrayList<ShopBean> 객체에 저장 후 리턴
@@ -64,7 +64,8 @@ public class ShopDAO {
 					rs.getString("product_info"),
 					rs.getInt("purchase_count"),
 					rs.getDate("date"),
-					rs.getInt("qty")
+					rs.getInt("qty"),
+					rs.getString("time")
 					
 				);
 				
@@ -80,17 +81,65 @@ public class ShopDAO {
 				
 		return shopList;
 	}
+	
+	
+	// =========== 상품 상세 정보 조회 ============
+		public ShopBean selectShop(String product_cod) {
+			System.out.println("ShopDAO - selectShop()");
+			// product_cod 값에 해당하는 레코드 조회 후 ShopBean 객체에 저장
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			ShopBean shopBean = null;
+			
+			try {
+				String sql = "SELECT * FROM shop WHERE product_cod=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, product_cod);
+				rs = pstmt.executeQuery();
+				
+				
+				if(rs.next()) {
+					shopBean = new ShopBean(
+							rs.getString("product_cod"),
+							rs.getString("buyer_id"),
+							rs.getString("product_name"),
+							rs.getInt("price"),
+							rs.getInt("stock"),
+							rs.getString("product_image"),	
+							rs.getString("product_info"),
+							rs.getInt("purchase_count"),
+							rs.getDate("date"),
+							rs.getInt("qty"),
+							rs.getString("time")
+							
+						);
+				}
+				
+			} catch (SQLException e) {
+//				e.printStackTrace();
+				System.out.println("selectShop() 에러! - " + e.getMessage());
+	 		} finally {
+	 			close(rs);
+	 			close(pstmt);
+	 		}
+			
+			
+			return shopBean;
+		}
+	
+
 
 	
 	// =============== 상품 등록 ================
 		public static int insertProduct(ShopBean shopBean) {
-			System.out.println("ShopDAO = insertProduct()");
+			System.out.println("ShopDAO - insertProduct()");
 			int insertCount = 0; //작업 수행 결과 저장할 변수
 			
 			PreparedStatement pstmt = null;
 			
 			try {
-				String sql = "INSERT INTO shop VALUES (?,null,?,?,?,?,?,?,now());";
+				String sql = "INSERT INTO shop VALUES (?,null,?,?,?,?,?,0,now(),0);";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -98,9 +147,8 @@ public class ShopDAO {
 				pstmt.setString(2, shopBean.getProduct_name());
 				pstmt.setInt(3, shopBean.getPrice());
 				pstmt.setInt(4, shopBean.getStock());
-				pstmt.setString(5, shopBean.getProduct_image());
-				pstmt.setString(6, shopBean.getProduct_info());
-				pstmt.setInt(7, shopBean.getPurchase_count());
+				pstmt.setString(5, shopBean.getProduct_info());
+				pstmt.setString(6, shopBean.getProduct_image());
 				
 				insertCount = pstmt.executeUpdate();
 				

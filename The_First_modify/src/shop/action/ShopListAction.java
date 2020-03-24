@@ -6,8 +6,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import action.Action;
 import shop.svc.ShopListService;
-import shop.vo.ActionForward;
+import vo.ActionForward;
 import shop.vo.ShopBean;
 
 

@@ -78,7 +78,8 @@ public class CodingDetailAction implements Action {
 		
 		
 		forward = new ActionForward();
-		forward.setPath("/coding/codingView.jsp");
+//		forward.setPath("/coding/codingView.jsp");
+		forward.setPath("/coding/mdf_codingView.jsp");
 		
 		return forward;
 	}

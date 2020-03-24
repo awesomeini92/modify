@@ -4,11 +4,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
-<%-- <% --%>
-// 	// Action 클래스에서 request 객체의 setAttibute() 메서드로 저장되어 전달된 객체 가져오기(Object 타입이므로 형변환 필요)
-// 	ArrayList<ShopBean> shopList = (ArrayList<ShopBean>)request.getAttribute("shopList");
-<%-- %>  --%>
-   
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,9 +59,9 @@
 		<tr>
 		<c:forEach var="shop" items="${shopList}" varStatus="status">
 			<td>
-				<a href="ShopView.shop?id=${shop.product_cod}">
-					<img src="images/${shop.image }" id="productImage" />
-				</a>
+				<a href="ShopView.shop?product_cod=${shop.product_cod}">
+					<img src="images/${shop.product_image }" id="productImage" />
+				</a><br>
 				상품명 : ${shop.product_name }<br>
 				가격 : ${shop.price }<br>
 			</td>

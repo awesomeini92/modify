@@ -11,8 +11,7 @@ import shop.vo.ShopBean;
 
 public class ShopListService {
 	
-	public ArrayList<ShopBean> getShopList() {
-		
+	public ArrayList<ShopBean> getShopList() throws Exception{
 		System.out.println("ShopListService - getShopList()");
 		
 		// 1. Connection 객체 가져오기
