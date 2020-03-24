@@ -22,7 +22,7 @@ public class ShopRegistProAction implements Action {
 		ActionForward forward = null;
 		ShopBean shopBean = null;
 		
-		String saveFolder = "/shopUpload";
+		String saveFolder = "/shop/shopUpload";
 		ServletContext context = request.getServletContext();
 		String realFolder = context.getRealPath(saveFolder);
 		int fileSize = 1024 * 1024 * 5;
