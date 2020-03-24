@@ -13,7 +13,7 @@ public class ShopCartAddAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		System.out.println("DogCartAddAction!");
+//		System.out.println("ShopCartAddAction!");
 		ActionForward forward = null;
 		
 		// 카드에 담을 상품 코드 가져오기

@@ -23,7 +23,7 @@ public class ShopCartRemoveAction implements Action {
 		ShopCartRemoveService shopCartRemoveService = new ShopCartRemoveService();
 		shopCartRemoveService.cartRemove(cartIdArr, request);
 		
-		// ActionForward 객체 생성 및 "DogCartList.dog" 서블릿 요청
+		// ActionForward 객체 생성 및 "ShopCartList.shop" 서블릿 요청
 		forward = new ActionForward();
 		forward.setPath("DogCartList.dog");
 		
