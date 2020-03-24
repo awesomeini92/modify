@@ -31,29 +31,7 @@ public class CodingDAO {
 	//DB이름: coding_charge
 
 	
-	public Date getToday() {
-		PreparedStatement pstmt = null;
-		Date today = null;
-		ResultSet rs = null;
-		
-
-		try {
-			String sql = "select Date(now()) AS today";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-
-			while(rs.next()) {
-				today = rs.getDate("today");
-			}
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			 close(pstmt);
-		}
-		return today;
-	}
+	
 	
 	
 	public int insertCodingArticle(CodingBean codingBean) {
@@ -523,6 +501,44 @@ public class CodingDAO {
 			close(pstmt);
 		}
 		return deleteCount;
+	}
+
+	public ArrayList<CodingBean> selectArticleList() {
+	ArrayList<CodingBean> articleList = new ArrayList<CodingBean>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT *, time(date) AS time FROM coding_charge";
+			pstmt = con.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            
+            // ResultSet 객체 내의 모든 레코드를 각각 레코드별로 BoardBean 에 담아서 ArrayList 객체에 저장
+            // => 패스워드 제외
+            while(rs.next()) {
+            	CodingBean codingBean = new CodingBean();
+            	codingBean.setNum(rs.getInt("num"));
+            	codingBean.setNickname(rs.getString("nickname"));
+            	codingBean.setSubject(rs.getString("subject"));
+            	codingBean.setContent(rs.getString("content"));
+            	codingBean.setReadcount(rs.getInt("readcount"));
+            	codingBean.setFile(rs.getString("file"));
+            	codingBean.setDate(rs.getDate("date"));
+            	codingBean.setIsPublic(rs.getInt("isPublic"));
+            	codingBean.setPassword(rs.getInt("password"));
+            	codingBean.setTime(rs.getString("time")); 
+                
+                articleList.add(codingBean);
+            }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return articleList;
 	}
 
 

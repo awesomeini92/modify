@@ -11,11 +11,8 @@ import shop.vo.ActionForward;
 import shop.vo.ShopBean;
 
 
-
 public class ShopListAction implements Action {
 	
-		
-
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("ShopListAction");

@@ -35,6 +35,18 @@ public class CodingListService {
 		
 		return articleList;
 	}
+
+	public ArrayList<CodingBean> getArticleList() {
+		ArrayList<CodingBean> articleList = null;
+		Connection con = getConnection();
+		CodingDAO codingDAO = CodingDAO.getInstance();
+		codingDAO.setConnection(con);
+		
+		articleList = codingDAO.selectArticleList();
+		
+		close(con);
+		return null;
+	}
 	
 	
 
