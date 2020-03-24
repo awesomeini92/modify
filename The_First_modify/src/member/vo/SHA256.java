@@ -4,15 +4,14 @@ import java.security.MessageDigest;
 
 public class SHA256 {
 
-	// hash값 생성
 	public static String getSHA256(String input) {
 		StringBuffer result = new StringBuffer();
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
 			
-			byte[] king = "Hello! I'm Soob.".getBytes();
+			byte[] salt = "Hello! This is Salt.".getBytes();
 			digest.reset();
-			digest.update(king);
+			digest.update(salt);
 			
 			byte[] chars = digest.digest(input.getBytes("UTF-8"));
 			for(int i = 0; i < chars.length; i++) {

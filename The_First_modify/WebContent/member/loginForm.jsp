@@ -13,18 +13,18 @@
 			<fieldset>
 				<table>
 					<tr>
-						<td class="td_left">
+						<td>
 							<label for="id">아이디 : </label>
 						</td>
-						<td class="td_right">
+						<td>
 							<input type="text" name="id">
 						</td>
 					</tr>
 					<tr>
-						<td class="td_left">
+						<td>
 							<label for="id">패스워드 : </label>
 						</td>
-						<td class="td_right">
+						<td>
 							<input type="password" name="password">
 						</td>
 					</tr>
