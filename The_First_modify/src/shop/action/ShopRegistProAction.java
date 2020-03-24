@@ -35,10 +35,8 @@ public class ShopRegistProAction implements Action {
 		shopBean.setProduct_name(multi.getParameter("product_name"));
 		shopBean.setPrice(Integer.parseInt(multi.getParameter("price")));
 		shopBean.setStock(Integer.parseInt(multi.getParameter("stock")));
-		shopBean.setProduct_image(multi.getOriginalFileName((String)multi.getFileNames().nextElement()));
 		shopBean.setProduct_info(multi.getParameter("product_info"));
-		shopBean.setPurchase_count(Integer.parseInt(multi.getParameter("purchase_count")));
-		
+		shopBean.setProduct_image(multi.getOriginalFileName((String)multi.getFileNames().nextElement()));
 		
 		ShopRegistProService shopRegistProService = new ShopRegistProService();
 		//상품 등록 작업을 위한 registProduct() 메서드 호출
@@ -49,7 +47,7 @@ public class ShopRegistProAction implements Action {
 		
 		
 		// 글쓰기 성공 여부에 따른 후속 처리(이동 작업)
-		// => 성공 시 : ActionForward 객체를 생성하여 글목록(NoticeList.no) 페이지 요청(Redirect 방식)
+		// => 성공 시 : ActionForward 객체를 생성하여 상품목록(ShopList.shop) 페이지 요청(Redirect 방식)
 		if(!isRegistSuccess) { // 등록 실패
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter(); 

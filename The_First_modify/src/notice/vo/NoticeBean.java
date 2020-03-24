@@ -25,11 +25,12 @@ public class NoticeBean {
 	private int readcount;
 	private String file;
 	private Date date;
+	private String time;
 	
 	public NoticeBean() {}
-	
-	
-	public NoticeBean(int num, String nickname, String subject, String content, int readcount, String file, Date date) {
+
+	public NoticeBean(int num, String nickname, String subject, String content, int readcount, String file, Date date,
+			String time) {
 		super();
 		this.num = num;
 		this.nickname = nickname;
@@ -38,78 +39,72 @@ public class NoticeBean {
 		this.readcount = readcount;
 		this.file = file;
 		this.date = date;
+		this.time = time;
 	}
-
 
 	public int getNum() {
 		return num;
 	}
 
-
 	public void setNum(int num) {
 		this.num = num;
 	}
-
 
 	public String getNickname() {
 		return nickname;
 	}
 
-
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-
 
 	public String getSubject() {
 		return subject;
 	}
 
-
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-
 
 	public String getContent() {
 		return content;
 	}
 
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 
 	public int getReadcount() {
 		return readcount;
 	}
 
-
 	public void setReadcount(int readcount) {
 		this.readcount = readcount;
 	}
-
 
 	public String getFile() {
 		return file;
 	}
 
-
 	public void setFile(String file) {
 		this.file = file;
 	}
-
 
 	public Date getDate() {
 		return date;
 	}
 
-
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
 	
 	
 	

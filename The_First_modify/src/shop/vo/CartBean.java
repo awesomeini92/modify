@@ -57,7 +57,9 @@ public class CartBean {
 	public void setQty(int qty) {
 		this.qty = qty;
 	}
-}
+
 
 	
 	
+	
+}

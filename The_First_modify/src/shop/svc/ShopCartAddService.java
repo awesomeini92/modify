@@ -16,6 +16,8 @@ import shop.vo.ShopBean;
 public class ShopCartAddService {
 
 	public ShopBean getCartShop(String product_cod) {
+		System.out.println("ShopCartAddService - getCartShop()");
+		
 		Connection con = getConnection();
 		ShopDAO shopDAO = ShopDAO.getInstance();
 		shopDAO.setConnection(con);
