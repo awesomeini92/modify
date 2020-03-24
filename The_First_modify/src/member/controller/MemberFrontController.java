@@ -14,6 +14,8 @@ import member.action.MemberDeleteAction;
 import member.action.MemberJoinProAction;
 import member.action.MemberLoginProAction;
 import member.action.MemberLogoutAction;
+import member.action.MemberMailCheckAction;
+import member.action.MemberMailSendAction;
 import member.action.MemberUpdateFormAction;
 import member.action.MemberUpdateProAction;
 import member.vo.ActionForward;
@@ -30,7 +32,7 @@ public class MemberFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		System.out.println(".me 페이지 이동");
+		System.out.println("command = " + command);
 		
 		//
 		if(command.equals("/LoginForm.me")) {
@@ -60,9 +62,9 @@ public class MemberFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (command.equals("/MyPage.me")) {
+		} else if (command.equals("/Mypage.me")) {
 			forward = new ActionForward();
-			forward.setPath("/member/MyPage.jsp");
+			forward.setPath("/member/myPage.jsp");
 		} else if (command.equals("/UpdateForm.me")) {
 			action = new MemberUpdateFormAction();
 			try {
@@ -84,6 +86,20 @@ public class MemberFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else if (command.equals("/MemberMailSendAction.me")) {
+			action = new MemberMailSendAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (command.equals("/MemberMailCheckAction.me")) {
+			action = new MemberMailCheckAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		// 이동 설정
@@ -99,7 +115,6 @@ public class MemberFrontController extends HttpServlet {
 		}
 	}
 	
-	// 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request,response);
