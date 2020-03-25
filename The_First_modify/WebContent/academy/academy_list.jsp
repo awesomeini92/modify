@@ -106,7 +106,7 @@
 					<tr>
 						<td align="center"><%=articleList.get(i).getNum() %></td>
 						<td>
-							<a href="BoardDetail.ac?num=<%=articleList.get(i).getNum()%>&page=<%=nowPage%>">
+							<a href="AcademyDetail.ac?num=<%=articleList.get(i).getNum()%>&page=<%=nowPage%>">
 								<%=articleList.get(i).getSubject() %>
 							</a>
 						</td>
@@ -123,7 +123,7 @@
 	</section>
 	
 	<section id="writeButton">
-		<a href="BoardWriteForm.ac"><input type="button" value="Post"></a>
+		<a href="AcademyWriteForm.ac"><input type="button" value="Post"></a>
 	</section>
 	
 	<!-- 페이지 목록 버튼 표시 -->
@@ -133,27 +133,27 @@
 	<%if(nowPage <= 1) { %>
 			[Prev]&nbsp;
 	<%} else {%>
-			<a href="BoardList.ac?page=<%=nowPage - 1%>">[Prev]</a>&nbsp;
+			<a href="AcademyList.ac?page=<%=nowPage - 1%>">[Prev]</a>&nbsp;
 	<%} %>
 	
 	<%for(int i = startPage; i <= endPage; i++) {
 		    if(i == nowPage) {%>
 				[<%=i %>]
 		<%} else {%>
-				<a href="BoardList.ac?page=<%=i %>">[<%=i %>]</a>&nbsp;
+				<a href="AcademyList.ac?page=<%=i %>">[<%=i %>]</a>&nbsp;
 		<%} %>
 	<%} %>
 	
 	<%if(nowPage >= maxPage) {%>
 			&nbsp;[Next]
 	<%} else { %>
-			<a href="BoardList.ac?page=<%=nowPage + 1%>">&nbsp;[Next]</a>
+			<a href="AcademyList.ac?page=<%=nowPage + 1%>">&nbsp;[Next]</a>
 	<%} %>
 	</section>
 <%} else {%>
 	<section id="emptyArea">등록된 글이 없습니다.</section>
 	<section id="writeButton">
-		<a href="BoardWriteForm.ac"><input type="button" value="Post"></a>
+		<a href="AcademyWriteForm.ac"><input type="button" value="Post"></a>
 	</section>
 <%} %>
 </body>

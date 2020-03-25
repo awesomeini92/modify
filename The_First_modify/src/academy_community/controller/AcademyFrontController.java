@@ -56,7 +56,7 @@ public class AcademyFrontController extends HttpServlet {
 		// => 이 때, 서블릿 주소의 프로젝트명 뒷부분("/XXXX.ac")이 추출되어 command 변수에 저장된 상태이므로
 		//    문자열 비교를 통해 각 서블릿 요청을 구분
 		// BoardWriteForm.ac 서블릿 요청에 대해 board 폴더 내의 qna_board_write.jsp 페이지로 포워딩(이동)
-		if(command.equals("/BoardWriteForm.ac")) {
+		if(command.equals("/AcademyWriteForm.ac")) {
 		// 글 쓰기 페이지 요청은 비즈니스 로직 없이 바로 뷰(JSP)로 이동
 		// => ActionForward 객체를 생성하여 이동할 경로만 지정
 			forward = new ActionForward();
@@ -65,7 +65,7 @@ public class AcademyFrontController extends HttpServlet {
 		// => 기준이 되는 폴더인 WebContent 폴더 내에서부터 폴더 구조를 지정하여 이동할 파일명 지정
 			forward.setPath("./academy/academy_write.jsp");
 		// => ActionForward 객체의 setRedirect() 메서드는 별도로 지정하지 않음(기본값 false 그대로 사용)
-		} else if(command.equals("/BoardWritePro.ac")) {
+		} else if(command.equals("/AcademyWritePro.ac")) {
 			// 글 등록 요청은 비즈니스 로직을 통해 작업을 처리한 뒤 다른 요청을 수행해야함
 			// => Action 클래스에서 생성된 ActionForward 객체를 전달받아 이동
 			action = new AcademyWriteProAction(); // Action 클래스 객체를 생성하여 공통 타입으로 전달받음
@@ -77,7 +77,7 @@ public class AcademyFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		} else if(command.equals("/BoardList.ac")) {
+		} else if(command.equals("/AcademyList.ac")) {
 			// 글 목록 요청 => DB 작업을 통해 목록을 가져와야 하므로 BoardListAction 클래스를 통해 수행
 			action = new AcademyListAction();
 			
@@ -86,7 +86,7 @@ public class AcademyFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/BoardDetail.ac")){
+		} else if(command.equals("/AcademyDetail.ac")){
 			// 글 상세내용 보기 요청 => DB 작업을 통해 내용을 가져와야 하므로 BoardDetailAction 클래스를 통해 수행
 			action = new AcademyDetailAction();
 			try {
@@ -95,7 +95,7 @@ public class AcademyFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else if(command.equals("/BoardModifyForm.ac")) {
+		} else if(command.equals("/AcademyModifyForm.ac")) {
 			// 글 수정 폼 요청 => DB 작업을 통해 원본을 가져와야 하므로 BoardModifyFormAction 클래스 작업 수행
 			action = new AcademyModifyFormAction();
 //			
@@ -104,7 +104,7 @@ public class AcademyFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/BoardModifyPro.ac")) {
+		} else if(command.equals("/AcademyModifyPro.ac")) {
 			// 글 수정 요청 => DB 작업을 통해 수정해야하므로 BoardModifyProAction 클래스 작업 수행
 			action = new AcademyModifyProAction();
 //			
@@ -113,12 +113,12 @@ public class AcademyFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/BoardDeleteForm.ac")) {
+		} else if(command.equals("/AcademyDeleteForm.ac")) {
 			// 글 삭제 폼 요청 => DB 작업이 필요없으므로 바로 뷰페이지로 이동
 			forward = new ActionForward();
 			forward.setPath("/academy/academy_delete.jsp");
             
-		} else if(command.equals("/BoardDeletePro.ac")) {
+		} else if(command.equals("/AcademyDeletePro.ac")) {
 			// 글 삭제 요청 => DB 작업을 통해 삭제해야하므로 BoardDeleteProAction 클래스 작업 수행
 			action = new AcademyDeleteProAction();
 //			
@@ -127,7 +127,7 @@ public class AcademyFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/CommentWritePro.ac")) {
+		} else if(command.equals("/AcademyCommentWritePro.ac")) {
 				action = new AcademyCommentWriteProAction();
 //			
 			try {

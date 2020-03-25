@@ -43,7 +43,7 @@ public class AcademyCommentWriteProAction implements Action {
 			out.println("</script>"); // 자바스크립트 종료 위한 <script> 끝 태그
 		} else { // 글쓰기 성공
 			forward = new ActionForward(); // ActionForward 객체 생성
-			forward.setPath("BoardList.ac"); // 서블릿 주소 지정
+			forward.setPath("AcademyList.ac"); // 서블릿 주소 지정
 			forward.setRedirect(true); // Redirect 방식(true) 지정
 		}
 		

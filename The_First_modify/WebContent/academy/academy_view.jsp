@@ -120,16 +120,16 @@
 		if(nickname!=null){
 			if(nickname.equals(article.getNickname())){
 				%>
-		<a href="BoardModifyForm.ac?num=<%=article.getNum()%>&page=<%=nowPage %>"><input type="button" value="Modify" ></a>
-		<a href="BoardDeleteForm.ac?num=<%=article.getNum()%>&page=<%=nowPage %>"><input type="button" value="Delete" ></a>							
+		<a href="AcademyModifyForm.ac?num=<%=article.getNum()%>&page=<%=nowPage %>"><input type="button" value="Modify" ></a>
+		<a href="AcademyDeleteForm.ac?num=<%=article.getNum()%>&page=<%=nowPage %>"><input type="button" value="Delete" ></a>							
 				<%
 			}			
 		}
 		%>
-		<a href="BoardList.ac?page=<%=nowPage %>"><input type="button" value="List" ></a>
+		<a href="AcademyList.ac?page=<%=nowPage %>"><input type="button" value="List" ></a>
 	</section>
 	<br><br>
-	<form action="CommentWritePro.ac?num=<%=article.getNum()%>" method="post" name="commform">
+	<form action="AcademyCommentWritePro.ac?num=<%=article.getNum()%>" method="post" name="commform">
 		<table id="notice">
 			<tr>
 				<td><input type="text" size="4" name="nickname" value="<%=nickname%>" readonly ></td>

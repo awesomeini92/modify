@@ -121,7 +121,7 @@
 	<!-- 게시판 글 등록 -->
 	<section id="writeForm">
 		<h2>Academy Community</h2>
-		<form action="BoardWritePro.ac" method="post" name="boardform">
+		<form action="AcademyWritePro.ac" method="post" name="boardform">
 			<table>
 				<tr>
 					<!-- label 태그를 사용하여 해당 레이블 클릭 시 for 속성에 지정된 이름과 같은 id 속성을 갖는 텍스트필드로 커서 요청 -->

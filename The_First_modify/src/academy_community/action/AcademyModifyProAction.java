@@ -58,7 +58,7 @@ public class AcademyModifyProAction implements Action {
 				out.println("alert('수정 완료')");
 				out.println("</script>");
 				forward = new ActionForward();
-				forward.setPath("BoardDetail.ac?num=" + num + "&page=" + page);
+				forward.setPath("AcademyDetail.ac?num=" + num + "&page=" + page);
 				forward.setRedirect(true);
 			}
 		

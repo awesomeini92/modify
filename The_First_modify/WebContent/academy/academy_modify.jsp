@@ -71,7 +71,7 @@
 	<!-- 게시판 글 수정 -->
 	<section id="writeForm">
 		<h2>Academy Community Modify</h2>
-		<form action="BoardModifyPro.ac" method="post" name="boardForm">
+		<form action="AcademyModifyPro.ac" method="post" name="boardForm">
 			<input type="hidden" name="num" value="<%=article.getNum()%>" />
 			<input type="hidden" name="page" value="<%=nowPage%>" />
 			<table>

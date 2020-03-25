@@ -43,7 +43,7 @@
 		<%} %>
 	</header>
 	<section id="passForm">
-		<form name="deleteForm" action="BoardDeletePro.ac?num=<%=num %>&page=<%=nowPage %>" method="post">
+		<form name="deleteForm" action="AcademyDeletePro.ac?num=<%=num %>&page=<%=nowPage %>" method="post">
 <%-- 			<input type="hidden" name="board_num" value="<%=board_num %>" /> --%>
 <%-- 			<input type="hidden" name="page" value="<%=nowPage %>" /> --%>
 			

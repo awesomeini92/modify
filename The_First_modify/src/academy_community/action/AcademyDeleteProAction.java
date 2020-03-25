@@ -51,7 +51,7 @@ public class AcademyDeleteProAction implements Action {
 			out.println("alert('삭제 완료')");
 			out.println("</script>");
 			forward = new ActionForward();
-			forward.setPath("BoardList.ac?page=" + page);
+			forward.setPath("AcademyList.ac?page=" + page);
 			forward.setRedirect(true);
 		}
 
