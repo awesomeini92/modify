@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="notice.vo.NoticeBean"%>
 <%@page import="vo.PageInfo"%>
 <%@page import="java.util.ArrayList"%>
@@ -15,6 +16,9 @@
     	int startPage = pageInfo.getStartPage();
     	int endPage = pageInfo.getEndPage();
     	int maxPage = pageInfo.getMaxPage();
+    	
+    	Date today = (Date)request.getAttribute("today");
+    	
     %>    
 <!DOCTYPE html>
 <html>
@@ -92,7 +96,12 @@
 						</a>
 					</td>
 					<td align="center"><%=articleList.get(i).getNickname() %></td>
-					<td align="center"><%=articleList.get(i).getDate() %></td>
+					<%if(articleList.get(i).getDate().compareTo(today)==0){ //날짜가 같으면 %>						
+						<td align="center" id="date"><%=articleList.get(i).getTime()%>  <!--시간출력--> </td>
+						<%}else{ %>
+						<td align="center" id="date"><%=articleList.get(i).getDate()%></td>
+						<%}%>
+		
 					<td align="center"><%=articleList.get(i).getReadcount() %></td>
 				</tr>
 			<%} %>

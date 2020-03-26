@@ -108,7 +108,7 @@ public class NoticeDAO {
 		int startRow = (page - 1) * 10; // 첫번째 게시물 행(row) 번호 계산
 		
 		try {
-			String sql = "SELECT * FROM notice ORDER BY num DESC LIMIT ?,?";
+			String sql = "SELECT *, time(data) AS time FROM notice ORDER BY num DESC LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, startRow);
             pstmt.setInt(2, limit);
@@ -124,6 +124,7 @@ public class NoticeDAO {
                 noticeBean.setReadcount(rs.getInt("readcount"));
                 noticeBean.setFile(rs.getString("file"));
                 noticeBean.setDate(rs.getDate("date"));
+                noticeBean.setTime(rs.getString("time"));
                 
                 articleList.add(noticeBean);
             }
@@ -149,7 +150,7 @@ public class NoticeDAO {
 		
 		// 글번호(num)에 해당하는 게시물 정보 조회
 		try {
-			String sql = "SELECT * FROM notice WHERE num=?";
+			String sql = "SELECT *, time(data) AS time FROM notice WHERE num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -164,6 +165,7 @@ public class NoticeDAO {
 				article.setReadcount(rs.getInt("readcount"));
                 article.setFile(rs.getString("file"));
                 article.setDate(rs.getDate("date"));
+                article.setTime(rs.getString("time"));
 			}
 			
 			
