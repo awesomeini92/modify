@@ -36,7 +36,7 @@ public class NoticeListAction implements Action {
 		// NoticeListService 인스턴스 생성 후 게시물 목록 갯수 가져오기
 		NoticeListService noticeListService = new NoticeListService();
 		int listCount = noticeListService.getListCount();
-//		System.out.println("총 게시물 수 : " + listCount);
+		System.out.println("총 게시물 수 : " + listCount);
 		
 		// NoticeListService 객체의 getArticleList() 메서드를 호출하여 게시물 목록 가져오기
 		// => 파라미터로 현재 페이지(page) 와 게시물 수(limit) 를 전달

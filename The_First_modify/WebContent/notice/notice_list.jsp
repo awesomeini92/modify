@@ -17,6 +17,14 @@
     	int endPage = pageInfo.getEndPage();
     	int maxPage = pageInfo.getMaxPage();
     	
+
+    	// 현재 세션 객체에 "sId" 세션이 존재할 경우 String 타입 변수에 세션 ID 저장
+    	String sId = null;
+
+    	if(session.getAttribute("sId") != null) {
+    	sId = (String)session.getAttribute("sId"); // Object -> String 변환 필요
+    		}
+    	
     	Date today = (Date)request.getAttribute("today");
     	
     %>    
@@ -73,6 +81,15 @@
 </style>
 </head>
 <body>
+<header>
+		<!-- 세션ID(sId) 가 없을 경우 로그인(LoginForm.me), 회원가입(JoinForm.me) 링크 표시 -->
+		<!-- 세션ID(sId) 가 있을 경우 회원ID, 로그아웃(Logout.me)링크 표시 -->
+		<%if(sId == null) {%>
+			<a href="LoginForm.me">로그인</a> | <a href="JoinForm.me">회원가입</a>
+		<%} else { %>
+			<%=sId %>님 | <a href="Logout.me">로그아웃</a>
+		<%} %>
+	</header>
 	<!-- 게시판 리스트 -->
 	<section id="listForm">
 		<h2>공지사항</h2>
@@ -107,9 +124,7 @@
 			<%} %>
 	</section>
 	
-	<section id="writeButton">
-		<a href="NoticeWriteForm.no"><input type="button" value="글쓰기"></a>
-	</section>
+	
 	
 	<!-- 페이지 목록 버튼 표시 -->
 	<!-- 이전 페이지 또는 다음 페이지가 존재할 경우에만 해당 하이퍼링크 활성화 -->
@@ -137,6 +152,11 @@
 	</section>
 <%} else {%>
 	<section id="emptyArea">등록된 글이 없습니다.</section>
+	
+	<section id="writeButton">
+		<a href="NoticeWriteForm.no"><input type="button" value="글쓰기"></a>
+	</section>
+	
 <%} %>
 </body>
 </html>
