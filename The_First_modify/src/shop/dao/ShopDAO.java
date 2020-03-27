@@ -26,7 +26,7 @@ public class ShopDAO {
 	}
 	// ----------------------------------------------------
 	
-	static Connection con;
+	Connection con;
 
 	// 외부로부터 Connection 객체를 전달받아 저장할 setConnection 메서드
 	public void setConnection(Connection con) {
@@ -70,6 +70,9 @@ public class ShopDAO {
 				);
 				
 				shopList.add(shopBean);
+				
+				
+				
 			}
 		} catch (SQLException e) {
 //			e.printStackTrace();
@@ -132,7 +135,7 @@ public class ShopDAO {
 
 	
 	// =============== 상품 등록 ================
-		public static int insertProduct(ShopBean shopBean) {
+		public int insertProduct(ShopBean shopBean) {
 			System.out.println("ShopDAO - insertProduct()");
 			int insertCount = 0; //작업 수행 결과 저장할 변수
 			
@@ -171,19 +174,3 @@ public class ShopDAO {
 
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
