@@ -36,5 +36,5 @@
 <h1><a href=" ShopList.shop">CP구매</h1>
 <h1><a href=" CodingList.code">CodingQ&A</h1>
 <h1><a href=" CodingFreeList.cf">CodingFreeQ&A</h1>
-<h1><a href=" /NoticeList.no">공지사항</h1>
+<h1><a href=" NoticeList.no">공지사항</h1>
 </html>
