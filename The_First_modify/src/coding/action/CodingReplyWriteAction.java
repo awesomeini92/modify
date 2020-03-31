@@ -8,7 +8,7 @@ import coding.svc.CodingDetailService;
 import coding.vo.CodingBean;
 import vo.ActionForward;
 
-public class CodingReplyAction implements Action {
+public class CodingReplyWriteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

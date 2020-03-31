@@ -51,4 +51,19 @@ public class CodingReplyListService {
 		return article_refList;
 	}
 
+
+	public Coding_refBean getReplyArticle(int post_num) {
+		Coding_refBean article_ref = null;
+		
+		Connection con = getConnection();
+		CodingDAO codingDAO = CodingDAO.getInstance();
+		codingDAO.setConnection(con);
+		
+//		article_ref = codingDAO.selectArticleReply(post_num);
+		
+		close(con);
+		
+		return article_ref;
+	}
+
 }

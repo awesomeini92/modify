@@ -20,6 +20,7 @@ public class CodingDetailService {
 		
 		article = codingDAO.selectArticle(num);
 		
+		close(con);
 		return article;
 	}
 
@@ -52,6 +53,7 @@ public class CodingDetailService {
 		
 		article_ref = codingDAO.selectArticle_ref(num);
 		
+		close(con);
 		return article_ref;
 	}
 

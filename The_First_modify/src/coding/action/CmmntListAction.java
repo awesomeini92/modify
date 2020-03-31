@@ -70,7 +70,7 @@ public class CmmntListAction implements Action {
 		request.setAttribute("page", page);
 		
 		forward = new ActionForward();
-		forward.setPath("/coding/cmmntView.jsp");
+		forward.setPath("/coding/cmmntView_ajax.jsp");
 		
 		return forward;
 	}

@@ -23,6 +23,7 @@ public class CodingWriteProService {
 			rollback(con);
 		}
 		
+		close(con);
 		return isWriteSuccess;
 	}
 

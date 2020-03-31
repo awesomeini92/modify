@@ -9,6 +9,8 @@ import static db.JdbcUtil.*;
 public class CmmntWriteProService {
 
 	public boolean writeCmmnt(CmmntBean cmmntBean) {
+		System.out.println("CmmntWriteProService - writeCmmnt");
+		
 		boolean isWriteSuccess = false;
 		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
@@ -21,6 +23,8 @@ public class CmmntWriteProService {
 		}else {
 			rollback(con);
 		}
+		
+		close(con);
 		
 		
 		return isWriteSuccess;

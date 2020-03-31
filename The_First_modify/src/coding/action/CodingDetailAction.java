@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import any_community.svc.CommentListService;
 import coding.svc.CmmntListService;
 import coding.svc.CodingDetailService;
 import coding.svc.CodingListService;
@@ -23,6 +24,8 @@ public class CodingDetailAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
+		
+		System.out.println("CodingDetailAction");
 		
 		int num = Integer.parseInt(request.getParameter("num"));
 		String page = request.getParameter("page"); 
@@ -42,6 +45,8 @@ public class CodingDetailAction implements Action {
 		CodingReplyListService codingReplyListService = new CodingReplyListService();
 		ArrayList<Coding_refBean>article_refList = codingReplyListService.getReplyList(num, reply_page, reply_limit);
 		
+		CmmntListService cmmntListService = new CmmntListService();
+		ArrayList<CmmntBean>cmmntList = cmmntListService.getCmmntList(num, 1, 2);
 		
 		// 리턴받은 BoardBean 객체가 null 이 아닐 경우 BoardDetailService 클래스의 plusReadcount() 메서드 호출
 		if(article != null) {
@@ -72,15 +77,16 @@ public class CodingDetailAction implements Action {
 		request.setAttribute("article", article);
 		request.setAttribute("page", page);
 		request.setAttribute("article_refList", article_refList);
-//		request.setAttribute("cmmntList", cmmntList);
+		request.setAttribute("cmmntList", cmmntList);
+		request.setAttribute("post_num", num);
 //		request.setAttribute("cmmnt_pageInfo", cmmnt_pageInfo);
 //		request.setAttribute("cmmnt_page", cmmnt_page);
 		
 		
 		forward = new ActionForward();
 //		forward.setPath("/coding/codingView.jsp");
-		forward.setPath("/coding/mdf_codingView.jsp");
-		
+//		forward.setPath("/coding/mdf_codingView.jsp");
+		forward.setPath("/coding/makeView.jsp");
 		return forward;
 	}
 

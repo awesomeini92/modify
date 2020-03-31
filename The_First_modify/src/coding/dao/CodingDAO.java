@@ -541,6 +541,44 @@ public class CodingDAO {
 		return articleList;
 	}
 
+//	public Coding_refBean selectArticleReply(int post_num) {
+//		Coding_refBean article_ref = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		
+//		// 글번호(board_num)에 해당하는 게시물 정보 조회
+//		try {
+//			String sql = "SELECT *, time(date) AS time FROM coding_charge_ref WHERE post_num=?";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setInt(1, post_num);
+//			rs = pstmt.executeQuery();
+//			
+//			// 게시물이 존재할 경우 BoardBean 객체에 저장
+////			if(rs.next()) { //while?
+//			while(rs.next()) {
+//				article_ref = new Coding_refBean();
+//				article_ref.setRef_num(rs.getInt("ref_num"));
+//				article_ref.setPost_num(rs.getInt("post_num"));
+//				article_ref.setNickname(rs.getString("nickname"));
+//				article_ref.setSubject(rs.getString("subject"));
+//				article_ref.setContent(rs.getString("content"));
+//				article_ref.setReadcount(rs.getInt("readcount"));
+//				article_ref.setFile(rs.getString("file"));
+//				article_ref.setDate(rs.getDate("date"));
+//				article_ref.setIsSelected(rs.getInt("isSelected"));
+//				article_ref.setTime(rs.getString("time"));
+//			}
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(rs);
+//			close(pstmt);
+//		}
+//		
+//		return article_ref;
+//	}
+
 
 
 	

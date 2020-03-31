@@ -17,7 +17,7 @@ import coding.vo.Coding_refBean;
 import coding.vo.PageInfo;
 import vo.ActionForward;
 
-public class CodingReplyProAction implements Action {
+public class CodingReplyWriteProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

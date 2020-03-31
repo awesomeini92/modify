@@ -98,11 +98,25 @@
 		$("#reply_delete").click(function () {
 
 		});
+		function delete_reply(comment_num2) {
+			$.ajax({
+				url: "/The_First/CommentDelete.anyC",
+				type: "POST",
+				data: {
+					comment_num : comment_num2
+				},
+				success: function() {
+					alert("댓글 삭제 완료");
+					$("#comment_content").val("");
+					getReply(); // 등록 후 댓글 리스트를 보여주기 위한 함수. 
+				}
+			})
+		}
 		
 		// 댓글리스트
 		 function getReply(){
 	    	$.ajax({
-    			url: "/The_First/CommentList.anyC", // 요청 url
+    			url: "/The_First_modify/CommentList.anyC", // 요청 url
                 type: "POST", // post 방식
                 data: {
                 	post_num : ${article.num} // board_no의 값을 넘겨줌
@@ -124,6 +138,9 @@
     	     					output += "&nbsp;&nbsp;<i class='fa fa-calendar'></i>&nbsp;&nbsp;" + reply.reply_date;
     	                    } else if(j === 2){
     	     					output += "<pre>" + reply.comment + "</pre></div>";
+    	                    }else if(j === 3){
+    	                    	output += "<input type='button' class='w3-button w3-border' value='삭제' onclick='delete_reply(" + reply.comment_num + ")'>";
+    	                    	output += "<input type='button' class='w3-button w3-border' value='수정' onclick='modify_reply(" + reply.comment_num + ")' ></div>";
     	                    }
     	                };
     	        	};
@@ -135,6 +152,9 @@
 	    }
 		getReply(); // 해당 페이지 실행 시 해당 함수 호출
  	});
+	
+	
+	
 </script>
 </head>
 <body>
