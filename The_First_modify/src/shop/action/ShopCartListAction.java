@@ -35,7 +35,7 @@ public class ShopCartListAction implements Action {
 		request.setAttribute("cartList", cartList);
 		
 		forward = new ActionForward();
-		forward.setPath("/shop/shopCartList.jsp");
+		forward.setPath("/shop/shop_cart_list.jsp");
 		
 		
 		return forward;

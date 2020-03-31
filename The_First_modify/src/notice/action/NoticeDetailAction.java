@@ -1,8 +1,11 @@
 package notice.action;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import academy_community.svc.AllService;
 import action.Action;
 import notice.svc.NoticeDetailService;
 import notice.vo.NoticeBean;
@@ -19,6 +22,9 @@ public class NoticeDetailAction implements Action {
 		int num = Integer.parseInt(request.getParameter("num")); // 실제 사용을 위해 형변환 필요
 		String page = request.getParameter("page"); // 단순 전달용이므로 별도의 형변환 불필요
 		
+		//data 시간
+		AllService allService = new AllService();
+		Date today = allService.getToday();
 		
 		// NoticeDetailService 클래스의 getArticle() 메서드를 호출하여 게시물 정보 가져오기
 		// => 파라미터로 글 번호(num) 전달, 리턴타입 NoticeBean

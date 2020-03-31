@@ -18,6 +18,7 @@ import member.action.MemberMailCheckAction;
 import member.action.MemberMailSendAction;
 import member.action.MemberUpdateFormAction;
 import member.action.MemberUpdateProAction;
+import member.action.NewLoginAction;
 import member.vo.ActionForward;
 
 
@@ -101,6 +102,19 @@ public class MemberFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		// 새로운 로그인창
+		else if(command.equals("/NewLoginForm.me")) {
+			forward = new ActionForward();
+			forward.setPath("/member/newLoginForm.jsp");
+		} else if (command.equals("/NewLoginAction.me")) {
+			action = new NewLoginAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		
 		// 이동 설정
 		if (forward != null) {

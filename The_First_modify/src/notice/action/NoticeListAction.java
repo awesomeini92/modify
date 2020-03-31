@@ -1,10 +1,12 @@
 package notice.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import academy_community.svc.AllService;
 import action.Action;
 import notice.svc.NoticeListService;
 import notice.vo.NoticeBean;
@@ -27,10 +29,14 @@ public class NoticeListAction implements Action {
 			page = Integer.parseInt(request.getParameter("page")); // 정수로 변환하여 저장
 		}
 		
+		//data 시간
+		AllService allService = new AllService();
+		Date today = allService.getToday();
+		
 		// NoticeListService 인스턴스 생성 후 게시물 목록 갯수 가져오기
 		NoticeListService noticeListService = new NoticeListService();
 		int listCount = noticeListService.getListCount();
-//		System.out.println("총 게시물 수 : " + listCount);
+		System.out.println("총 게시물 수 : " + listCount);
 		
 		// NoticeListService 객체의 getArticleList() 메서드를 호출하여 게시물 목록 가져오기
 		// => 파라미터로 현재 페이지(page) 와 게시물 수(limit) 를 전달
