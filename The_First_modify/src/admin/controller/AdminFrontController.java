@@ -1,4 +1,4 @@
-package shop.controller;
+package admin.controller;
 
 import java.io.IOException;
 
@@ -10,23 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import shop.action.ShopCartAddAction;
-import shop.action.ShopCartListAction;
-import shop.action.ShopCartQtyChangeAction;
-import shop.action.ShopCartRemoveAction;
-import shop.action.ShopListAction;
-import shop.action.ShopViewAction;
+import admin.action.ProductDeleteProAction;
+import admin.action.ProductListAction;
+import admin.action.ProductModifyFormAction;
+import admin.action.ProductModifyProAction;
+import admin.action.ProductRegistProAction;
 import vo.ActionForward;
 
-@WebServlet("*.shop")
-public class ShopFrontController extends HttpServlet {
-	
+@WebServlet("*.ad")
+public class AdminFrontController extends HttpServlet {
+
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("ShopFrontController!");
+		System.out.println("AdminFrontController!");
 		
 		//post방식 요청에 대한 한글처리
 		request.setCharacterEncoding("UTF-8");
-		
+
 		// 요청된 서블릿 주소를 바로 추출
 		String command = request.getServletPath();
 		System.out.println("command : " + command);
@@ -35,68 +34,73 @@ public class ShopFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		//상품 목록
-		if(command.equals("/ShopList.shop")) {
-			action = new ShopListAction();
+		//관리자페이지
+		if(command.equals("/AdminList.ad")) {
+			forward = new ActionForward();
+			forward.setPath("/admin/admin_list.jsp");
+			
+		//상품목록 및 추가 페이지
+		}else if(command.equals("/ProductList.ad")) {
+			action = new ProductListAction();
+			
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-//		//상품 등록
-//		}else if(command.equals("/ShopRegistForm.shop")) {
+			
+		//상품 등록
+		}else if(command.equals("/ProductRegistForm.ad")) {
+			forward = new ActionForward();
+			forward.setPath("/admin/product_regist.jsp");
+
+		}else if(command.equals("/ProductRegistPro.ad")) {
+			action = new ProductRegistProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
+			
+		//상품 수정		
+		}else if(command.equals("/ProductModifyForm.ad")) {
+			action = new ProductModifyFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} else if(command.equals("/ProductModifyPro.ad")) {
+			action = new ProductModifyProAction();		
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		//상품 삭제	
+//		} else if(command.equals("/ProductDeleteFrom.ad")) {
 //			forward = new ActionForward();
-//			forward.setPath("/shop/shop_regist.jsp");
-//
-//		}else if(command.equals("/ShopRegist.shop")) {
-//			action = new ShopRegistProAction();
-//			try {
-//				forward = action.execute(request, response);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-		//상품 상세정보 보기
-		} else if(command.equals("/ShopView.shop")) {
-			action = new ShopViewAction();
+//			forward.setPath("");//목록에서 버튼으로 바로 삭제
+//				
+		} else if(command.equals("/ProductDeletePro.ad")) {
+			action = new ProductDeleteProAction();						
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/ShopCartAdd.shop")) {
-			action = new ShopCartAddAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		//장바구니 목록
-		} else if(command.equals("/ShopCartList.shop")) {
-			action = new ShopCartListAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/ShopCartQtyChange.shop")) {
-			action = new ShopCartQtyChangeAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/ShopCartRemove.shop")) {
-			action = new ShopCartRemoveAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			
 		}
 		
-
 		
-		if(forward != null) {
+		
+		
+		
+		
+		
+		
+		if (forward != null) {
 			if (forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());
 			} else { 
@@ -106,6 +110,10 @@ public class ShopFrontController extends HttpServlet {
 		}else {
 			System.out.println("ActionForward 객체 값이 null 입니다.");
 		}
+		
+		
+		
+		
 	}
 	
 	

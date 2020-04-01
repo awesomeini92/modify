@@ -9,13 +9,15 @@ String aname = request.getParameter("aname");
 %>
 <html>
 <head>
-
+<style>
+	#map {text-align:center}
+</style>
 </head>
 <body>
 		
 		<div id="map" style="width:450px;height:350px;"></div><br>
-		Address : <input type="text" id="address" style="border: 0px;" value="<%=address %>"><br>
-		Academy Name : <input type="text" id="academy_name" style="border: 0px;" value="<%=aname%>"><br>
+		학원주소 : <input type="text" id="address" style="border: 0px;" value="<%=address %>"><br>
+		학원명 : <input type="text" id="academy_name" style="border: 0px;" value="<%=aname%>"><br>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=99e4787a897671e1cd06a99afee54577&libraries=services"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

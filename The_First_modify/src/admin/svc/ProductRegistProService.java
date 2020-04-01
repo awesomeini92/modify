@@ -1,4 +1,4 @@
-package shop.svc;
+package admin.svc;
 
 
 import static db.JdbcUtil.*;
@@ -8,10 +8,10 @@ import shop.dao.ShopDAO;
 import shop.vo.ShopBean;
 
 
-public class ShopRegistProService {
+public class ProductRegistProService {
 
 	public boolean registProduct(ShopBean shopBean) {
-		System.out.println("ShopRegistProService!");
+		System.out.println("ProductRegistProService!");
 		
 		Connection con = getConnection();
 		ShopDAO shopDAO = ShopDAO.getInstance();
@@ -19,7 +19,7 @@ public class ShopRegistProService {
 		
 		// => 글쓰기 작업을 위해 ShopDAO 객체의 insertProduct() 메서드 호출
 		//    => 파라미터 : ShopBean 객체, 리턴값 : int타입 글 등록 성공에 대한 결과값
-		int insertCount = ShopDAO.insertProduct(shopBean);
+		int insertCount = shopDAO.insertProduct(shopBean);
 		
 		boolean isRegistSuccess = false; // 글 등록 성공 여부를 리턴하기 위한 변수
 		

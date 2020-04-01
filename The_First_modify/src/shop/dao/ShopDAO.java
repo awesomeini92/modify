@@ -26,7 +26,7 @@ public class ShopDAO {
 	}
 	// ----------------------------------------------------
 	
-	static Connection con;
+	Connection con;
 
 	// 외부로부터 Connection 객체를 전달받아 저장할 setConnection 메서드
 	public void setConnection(Connection con) {
@@ -64,13 +64,17 @@ public class ShopDAO {
 					rs.getString("product_info"),
 					rs.getInt("purchase_count"),
 					rs.getDate("date"),
-					rs.getInt("qty"),
-					rs.getString("time")
+					rs.getInt("qty")
+					
 					
 				);
 				
 				shopList.add(shopBean);
+				
+				
+				
 			}
+//			System.out.println("shoplist");
 		} catch (SQLException e) {
 //			e.printStackTrace();
 			System.out.println("selectShopList() 에러! - " + e.getMessage());
@@ -110,14 +114,16 @@ public class ShopDAO {
 							rs.getString("product_info"),
 							rs.getInt("purchase_count"),
 							rs.getDate("date"),
-							rs.getInt("qty"),
-							rs.getString("time")
+							rs.getInt("qty")
+						
 							
 						);
+					
+
 				}
 				
 			} catch (SQLException e) {
-//				e.printStackTrace();
+				e.printStackTrace();
 				System.out.println("selectShop() 에러! - " + e.getMessage());
 	 		} finally {
 	 			close(rs);
@@ -132,14 +138,14 @@ public class ShopDAO {
 
 	
 	// =============== 상품 등록 ================
-		public static int insertProduct(ShopBean shopBean) {
+		public int insertProduct(ShopBean shopBean) {
 			System.out.println("ShopDAO - insertProduct()");
 			int insertCount = 0; //작업 수행 결과 저장할 변수
 			
 			PreparedStatement pstmt = null;
 			
 			try {
-				String sql = "INSERT INTO shop VALUES (?,null,?,?,?,?,?,0,now(),0);";
+				String sql = "INSERT INTO shop VALUES (?,null,?,?,?,?,?,null,null,now());";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -147,19 +153,65 @@ public class ShopDAO {
 				pstmt.setString(2, shopBean.getProduct_name());
 				pstmt.setInt(3, shopBean.getPrice());
 				pstmt.setInt(4, shopBean.getStock());
-				pstmt.setString(5, shopBean.getProduct_info());
-				pstmt.setString(6, shopBean.getProduct_image());
+				pstmt.setString(5, shopBean.getProduct_image());
+				pstmt.setString(6, shopBean.getProduct_info());
+
 				
 				insertCount = pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
-//				e.printStackTrace();
+				e.printStackTrace();
 				System.out.println("insertProduct() 에러 : " + e.getMessage());
 			} finally {
 				close(pstmt);
 			}
 			
 			return insertCount;
+		}
+
+		// =============== 상품 수정 ================
+		public int updateProduct(ShopBean product) {
+			// 상품코드(product_cod)에 해당하는 게시물에 전달받은 수정 항목을 업데이트
+			int updateCount = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			try {
+				String sql = "UPDATE shop SET product_name=?,price=?,stock=?,purchase_count=? WHERE product_cod=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, product.getProduct_name());
+				pstmt.setInt(2, product.getPrice());
+				pstmt.setInt(3, product.getStock());
+				pstmt.setInt(4, product.getPurchase_count());
+				
+				updateCount = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return updateCount;
+		}
+		
+		// =============== 상품 삭재 ================
+		public int deleteProduct(String product_cod) {
+			int deleteCount = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			try {
+				String sql = "DELETE FROM shop WHERE product_cod=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, product_cod);
+				deleteCount = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return deleteCount;
 		}
 	
 	
@@ -171,19 +223,3 @@ public class ShopDAO {
 
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

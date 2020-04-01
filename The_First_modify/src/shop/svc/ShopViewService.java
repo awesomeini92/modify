@@ -20,6 +20,8 @@ public class ShopViewService {
 		ShopBean shopBean = shopDAO.selectShop(product_cod);
 		
 		close(con);
+	
+//		System.out.println(shopBean);
 		
 		return shopBean;
 	}
