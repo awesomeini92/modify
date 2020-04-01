@@ -37,6 +37,7 @@ public class AllDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
+			close(rs);
 			 close(pstmt);
 		}
 		return today;

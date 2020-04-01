@@ -85,7 +85,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 .gtco-container {
-  max-width: 1140px;
+  max-width: 1800px;
   position: relative;
   margin: 0 auto;
   padding-left: 15px;
@@ -585,7 +585,7 @@ h1, h2, h3, h4, h5, h6, figure {
 
 #gtco-footer {
   background: #262626;
-  padding: 7em 0 0 0 !important;
+  padding: 4em 0 0 0 !important;
   margin-bottom: 0 !important;
   width: 100%;
   float: left;
@@ -935,7 +935,8 @@ form label {
   padding: 7em 0;
   clear: both;
   position: relative;
-}
+  margin-bottom: 20px;
+  }
 @media screen and (max-width: 768px) {
   .gtco-section {
     padding: 3em 0;

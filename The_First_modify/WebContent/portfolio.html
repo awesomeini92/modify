@@ -45,6 +45,9 @@
 
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="css/style.css">
+	
+	<!-- table style -->
+	 <link href="css/styles_table.css" rel="stylesheet" />
 
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
@@ -106,8 +109,8 @@
 							<div class="display-tc">
 								<div class="row">
 									<div class="col-md-8 animate-box">
-										<h1 class="no-margin">Portfolio</h1>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia facilis, accusamus iusto animi.</p>
+										<h1 class="no-margin">Coding Q&A</h1>
+										<p>Ask Any Questions</p>
 									</div>
 								</div>
 							</div>
@@ -119,8 +122,7 @@
 		<!-- END #gtco-header -->
 
 		
-
-		<div class="gtco-section">
+		<div class="gtco-section ">
 			<div class="gtco-container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
@@ -128,138 +130,172 @@
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat enim et urna sagittis, rhoncus euismod erat tincidunt. Donec tincidunt volutpat erat.</p>
 					</div>
 				</div>
-				<div class="row">
+				 <div class="card col-md-12">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable Example</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Position</th>
+                                                <th>Office</th>
+                                                <th>Age</th>
+                                                <th>Start date</th>
+                                                <th>Salary</th>
+                                            </tr>
+                                        </thead>
+<!--                                         <tfoot> -->
+<!--                                             <tr> -->
+<!--                                                 <th>Name</th> -->
+<!--                                                 <th>Position</th> -->
+<!--                                                 <th>Office</th> -->
+<!--                                                 <th>Age</th> -->
+<!--                                                 <th>Start date</th> -->
+<!--                                                 <th>Salary</th> -->
+<!--                                             </tr> -->
+<!--                                         </tfoot> -->
+                                        <tbody>
+                                            <tr>
+                                                <td>Tiger Nixon</td>
+                                                <td>System Architect</td>
+                                                <td>Edinburgh</td>
+                                                <td>61</td>
+                                                <td>2011/04/25</td>
+                                                <td>$320,800</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Garrett Winters</td>
+                                                <td>Accountant</td>
+                                                <td>Tokyo</td>
+                                                <td>63</td>
+                                                <td>2011/07/25</td>
+                                                <td>$170,750</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ashton Cox</td>
+                                                <td>Junior Technical Author</td>
+                                                <td>San Francisco</td>
+                                                <td>66</td>
+                                                <td>2009/01/12</td>
+                                                <td>$86,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cedric Kelly</td>
+                                                <td>Senior Javascript Developer</td>
+                                                <td>Edinburgh</td>
+                                                <td>22</td>
+                                                <td>2012/03/29</td>
+                                                <td>$433,060</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Airi Satou</td>
+                                                <td>Accountant</td>
+                                                <td>Tokyo</td>
+                                                <td>33</td>
+                                                <td>2008/11/28</td>
+                                                <td>$162,700</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Brielle Williamson</td>
+                                                <td>Integration Specialist</td>
+                                                <td>New York</td>
+                                                <td>61</td>
+                                                <td>2012/12/02</td>
+                                                <td>$372,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Herrod Chandler</td>
+                                                <td>Sales Assistant</td>
+                                                <td>San Francisco</td>
+                                                <td>59</td>
+                                                <td>2012/08/06</td>
+                                                <td>$137,500</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Rhona Davidson</td>
+                                                <td>Integration Specialist</td>
+                                                <td>Tokyo</td>
+                                                <td>55</td>
+                                                <td>2010/10/14</td>
+                                                <td>$327,900</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Colleen Hurst</td>
+                                                <td>Javascript Developer</td>
+                                                <td>San Francisco</td>
+                                                <td>39</td>
+                                                <td>2009/09/15</td>
+                                                <td>$205,500</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sonya Frost</td>
+                                                <td>Software Engineer</td>
+                                                <td>Edinburgh</td>
+                                                <td>23</td>
+                                                <td>2008/12/13</td>
+                                                <td>$103,600</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jena Gaines</td>
+                                                <td>Office Manager</td>
+                                                <td>London</td>
+                                                <td>30</td>
+                                                <td>2008/12/19</td>
+                                                <td>$90,560</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Quinn Flynn</td>
+                                                <td>Support Lead</td>
+                                                <td>Edinburgh</td>
+                                                <td>22</td>
+                                                <td>2013/03/03</td>
+                                                <td>$342,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Charde Marshall</td>
+                                                <td>Regional Director</td>
+                                                <td>San Francisco</td>
+                                                <td>36</td>
+                                                <td>2008/10/16</td>
+                                                <td>$470,600</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Haley Kennedy</td>
+                                                <td>Senior Marketing Designer</td>
+                                                <td>London</td>
+                                                <td>43</td>
+                                                <td>2012/12/18</td>
+                                                <td>$313,500</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tatyana Fitzpatrick</td>
+                                                <td>Regional Director</td>
+                                                <td>London</td>
+                                                <td>19</td>
+                                                <td>2010/03/17</td>
+                                                <td>$385,750</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Michael Silva</td>
+                                                <td>Marketing Designer</td>
+                                                <td>London</td>
+                                                <td>66</td>
+                                                <td>2012/11/27</td>
+                                                <td>$198,500</td>
+                                            </tr>
+                                           
+                             	 	</tbody>
+                             	 </table>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+		<br><br><br><br><br><br><br>
 
-					<div class="col-md-12">
-						<div class="owl-carousel owl-carousel-carousel">
-							<div class="item">
-								<div class="gtco-item">
-									<a href="#"><img src="images/img_1.jpg" alt="" class="img-responsive"></a>
-									<h2><a href="#">Paper Cup</h2></a>
-									<p class="role">Web Design &amp; Mobile</p>
-								</div>
-							</div>
-							<div class="item">
-								<div class="gtco-item">
-									<a href="#"><img src="images/img_2.jpg" alt="" class="img-responsive"></a>
-									<h2><a href="#">Notepad Mockup</h2></a>
-									<p class="role">Web Design</p>
-								</div>
-							</div>
-							<div class="item">
-								<div class="gtco-item">
-									<a href="#"><img src="images/img_3.jpg" alt="" class="img-responsive"></a>
-									<h2><a href="#">Fancy 3D text</h2></a>
-									<p class="role">UI/UX</p>
-								</div>
-							</div>
-
-							<div class="item">
-								<div class="gtco-item">
-									<a href="#"><img src="images/img_1.jpg" alt="" class="img-responsive"></a>
-									<h2><a href="#">Paper Cup</h2></a>
-									<p class="role">Mobile App</p>
-								</div>
-							</div>
-							<div class="item">
-								<div class="gtco-item">
-									<a href="#"><img src="images/img_2.jpg" alt="" class="img-responsive"></a>
-									<h2><a href="#">Notepad Mockup</h2></a>
-									<p class="role">Branding</p>
-								</div>
-							</div>
-							<div class="item">
-								<div class="gtco-item">
-									<a href="#"><img src="images/img_3.jpg" alt="" class="img-responsive"></a>
-									<h2><a href="#">Fancy 3D text</h2></a>
-									<p class="role">UI/UX</p>
-								</div>
-							</div>
-
-							<div class="item">
-								<div class="gtco-item">
-									<a href="#"><img src="images/img_1.jpg" alt="" class="img-responsive"></a>
-									<h2><a href="#">Paper Cup</h2></a>
-									<p class="role">Web Design</p>
-								</div>
-							</div>
-							<div class="item">
-								<div class="gtco-item">
-									<a href="#"><img src="images/img_2.jpg" alt="" class="img-responsive"></a>
-									<h2><a href="#">Notepad Mockup</h2></a>
-									<p class="role">Branding &amp; UI</p>
-								</div>
-							</div>
-							<div class="item">
-								<div class="gtco-item">
-									<a href="#"><img src="images/img_3.jpg" alt="" class="img-responsive"></a>
-									<h2><a href="#">Fancy 3D text</h2></a>
-									<p class="role">Illustrator</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-		</div>
+		
 		<!-- END .gtco-services -->
-
-		
-
-		<div class="gtco-section gtco-testimonial gtco-gray">
-			<div class="gtco-container">
-
-				<div class="row row-pb-sm">
-					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-						<h2>People Love Us</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat enim et urna sagittis, rhoncus euismod erat tincidunt. Donec tincidunt volutpat erat.</p>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-6 col-sm-6 animate-box">
-						<div class="gtco-testimony gtco-left">
-							<div><img src="images/person_1.jpg" alt="Free Website template by FreeHTML5.co"></div>
-							<blockquote>
-								<p>&ldquo;Design must be functional and functionality must be translated into visual aesthetics, without any reliance on gimmicks that have to be explained.&rdquo; <cite class="author">&mdash; Ferdinand A. Porsche</cite></p>
-							</blockquote>	
-						</div>
-					</div>
-
-					<div class="col-md-6 col-sm-6 animate-box">
-						<div class="gtco-testimony gtco-left">
-							<div><img src="images/person_2.jpg" alt="Free Website template by FreeHTML5.co"></div>
-							<blockquote>
-								<p>&ldquo;Creativity is just connecting things. When you ask creative people how they did something, they feel a little guilty because they didn’t really do it, they just saw something. It seemed obvious to them after a while.&rdquo; <cite class="author">&mdash; Steve Jobs</cite></p>
-							</blockquote>	
-						</div>
-					</div>
-
-					
-				</div>
-				<div class="row">
-					<div class="col-md-6 col-sm-6 animate-box">
-						<div class="gtco-testimony gtco-left">
-							<div><img src="images/person_3.jpg" alt="Free Website template by FreeHTML5.co"></div>
-							<blockquote>
-								<p>&ldquo;I think design would be better if designers were much more skeptical about its applications. If you believe in the potency of your craft, where you choose to dole it out is not something to take lightly.&rdquo; <cite class="author">&mdash; Frank Chimero</cite></p>
-							</blockquote>	
-						</div>
-					</div>
-
-					<div class="col-md-6 col-sm-6 animate-box">
-						<div class="gtco-testimony gtco-left">
-							<div><img src="images/person_1.jpg" alt="Free Website template by FreeHTML5.co"></div>
-							<blockquote>
-								<p>&ldquo;Design must be functional and functionality must be translated into visual aesthetics, without any reliance on gimmicks that have to be explained.&rdquo; <cite class="author">&mdash; Ferdinand A. Porsche</cite></p>
-							</blockquote>	
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
 
 		<footer id="gtco-footer" class="gtco-section" role="contentinfo">
 			<div class="gtco-container">
@@ -317,19 +353,32 @@
 				</div>
 			</div>
 		</footer>
-
 	</div>
+	
+
 
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+		
 	</div>
-	
+		
+		
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
 	<script src="js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
 	<script src="js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="js/chart-area-demo.js"></script>
+    <script src="js/chart-bar-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="js/datatables-demo.js"></script>
+		
 	<!-- Waypoints -->
 	<script src="js/jquery.waypoints.min.js"></script>
 	<!-- Carousel -->
@@ -339,7 +388,7 @@
 	<script src="js/magnific-popup-options.js"></script>
 	<!-- Main -->
 	<script src="js/main.js"></script>
-
+	
 	</body>
 </html>
 

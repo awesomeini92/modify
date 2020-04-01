@@ -20,103 +20,43 @@
 	int maxPage = pageInfo.getMaxPage();
 	
 %>  
-
-<!DOCTYPE html>
-<html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="../css/default.css" rel="stylesheet" type="text/css">
-<link href="../css/subpage.css" rel="stylesheet" type="text/css">
-<!--[if lt IE 9]>
-<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js" type="text/javascript"></script>
-<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/ie7-squish.js" type="text/javascript"></script>
-<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-<![endif]-->
-<!--[if IE 6]>
- <script src="../script/DD_belatedPNG_0.0.8a.js"></script>
- <script>
-   /* EXAMPLE */
-   DD_belatedPNG.fix('#wrap');
-   DD_belatedPNG.fix('#main_img');   
 
- </script>
- <![endif]-->
- <style type="text/css">
-	#registForm {
-		width: 500px;
-		height: 610px;
-		border: 1px solid red;
-		margin: auto;
-	}
-	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 800px;
-		border: 1px solid darkgray;
-	}
-	
-	a {
-		text-decoration: none;
-	}
 
-	#tr_top {
-		background: orange;
-		width: 800px; 
-		text-align: center;
-	}
-	
-	#writeButton {
-		margin: auto;
-		width: 800px;
-		text-align: right;
-	}
-	
-	#pageList {
-		margin: auto;
-		width: 800px;
-		text-align: center;
-	}
-	
-	#emptyArea {
-		margin: auto;
-		width: 800px;
-		text-align: center;
-	}
-</style>
+
 </head>
-<body>
-<div id="wrap">
-<%
-String id = (String)session.getAttribute("id");
-String nickname = (String)session.getAttribute("nickname");
-%>
-<!-- 본문들어가는 곳 -->
-<!-- 메인이미지 -->
-<div id="sub_img_center"></div>
-<!-- 메인이미지 -->
+	<body>
+	<!-- header page -->
+		<jsp:include page="../inc/top.jsp"/>
+		<!-- header page -->
+	
+		
+		<div class="gtco-section">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+						<h2>Check Our Works</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat enim et urna sagittis, rhoncus euismod erat tincidunt. Donec tincidunt volutpat erat.</p>
+					</div>
+				</div>
+				 <div class="">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Charged Coding Q&A</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th >글번호</th>
+                                                <th>글제목</th>
+                                                <th>작성자</th>
+                                                <th>작성일</th>
+                                                <th>조회수</th>
+                                            </tr>
+                                        </thead>
 
-
-<!-- 게시판 -->
-
-
-<!-- 게시판 리스트 -->
-	<section id="listForm">
-		<h2>글 목록</h2>
-		<table>
-			<tr id="tr_top">
-				<td width="100">번호</td>
-				<td width="400">제목</td>
-				<td width="150">작성자</td>
-				<td width="150">날짜</td>
-				<td width="100">조회수</td>
-			</tr>
-		<%if(articleList != null) { //& listCount > 0) %> 
-			<!-- 게시물 목록이 하나라도 존재할 때만 목록을 표시 -->
+                                        <tbody>
+<!-- 게시물 목록 가져오기 -->
+      <%if(articleList != null) { //& listCount > 0) %> 
 			<%for(int i = 0; i < articleList.size(); i++) {%>
 				<tr>
 					<td align="center"><%=articleList.get(i).getNum() %></td>
@@ -126,71 +66,67 @@ String nickname = (String)session.getAttribute("nickname");
 							<%=articleList.get(i).getSubject() %>
 						</a>
 					</td>
-					<td align="center"><%=articleList.get(i).getNickname() %></td>
+					<td ><%=articleList.get(i).getNickname() %></td>
 					<%if(articleList.get(i).getDate().compareTo(today)==0){ //날짜가 같으면 %> 
-						<td align="center"><%=articleList.get(i).getTime()%> <!-- 시간출력 --></td>
+						<td ><%=articleList.get(i).getTime()%> <!-- 시간출력 --></td>
 					<%}else{ %>
-					<td align="center" style="width: 20%" id="date"><%=articleList.get(i).getDate()%></td>
+					<td id="date"><%=articleList.get(i).getDate()%></td>
 					<%} %>
-					<td align="center"><%=articleList.get(i).getReadcount() %></td>
+					<td ><%=articleList.get(i).getReadcount() %></td>
 				</tr>
-			<%} %>
-		</table>		
-	</section>
+			<%} 
+			}%>
+                             	 	</tbody>
+                             	 </table>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                            <button type="button" class="bs_btn btn-info" onclick="location.href='CodingWriteForm.code'">글쓰기</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+		
+		<!-- END .gtco-services -->
+
+		<!-- footer page -->
+		<jsp:include page="../inc/bottom.jsp"/>
+		<!-- footer page -->
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+		
+	</div>
+		
+		
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="js/chart-area-demo.js"></script>
+    <script src="js/chart-bar-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="js/datatables-demo.js"></script>
+		
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
 	
-	<section id="writeButton">
-		<a href="CodingWriteForm.code"><input type="button" value="글쓰기"></a>
-	</section>
-	<!-- 페이지 목록 버튼 표시 -->
-	<!-- 이전 페이지 또는 다음 페이지가 존재할 경우에만 해당 하이퍼링크 활성화 -->
-	<section id="pageList">
-	<%if(nowPage <= 1) { %>
-			[이전]&nbsp;
-	<%} else {%>
-			<a href="CodingList.code?page=<%=nowPage - 1%>">[이전]</a>&nbsp;
-	<%} %>
-	
-	<!-- 존재하는 페이지 번호만 표시(현재 페이지는 번호만 표시하고, 나머지 페이지는 하이퍼링크 활성화) -->
-	<%for(int i = startPage; i <= endPage; i++) {
-		    if(i == nowPage) {%>
-				[<%=i %>]
-		<%} else {%>
-				<a href="CodingList.code?page=<%=i %>">[<%=i %>]</a>&nbsp;
-		<%} %>
-	<%} %>
-	
-	<%if(nowPage >= maxPage) {%>
-			&nbsp;[다음]
-	<%} else { %>
-			<a href="CodingList.code?page=<%=nowPage + 1%>">&nbsp;[다음]</a>
-	<%} %>
-	</section>
-<%} else {%>
-	<section id="emptyArea">등록된 글이 없습니다.</section>
-<%} %>
-
-
-<div id="table_search">
-<form action="noticeSearch.jsp">
-<input type="text" name="search" class="input_box">
-<input type="submit" value="search" class="btn" >
-</form>
-</div>
-
-
-<div id="table_search">
-<input type="button" value="글쓰기" class="btn" onclick="location.href='CodingWriteForm.code'">
-<input type="button" value="글채택하기" class="btn" onclick="location.href='CodingUpdateForm.code'">
-</div>
-
-
-</article>
-<!-- 게시판 -->
-<!-- 본문들어가는 곳 -->
-<div class="clear"></div>
-<!-- 푸터들어가는 곳 -->
-<%-- <jsp:include page="../inc/bottom.jsp"/> --%>
-<!-- 푸터들어가는 곳 -->
-</div>
-</body>
+	</body>
 </html>
+

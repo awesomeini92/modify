@@ -11,6 +11,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%
+//
 	String id = null;
 	// 로그인이 되지 않은 상태일 경우 로그인 페이지로 강제 이동 처리
 	/*

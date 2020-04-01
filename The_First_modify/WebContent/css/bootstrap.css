@@ -1371,7 +1371,19 @@ pre code {
   .col-md-6 {
     width: 50%;
   }
+  .left-box {
+   float: left;
+   width: 48%;
+   padding: 30px 0;
+   margin-bottom: 20%;
+}
 
+.right-box {
+   float: right;
+   width: 48%;
+   padding: 30px 0;
+   margin-bottom: 20%;
+}
   .col-md-7 {
     width: 58.33333%;
   }
@@ -2580,8 +2592,8 @@ select[multiple].input-lg,
     font-size: 12px;
   }
 }
-
-.btn {
+/*버튼 시작*/
+.bs_btn {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -2593,7 +2605,7 @@ select[multiple].input-lg,
   border: 1px solid transparent;
   white-space: nowrap;
   padding: 10px 20px;
-  font-size: 14px;
+  font-size:18px;
   line-height: 1.42857;
   border-radius: 4px;
   -webkit-user-select: none;
@@ -3344,6 +3356,28 @@ tbody.collapse.in {
   color: #555555;
   text-align: center;
   background-color: #eeeeee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.article_content {
+ padding: 200px 20px !important; 
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1;
+  color: #555555;
+  text-align: center;
+  background-color: #eeeeee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.reply_content {
+  padding: 200px 20px !important; 
+  font-size: 14px; 
+  font-weight: normal;
+  line-height: 1;
+  color: #555555;
+  text-align: center;
+  background-color: #ffe6f8;
   border: 1px solid #ccc;
   border-radius: 4px;
 }

@@ -64,7 +64,8 @@ public class CodingListAction implements Action {
 		request.setAttribute("articleList", articleList);
 		
 		forward = new ActionForward();
-		forward.setPath("/coding/codingList.jsp");
+//		forward.setPath("/coding/codingList.jsp");
+		forward.setPath("/coding/pre_codingList.jsp");
 		
 		return forward;
 	}

@@ -22,7 +22,7 @@ public class CodingReplyProService {
 			rollback(con);
 		}
 		
-		
+		close(con);
 		return isSuccess;
 	}
 

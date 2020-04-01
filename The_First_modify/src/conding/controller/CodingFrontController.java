@@ -21,8 +21,9 @@ import coding.action.CodingDetailAction;
 import coding.action.CodingListAction;
 import coding.action.CodingModifyFormAction;
 import coding.action.CodingModifyProAction;
-import coding.action.CodingReplyAction;
-import coding.action.CodingReplyProAction;
+import coding.action.CodingReplyDetailAction;
+import coding.action.CodingReplyWriteAction;
+import coding.action.CodingReplyWriteProAction;
 import coding.action.CodingWriteProAction;
 import vo.ActionForward;
 
@@ -57,6 +58,7 @@ public class CodingFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else if(command.equals("/CodingDetail.code")) {
+			System.out.println("CodingDetail mapping");
 			action = new CodingDetailAction();
 			try {
 				forward = action.execute(request, response);
@@ -81,14 +83,21 @@ public class CodingFrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("/coding/file_down.jsp");
 		}else if(command.equals("/CodingReply.code")) {
-			action = new CodingReplyAction();
+			action = new CodingReplyWriteAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}else if(command.equals("/CodingReplyPro.code")) {
-			action = new CodingReplyProAction();
+			action = new CodingReplyWriteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CodingReplyDetail.code")) {
+			action = new CodingReplyDetailAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

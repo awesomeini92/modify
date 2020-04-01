@@ -15,7 +15,6 @@ import shop.vo.ShopBean;
 
 public class ShopViewAction implements Action {
 	
-	
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

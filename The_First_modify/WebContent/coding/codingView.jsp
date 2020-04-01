@@ -113,17 +113,12 @@ function openCmmnt(){
 </script>  
 </head>
 <body>
-	<header>
-		<!-- 세션ID(sId) 가 없을 경우 로그인(LoginForm.me), 회원가입(JoinForm.me) 링크 표시 -->
-		<!-- 세션ID(sId) 가 있을 경우 회원ID, 로그아웃(Logout.me)링크 표시 -->
-		<%if(id == null) {%>
-			<a href="LoginForm.me">로그인</a> | <a href="JoinForm.me">회원가입</a>
-		<%} else { %>
-			<%=id %>님 | <a href="Logout.me">로그아웃</a>
-		<%} %>
-	</header>
+	<!-- header page -->
+		<jsp:include page="../inc/top.jsp"/>
+		<!-- header page -->
 	
-	<!-- 게시판 글 조회 -->
+
+
 	<section id="articleForm">
 		<h2>글 내용 상세보기</h2>
 		<section id="basicInfoArea">

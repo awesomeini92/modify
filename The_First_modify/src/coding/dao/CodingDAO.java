@@ -31,29 +31,7 @@ public class CodingDAO {
 	//DB이름: coding_charge
 
 	
-	public Date getToday() {
-		PreparedStatement pstmt = null;
-		Date today = null;
-		ResultSet rs = null;
-		
-
-		try {
-			String sql = "select Date(now()) AS today";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-
-			while(rs.next()) {
-				today = rs.getDate("today");
-			}
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			 close(pstmt);
-		}
-		return today;
-	}
+	
 	
 	
 	public int insertCodingArticle(CodingBean codingBean) {
@@ -524,6 +502,82 @@ public class CodingDAO {
 		}
 		return deleteCount;
 	}
+
+	public ArrayList<CodingBean> selectArticleList() {
+	ArrayList<CodingBean> articleList = new ArrayList<CodingBean>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT *, time(date) AS time FROM coding_charge";
+			pstmt = con.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            
+            // ResultSet 객체 내의 모든 레코드를 각각 레코드별로 BoardBean 에 담아서 ArrayList 객체에 저장
+            // => 패스워드 제외
+            while(rs.next()) {
+            	CodingBean codingBean = new CodingBean();
+            	codingBean.setNum(rs.getInt("num"));
+            	codingBean.setNickname(rs.getString("nickname"));
+            	codingBean.setSubject(rs.getString("subject"));
+            	codingBean.setContent(rs.getString("content"));
+            	codingBean.setReadcount(rs.getInt("readcount"));
+            	codingBean.setFile(rs.getString("file"));
+            	codingBean.setDate(rs.getDate("date"));
+            	codingBean.setIsPublic(rs.getInt("isPublic"));
+            	codingBean.setPassword(rs.getInt("password"));
+            	codingBean.setTime(rs.getString("time")); 
+                
+                articleList.add(codingBean);
+            }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return articleList;
+	}
+
+//	public Coding_refBean selectArticleReply(int post_num) {
+//		Coding_refBean article_ref = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		
+//		// 글번호(board_num)에 해당하는 게시물 정보 조회
+//		try {
+//			String sql = "SELECT *, time(date) AS time FROM coding_charge_ref WHERE post_num=?";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setInt(1, post_num);
+//			rs = pstmt.executeQuery();
+//			
+//			// 게시물이 존재할 경우 BoardBean 객체에 저장
+////			if(rs.next()) { //while?
+//			while(rs.next()) {
+//				article_ref = new Coding_refBean();
+//				article_ref.setRef_num(rs.getInt("ref_num"));
+//				article_ref.setPost_num(rs.getInt("post_num"));
+//				article_ref.setNickname(rs.getString("nickname"));
+//				article_ref.setSubject(rs.getString("subject"));
+//				article_ref.setContent(rs.getString("content"));
+//				article_ref.setReadcount(rs.getInt("readcount"));
+//				article_ref.setFile(rs.getString("file"));
+//				article_ref.setDate(rs.getDate("date"));
+//				article_ref.setIsSelected(rs.getInt("isSelected"));
+//				article_ref.setTime(rs.getString("time"));
+//			}
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(rs);
+//			close(pstmt);
+//		}
+//		
+//		return article_ref;
+//	}
 
 
 

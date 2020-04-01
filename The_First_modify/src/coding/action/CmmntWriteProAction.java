@@ -31,7 +31,8 @@ public class CmmntWriteProAction implements Action {
 		int cmmnt_page = 1; // 현재 페이지 번호
 		int cmmnt_limit = 10; // 
 		
-		
+		System.out.println("CmmntWriteProAction");
+		System.out.println(request.getParameter("comment"));
 		
 		cmmntBean.setPost_num(Integer.parseInt(request.getParameter("post_num")));
 		cmmntBean.setNickname(request.getParameter("nickname"));
@@ -74,7 +75,8 @@ public class CmmntWriteProAction implements Action {
 		
 		
 		forward = new ActionForward();
-		forward.setPath("/coding/cmmntView.jsp");
+		forward.setPath("/coding/cmmntView_ajax.jsp");
+//		forward.setPath("/coding/cmmntView.jsp");
 		
 		return forward;
 	}
