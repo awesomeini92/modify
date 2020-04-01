@@ -25,7 +25,7 @@ public class AcademyWriteProAction implements Action {
 		boardBean.setNickname(request.getParameter("board_name"));
 		boardBean.setSubject(request.getParameter("board_subject"));
 		boardBean.setContent(request.getParameter("board_content"));
-		boardBean.setAddress(request.getParameter("board_add"));
+		boardBean.setAddress(request.getParameter("address"));
 		boardBean.setAcademy_name(request.getParameter("academy_name"));
 		
 		// 실제 DB 작업을 진행하기 위한 Service 클래스 객체 생성

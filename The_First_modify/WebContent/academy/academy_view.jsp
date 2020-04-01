@@ -20,7 +20,8 @@
 	AcademyBean article = (AcademyBean)request.getAttribute("article");
 	String nowPage = (String)request.getAttribute("page");
 	AcademyCommentBean comment = (AcademyCommentBean)request.getAttribute("comment");
-	String address = article.getAddress();
+// 	String address = article.getAddress();
+// 	String aname = article.getAcademy_name();
 %>    
 <!DOCTYPE html>
 <html>
@@ -30,7 +31,7 @@
 <style type="text/css">
 	#articleForm {
 		width: 700px;
-		height: 700px;
+		height: 980px;
 		border: 1px solid red;
 		margin: auto;
 	}
@@ -68,12 +69,11 @@
 	#mapArea{
 		text-align: center;
 	}
+
 </style>
 <script src="../script/jquery-3.4.1.js"></script>
 <script type="text/javascript">
-	function detailAdd() {
-		window.open("academy/mapTest.jsp?addr=<%=article.getAddress()%>&aname=<%=article.getAcademy_name()%>","","width=350,height=330");
-	}
+
 </script>
 </head>
 <body>
@@ -97,22 +97,51 @@
 		<section id="articleContentArea">
 			<%=article.getContent() %>	
 		</section>
-		<h3 style="text-align:center">Academy Information</h3>
-		<section id="mapArea">	
-		Address : <input type="text" id="address" style="border: 0px;" value="<%=article.getAddress() %>"><br>
-		Academy Name : <input type="text" id="academy_name" style="border: 0px;" value="<%=article.getAcademy_name()%>"><br>
-		<input type="button" value="지도보기" onclick="detailAdd()">
+		<section id="mapArea">
+		<h3 style="text-align:center">Academy Information</h3>		
+		Address : <input type="text" id="address" style="border: 0px; width:300px" value="<%=article.getAddress() %>"><br>
+		Academy Name : <input type="text" id="academy_name" style="border: 0px; width:100px" value="<%=article.getAcademy_name()%>"><br><br>
+		<div id="map" style="margin:0 auto; width:450px;height:350px;"></div><br>
 		</section>
-				
-<!-- 		<input type="button" onclick="detailadd()" value="주소 보기"><br> -->
-			
-			
-<!-- 			<input type="text" id="addvalue"> -->
-<!-- 			<input type="button" value="Detail" id="detail_add" onclick="detailadd()"><br> -->
-<!-- 			<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div> -->
-			
-			
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=99e4787a897671e1cd06a99afee54577&libraries=services"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
 
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch(document.getElementById("address").value , function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+document.getElementById("academy_name").value+'</div>'			       	
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
+</script>
 	</section>
 	<section id="commandList">
 <%-- 		<a href="BoardReplyForm.ac?num=<%=article.getNum()%>&page=<%=nowPage %>"><input type="button" value="답변" ></a> --%>
