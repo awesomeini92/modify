@@ -36,7 +36,7 @@ public class CodingReplyDetailAction implements Action {
 		String page = request.getParameter("page"); 
 		
 		int reply_page = 1;
-		int reply_limit = 1;
+		int reply_limit = 2;
 		
 		if(request.getParameter("reply_page") != null) {
 			reply_page = Integer.parseInt(request.getParameter("reply_page")); // 정수로 변환하여 저장

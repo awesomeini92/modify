@@ -47,10 +47,54 @@ function openCmmnt(){
     window.open("CmmntList.code?post_num="+<%=article.getNum()%>, "", width=800, height=700);
     
 }
-
+function getReplyListCount(){
+	$.ajax({	
+		url: "CodingReplyList.code", // 요청 url
+        type: "POST", // post 방식
+        data: {
+        	post_num : <%=article.getNum()%> // board_no의 값을 넘겨줌
+        },
+        success : function(pageInfo){
+        	pageInfo = pageInfo.replace(/\n/gi,"\\r\\n"); // 개행문자 대체
+        	alert(pageInfo);
+        	$("#pageInfoList").text(""); // 댓글리스트 영역 초기화
+        	var obj = JSON.parse(pageInfo); // service 클래스로 부터 전달된 문자열 파싱
+        	var pageInfoList =obj.pageInfoList; // replyList는 전달된 json의 키값을 의미
+        	var output="";
+        	var reply_nowPage = 0;
+        	var reply_page="";
+        	var reply_maxPage="";
+        	var reply_startPage="";
+        	var reply_endPage="";
+        	var reply_count ="";
+        	
+         for (var j = 0; j < pageInfoList.length; j++) {
+   			  var reply = pageInfoList[j];
+                   if(j === 0){
+                	   reply_page = reply.reply_page;
+                    }else  if(j === 1){
+                    	reply_maxPage = reply.reply_maxPage;
+                    }else  if(j === 2){
+                    	reply_startPage = reply.reply_startPage;
+                    }else  if(j === 3){
+                    	reply_endPage = reply.reply_endPage;
+                    }else  if(j === 4){
+                    	reply_count = reply.reply_count;
+                    }
+            }
+       for(var i = reply_startPage; i <= reply_endPage; i++) {
+    	   $("#replyPage").html(i);	
+     	    if(i == reply_nowPage){
+     	    	getReply(i);   	    	
+     		}else 
+     			getReply(i);   
+       		}  	     
+      }
+	});
+}
 
 // 		$('.dup').click(function(){
-		function getReply(){
+		function getReply(i){
 			$.ajax({		
     			url: "CodingReplyDetail.code", // 요청 url
                 type: "POST", // post 방식
@@ -63,15 +107,16 @@ function openCmmnt(){
                 	var obj = JSON.parse(json); // service 클래스로 부터 전달된 문자열 파싱
                 	var replyList =obj.replyList; // replyList는 전달된 json의 키값을 의미
                 	var output = ""; // 댓글 목록을 누적하여 보여주기 위한 변수
-                	
+                	var page_addr="";
 //                 	alert(json);
 //                 	var reply = replyList[0][0];
 //                 	alert(reply.nickname);
 //                 	output += "<i class='fa fa-user'></i>&nbsp;&nbsp;" + reply.nickname;
-                	
-                	for (var i = 0; i < replyList.length; i++) { // 반복문을 통해 output에 누적
+                	var i =0;
+                //	for (var i = 0; i < replyList.length; i++) { // 반복문을 통해 output에 누적
                 		alert(replyList.length);               	
    	                    output += "<div class='w3-border w3-padding'>";
+//    	                	page_addr += "<a href='#'> " + (i+1) +"</a>";
 	   	                 for (var j = 0; j < replyList[i].length; j++) {
 	 	                    var reply = replyList[i][j];
 	 	                    if(j === 0){
@@ -88,7 +133,7 @@ function openCmmnt(){
 	 	                    	output += "<span class='w3-center w3-xlarge w3-text-blue'>"+reply.subject+"</span></div>";
 	 	                    }else  if(j === 5){
 	 	                    	if(reply.file!=""){
-	 	                    		output += "<article class='w3-border w3-large w3-padding reply_content'><img src='/codingUpload/'"+reply.file+" width=200px ><br><br><br>";
+	 	                    		output += "<article class='w3-border w3-large w3-padding reply_content'><img src='/codingUpload/"+reply.file+"' width=200px ><br><br><br>";
 	 	                    	}
 	 	                    }else  if(j === 6){
 	 	                   		output += reply.content+"<br><br></article>";
@@ -97,10 +142,12 @@ function openCmmnt(){
 	 	                    }
 	 	                    
 	   	                 }
+	   	                 //<a href="CmmntList.code?cmmnt_page=
+// 	   	              	page_addr += "<a href='codingDetail.code?i='"+page_num;
 	  	              	$("#replyList").html(output); // replyList 영역에 output 출력
 	   	              	$(".reply_count").html(i);
-	   	             }
-                	$("#replyPage").html(i);
+	   	           //  }
+                	$("#replyPage").html(page_addr);
 				}
 			});
 		}
@@ -154,16 +201,17 @@ function openCmmnt(){
 
 <div class="w3-article" id="reply_article">
 	 <div class="right-box " id="replyList"> 
-	 	<input type=button value="답글보기" onclick="getReply()">
+	 	<input type=button value="답글보기" onclick="getReplyListCount()">
 	 	
-	 	<section id="replyPage"> </section>	
+	 	
 	</div>
 		
 </div>
-
+<section id="replyPage"> </section>	
 	
 </div>
 	</div>
+	
 	</section>
 	
 

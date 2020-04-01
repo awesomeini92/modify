@@ -22,6 +22,7 @@ import coding.action.CodingListAction;
 import coding.action.CodingModifyFormAction;
 import coding.action.CodingModifyProAction;
 import coding.action.CodingReplyDetailAction;
+import coding.action.CodingReplyListAction;
 import coding.action.CodingReplyWriteAction;
 import coding.action.CodingReplyWriteProAction;
 import coding.action.CodingWriteProAction;
@@ -91,6 +92,13 @@ public class CodingFrontController extends HttpServlet {
 			}
 		}else if(command.equals("/CodingReplyPro.code")) {
 			action = new CodingReplyWriteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CodingReplyList.code")) {
+			action = new CodingReplyListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
