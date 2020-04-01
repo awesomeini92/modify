@@ -12,28 +12,6 @@ import shop.vo.ShopBean;
 
 public class ProductListService {
 
-//	public ArrayList<ShopBean> getListCount() {
-//		System.out.println("ProductListService - getListCount()");
-//		ArrayList<ShopBean> listCount = null; // 총 게시물 수 저장할 변수
-//		
-//		// 1. Connection 객체 가져오기
-//		Connection con = getConnection();
-//		
-//		// 2. DAO 객체 가져오기(싱글톤 패턴)
-//		ShopDAO shopDAO = ShopDAO.getInstance();
-//		
-//		// 3. DAO 객체에 Connection 객체 전달하기
-//		shopDAO.setConnection(con);
-//		
-//		// 4. DB 작업을 위한 DAO 객체의 메서드 호출
-//		// => selectListCount() 메서드를 호출하여 게시물 수 리턴받기
-//		listCount = ShopDAO.selectShopList();
-//		
-//		// 5. Connection 객체 반환하기
-//		close(con);
-//		
-//		return listCount;
-//	}
 
 	public ArrayList<ShopBean> getListProduct() {
 		System.out.println("ProductListService - getProductList()");

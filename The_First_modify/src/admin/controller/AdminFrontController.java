@@ -10,13 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import admin.action.ProductDeleteProAction;
 import admin.action.ProductListAction;
-import notice.action.NoticeDeleteProAction;
-import notice.action.NoticeDetailAction;
-import notice.action.NoticeListAction;
-import notice.action.NoticeModifyFormAction;
-import notice.action.NoticeModifyProAction;
-import notice.action.NoticeWriteProAction;
+import admin.action.ProductModifyFormAction;
+import admin.action.ProductModifyProAction;
+import admin.action.ProductRegistProAction;
 import vo.ActionForward;
 
 @WebServlet("*.ad")
@@ -36,11 +34,12 @@ public class AdminFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		
+		//관리자페이지
 		if(command.equals("/AdminList.ad")) {
 			forward = new ActionForward();
 			forward.setPath("/admin/admin_list.jsp");
 			
+		//상품목록 및 추가 페이지
 		}else if(command.equals("/ProductList.ad")) {
 			action = new ProductListAction();
 			
@@ -49,51 +48,55 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-				
-		}else if(command.equals("/NoticeDetail.no")) {
-			action = new NoticeDetailAction();
 			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		} else if(command.equals("/NoticeModifyForm.no")) {
-			action = new NoticeModifyFormAction();
-//			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		} else if(command.equals("/NoticeModifyPro.no")) {
-			action = new NoticeModifyProAction();
-//			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		} else if(command.equals("/NoticeDeleteForm.no")) {
+		//상품 등록
+		}else if(command.equals("/ProductRegistForm.ad")) {
 			forward = new ActionForward();
-			forward.setPath("/notice/notice_delete.jsp");
+			forward.setPath("/admin/product_regist.jsp");
+
+		}else if(command.equals("/ProductRegistPro.ad")) {
+			action = new ProductRegistProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
 			
-		} else if(command.equals("/NoticeDeletePro.bo")) {
-			action = new NoticeDeleteProAction();
-//			
+		//상품 수정		
+		}else if(command.equals("/ProductModifyForm.ad")) {
+			action = new ProductModifyFormAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
-		} else if(command.equals("/NoticeFileDown.no")) {
-			forward = new ActionForward();
-			forward.setPath("/notice/file_down.jsp");
+		} else if(command.equals("/ProductModifyPro.ad")) {
+			action = new ProductModifyProAction();		
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		//상품 삭제	
+//		} else if(command.equals("/ProductDeleteFrom.ad")) {
+//			forward = new ActionForward();
+//			forward.setPath("");//목록에서 버튼으로 바로 삭제
+//				
+		} else if(command.equals("/ProductDeletePro.ad")) {
+			action = new ProductDeleteProAction();						
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
+		
+		
+		
+		
+		
 		
 		
 		

@@ -59,7 +59,7 @@
 		<header>
 			<h2>상품 정보 등록</h2>
 		</header>
-		<form action="ShopRegist.shop" method="post" enctype="multipart/form-data" name="registForm">
+		<form action="ProductRegistPro.ad" method="post" enctype="multipart/form-data" name="registForm">
 			<table>
 				<tr>
 					<td class="td_left"><label for="product_cod">상품코드</label></td>
@@ -78,9 +78,9 @@
 					<td class="td_right"><input type="text" name="stock" id="stock" required="required"/></td>
 				</tr>
 				<tr>
-					<td class="td_left"><label for="content">설명</label></td>
+					<td class="td_left"><label for="product_info">설명</label></td>
 					<td class="td_right">
-						<textarea rows="13" cols="40" name="content" id="content"></textarea>
+						<textarea rows="13" cols="40" name="product_info" id="product_info"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -91,7 +91,7 @@
 					<td colspan="2" id="commandCell">
 						<input type="submit" value="등록"/>
 						<input type="reset" value="다시작성"/>
-						<input type="button" value="목록보기" onclick="location.href='ShopList.shop'"/>
+						<input type="button" value="목록보기" onclick="location.href='ProductList.ad'"/>
 					</td>
 			</table>
 		</form>

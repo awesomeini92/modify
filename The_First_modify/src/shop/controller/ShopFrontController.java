@@ -15,7 +15,6 @@ import shop.action.ShopCartListAction;
 import shop.action.ShopCartQtyChangeAction;
 import shop.action.ShopCartRemoveAction;
 import shop.action.ShopListAction;
-import shop.action.ShopRegistProAction;
 import shop.action.ShopViewAction;
 import vo.ActionForward;
 
@@ -44,18 +43,18 @@ public class ShopFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		//상품 등록
-		}else if(command.equals("/ShopRegistForm.shop")) {
-			forward = new ActionForward();
-			forward.setPath("/shop/shop_regist.jsp");
-
-		}else if(command.equals("/ShopRegist.shop")) {
-			action = new ShopRegistProAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+//		//상품 등록
+//		}else if(command.equals("/ShopRegistForm.shop")) {
+//			forward = new ActionForward();
+//			forward.setPath("/shop/shop_regist.jsp");
+//
+//		}else if(command.equals("/ShopRegist.shop")) {
+//			action = new ShopRegistProAction();
+//			try {
+//				forward = action.execute(request, response);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 		//상품 상세정보 보기
 		} else if(command.equals("/ShopView.shop")) {
 			action = new ShopViewAction();

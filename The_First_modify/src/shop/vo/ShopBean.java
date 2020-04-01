@@ -27,14 +27,13 @@ public class ShopBean {
 	private int purchase_count; //구매수량(누적)
 	private Date date; //날짜
 	private int qty; //구매수량
-	private String time;
 	
 	
 	public ShopBean() {}
 
 
 	public ShopBean(String product_cod, String buyer_id, String product_name, int price, int stock,
-			String product_image, String product_info, int purchase_count, Date date, int qty, String time) {
+			String product_image, String product_info, int purchase_count, Date date, int qty) {
 		super();
 		this.product_cod = product_cod;
 		this.buyer_id = buyer_id;
@@ -46,7 +45,7 @@ public class ShopBean {
 		this.purchase_count = purchase_count;
 		this.date = date;
 		this.qty = qty;
-		this.time = time;
+		
 	}
 
 
@@ -150,14 +149,7 @@ public class ShopBean {
 	}
 
 
-	public String getTime() {
-		return time;
-	}
 
-
-	public void setTime(String time) {
-		this.time = time;
-	}
 
 
 

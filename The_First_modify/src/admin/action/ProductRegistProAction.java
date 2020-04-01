@@ -1,4 +1,4 @@
-package shop.action;
+package admin.action;
 
 import java.io.PrintWriter;
 
@@ -10,19 +10,19 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import action.Action;
-import shop.svc.ShopRegistProService;
+import admin.svc.ProductRegistProService;
 import shop.vo.ShopBean;
 import vo.ActionForward;
 
-public class ShopRegistProAction implements Action {
+public class ProductRegistProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("ShopRegistProAction!");
+		System.out.println("ProductRegistProAction!");
 		ActionForward forward = null;
 		ShopBean shopBean = null;
 		
-		String saveFolder = "/shop/shopUpload";
+		String saveFolder = "/admin/productUpload";
 		ServletContext context = request.getServletContext();
 		String realFolder = context.getRealPath(saveFolder);
 		int fileSize = 1024 * 1024 * 5;
@@ -38,16 +38,16 @@ public class ShopRegistProAction implements Action {
 		shopBean.setProduct_info(multi.getParameter("product_info"));
 		shopBean.setProduct_image(multi.getOriginalFileName((String)multi.getFileNames().nextElement()));
 		
-		ShopRegistProService shopRegistProService = new ShopRegistProService();
+		ProductRegistProService productRegistProService = new ProductRegistProService();
 		//상품 등록 작업을 위한 registProduct() 메서드 호출
 		// => 파라미터 : 상품 정보(ShopBean 객체), 리턴값 : 게시물 등록 성공 여부(boolean)
-		boolean isRegistSuccess = shopRegistProService.registProduct(shopBean);
+		boolean isRegistSuccess = productRegistProService.registProduct(shopBean);
 				
-		System.out.println("isWriteSuccess = " + isRegistSuccess);
+		System.out.println("isRegistSuccess = " + isRegistSuccess);
 		
 		
 		// 글쓰기 성공 여부에 따른 후속 처리(이동 작업)
-		// => 성공 시 : ActionForward 객체를 생성하여 상품목록(ShopList.shop) 페이지 요청(Redirect 방식)
+		// => 성공 시 : ActionForward 객체를 생성하여 상품목록(ProductList.ad) 페이지 요청(Redirect 방식)
 		if(!isRegistSuccess) { // 등록 실패
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter(); 
@@ -57,7 +57,7 @@ public class ShopRegistProAction implements Action {
 			out.println("</script>"); // 자바스크립트 종료 위한 <script> 끝 태그
 		} else { // 등록 성공
 			forward = new ActionForward(); // ActionForward 객체 생성
-			forward.setPath("ShopList.shop"); // 서블릿 주소 지정
+			forward.setPath("ProductList.ad"); // 서블릿 주소 지정
 			forward.setRedirect(true); // Redirect 방식(true) 지정
 		}
 		
