@@ -30,6 +30,13 @@ public class MemberBean {
 		this.nickname = nickname;
 		this.email = email;
 	}
+	
+	public MemberBean(String id, String nickname, String email) {
+		super();
+		this.id = id;
+		this.nickname = nickname;
+		this.email = email;
+	}
 
 	// id,password 생성자
 	public MemberBean(String id, String password) {

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 	String sId = null;
+	String nickname = null;
 	// 로그인이 되지 않은 상태일 경우 로그인 페이지로 강제 이동 처리
 	if(session.getAttribute("sId") == null) {
 		out.println("<script>");
@@ -10,6 +11,7 @@
 	    out.println("</script>");
 	} else { // 로그인 된 상태일 경우 세션 ID 가져오기
 		sId = (String)session.getAttribute("sId");
+		nickname = (String)session.getAttribute("nickname"); 
 	}
 %>    
 <!DOCTYPE html>
@@ -25,7 +27,7 @@
 		<%if(sId == null) {%>
 			<a href="LoginForm.me">로그인</a> | <a href="JoinForm.me">회원가입</a>
 		<%} else { %>
-			<%=sId %>님 | <a href="Logout.me">로그아웃</a>
+			<%=nickname %>님 | <a href="Logout.me">로그아웃</a>
 		<%} %>
 	</header>
 	<section id="writeForm">

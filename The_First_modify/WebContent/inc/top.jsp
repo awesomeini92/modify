@@ -32,7 +32,16 @@
 
 <body>
 <header class="text-right">
-		<a href=" LoginForm.me">로그인</a> | 	<a href=" JoinForm.me">회원가입</a>
+<%
+
+String id=(String)session.getAttribute("sId");
+String nickname = (String)session.getAttribute("nickname");
+if(id != null){
+	%> <%=nickname %>님 | <a href="Logout.me">로그아웃</a> <%
+}else{
+		%><a href=" LoginForm.me">로그인</a> | 	<a href=" JoinForm.me">회원가입</a><%	
+}
+%>
 	<!-- 	<a href=" Logout.me">로그아웃</a> -->
 	</header>
 	<div class="gtco-loader"></div>
@@ -44,22 +53,22 @@
 				
 				<div class="row">
 					<div class="col-sm-2 col-xs-12">
-						<div id="gtco-logo"><a href="index.html"><img src="images/logo.png" alt="Free HTML5 Website Template by FreeHTML5.co"></a></div>
+						<div id="gtco-logo"><a href="index.jsp"><img src="images/logo.png" alt="Free HTML5 Website Template by FreeHTML5.co"></a></div>
 					</div>
 					<div class="col-xs-10 text-right menu-1">
 						<ul>
-							<li class="active"><a href="index.html">Home</a></li>
+							<li class="active"><a href="index.jsp">Home</a></li>
 							<li><a href="about.html">About</a></li>
 							<li class="has-dropdown">
-								<a href="#">Boards</a>
+								<a href="CommunityList.any">Boards</a>
 								<ul class="dropdown">
-									<li><a href=" JobList.job">취업</a></li>
+									<li><a href=" JobBoardList.job">취업</a></li>
 									<li><a href=" AcademyList.ac">학원추천</a></li>
 									<li><a href=" CommunityList.any">자유</a></li>
 								</ul>
 						</li>
 							<li class="has-dropdown">
-								<a href="#">CodingQ&A</a>
+								<a href="CodingFreeList.cf">CodingQ&A</a>
 								<ul class="dropdown">
 									<li><a href="CodingFreeList.cf">Free</a></li>
 									<li><a href="CodingList.code">Charged</a></li>
