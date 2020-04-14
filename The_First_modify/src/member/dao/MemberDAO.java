@@ -54,8 +54,54 @@ public class MemberDAO {
 	}
 	
 	// 아이디 중복체크
+	public int idChk(String id) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null; 
+
+		try {
+			String sql = "SELECT COUNT(*) FROM member WHERE id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return count;
+	}
 	
 	// 닉네임 중복체크
+	public int nicknameChk(String nickname) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null; 
+
+		try {
+			String sql = "SELECT COUNT(*) FROM member WHERE nickname = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return count;
+	}
 	
 	// 회원가입
 	public int insertMember(MemberBean member) {
@@ -254,6 +300,7 @@ public class MemberDAO {
 		}
 		return false;
 	}
+
 
 
 

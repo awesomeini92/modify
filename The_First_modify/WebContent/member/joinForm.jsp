@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:if test="${sessionScope.sId != null}">
 	<script>
 		alert("이미 로그인된 회원입니다");
@@ -11,13 +11,98 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
-<title>Login Demo - Kakao JavaScript SDK</title>
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+$(function () {
+	submitId = false;
+	submitNickname = false;
+	$('#pwDupChkResult_ture').hide();
+	$('#pwDupChkResult_false').hide();
+	
+	// 아이디 중복체크
+	$('.idDup').click(function() {
+		var idValue = $('#id').val();
+		if (idValue == "") {
+			alert("아이디 입력하세요");
+			$('#id').focus();
+			return;
+		} 
+		
+		$.ajax({
+			url: "/The_First/idDupCheck.me?id=" + idValue,
+			type: "GET",
+			success: function(count) {
+				if (count == 1) {
+					alert('ID 중복');
+				} else {
+					alert('ID 사용가능');
+					submitId = true;
+				}
+			}
+		});
+	});
+	
+	// 닉네임 중복체크
+	$('.nicknameDup').click(function() {
+		var nicknameValue = $('#nickname').val();
+		if (nicknameValue == "") {
+			alert("닉네임 입력하세요");
+			$('#nickname').focus();
+			return;
+		}
+		$.ajax({
+			url: "/The_First/nicknameDupCheck.me?nickname=" + nicknameValue,
+			type: "GET",
+			data: {
+				nickname: nicknameValue
+			},
+			success: function(count) {
+				if (count == 1) {
+					alert('Nickname 중복');
+				} else {
+					alert('Nickname 사용가능');
+					submitNickname = true;
+				}
+			}
+		});
+	});
+
+	// pw 일치여부 
+	$('input').keyup(function() {
+		var pw1 = $('#password').val();
+		var pw2 = $('#pwCheck').val();
+		
+		if (pw1 != "" || pw2 != "") {
+			if (pw1 !== pw2) {
+				$('#pwDupChkResult_ture').hide();
+				$('#pwDupChkResult_false').show();
+			} else {
+				$('#pwDupChkResult_ture').show();
+				$('#pwDupChkResult_false').hide();
+			}
+		}
+		
+	});
+	
+	// 중복체크 했는지 유무 판단
+	$('#submit').click(function () {
+			if (submitId == false) {
+				alert('아이디 중복체크를 해주세요');
+				return false;
+			} else if (submitNickname == false) {
+				alert('닉네임 중복체크를 해주세요');
+				return false;
+			} else if (passRegex == false) {
+				alert('패스워드는 8~16자리 영문,숫자 조합');
+				return false;
+			} else if (sumbitId == true && submitNickname == true) {
+				$("#form").submit();
+			}
+		});
+		
+});
+	
+
  // 아이디 정규표현식 확인
  // 4~12자리 영문,숫자 조합
 	function checkId(id) {
@@ -39,7 +124,6 @@
 	 	const digitRegex = /[0-9]/;
 	 	
 	 	var element = document.querySelector('#checkPasswordResult');
-	 	
 	 	if (lengthRegex.exec(password.value) && englishCaseRegex.exec(password.value) 
 	 			&& digitRegex.exec(password.value)) {
 			element.innerHTML = "적합한 패스워드";
@@ -48,64 +132,56 @@
 		}
  	}
  
- // 아이디 중복확인
-	function dupIdCheck() {
-	 
- 	}
- 
- // 닉네임 중복확인
-	function dupNicknameCheck() {
-	 
- 	}
- 
- // 비밀번호 확인
- 	function pwCheck(passwordCheck) {
-	 
- 	}
- 
 </script>
 </head>
 <body>
-<section>
+	<section>
 		<h1>회원가입</h1>
-		<form action="JoinPro.me" method="post">
+		<form action="JoinPro.me" method="post" id="form">
 			<fieldset>
 				<table>
 					<tr>
 						<td>아이디</td>
 						<td>
-							<input type="text" name="id" id="id" required="required"
-							placeholder="4~12자리 영문,숫자 조합" onkeyup="checkId(this)">
-							<span id="checkIdResult"></span>
+							<input type="text" name="id" id="id" required="required" placeholder="4~12자리 영문,숫자 조합" onkeyup="checkId(this)"> 
+							<span id="checkIdResult"></span> 
+							<input type="button" value="dup. check" class="idDup">
+							<div id="idDupcheck"></div><br>
 						</td>
 					</tr>
 					<tr>
 						<td>닉네임</td>
-						<td><input type="text" name="nickname" id="nickname" required="required"></td>
+						<td>
+							<input type="text" name="nickname" id="nickname"required="required"> 
+							<input type="button" value="dup. check" class="nicknameDup">
+							<div id="nicknameDupcheck"></div><br>
+						</td>
 					</tr>
 					<tr>
 						<td>패스워드</td>
 						<td>
-							<input type="password" name="password" id="password" required="required"
-							placeholder="8~16자리 영문,숫자 조합" onkeyup="checkPassword(this)">
+							<input type="password" name="password" id="password" required="required" placeholder="8~16자리 영문,숫자 조합" onkeyup="checkPassword(this)"> 
 							<span id="checkPasswordResult"></span>
 						</td>
 					</tr>
 					<tr>
 						<td>패스워드 확인</td>
 						<td>
-							<input type="password" name="passwordCheck" id="pwCheck" required="required"
-							placeholder="8~16자리 영문,숫자 조합" onkeyup="pwCheck(this)">
+						<input type="password" name="passwordCheck" id="pwCheck" required="required" placeholder="8~16자리 영문,숫자 조합"> 
 							<span id="pwCheckResult"></span>
+							<span id="pwDupChkResult_ture">패스워드 일치</span>
+							<span id="pwDupChkResult_false">패스워드 불일치</span>
 						</td>
 					</tr>
 					<tr>
 						<td>email</td>
-						<td><input type="text" name="email" id="email" required="required"></td>
+						<td>
+							<input type="text" name="email" id="email" required="required">
+						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="회원가입" />
+							<input type="submit" value="회원가입" id="submit" />
 							<input type="button" value="취소" onclick="history.back()" />
 						</td>
 					</tr>
@@ -143,6 +219,6 @@
     });
   //]]>
 </script>
-	
+
 </body>
 </html>

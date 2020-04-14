@@ -19,6 +19,8 @@ import member.action.MemberMailSendAction;
 import member.action.MemberUpdateFormAction;
 import member.action.MemberUpdateProAction;
 import member.action.NewLoginAction;
+import member.action.idDupCheckAction;
+import member.action.nicknameDupCheckAction;
 import member.vo.ActionForward;
 
 
@@ -101,7 +103,22 @@ public class MemberFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else if (command.equals("/idDupCheck.me")) {
+			action = new idDupCheckAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (command.equals("/nicknameDupCheck.me")) {
+			action = new nicknameDupCheckAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		
 		// 새로운 로그인창
 		else if(command.equals("/NewLoginForm.me")) {
 			forward = new ActionForward();
