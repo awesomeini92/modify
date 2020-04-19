@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import action.Action;
 import admin.svc.ProductRegistProService;
+import admin.vo.ActionForward;
 import shop.vo.ShopBean;
-import vo.ActionForward;
 
 public class ProductRegistProAction implements Action {
 
@@ -37,6 +36,7 @@ public class ProductRegistProAction implements Action {
 		shopBean.setStock(Integer.parseInt(multi.getParameter("stock")));
 		shopBean.setProduct_info(multi.getParameter("product_info"));
 		shopBean.setProduct_image(multi.getOriginalFileName((String)multi.getFileNames().nextElement()));
+		shopBean.setBarcode_image(multi.getOriginalFileName((String)multi.getFileNames().nextElement()));
 		
 		ProductRegistProService productRegistProService = new ProductRegistProService();
 		//상품 등록 작업을 위한 registProduct() 메서드 호출

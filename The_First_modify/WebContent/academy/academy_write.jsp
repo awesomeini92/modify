@@ -18,81 +18,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>MVC 게시판</title>
-<style type="text/css">
-	#registForm {
-		width: 500px;
-		height: 610px;
-		border: 1px solid red;
-		margin: auto;
-	}
-	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 800px;
-		border: 1px solid darkgray;
-	}
-	
-	.td_left {
-		width: 20px;
-		background: orange;
-		text-align: center;
-		padding:5px;
-	}
-	
-	.td_right {
-		width: 300px;
-		padding:5px;
-	}
-	
-	#commandCell {
-		text-align: center;
-	}
-	header {
-		text-align: right;
-	}
-.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-.bg_white {background:#fff;}
-#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
-#menu_wrap .option{text-align: center;}
-#menu_wrap .option p {margin:10px 0;}  
-#menu_wrap .option button {margin-left:5px;}
-#placesList li {list-style: none;}
-#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-#placesList .item span {display: block;margin-top:4px;}
-#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-#placesList .item .info{padding:10px 0 10px 55px;}
-#placesList .info .gray {color:#8a8a8a;}
-#placesList .info .jibun {padding-left:26px;background:url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-#placesList .info .tel {color:#009900;}
-#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-#placesList .item .marker_1 {background-position: 0 -10px;}
-#placesList .item .marker_2 {background-position: 0 -56px;}
-#placesList .item .marker_3 {background-position: 0 -102px}
-#placesList .item .marker_4 {background-position: 0 -148px;}
-#placesList .item .marker_5 {background-position: 0 -194px;}
-#placesList .item .marker_6 {background-position: 0 -240px;}
-#placesList .item .marker_7 {background-position: 0 -286px;}
-#placesList .item .marker_8 {background-position: 0 -332px;}
-#placesList .item .marker_9 {background-position: 0 -378px;}
-#placesList .item .marker_10 {background-position: 0 -423px;}
-#placesList .item .marker_11 {background-position: 0 -470px;}
-#placesList .item .marker_12 {background-position: 0 -516px;}
-#placesList .item .marker_13 {background-position: 0 -562px;}
-#placesList .item .marker_14 {background-position: 0 -608px;}
-#placesList .item .marker_15 {background-position: 0 -654px;}
-#pagination {margin:10px auto;text-align: center;}
-#pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
-</style>
+<link rel="stylesheet" href="css/map.css">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 	function checkadd() {
@@ -144,65 +70,102 @@
         }).open();
 	}
 </script>
+
 </head>
+
 <body>
-	<header>
-		<!-- 세션ID(sId) 가 없을 경우 로그인(LoginForm.me), 회원가입(JoinForm.me) 링크 표시 -->
-		<!-- 세션ID(sId) 가 있을 경우 회원ID, 로그아웃(Logout.me)링크 표시 -->
-		<%if(sId == null) {%>
-			<a href="LoginForm.me">Login</a> | <a href="JoinForm.me">Join</a>
-		<%} else { %>
-			<%=sId %>님 | <a href="Logout.me">Logout</a>
-		<%} %>
-	</header>
-	<!-- 게시판 글 등록 -->
-	<section id="writeForm">
-		<h2>Academy Community</h2>
-		<form action="AcademyWritePro.ac" method="post" name="boardform">
-			<table>
-				<tr>
-					<!-- label 태그를 사용하여 해당 레이블 클릭 시 for 속성에 지정된 이름과 같은 id 속성을 갖는 텍스트필드로 커서 요청 -->
-					<td class="td_left"><label for="board_name">Nickname</label></td>
-					<td class="td_right"><input type="text" name="board_name" id="board_name" value="<%=nickname%>" required="required" readonly="readonly"/></td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="board_subject">Subject</label></td>
-					<td class="td_right"><input type="text" name="board_subject" id="board_subject" required="required" /></td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="board_content">Content</label></td>
-					<td class="td_right"><textarea name="board_content" id="board_content" cols="40" rows="15" required="required" ></textarea></td>
-				</tr>
-<!-- 				<tr> -->
-<!-- 					<td class="td_left"><label for="board_file">지도첨부</label></td> -->
-<!-- 					<td class="td_right"><input type="file" name="board_file" id="board_file" required="required" /></td> -->
-<!-- 				</tr> -->
-				<tr>
-					<td class="td_left"><label for="board_file">Address</label></td>
-					<td class="td_right">
-					<!-- <td class="td_right">주소 <input type="text" name="board_add" id="board_add"><br>
-					학원명 <input type="text" name="academy_name" id="academy_name" >
-					<input type="button" value="search" id="board_add" onclick="checkadd()"><br> -->
+	<!-- header page -->
+<%-- 	<jsp:include page="../inc/green.jsp"/> --%>
+		<jsp:include page="../inc/link.jsp"/>	
+		<jsp:include page="../inc/top.jsp"/>
+		<!-- header page -->
+		
+		<nav class="gtco-nav" role="navigation">
+			<div class="gtco-container">
+				
+				<div class="row">
+					<div class="col-sm-2 col-xs-12">
+						<div id="gtco-logo"><a href="index.html"><img src="images/logo.png" alt="Do you have any questions?"></a></div>
+					</div>
+					<div class="col-xs-10 text-right menu-1">
+						<ul>
+							<li class="active"><a href="index.html">Home</a></li>
+							<li><a href="about.html">About</a></li>
+							<li class="has-dropdown">
+								<a href="#">Boards</a>
+								<ul class="dropdown">
+									<li><a href=" JobList.job">취업</a></li>
+									<li><a href=" AcademyList.ac">학원추천</a></li>
+									<li><a href=" CommunityList.any">자유</a></li>
+								</ul>
+						</li>
+							<li class="has-dropdown">
+								<a href="#">CodingQ&A</a>
+								<ul class="dropdown">
+									<li><a href="CodingFreeList.cf">Free</a></li>
+									<li><a href="CodingList.code">Charged</a></li>
+								</ul>
+							</li>
+							<li><a href="NoticeList.no">Notice</a></li>
+							<li><a href="ShopList.shop">SHOP</a></li>
+							<li><a href="contact.html">Contact</a></li>
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+		</nav>
+	
+		<div class="gtco-section">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+<!-- 						<img src="../images/cube_img" alt="Do you have any questions?" width="100px"> -->
+					</div>
+				</div>
+		</div>
+		
+		<div class="gtco-container">
+			<div class="row">
+				<!-- 게시물 목록 가져오기 -->
+				<form action="AcademyWritePro.ac" method="post" name="boardform" class="acdemy_wf">
+					<div class="form-group">
+						<label class="control-label" for="readOnlyInput">글쓴이</label> <input
+							class="form-control" id="nickname" name="nickname" type="text" value="<%=nickname%>" readonly="">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" " for="subject">제목</label> <input
+							class="form-control form-control-lg" type="text" placeholder="제목"
+							id="subject" name="subject">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="content">내용</label><br>
+						<textarea class="form-contrdiv" name="content" id="content"
+							cols="100" rows="12" required=""></textarea>
+					</div>
+					
+					<div class="form-group">
 					<div class="map_wrap">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-
-    <div id="menu_wrap" class="bg_white">
-        <div class="option">
-            <div>
-                <div>
-                    키워드 : <input type="text" value="컴퓨터 학원" id="keyword" size="15"> 
-                    <input type="button" onclick="searchPlaces(); return false;" value="검색">
-                </div>
-            </div>
-        </div>
-        <hr>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
-    </div>
-</div>
-
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=99e4787a897671e1cd06a99afee54577&libraries=services"></script>
-<script>
+						<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+							<div id="menu_wrap" class="bg_white">
+								<div class="option">
+									<div>
+										<div>
+											키워드 : <input type="text" value="컴퓨터 학원" id="keyword"
+												size="15"> <input type="button"
+												onclick="searchPlaces(); return false;" value="검색">
+										</div>
+									</div>
+								</div>
+								<hr>
+								<ul id="placesList"></ul>
+								<div id="pagination"></div>
+							</div>
+						</div> <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=99e4787a897671e1cd06a99afee54577&libraries=services"></script>
+					</div>
+				<script>
 // 마커를 담을 배열입니다
 var markers = [];
 
@@ -426,19 +389,28 @@ function removeAllChildNods(el) {
     }
 }
 </script><br>
-			학원주소 <input type="text" name="address" id="address" required="required" style="width:200px"><br>
-			학원명 <input type="text" name="academy_name" id="academy_name" required="required" style="width:200px"><br>
+	<div class="wsr">
+			학원주소 <input type="text" name="address" id="address" required="required" style="width:200px">
+			학원명 <input type="text" name="academy_name" id="academy_name" required="required" style="width:200px"><br><br>
 <!-- 					<input type="button" value="search" id="board_add" onclick="checkadd()"> -->
-					</td>
-				</tr>
-			</table>
-					
+	</div>
+					<div class="wsr">
+						<input type="reset" class="btn btn-outline-primary btn-lg"
+							value="다시쓰기" /> <input type="submit"
+							class="btn btn-primary btn-lg" value="등록">&nbsp;&nbsp;
 
-			<section id="commandCell">
-				<input type="submit" value="Register" />&nbsp;&nbsp;
-				<input type="reset" value="Rewrite" />
-			</section>
-		</form>	
-	</section>
+					</div>
+				</form>
+			</div>
+		</div>	
+	</div>
+		
+	
+		
+	
+		
+
+		
+	
 </body>
 </html>

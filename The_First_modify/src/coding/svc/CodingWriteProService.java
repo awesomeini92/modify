@@ -10,11 +10,11 @@ public class CodingWriteProService {
 
 	public boolean insertArticle(CodingBean codingBean) {
 		boolean isWriteSuccess = false; 
-		
+
 		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
-		
+
 		int insertCount = codingDAO.insertCodingArticle(codingBean);
 		if(insertCount>0) {
 			commit(con);
@@ -22,9 +22,8 @@ public class CodingWriteProService {
 		}else {
 			rollback(con);
 		}
-		
+
 		close(con);
 		return isWriteSuccess;
 	}
-
 }

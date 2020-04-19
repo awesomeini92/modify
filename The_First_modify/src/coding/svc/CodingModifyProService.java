@@ -26,16 +26,13 @@ public class CodingModifyProService {
 	
 	
 	public boolean modifyArticle(CodingBean article) {
-		System.out.println("CodingModifyProService  modifyArticle() ");
-		
-		int updateCount = 0;
 		boolean isModifySuccess = false;
 		
 		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		
-		updateCount = codingDAO.updateArticle(article);
+		int updateCount = codingDAO.updateArticle(article);
 		
 		if(updateCount > 0) {
 			commit(con);

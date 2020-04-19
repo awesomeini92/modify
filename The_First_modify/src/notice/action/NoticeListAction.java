@@ -6,12 +6,11 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import academy_community.svc.AllService;
-import action.Action;
 import notice.svc.NoticeListService;
+import notice.vo.ActionForward;
 import notice.vo.NoticeBean;
-import vo.ActionForward;
-import vo.PageInfo;
+import notice.vo.PageInfo;
+import svc.AllService;
 
 public class NoticeListAction implements Action {
 
@@ -32,6 +31,8 @@ public class NoticeListAction implements Action {
 		//data 시간
 		AllService allService = new AllService();
 		Date today = allService.getToday();
+		
+		request.setAttribute("today", today);
 		
 		// NoticeListService 인스턴스 생성 후 게시물 목록 갯수 가져오기
 		NoticeListService noticeListService = new NoticeListService();

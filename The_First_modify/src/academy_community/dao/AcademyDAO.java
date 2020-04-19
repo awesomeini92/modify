@@ -45,7 +45,7 @@ public class AcademyDAO {
 				// 답글 순서 번호(board_re_seq) : 현재 글이 원본 글이므로 0 사용
 				// 조회수(board_readcount) : 새 글이므로 0 사용
 				// 작성일(board_date) : 현재 DB 의 날짜 및 시각 정보 전달(now() 함수를 사용하여 쿼리에서 직접 전달)
-				String sql = "INSERT INTO academy_community VALUES (?,?,?,?,?,?,now(),?);";
+				String sql = "INSERT INTO academy_community VALUES (?,?,?,?,?,?,?,now());";
 				
 				// Connection 객체로부터 PreparedStatement 객체 가져와서 쿼리 전달
 				pstmt = con.prepareStatement(sql);
@@ -98,7 +98,7 @@ public class AcademyDAO {
 			return listCount;
 		}
 // 글목록 페이징 처리
-		public ArrayList<AcademyBean> selectArticleList(int page, int limit) {
+		public ArrayList<AcademyBean> selectArticleList() {
 			// 게시물 목록 조회 후 리턴
 			ArrayList<AcademyBean> articleList = new ArrayList<AcademyBean>();
 			
@@ -114,16 +114,13 @@ public class AcademyDAO {
 			 * 
 			 * ex) 현재 페이지(page) 가 1 페이지 일 경우 : 게시물 조회 결과의 0번 행부터 10개 가져오기
 			 */
-			int startRow = (page - 1) * 10; // 첫번째 게시물 행(row) 번호 계산
 			
 			try {
 				// 조회 결과(ResultSet) 객체가 존재할 경우
 				// 반복문을 사용하여 1개 게시물 정보(패스워드 제외한 나머지)를 BoardBean 객체에 저장하고
 				// BoardBean 객체를 ArrayList<BoardBean> 객체에 저장 반복
-				String sql = "SELECT *, time(date) AS time FROM academy_community LIMIT ?,?";
+				String sql = "SELECT *, time(date) AS time FROM academy_community";
 				pstmt = con.prepareStatement(sql);
-	            pstmt.setInt(1, startRow);
-	            pstmt.setInt(2, limit);
 	            rs = pstmt.executeQuery();
 	            
 	            // ResultSet 객체 내의 모든 레코드를 각각 레코드별로 BoardBean 에 담아서 ArrayList 객체에 저장

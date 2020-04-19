@@ -1,6 +1,5 @@
 package notice.svc;
 
-
 import static db.JdbcUtil.*;
 
 import java.sql.Connection;

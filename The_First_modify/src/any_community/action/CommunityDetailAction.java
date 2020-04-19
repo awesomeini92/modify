@@ -1,6 +1,7 @@
 package any_community.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,7 @@ import any_community.vo.AnyCommentBean;
 import any_community.svc.CommunityDetailService;
 import any_community.vo.ActionForward;
 import any_community.vo.CommunityBean;
+import svc.AllService;
 
 public class CommunityDetailAction implements Action {
 
@@ -35,6 +37,10 @@ public class CommunityDetailAction implements Action {
 			CommunityDetailService.plusReadcount(num);
 		}
 		
+		AllService allService = new AllService();
+		Date today = allService.getToday();
+		
+		request.setAttribute("today", today);
 		request.setAttribute("article", article);
 		request.setAttribute("page", nowPage);
 		

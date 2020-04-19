@@ -3,7 +3,7 @@ package notice.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import any_community.vo.ActionForward;
+import notice.vo.ActionForward;
 
 public interface Action {
 

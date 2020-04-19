@@ -1,19 +1,10 @@
-<%@page import="coding.vo.PageInfo"%>
-<%@page import="coding.vo.CodingBean"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.sql.Date"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- 
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
 <%
 	// Action 클래스에서 request 객체의 setAttibute() 메서드로 저장되어 전달된 객체 가져오기(Object 타입이므로 형변환 필요)
-	ArrayList<CodingBean> articleList = (ArrayList<CodingBean>)request.getAttribute("articleList");
 	Date today = (Date)request.getAttribute("today");
-	
-	
-	
 %>  
 <!DOCTYPE HTML>
 <!--
@@ -22,20 +13,22 @@
 	URL: http://freehtml5.co
 -->
 <html>
-	
+	<head>
 
 	</head>
 	<body>
-	
 		<!-- header page -->
+		<jsp:include page="inc/link.jsp"/>
 		<jsp:include page="inc/top.jsp"/>
+		<jsp:include page="inc/green.jsp"/>
 		<!-- header page -->
+
 
 		<div class="gtco-services gtco-section">
 			<div class="gtco-container">
 				<div class="row row-pb-sm">
 					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-						<h2>Make your life simpler.</h2>
+						<h2></h2>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat enim et urna sagittis, rhoncus euismod erat tincidunt. Donec tincidunt volutpat erat.</p>
 						<p><a href="https://vimeo.com/channels/staffpicks/93951774" class="btn btn-special popup-vimeo">Watch The Video</a></p>
 					</div>

@@ -13,6 +13,7 @@ import java.sql.Date;
 //purchase_count INT NOT NULL,
 //date DATETIME NOT NULL,
 //qty INT NOT NULL,
+//barcode_image VARCHAR(500) NOT NULL,
 //FOREIGN KEY shop(buyer_id) REFERENCES member(id)
 //);
 
@@ -27,13 +28,14 @@ public class ShopBean {
 	private int purchase_count; //구매수량(누적)
 	private Date date; //날짜
 	private int qty; //구매수량
+	private String barcode_image; //상품 바코드 이미지
 	
 	
 	public ShopBean() {}
 
 
 	public ShopBean(String product_cod, String buyer_id, String product_name, int price, int stock,
-			String product_image, String product_info, int purchase_count, Date date, int qty) {
+			String product_image, String product_info, int purchase_count, Date date, int qty, String barcode_image) {
 		super();
 		this.product_cod = product_cod;
 		this.buyer_id = buyer_id;
@@ -45,7 +47,7 @@ public class ShopBean {
 		this.purchase_count = purchase_count;
 		this.date = date;
 		this.qty = qty;
-		
+		this.barcode_image = barcode_image;
 	}
 
 
@@ -147,6 +149,19 @@ public class ShopBean {
 	public void setQty(int qty) {
 		this.qty = qty;
 	}
+
+
+	public String getBarcode_image() {
+		return barcode_image;
+	}
+
+
+	public void setBarcode_image(String barcode_image) {
+		this.barcode_image = barcode_image;
+	}
+
+
+
 
 
 

@@ -131,16 +131,16 @@ public class MemberDAO {
 	}
 	
 	// 회원 가져오기
-	public MemberBean getMember(String id) {
+	public MemberBean getMember(String nickname) {
 		con = getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		MemberBean mb = new MemberBean();
 		
 		try {
-			String sql = "SELECT * FROM member WHERE id = ?";
+			String sql = "SELECT * FROM member WHERE nickname = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setString(1, nickname);
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
@@ -302,6 +302,156 @@ public class MemberDAO {
 	}
 
 
+	//dain
+		public int updateCP(String nickname, int article_CP) {
+			int updateNum = 0;
+			PreparedStatement pstmt = null;
+			
+			try {
+				String sql = "UPDATE member SET CP=CP-? WHERE nickname =?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, article_CP);
+				pstmt.setString(2, nickname);
+				updateNum = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			
+			// TODO Auto-generated method stub
+			return updateNum;
+		}
+
+		public int updateMemberCP(String nickname, int CP) {
+			int updateNum = 0;
+			PreparedStatement pstmt = null;
+			
+			try {
+				String sql = "UPDATE member SET CP=CP+? WHERE nickname =?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, CP);
+				pstmt.setString(2, nickname);
+				updateNum = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			
+			// TODO Auto-generated method stub
+			return updateNum;
+		}
+		
+		public int selectCP(String nickname) {
+			int userCP = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			// 글번호(board_num)에 해당하는 게시물 정보 조회
+			try {
+				String sql = "SELECT CP FROM member WHERE nickname=?";
+
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, nickname);
+				rs = pstmt.executeQuery();
+				
+				// 게시물이 존재할 경우 BoardBean 객체에 저장
+//				if(rs.next()) { //while?
+				if(rs.next()) {
+					userCP = rs.getInt("CP");
+									
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			return userCP;
+		}
+
+		public int updateArticleLP(String nickname) {
+			int updateNum = 0;
+			PreparedStatement pstmt = null;
+			
+			try {
+				String sql = "UPDATE member SET LP=LP+20 WHERE nickname =?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, nickname);
+				updateNum = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+
+			return updateNum;
+		}
+
+		public int updateCommentLP(String nickname) {
+			int updateNum = 0;
+			PreparedStatement pstmt = null;
+			
+			try {
+				String sql = "UPDATE member SET LP=LP+10 WHERE nickname =?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, nickname);
+				updateNum = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+
+			return updateNum;
+		}
+
+		public int minusArticletLP(String nickname) {
+			int updateNum = 0;
+			PreparedStatement pstmt = null;
+			
+			try {
+				String sql = "UPDATE member SET LP=LP-20 WHERE nickname =?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, nickname);
+				updateNum = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+
+			return updateNum;
+		}
+
+
+		public int minusCommentLP(String nickname) {
+			int updateNum = 0;
+			PreparedStatement pstmt = null;
+			
+			try {
+				String sql = "UPDATE member SET LP=LP-10 WHERE nickname =?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, nickname);
+				updateNum = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+
+			return updateNum;
+		}
+		
+		
 
 
 	

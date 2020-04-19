@@ -1,12 +1,14 @@
 package coding_free.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import coding_free.svc.CodingFreeCommentListService;
 import coding_free.vo.CodingFreeCommentBean;
+import svc.AllService;
 import coding_free.svc.CodingFreeDetailService;
 import coding_free.vo.ActionForward;
 import coding_free.vo.CodingFreeBean;
@@ -15,30 +17,36 @@ public class CodingFreeDetailAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("CommunityDetailAction!");
+		System.out.println("CodingFreeDetailAction!");
 		
-		int num = Integer.parseInt(request.getParameter("num"));
-		String page = request.getParameter("page");
+		int post_num = Integer.parseInt(request.getParameter("post_num"));
+//		String page = request.getParameter("page");
 		
 		CodingFreeDetailService codingFreeDetailService = new CodingFreeDetailService();
-		CodingFreeBean article = codingFreeDetailService.getArticle(num);
-		
-		CodingFreeCommentListService commentListService = new CodingFreeCommentListService();
-		ArrayList<CodingFreeCommentBean> comentList = commentListService.getCommentList(num);
-		
-		if (comentList.size() > 0) {
-			request.setAttribute("commentList", comentList);
-		}
+		CodingFreeBean article = codingFreeDetailService.getArticle(post_num);
+
+		//		CodingFreeCommentListService commentListService = new CodingFreeCommentListService();
+//		ArrayList<CodingFreeCommentBean> comentList = commentListService.getCommentList(post_num);
+//		
+//		if (comentList.size() > 0) {
+//			request.setAttribute("commentList", comentList);
+//		}
 		
 		if (article != null) {
-			CodingFreeDetailService.plusReadcount(num);
+			CodingFreeDetailService.plusReadcount(post_num);
 		}
 		
+		AllService allService = new AllService();
+		Date today = allService.getToday();
+		
 		request.setAttribute("article", article);
-		request.setAttribute("page", page);
+//		request.setAttribute("page", page);
+		request.setAttribute("today", today);
+		request.setAttribute("post_num", post_num);
 		
 		ActionForward forward = new ActionForward();
-		forward.setPath("/coding_free/codingFreeView.jsp");
+//		forward.setPath("/coding_free/codingFreeView.jsp");
+		forward.setPath("/coding_free/make_codingFreeView.jsp");
 		
 		return forward;
 	}

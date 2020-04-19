@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import coding.action.CmmntDeleteHeartAction;
 import coding.action.CmmntDeleteProAction;
+import coding.action.CmmntHeartListAction;
 import coding.action.CmmntListAction;
 import coding.action.CmmntModifyFormAction;
 import coding.action.CmmntModifyProAction;
@@ -25,7 +27,11 @@ import coding.action.CodingReplyDetailAction;
 import coding.action.CodingReplyListAction;
 import coding.action.CodingReplyWriteAction;
 import coding.action.CodingReplyWriteProAction;
+import coding.action.CodingWriteFormAction;
+import coding.action.CodingReplySelectedAction;
 import coding.action.CodingWriteProAction;
+import coding.action.CmmntUpdateHeartAction;
+import coding.action.pre_CodingReplyDetailAction;
 import vo.ActionForward;
 
 @WebServlet("*.code")
@@ -49,8 +55,12 @@ public class CodingFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else if(command.equals("/CodingWriteForm.code")) {
-			forward = new ActionForward();
-			forward.setPath("/coding/codingWriteForm.jsp");
+			action = new CodingWriteFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}else if(command.equals("/CodingWirtePro.code")) {
 			action = new CodingWriteProAction();
 			try {
@@ -59,7 +69,6 @@ public class CodingFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else if(command.equals("/CodingDetail.code")) {
-			System.out.println("CodingDetail mapping");
 			action = new CodingDetailAction();
 			try {
 				forward = action.execute(request, response);
@@ -83,14 +92,14 @@ public class CodingFrontController extends HttpServlet {
 		} else if(command.equals("/CodeFileDown.code")) {
 			forward = new ActionForward();
 			forward.setPath("/coding/file_down.jsp");
-		}else if(command.equals("/CodingReply.code")) {
+		}else if(command.equals("/CodingReplyWrite.code")) {
 			action = new CodingReplyWriteAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/CodingReplyPro.code")) {
+		}else if(command.equals("/CodingReplyWirtePro.code")) {
 			action = new CodingReplyWriteProAction();
 			try {
 				forward = action.execute(request, response);
@@ -104,7 +113,14 @@ public class CodingFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/CodingReplyDetail.code")) {
+		}else if(command.equals("/pre_CodingReplyDetail.code")) { //원래 디테일액션
+			action = new pre_CodingReplyDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CodingReplyDetail.code")) { //지금은 페이징
 			action = new CodingReplyDetailAction();
 			try {
 				forward = action.execute(request, response);
@@ -125,6 +141,20 @@ public class CodingFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/CodingReplySelected.code")) {
+			action = new CodingReplySelectedAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CodingReplySelectedFin.code")) {
+			action = new CodingDetailAction();  //????????
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}else if(command.equals("/CmmntList.code")) {
 			action = new CmmntListAction();
 			try {
@@ -139,14 +169,14 @@ public class CodingFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/CmmntUpdateForm.code")) {
+		}else if(command.equals("/CmmntModifyForm.code")) {
 			action = new CmmntModifyFormAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/CmmntUpdatePro.code")) {
+		}else if(command.equals("/CmmntModifyPro.code")) {
 			action = new CmmntModifyProAction();
 			try {
 				forward = action.execute(request, response);
@@ -160,9 +190,28 @@ public class CodingFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/CmmntHeartList.code")) {
+			action = new CmmntHeartListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CmmntUpdateHeart.code")) {
+			action = new CmmntUpdateHeartAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CmmntDeleteHeart.code")) {
+			action = new CmmntDeleteHeartAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		 
-		
 		
 		
 		

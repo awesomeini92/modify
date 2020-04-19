@@ -8,6 +8,9 @@ public class CodingFreeCommentBean {
 	private String nickname;
 	private String comment;
 	private Date date;
+	private String time;
+	private int heart;
+	
 
 	public CodingFreeCommentBean() {
 		super();
@@ -58,6 +61,22 @@ public class CodingFreeCommentBean {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public int getHeart() {
+		return heart;
+	}
+
+	public void setHeart(int heart) {
+		this.heart = heart;
 	}
 
 }

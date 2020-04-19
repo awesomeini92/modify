@@ -20,16 +20,23 @@ public class CmmntDeleteProAction implements Action {
 		String page = request.getParameter("page");
 		
 		CmmntDeleteProService cmmntDeleteProService = new CmmntDeleteProService();
-		boolean isDelete = cmmntDeleteProService.deleteCmmnt(comment_num);
+		boolean isDelete = cmmntDeleteProService.deleteCmmntHeart(comment_num);
 		 
-		
+		System.out.println("1");
 		if(isDelete) {
-			forward = new ActionForward();
-			request.setAttribute("post_num", post_num);
-			request.setAttribute("page", page);
-//			forward.setPath("/coding/codingView.jsp");
-			forward.setPath("CodingDetail.code");
-			forward.setRedirect(true);
+			System.out.println("2");
+			isDelete = cmmntDeleteProService.deleteCmmnt(comment_num);
+			System.out.println("3");
+			if(isDelete) {
+				System.out.println("4");
+				forward = new ActionForward();
+	//			request.setAttribute("post_num", post_num);
+	//			request.setAttribute("page", page);
+//				forward.setPath("CodingDetail.code");
+//				forward.setPath("/coding/make_cmmntView.jsp");
+				forward.setPath("CmmntList.code?post_num="+post_num);
+//				forward.setRedirect(true);
+			}
 		}
 		return forward;
 	}

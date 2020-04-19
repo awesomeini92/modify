@@ -9,6 +9,8 @@ public class CmmntBean {
 	private String comment;
 	private Date date;
 	private String time; 
+	private String recommender;
+	private int heart;
 	
 	public int getComment_num() {
 		return comment_num;
@@ -45,6 +47,18 @@ public class CmmntBean {
 	}
 	public void setTime(String time) {
 		this.time = time;
+	}
+	public int getHeart() {
+		return heart;
+	}
+	public void setHeart(int heart) {
+		this.heart = heart;
+	}
+	public String getRecommender() {
+		return recommender;
+	}
+	public void setRecommender(String recommender) {
+		this.recommender = recommender;
 	}
 	
 	

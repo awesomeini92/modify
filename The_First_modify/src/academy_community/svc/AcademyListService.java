@@ -33,7 +33,7 @@ public class AcademyListService {
 		return listCount;
 	}
 
-	public ArrayList<AcademyBean> getArticleList(int page, int limit) {
+	public ArrayList<AcademyBean> getArticleList() {
 //		System.out.println("BoardListService - getArticleList()");
 		ArrayList<AcademyBean> articleList = null;
 		
@@ -49,7 +49,7 @@ public class AcademyListService {
 		// 4. DB 작업을 위한 DAO 객체의 메서드 호출
 		// => BoardDAO 객체의 selectArticleList() 메서드를 호출하여 게시물 목록 가져오기
 		// => 파라미터 : page, limit, 리턴타입 : ArrayList<BoardBean>
-		articleList = boardDAO.selectArticleList(page, limit);
+		articleList = boardDAO.selectArticleList();
 		
 		// 5. Connection 객체 반환하기
 		close(con);

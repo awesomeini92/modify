@@ -5,11 +5,10 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import academy_community.svc.AllService;
-import action.Action;
 import notice.svc.NoticeDetailService;
+import notice.vo.ActionForward;
 import notice.vo.NoticeBean;
-import vo.ActionForward;
+import svc.AllService;
 
 public class NoticeDetailAction implements Action {
 
@@ -25,6 +24,8 @@ public class NoticeDetailAction implements Action {
 		//data 시간
 		AllService allService = new AllService();
 		Date today = allService.getToday();
+		
+		request.setAttribute("today", today);
 		
 		// NoticeDetailService 클래스의 getArticle() 메서드를 호출하여 게시물 정보 가져오기
 		// => 파라미터로 글 번호(num) 전달, 리턴타입 NoticeBean

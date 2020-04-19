@@ -8,36 +8,74 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="Login_v4/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v4/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v4/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v4/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v4/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="Login_v4/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v4/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v4/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="Login_v4/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v4/css/util.css">
+	<link rel="stylesheet" type="text/css" href="Login_v4/css/main.css">
 </head>
 <body>
-<section id="loginFormArea">
-		<h1>로그인</h1>
-		<form action="LoginPro.me" method="post" name="loginForm">
-			<fieldset>
-				<table>
-					<tr>
-						<td>
-							<label for="id">아이디 : </label>
-						</td>
-						<td>
-							<input type="text" name="id">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label for="id">패스워드 : </label>
-						</td>
-						<td>
-							<input type="password" name="password">
-						</td>
-					</tr>
-				</table>
-				<input type="submit" value="로그인">
-			</fieldset>
-		</form>
-	</section>
-	<a id="kakao-login-btn"></a>
-<a href="http://developers.kakao.com/logout"></a>
+	<section id="loginFormArea">
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<form class="login100-form validate-form" action="LoginPro.me" method="post">
+					<span class="login100-form-title p-b-49">
+						Login
+					</span>
+
+					<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
+						<span class="label-input100">Id</span>
+						<input class="input100" type="text" name="id" placeholder="Type your ID">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<span class="label-input100">Password</span>
+						<input class="input100" type="password" name="password" placeholder="Type your password">
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+					</div>
+					
+					<div class="text-right p-t-8 p-b-31">
+						<a href="#">
+							
+						</a>
+					</div>
+					
+					
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn" type="submit">
+								Login
+							</button>
+						</div>
+					</div>
+
+					<div class="text-right p-t-8 p-b-31">
+						<a href="#">
+							
+						</a>
+					</div>
+<a id="kakao-login-btn"></a>
+<!-- <a href="http://developers.kakao.com/logout"></a> -->
 <script type='text/javascript'>
   //<![CDATA[
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -66,6 +104,40 @@
     });
   //]]>
 </script>
+					<div class="flex-col-c p-t-155">
+						<span class="txt1 p-b-17">
+							비회원 이세요? 회원가입을 통해 컨텐츠를 이용해보세요
+						</span>
+
+						<a href=" JoinForm.me" class="txt2">
+							Sign Up
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</section>
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="../Login_v4/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../Login_v4/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../Login_v4/vendor/bootstrap/js/popper.js"></script>
+	<script src="../Login_v4/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../Login_v4/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../Login_v4/vendor/daterangepicker/moment.min.js"></script>
+	<script src="../Login_v4/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="../Login_v4/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="../Login_v4/js/main.js"></script>
+
 	
 </body>
 </html>

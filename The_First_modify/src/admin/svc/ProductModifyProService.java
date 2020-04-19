@@ -11,8 +11,10 @@ import shop.vo.ShopBean;
 
 public class ProductModifyProService {
 
-
+//상품수정
 	public boolean modifyProduct(ShopBean product) throws Exception {
+		System.out.println("ProductModifyProService - modifyProduct()");
+		
 		int updateCount = 0;
 		boolean isModifySuccess = false;
 		

@@ -49,6 +49,7 @@ public class MemberLoginService {
 		
 		nickname = memberDAO.getUserNickname(id);
 		
+		close(con);
 		return nickname;
 	}
 	

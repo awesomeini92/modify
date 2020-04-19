@@ -2,26 +2,29 @@ package notice.action;
 
 import java.io.PrintWriter;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import notice.svc.NoticeModifyProService;
+import notice.vo.ActionForward;
 import notice.vo.NoticeBean;
-import vo.ActionForward;
 
 public class NoticeModifyProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("NoticeModifyProAction");
-		
 		ActionForward forward = null;
+		
 		
 		// 파라미터로 전달된 글번호(num), 페이지번호(page) 가져와서 변수에 저장
 		int num = Integer.parseInt(request.getParameter("num"));
 		String page = request.getParameter("page");
-		
+
 		
 		// 게시물 수정을 위한 본인 확인 작업 => NoticeModifyProService 클래스의 isArticleWriter() 메서드 호출
 		// => 파라미터 : 글번호(num) 리턴타입 : boolean(isRightUser)
@@ -41,6 +44,7 @@ public class NoticeModifyProAction implements Action {
 			out.println("history.back()");// 이전 페이지로 돌아가기
 			out.println("</script>"); // 자바스크립트 종료 위한 <script> 끝 태그
 		} else {
+			
 			// 본인 확인 완료 시 NoticeBean 객체에 수정된 게시물 내용 저장 후
 			// NoticeModifyProService 클래스의 modifyArticle() 메서드를 호출
 			// => 파라미터 : NoticeBean   리턴타입 : boolean(isModifySuccess)
@@ -48,6 +52,7 @@ public class NoticeModifyProAction implements Action {
 			article.setNum(num);
 			article.setSubject(request.getParameter("subject"));
 			article.setContent(request.getParameter("content"));
+
 			
 			boolean isModifySuccess = noticeModifyProService.modifyArticle(article);
 			

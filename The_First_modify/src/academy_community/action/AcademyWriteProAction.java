@@ -22,9 +22,9 @@ public class AcademyWriteProAction implements Action {
 		// => 이름, 패스워드, 글제목, 글내용, 파일명
 		boardBean = new AcademyBean();
 		// 주의사항! request.getParameter() 메서드 대신 multi.getParameter() 메서드 사용 필수!
-		boardBean.setNickname(request.getParameter("board_name"));
-		boardBean.setSubject(request.getParameter("board_subject"));
-		boardBean.setContent(request.getParameter("board_content"));
+		boardBean.setNickname(request.getParameter("nickname"));
+		boardBean.setSubject(request.getParameter("subject"));
+		boardBean.setContent(request.getParameter("content"));
 		boardBean.setAddress(request.getParameter("address"));
 		boardBean.setAcademy_name(request.getParameter("academy_name"));
 		

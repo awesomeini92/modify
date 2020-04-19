@@ -3,22 +3,19 @@ package coding.svc;
 import static db.JdbcUtil.*;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Date;
 
 import coding.dao.CodingDAO;
 import coding.vo.CmmntBean;
 
 public class CmmntListService {
 
-	public int getCommentListCount(int num) {
-		int listCount = -1;
+	public int getCommentListCount(int post_num) {
 		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		
-		listCount = codingDAO.selectCommentListCount(num);
+		int listCount = codingDAO.selectCommentListCount(post_num);
 
-		
 		close(con);
 		
 		return listCount;
@@ -39,6 +36,20 @@ public class CmmntListService {
 		return cmmntList;
 	}
 	
+	public CmmntBean getCmmnt(int post_num, int comment_num) {
+		CmmntBean cmmnt = null;
+		
+		Connection con = getConnection();
+		CodingDAO codingDAO = CodingDAO.getInstance();
+		codingDAO.setConnection(con);
+		
+		cmmnt = codingDAO.selectCmmnt(post_num, comment_num);
+		
+		
+		close(con);
+		
+		return cmmnt;
+	}
 	
 
 }

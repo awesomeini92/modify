@@ -290,7 +290,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 .gtco-cover {
-  height: 900px;
+  height: 500px;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -329,7 +329,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 .gtco-cover .display-t,
 .gtco-cover .display-tc {
-  height: 900px;
+  height: 500px;
   display: table;
   width: 100%;
 }
@@ -843,7 +843,7 @@ form label {
   margin-bottom: 0 !important;
 }
 #gtco-header .copy {
-  margin-top: 0em;
+  margin-top: 6%
 }
 #gtco-header .btn {
   color: #34a7bd !important;

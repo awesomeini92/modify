@@ -98,12 +98,12 @@ public class JobBoardDAO {
 	            // => 패스워드 제외
 	            while(rs.next()) {
 	                JobBoardBean boardBean = new JobBoardBean();
-	                boardBean.setBoard_num(rs.getInt("board_num"));
-	                boardBean.setBoard_nickname(rs.getString("board_name"));
-	                boardBean.setBoard_subject(rs.getString("board_subject"));
-	                boardBean.setBoard_content(rs.getString("board_content"));
-	                boardBean.setBoard_readcount(rs.getInt("board_readcount"));
-	                boardBean.setBoard_date(rs.getDate("board_date"));
+	                boardBean.setBoard_num(rs.getInt("num"));
+	                boardBean.setBoard_nickname(rs.getString("nickname"));
+	                boardBean.setBoard_subject(rs.getString("subject"));
+	                boardBean.setBoard_content(rs.getString("content"));
+	                boardBean.setBoard_readcount(rs.getInt("readcount"));
+	                boardBean.setBoard_date(rs.getDate("date"));
 	                
 	                articleList.add(boardBean);
 	            }
@@ -125,7 +125,7 @@ public class JobBoardDAO {
 			
 			JobBoardBean article = null;
 			
-			// 글번호(board_num)에 해당하는 게시물 정보 조회
+			// 글번호(num)에 해당하는 게시물 정보 조회
 			try {
 				String sql = "SELECT * FROM job_community WHERE num=?";
 				pstmt = con.prepareStatement(sql);
@@ -136,11 +136,11 @@ public class JobBoardDAO {
 				if(rs.next()) {
 					article = new JobBoardBean();
 					article.setBoard_num(rs.getInt("num"));
-					article.setBoard_nickname(rs.getString("name"));
-					article.setBoard_subject(rs.getString("board_subject"));
-					article.setBoard_content(rs.getString("board_content"));
-	                article.setBoard_readcount(rs.getInt("board_readcount"));
-	                article.setBoard_date(rs.getDate("board_date"));
+					article.setBoard_nickname(rs.getString("nickname"));
+					article.setBoard_subject(rs.getString("subject"));
+					article.setBoard_content(rs.getString("content"));
+	                article.setBoard_readcount(rs.getInt("readcount"));
+	                article.setBoard_date(rs.getDate("date"));
 				}
 				
 			} catch (SQLException e) {

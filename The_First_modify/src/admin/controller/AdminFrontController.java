@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
+import admin.action.Action;
 import admin.action.ProductDeleteProAction;
 import admin.action.ProductListAction;
 import admin.action.ProductModifyFormAction;
 import admin.action.ProductModifyProAction;
 import admin.action.ProductRegistProAction;
-import vo.ActionForward;
+import admin.vo.ActionForward;
 
 @WebServlet("*.ad")
 public class AdminFrontController extends HttpServlet {
@@ -78,11 +78,7 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		//상품 삭제	
-//		} else if(command.equals("/ProductDeleteFrom.ad")) {
-//			forward = new ActionForward();
-//			forward.setPath("");//목록에서 버튼으로 바로 삭제
-//				
+			
 		} else if(command.equals("/ProductDeletePro.ad")) {
 			action = new ProductDeleteProAction();						
 			try {

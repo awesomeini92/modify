@@ -5,10 +5,9 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
 import admin.svc.ProductModifyProService;
+import admin.vo.ActionForward;
 import shop.vo.ShopBean;
-import vo.ActionForward;
 
 public class ProductModifyProAction implements Action {
 
@@ -23,12 +22,11 @@ public class ProductModifyProAction implements Action {
 		
 		ProductModifyProService productModifyProService = new ProductModifyProService();
 			
-		
 			// ShopBean 객체에 수정된 게시물 내용 저장 후
 			// ProductModifyProService 클래스의 modifyProduct() 메서드를 호출
-			// => 파라미터 : ShopBean   리턴타입 : boolean(isModifySuccess)
+			// => 파라미터 : product   리턴타입 : boolean(isModifySuccess)
 			ShopBean product = new ShopBean();
-			product.setProduct_cod("product_cod");
+			product.setProduct_cod(product_cod);
 			product.setProduct_name(request.getParameter("product_name"));
 			product.setPrice(Integer.parseInt(request.getParameter("price")));
 			product.setStock(Integer.parseInt(request.getParameter("stock")));
@@ -50,7 +48,7 @@ public class ProductModifyProAction implements Action {
 				// => ActionForward 객체를 사용하여 수정된 게시물로 이동(Redirect 방식)
 				//    (URL : NoticeDetail.no?num=x&page=y)
 				forward = new ActionForward();
-				forward.setPath("/ProductList.ad");
+				forward.setPath("ProductList.ad");
 				forward.setRedirect(true);
 			}
 			

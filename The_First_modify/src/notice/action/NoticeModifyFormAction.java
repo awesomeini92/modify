@@ -3,10 +3,9 @@ package notice.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
 import notice.svc.NoticeDetailService;
+import notice.vo.ActionForward;
 import notice.vo.NoticeBean;
-import vo.ActionForward;
 
 public class NoticeModifyFormAction implements Action {
 

@@ -12,6 +12,7 @@ public class CodingBean {
 	private Date date;
 	private int isPublic;
 	private int password;
+	private int CP;
 	private String time;
 	
 	
@@ -74,6 +75,12 @@ public class CodingBean {
 	}
 	public void setPassword(int password) {
 		this.password = password;
+	}
+	public int getCP() {
+		return CP;
+	}
+	public void setCP(int cP) {
+		CP = cP;
 	}
 	
 	

@@ -10,6 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import coding_free.action.Action;
+import coding_free.action.CmmntDeleteHeartAction;
+import coding_free.action.CmmntDeleteProAction;
+import coding_free.action.CmmntFreeUpdateHeartAction;
+import coding_free.action.CmmntListAction;
+import coding_free.action.CmmntModifyFormAction;
+import coding_free.action.CmmntModifyProAction;
+import coding_free.action.CmmntPagingDetailAction;
+import coding_free.action.CmmntWriteProAction;
 import coding_free.action.CodingFreeDetailAction;
 import coding_free.action.CodingFreeListAction;
 import coding_free.action.CodingFreeWriteProAction;
@@ -76,7 +84,63 @@ public class CodingFreeFrontController extends HttpServlet{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/CodingFreeFileDown.cf")) {
+		} else if(command.equals("/CodingFreeCommentList.cf")) {
+			action = new CmmntListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/CmmntWritePro.cf")) {
+			action = new CmmntWriteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CmmntDeletePro.cf")) {
+			action = new CmmntDeleteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CmmntModifyForm.cf")) {
+			action = new CmmntModifyFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/CmmntModifyPro.cf")) {
+			action = new CmmntModifyProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/CmmntFreeUpdateHeart.cf")) {
+			action = new CmmntFreeUpdateHeartAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CmmntDeleteHeart.cf")) {
+			action = new CmmntDeleteHeartAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/CmmntPagingDetail.cf")) {
+			action = new CmmntPagingDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CodingFreeFileDown.cf")) {
 			forward = new ActionForward();
 			forward.setPath("/coding_free/file_down.jsp");
 		}

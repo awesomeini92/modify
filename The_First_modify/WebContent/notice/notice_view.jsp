@@ -1,97 +1,105 @@
 <%@page import="notice.vo.NoticeBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String sId = null;
-	// 로그인이 되지 않은 상태일 경우 로그인 페이지로 강제 이동 처리
-	if(session.getAttribute("sId") == null) {
-		out.println("<script>");
-	    out.println("alert('로그인이 필요한 서비스입니다!')");
-	    out.println("location.href='LoginForm.me'");
-	    out.println("</script>");
-	} else { // 로그인 된 상태일 경우 세션 ID 가져오기
-		sId = (String)session.getAttribute("sId");
-	}
-	
-	// 전달받은 request 객체에서 데이터 가져오기
-	NoticeBean article = (NoticeBean)request.getAttribute("article");
-	String nowPage = (String)request.getAttribute("page");
-%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<c:if test="${sessionScope.nickname==null }">
+    <script type="text/javascript">
+		alert("로그인 해주세요");
+		location.href="LoginForm.me"
+	</script>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>공지사항</title>
-<style type="text/css">
-	#articleForm {
-		width: 500px;
-		height: 500px;
-		border: 1px solid red;
-		margin: auto;
+<script type="text/javascript">
+function modify_article(post_num){
+	if (confirm("게시글 수정하시겠습니까?") == true){    //확인
+// 		location.href="CmmntModifyForm.cf?post_num=${post_num }&comment_num="+comment_num;
+	}else{   //취소
+		return false;
 	}
-	
-	h2 {
-		text-align: center;
+}
+
+function modify_article(post_num){
+	if (confirm("댓글 삭제하시겠습니까?") == true){    //확인
+// 		location.href="CmmntDeletePro.cf?post_num=${post_num }&nickname=${sessionScope.nickname }&comment_num="+comment_num;
+	}else{   //취소
+		return false;
 	}
-	
-	#basicInfoArea {
-		height: 40px;
-		text-align: center;
-	}
-	
-	#articleContentArea {
-		background: orange;
-		margin-top: 20px;
-		height: 350px;
-		text-align: center;
-		overflow: auto; /* 지정 영역 크기 이상일 경우 자동으로 스크롤바 생성*/
-	}
-		
-	#commandList {
-		matgin: auto;
-		width: 500;
-		text-align: center;
-	}
-	header {
-		text-align: right;
-	}
-</style>
+}
+
+</script>
 </head>
 <body>
-	<header>
-		<!-- 세션ID(sId) 가 없을 경우 로그인(LoginForm.me), 회원가입(JoinForm.me) 링크 표시 -->
-		<!-- 세션ID(sId) 가 있을 경우 회원ID, 로그아웃(Logout.me)링크 표시 -->
-		<%if(sId == null) {%>
-			<a href="LoginForm.me">로그인</a> | <a href="JoinForm.me">회원가입</a>
-		<%} else { %>
-			<%=sId %>님 | <a href="Logout.me">로그아웃</a>
-		<%} %>
-	</header>
+
+		<!-- header page -->
+		<jsp:include page="../inc/link.jsp"/>
+		<jsp:include page="../inc/top.jsp"/>
+		<jsp:include page="../inc/green.jsp"/>
+		<!-- header page -->
+
+<section class="gtco-section">
+
+<div class="gtco-container">
+
+<div class="w3-article">
+	 <div class="notice-box"> 
+			<div class="w3-border w3-padding">
+				<i class="fa fa-user"></i> <a href="#">${article.nickname }</a>
+				<br>
+				<i class="fa fa-calendar">
+					<c:if test="${article.date==today}">
+							<td>${article.time}</td>
+					</c:if>
+					<c:if test="${article.date<today}">
+							<td id="date">${article.date}</td>
+					</c:if>
+				</i>
+				<div class="w3-right">
+					<!-- 조회수 --><span><i class="fa fa-eye"></i>${article.readcount }</span>&nbsp;
+				</div>
+			</div>
+			<div class="w3-border w3-padding">
+				No.${article.num }&nbsp;&nbsp;&nbsp; <span class="w3-center w3-xlarge w3-text-blue">${article.subject }</span>
+			</div>
+<%-- 			<article class="w3-border w3-large w3-padding">${article.content }</article> --%>
+				<c:if test="${article.file != null}">
+							<article class="w3-border w3-large w3-padding notice_content">
+					<img src="/notice/noticeUpload/${article.file }" width=800px >	<br><br><br>
+					${article.content } <br><br>
+				</article>
+					</c:if>
+			<div class="w3-border w3-padding">첨부파일: <a href="NoticeFileDown.no?file_name=${article.file }" target="blank">${article.file }</a></div><br>
+<!-- 			<div class="check" > 체크</div> -->
+			</div>
+			<c:if test="${article.nickname == sessionScope.nickname }">
+			<div>
+<%-- 			    <button type="button" class="btn btn-outline-secondary" onclick="modify_article(${article.num})">글수정</button> --%>
+<%-- 			     <button type="button" class="btn btn-outline-secondary" onclick="delete_article(${article.num})">글삭제</button> --%>
+		<a href="NoticeModifyForm.no?num=${article.num }"><input type="button" value="수정" ></a>&nbsp;&nbsp;
+		<a href="NoticeDeletePro.no?num=${artice.num }"><input type="button" value="삭제" onclick="return confirm('정말로 삭제하시겠습니까?');"></a>&nbsp;&nbsp;
+			</div>
+			</c:if>
+		<br><a href="NoticeList.no"><input type="button" class="btn btn-outline-secondary" value="목록" ></a>
+		
+	</div>
+	</div>
 	
-	<!-- 게시판 글 조회 -->
-	<section id="articleForm">
-		<h2>글 내용 상세보기</h2>
-		<section id="basicInfoArea">
-			제목 : <%=article.getSubject() %><br>
-			첨부파일 : 
-			<%if(article.getFile() != null) { %>
-				<!-- 파일이름 클릭 시 새창에서 다운로드 작업 수행 -->	
-				<a href="NoticeFileDown.no?file_name=<%=article.getFile()%>" target="blank"><%=article.getFile() %></a>
-			<%}%>
-		</section>
-		<section id="articleContentArea">
-			<%=article.getContent() %>	
-		</section>
 	</section>
-	<section id="commandList">
-		<a href="NoticeModifyForm.no?num=<%=article.getNum()%>&page=<%=nowPage %>"><input type="button" value="수정" ></a>
-		<a href="NoticeDeleteForm.no?num=<%=article.getNum()%>&page=<%=nowPage %>"><input type="button" value="삭제" ></a>
-		<a href="NoticeList.no?page=<%=nowPage %>"><input type="button" value="목록" ></a>
-	</section>
+	
+
+	
+	
+	
+	<!-- header page -->
+		<jsp:include page="../inc/bottom.jsp"/>
+	<!-- header page -->
+	
+	
 </body>
 </html>
-
-
 
 
 

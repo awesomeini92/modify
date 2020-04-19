@@ -23,30 +23,29 @@ public class CodingListService {
 		return listCount;
 	}
 
-	public ArrayList<CodingBean> getArticleList(int page, int limit) {
-		ArrayList<CodingBean> articleList = null;
+	public ArrayList<CodingBean> getArticleList() {
 		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		
-		articleList = codingDAO.selectArticleList(page, limit);
+		ArrayList<CodingBean> articleList = codingDAO.selectArticleList();
 		
 		close(con);
 		
 		return articleList;
 	}
 
-	public ArrayList<CodingBean> getArticleList() {
-		ArrayList<CodingBean> articleList = null;
-		Connection con = getConnection();
-		CodingDAO codingDAO = CodingDAO.getInstance();
-		codingDAO.setConnection(con);
-		
-		articleList = codingDAO.selectArticleList();
-		
-		close(con);
-		return null;
-	}
+//	public ArrayList<CodingBean> getArticleList() {
+//		Connection con = getConnection();
+//		CodingDAO codingDAO = CodingDAO.getInstance();
+//		codingDAO.setConnection(con);
+//		
+//		ArrayList<CodingBean> articleList  = codingDAO.selectArticleList();
+//		
+//		close(con);
+//		
+//		return articleList;
+//	}
 	
 	
 

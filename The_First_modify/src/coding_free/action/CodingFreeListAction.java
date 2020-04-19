@@ -1,6 +1,7 @@
 package coding_free.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +10,7 @@ import coding_free.svc.CodingFreeListService;
 import coding_free.vo.ActionForward;
 import coding_free.vo.CodingFreeBean;
 import coding_free.vo.PageInfo;
+import svc.AllService;
 
 public class CodingFreeListAction implements Action {
 
@@ -39,11 +41,16 @@ public class CodingFreeListAction implements Action {
 		
 		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, listCount);
 		
+		AllService allService = new AllService();
+		Date today = allService.getToday();
+		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("articleList", articleList);
+		request.setAttribute("today", today);
 		
 		forward = new ActionForward();
-		forward.setPath("/coding_free/codingFreeList.jsp");
+//		forward.setPath("/coding_free/codingFreeList.jsp");
+		forward.setPath("/coding_free/make_codingFreeList.jsp");
 		
 		return forward;
 	}

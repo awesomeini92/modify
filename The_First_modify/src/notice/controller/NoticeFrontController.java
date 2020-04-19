@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
+import notice.action.Action;
 import notice.action.NoticeDeleteProAction;
 import notice.action.NoticeDetailAction;
 import notice.action.NoticeListAction;
 import notice.action.NoticeModifyFormAction;
 import notice.action.NoticeModifyProAction;
 import notice.action.NoticeWriteProAction;
-import vo.ActionForward;
+import notice.vo.ActionForward;
 
 @WebServlet("*.no")
 public class NoticeFrontController extends HttpServlet {
@@ -35,7 +35,7 @@ public class NoticeFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		
+		//글 작성
 		if(command.equals("/NoticeWriteForm.no")) {
 			forward = new ActionForward();
 			forward.setPath("/notice/notice_write.jsp");
@@ -48,7 +48,8 @@ public class NoticeFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+		
+		//글 목록
 		}else if(command.equals("/NoticeList.no")) {
 			action = new NoticeListAction();
 			
@@ -58,6 +59,7 @@ public class NoticeFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		//글 상세보기	
 		}else if(command.equals("/NoticeDetail.no")) {
 			action = new NoticeDetailAction();
 			
@@ -66,10 +68,10 @@ public class NoticeFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+		//글 수정	
 		} else if(command.equals("/NoticeModifyForm.no")) {
 			action = new NoticeModifyFormAction();
-//			
+			
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -78,18 +80,18 @@ public class NoticeFrontController extends HttpServlet {
 			
 		} else if(command.equals("/NoticeModifyPro.no")) {
 			action = new NoticeModifyProAction();
-//			
+			
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+		//글 삭제	
 		} else if(command.equals("/NoticeDeleteForm.no")) {
 			forward = new ActionForward();
 			forward.setPath("/notice/notice_delete.jsp");
 			
-		} else if(command.equals("/NoticeDeletePro.bo")) {
+		} else if(command.equals("/NoticeDeletePro.no")) {
 			action = new NoticeDeleteProAction();
 //			
 			try {
@@ -97,7 +99,7 @@ public class NoticeFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+		//첨부파일 다운	
 		} else if(command.equals("/NoticeFileDown.no")) {
 			forward = new ActionForward();
 			forward.setPath("/notice/file_down.jsp");

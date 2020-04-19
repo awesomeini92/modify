@@ -20,11 +20,11 @@ public class CmmntModifyProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		int num = Integer.parseInt(request.getParameter("post_num"));
+		int post_num = Integer.parseInt(request.getParameter("post_num"));
 		int comment_num = Integer.parseInt(request.getParameter("comment_num"));
 		
 		CmmntBean cmmntBean = new CmmntBean();
-		cmmntBean.setPost_num(num);
+		cmmntBean.setPost_num(post_num);
 		cmmntBean.setComment_num(comment_num);
 		cmmntBean.setNickname(request.getParameter("nickname"));
 		cmmntBean.setComment(request.getParameter("comment"));
@@ -37,11 +37,12 @@ public class CmmntModifyProAction implements Action {
 		AllService allService = new AllService();
 		Date today= allService.getToday();
 		
-		
 		request.setAttribute("today", today);
+		request.setAttribute("post_num", post_num);
+		request.setAttribute("comment_num", comment_num);
 		
 		forward = new ActionForward();
-		forward.setPath("CmmntList.code");
+		forward.setPath("CmmntList.code?post_num="+post_num);
 //		forward.setPath("CodingDetail.code?num=" + num);
 //		forward.setPath("CodingDetail.code?num=" + num + "&page=" + page);
 		forward.setRedirect(true);

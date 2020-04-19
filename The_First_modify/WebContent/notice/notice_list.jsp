@@ -1,166 +1,142 @@
-<%@page import="java.util.Date"%>
-<%@page import="notice.vo.NoticeBean"%>
-<%@page import="vo.PageInfo"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<c:if test="${sessionScope.nickname==null }">
+    <script type="text/javascript">
+		alert("로그인 해주세요");
+		location.href="LoginForm.me"
+	</script>
+</c:if>
     
-<%
-    	// Action 클래스에서 request 객체의 setAttibute() 메서드로 저장되어 전달된 객체 가져오기(Object 타입이므로 형변환 필요)
-    	ArrayList<NoticeBean> articleList = (ArrayList<NoticeBean>)request.getAttribute("articleList");
-    	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
-    	
-    	// PageInfo 객체로부터 페이징 정보 가져오기
-    	int listCount = pageInfo.getListCount();
-    	int nowPage = pageInfo.getPage(); // page 디렉티브의 이름과 중복되므로 nowPage 라는 변수명으로 사용
-    	int startPage = pageInfo.getStartPage();
-    	int endPage = pageInfo.getEndPage();
-    	int maxPage = pageInfo.getMaxPage();
-    	
-
-    	// 현재 세션 객체에 "sId" 세션이 존재할 경우 String 타입 변수에 세션 ID 저장
-    	String sId = null;
-
-    	if(session.getAttribute("sId") != null) {
-    	sId = (String)session.getAttribute("sId"); // Object -> String 변환 필요
-    		}
-    	
-    	Date today = (Date)request.getAttribute("today");
-    	
-    %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>공지사항</title>
-<style type="text/css">
-	#registForm {
-		width: 500px;
-		height: 610px;
-		border: 1px solid red;
-		margin: auto;
-	}
-	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 800px;
-		border: 1px solid darkgray;
-	}
-	
-	a {
-		text-decoration: none;
-	}
 
-	#tr_top {
-		background: orange;
-		width: 800px; 
-		text-align: center;
-	}
-	
-	#writeButton {
-		margin: auto;
-		width: 800px;
-		text-align: right;
-	}
-	
-	#pageList {
-		margin: auto;
-		width: 800px;
-		text-align: center;
-	}
-	
-	#emptyArea {
-		margin: auto;
-		width: 800px;
-		text-align: center;
-	}
-</style>
 </head>
-<body>
-<header>
-		<!-- 세션ID(sId) 가 없을 경우 로그인(LoginForm.me), 회원가입(JoinForm.me) 링크 표시 -->
-		<!-- 세션ID(sId) 가 있을 경우 회원ID, 로그아웃(Logout.me)링크 표시 -->
-		<%if(sId == null) {%>
-			<a href="LoginForm.me">로그인</a> | <a href="JoinForm.me">회원가입</a>
-		<%} else { %>
-			<%=sId %>님 | <a href="Logout.me">로그아웃</a>
-		<%} %>
-	</header>
-	<!-- 게시판 리스트 -->
-	<section id="listForm">
-		<h2>공지사항</h2>
-		<table>
-			<tr id="tr_top">
-				<td width="100">번호</td>
-				<td width="400">제목</td>
-				<td width="150">닉네임</td>
-				<td width="150">날짜</td>
-				<td width="100">조회수</td>
-			</tr>
-		<%if(articleList != null & listCount > 0) {%>
-			<!-- 게시물 목록이 하나라도 존재할 때만 목록을 표시 -->
-			<%for(int i = 0; i < articleList.size(); i++) {%>
-				<tr>
-					<td align="center"><%=articleList.get(i).getNum() %></td>
-					<td>
-						<!-- 게시물 제목 클릭 시 NoticeDetail.no 요청(게시물번호, 페이지번호 파라미터로 전달) -->
-						<a href="NoticeDetail.no?num=<%=articleList.get(i).getNum()%>&page=<%=nowPage%>">
-							<%=articleList.get(i).getSubject() %>
-						</a>
-					</td>
-					<td align="center"><%=articleList.get(i).getNickname() %></td>
-					<%if(articleList.get(i).getDate().compareTo(today)==0){ //날짜가 같으면 %>						
-						<td align="center" id="date"><%=articleList.get(i).getTime()%>  <!--시간출력--> </td>
-						<%}else{ %>
-						<td align="center" id="date"><%=articleList.get(i).getDate()%></td>
-						<%}%>
-		
-					<td align="center"><%=articleList.get(i).getReadcount() %></td>
-				</tr>
-			<%} %>
-	</section>
-	
-	
-	
-	<!-- 페이지 목록 버튼 표시 -->
-	<!-- 이전 페이지 또는 다음 페이지가 존재할 경우에만 해당 하이퍼링크 활성화 -->
-	<section id="pageList">
-	<%if(nowPage <= 1) { %>
-			[이전]&nbsp;
-	<%} else {%>
-			<a href="NoticeList.no?page=<%=nowPage - 1%>">[이전]</a>&nbsp;
-	<%} %>
-	
-	<!-- 존재하는 페이지 번호만 표시(현재 페이지는 번호만 표시하고, 나머지 페이지는 하이퍼링크 활성화) -->
-	<%for(int i = startPage; i <= endPage; i++) {
-		    if(i == nowPage) {%>
-				[<%=i %>]
-		<%} else {%>
-				<a href="NoticeList.no?page=<%=i %>">[<%=i %>]</a>&nbsp;
-		<%} %>
-	<%} %>
-	
-	<%if(nowPage >= maxPage) {%>
-			&nbsp;[다음]
-	<%} else { %>
-			<a href="NoticeList.no?page=<%=nowPage + 1%>">&nbsp;[다음]</a>
-	<%} %>
-	</section>
-<%} else {%>
-	<section id="emptyArea">등록된 글이 없습니다.</section>
-	
-	<section id="writeButton">
-		<a href="NoticeWriteForm.no"><input type="button" value="글쓰기"></a>
-	</section>
-	
-<%} %>
-</body>
-</html>
 
+
+<body>
+	<!-- header page -->
+		<jsp:include page="../inc/top.jsp"/>
+		<jsp:include page="../inc/green.jsp"/>
+		<jsp:include page="../inc/link.jsp"/>	
+	<!-- header page -->
+	
+		
+		<div class="gtco-section">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+						<h2>Check Our Works</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat enim et urna sagittis, rhoncus euismod erat tincidunt. Donec tincidunt volutpat erat.</p>
+					</div>
+				</div>
+				 <div class="">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Charged Coding Q&A</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th >글번호</th>
+                                                <th>글제목</th>
+                                                <th>작성자</th>
+                                                <th>작성일</th>
+                                                <th>조회수</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+<!-- 게시물 목록 가져오기 -->
+      <c:forEach var="article" items="${articleList }">
+      		<tr>
+			<td align="center">${article.num }</td>
+			   			<td align="center" ><a href='<c:url value="NoticeDetail.no?num=${article.num}"/>'>${article.subject }</a></td>
+			    
+					<td >${article.nickname}</td>
+					<c:if test="${article.date==today}">
+							<td>${article.time}</td>
+					</c:if>
+					<c:if test="${article.date<today}">
+							<td id="date">${article.date}</td>
+					</c:if>
+					<td >${article.readcount}</td>
+				</tr>
+    	</c:forEach>
+	 </table>
+                                </div>
+                            </div>
+
+		<c:if test="${sessionScope.nickname eq 'admin'}">
+		<div class="text-right">
+            <button type="button" class="bs_btn btn-info" onclick="location.href='NoticeWriteForm.no'">글쓰기</button>	
+		 </div>
+		</c:if>
+		
+                            
+                           
+                            </div>
+                        </div>
+                    </div>
+
+
+		
+		<!-- END .gtco-services -->
+
+		<!-- footer page -->
+		<jsp:include page="../inc/bottom.jsp"/>
+		<!-- footer page -->
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+		
+	</div>
+		
+
+		
+		<!-- END .gtco-services -->
+
+		<!-- footer page -->
+		<jsp:include page="../inc/bottom.jsp"/>
+		<!-- footer page -->
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+		
+	</div>
+		
+		
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="js/chart-area-demo.js"></script>
+    <script src="js/chart-bar-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="js/datatables-demo.js"></script>
+		
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
+	
+	</body>
+</html>
 
 
 

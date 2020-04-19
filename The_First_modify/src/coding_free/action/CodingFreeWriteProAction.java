@@ -33,9 +33,9 @@ public class CodingFreeWriteProAction implements Action {
 		System.out.println("실제 파일명 : " + realFilesystemName);
 
 		CodingFreeBean cb = new CodingFreeBean(
-				multi.getParameter("any_nickname"),
-				multi.getParameter("any_subject"),
-				multi.getParameter("any_content"),
+				multi.getParameter("nickname"),
+				multi.getParameter("subject"),
+				multi.getParameter("content"),
 				realFilesystemName);
 		
 		CodingFreeWriteService codingFreeWriteService = new CodingFreeWriteService();

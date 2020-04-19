@@ -5,7 +5,6 @@
 <%@ page import="java.io.*"%>
 <%@ page import="com.oreilly.servlet.ServletUtils"%>
 
-
 <%
 	request.setCharacterEncoding("utf-8");
 
@@ -21,7 +20,7 @@
 //      String sFilePath = sDownloadPath + "\\" + fileName;
 
 // 파일 물리적인 경로
-    String uploadPath=request.getRealPath("/codingUpload");
+    String uploadPath=request.getRealPath("./codingUpload");
 // 물리적인 경로 + 파일 이름
     String sFilePath = uploadPath + "\\" + fileName;
      

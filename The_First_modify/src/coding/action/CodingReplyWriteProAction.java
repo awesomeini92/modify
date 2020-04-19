@@ -59,8 +59,10 @@ public class CodingReplyWriteProAction implements Action {
 		
 		
 		if(isSuccess) {
+			request.setAttribute("post_num", post_num);
+
 			forward = new ActionForward();
-			forward.setPath("");
+			forward.setPath("CodingDetail.code?post_num="+post_num);
 			forward.setRedirect(true);
 		}
 		

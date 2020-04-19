@@ -5,9 +5,8 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
 import admin.svc.ProductDeleteProService;
-import vo.ActionForward;
+import admin.vo.ActionForward;
 
 public class ProductDeleteProAction implements Action {
 
@@ -22,11 +21,6 @@ public class ProductDeleteProAction implements Action {
 		
 		ProductDeleteProService productdeleteProService = new ProductDeleteProService();
 
-		//confirm 창 
-		//정말로 삭제하시겠습니까? 확인 취소
-		
-		
-		
 			// ProductDeleteProService 클래스의 removeProduct() 메서드를 호출하여 삭제 작업 수행
 			// => 파라미터 : 상품코드(product_cod)    리턴타입 : boolean(isDeleteSuccess)
 			boolean isDeleteSuccess = productdeleteProService.removeProduct(product_cod);

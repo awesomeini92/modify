@@ -8,6 +8,7 @@ public class AnyCommentBean {
 	private String nickname;
 	private String comment;
 	private Date date;
+	private String time;
 
 	public AnyCommentBean() {
 		super();
@@ -58,6 +59,14 @@ public class AnyCommentBean {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 }

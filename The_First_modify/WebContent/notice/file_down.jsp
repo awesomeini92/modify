@@ -1,7 +1,6 @@
 <%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.io.File"%>
 <%@ page import="java.io.*"%>
 <%@ page import="com.oreilly.servlet.ServletUtils"%>
 
@@ -21,7 +20,7 @@
 //      String sFilePath = sDownloadPath + "\\" + fileName;
 
 // 파일 물리적인 경로
-    String uploadPath=request.getRealPath("/noticeUpload");
+    String uploadPath=request.getRealPath("/notice/noticeUpload");
 // 물리적인 경로 + 파일 이름
     String sFilePath = uploadPath + "\\" + fileName;
      

@@ -1,6 +1,6 @@
 package svc;
 
-import static db.JdbcUtil.getConnection;
+import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 import java.util.Date;
@@ -15,6 +15,7 @@ public class AllService {
 		
 		Date today = allDAO.getToday();
 		
+		close(con);
 		return today;
 	}
 }

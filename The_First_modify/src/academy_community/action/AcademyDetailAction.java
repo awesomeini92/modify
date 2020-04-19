@@ -5,11 +5,12 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import academy_community.svc.AcademyCommentService;
 import academy_community.svc.AcademyDetailService;
-import academy_community.svc.AllService;
 import academy_community.vo.AcademyBean;
 import academy_community.vo.AcademyCommentBean;
 import academy_community.vo.ActionForward;
+import svc.AllService;
 
 public class AcademyDetailAction implements Action {
 
@@ -30,6 +31,9 @@ public class AcademyDetailAction implements Action {
 		// => 파라미터로 글 번호(board_num) 전달, 리턴타입 BoardBean
 		AcademyDetailService boardDetailService = new AcademyDetailService();
 		AcademyBean article = boardDetailService.getArticle(num);
+		
+		AcademyCommentService academyCommentService = new AcademyCommentService();
+		int cmmntListCount = academyCommentService.getCommentListCount(num);
 		
 		// 리턴받은 BoardBean 객체가 null 이 아닐 경우 BoardDetailService 클래스의 plusReadcount() 메서드 호출
 			if(article != null) {

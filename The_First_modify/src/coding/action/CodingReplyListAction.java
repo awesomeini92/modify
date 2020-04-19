@@ -30,10 +30,10 @@ public class CodingReplyListAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		System.out.println("CodingReplyListAction");
+//		System.out.println("CodingReplyListAction");
 		
 		int post_num = Integer.parseInt(request.getParameter("post_num"));
-		String page = request.getParameter("page"); 
+//		String page = request.getParameter("page"); 
 		
 		int reply_page = 1;
 		int reply_limit = 2;
@@ -42,11 +42,11 @@ public class CodingReplyListAction implements Action {
 			reply_page = Integer.parseInt(request.getParameter("reply_page")); // 정수로 변환하여 저장
 		}
 		
-		System.out.println(reply_page);
+//		System.out.println(reply_page);
 		
 		CodingReplyListService codingReplyListService = new CodingReplyListService();
 		int reply_count = codingReplyListService.getReplyListCount(post_num);
-		List<Coding_refBean> replyList = codingReplyListService.getArticleReplyList(post_num, reply_page, reply_limit);
+		List<Coding_refBean> replyList = codingReplyListService.getReplyList(post_num, reply_page, reply_limit);
 		
 		
 		// 페이지 계산

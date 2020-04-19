@@ -10,6 +10,7 @@ public class CommunityBean {
 	private int readcount;
 	private String file;
 	private Date date;
+	private String time;
 	
 	public CommunityBean() {}
 
@@ -75,6 +76,14 @@ public class CommunityBean {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 

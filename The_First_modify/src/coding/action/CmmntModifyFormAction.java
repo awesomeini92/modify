@@ -1,5 +1,6 @@
 package coding.action;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,16 +24,15 @@ public class CmmntModifyFormAction implements Action {
 		System.out.println("CmmntModifyFormAction");
 		//CmmntUpdateForm.code?post_num=<%=cmmntList.get(i).getPost_num()%>&comment_num=<%=cmmntList.get(i).getComment_num()%>
 		int post_num = Integer.parseInt(request.getParameter("post_num"));
-		int comment_num = Integer.parseInt(request.getParameter("comment_num"));
-		int comment_page = Integer.parseInt(request.getParameter("comment_page"));
+		int modify_num = Integer.parseInt(request.getParameter("comment_num"));
+//		int comment_page = Integer.parseInt(request.getParameter("comment_page"));
 		int cmmnt_page = 1; // 현재 페이지 번호
 		int cmmnt_limit = 10; // 한 페이지 당 출력할 게시물 수
 		
 		
 		CmmntListService cmmntListService = new CmmntListService();
-		int cmmnt_count = cmmntListService.getCommentListCount(comment_num);
-		ArrayList<CmmntBean> cmmntList = cmmntListService.getCmmntList(post_num,comment_page,cmmnt_limit);
-		
+		int cmmnt_count = cmmntListService.getCommentListCount(post_num);
+		ArrayList<CmmntBean> cmmntList = cmmntListService.getCmmntList(post_num,cmmnt_page,cmmnt_limit);
 
 		//댓글페이지 계산
 		// 1. 총 페이지 수 계산
@@ -57,10 +57,11 @@ public class CmmntModifyFormAction implements Action {
 		request.setAttribute("post_num", post_num);
 //		request.setAttribute("comment_num", comment_num);
 		request.setAttribute("cmmntList", cmmntList);
-		
+		request.setAttribute("modify_num", modify_num);
 		
 		forward = new ActionForward();
-		forward.setPath("/coding/cmmntUpdateForm.jsp");
+		forward.setPath("/coding/make_cmmntUpdateForm.jsp");
+//		forward.setPath("/coding/cmmntUpdateForm.jsp");
 //		forward.setPath("/coding/cmmntView.jsp");
 		
 		return forward;

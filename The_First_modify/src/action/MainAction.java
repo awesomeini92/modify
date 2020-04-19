@@ -21,12 +21,7 @@ public class MainAction implements Action {
 		AllService allService = new AllService();
 		Date today = allService.getToday();
 		
-		CodingListService codingListService = new CodingListService();
-		ArrayList<CodingBean> articleList = null;
-		articleList = codingListService.getArticleList();
-		
 		request.setAttribute("today", today);
-		request.setAttribute("articleList", articleList);
 		
 		forward = new ActionForward();
 		forward.setPath("/index.jsp");

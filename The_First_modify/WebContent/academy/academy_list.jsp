@@ -4,157 +4,121 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%
-    	// Action 클래스에서 request 객체의 setAttibute() 메서드로 저장되어 전달된 객체 가져오기(Object 타입이므로 형변환 필요)
-    	ArrayList<AcademyBean> articleList = (ArrayList<AcademyBean>)request.getAttribute("articleList");
-    	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
-    	
-    	// PageInfo 객체로부터 페이징 정보 가져오기
-    	int listCount = pageInfo.getListCount();
-    	int nowPage = pageInfo.getPage();
-    	int startPage = pageInfo.getStartPage();
-    	int endPage = pageInfo.getEndPage();
-    	int maxPage = pageInfo.getMaxPage();
-    	
-    	// 현재 세션 객체에 "sId" 세션이 존재할 경우 String 타입 변수에 세션 ID 저장
-    		String sId = null;
-
-    		if(session.getAttribute("sId") != null) {
-    	sId = (String)session.getAttribute("sId"); // Object -> String 변환 필요
-    		}
-    	Date today = (Date)request.getAttribute("today");
-    %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:if test="${sessionScope.nickname==null }">
+    <script type="text/javascript">
+		alert("로그인 해주세요");
+		location.href="LoginForm.me"
+	</script>
+</c:if>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MVC 게시판</title>
-<style type="text/css">
-	#registForm {
-		width: 500px;
-		height: 610px;
-		border: 1px solid red;
-		margin: auto;
-	}
-	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 800px;
-		border: 1px solid darkgray;
-	}
-	
-	a {
-		text-decoration: none;
-	}
+<title>Do you have Any Questions?</title>
 
-	#tr_top {
-		background: orange;
-		width: 800px; 
-		text-align: center;
-	}
-	
-	#writeButton {
-		margin: auto;
-		width: 800px;
-		text-align: right;
-	}
-	
-	#pageList {
-		margin: auto;
-		width: 800px;
-		text-align: center;
-	}
-	
-	#emptyArea {
-		margin: auto;
-		width: 800px;
-		text-align: center;
-	}
-	header {
-		text-align: right;
-	}
-</style>
 </head>
 <body>
 <header>
-		<!-- 세션ID(sId) 가 없을 경우 로그인(LoginForm.me), 회원가입(JoinForm.me) 링크 표시 -->
-		<!-- 세션ID(sId) 가 있을 경우 회원ID, 로그아웃(Logout.me)링크 표시 -->
-		<%if(sId == null) {%>
-			<a href="LoginForm.me">Login</a> | <a href="JoinForm.me">Join</a>
-		<%} else { %>
-			<%=sId %>님 | <a href="Logout.me">Logout</a>
-		<%} %>
+	<jsp:include page="../inc/link.jsp"/>
+		<jsp:include page="../inc/top.jsp"/>
+		<jsp:include page="../inc/green.jsp"/>	
 	</header>
-	<!-- 게시판 리스트 -->
-	<section id="listForm">
-		<h2>Academy Community List</h2>
-		<table>
-		<%if(articleList != null & listCount > 0) {%>
-				<tr id="tr_top">
-					<td width="100">Num</td>
-					<td width="400">Subject</td>
-					<td width="150">Nickname</td>
-					<td width="150">Date</td>
-					<td width="100">Readcount</td>
+	
+	<section id="writeButton">
+		<a href="AcademyWriteForm.ac"><input type="button" value="Post"></a>
+	</section>
+		<div class="gtco-section">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+						<h2>Check Our Works</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat enim et urna sagittis, rhoncus euismod erat tincidunt. Donec tincidunt volutpat erat.</p>
+					</div>
+				</div>
+				 <div class="">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Charged Coding Q&A</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th >글번호</th>
+                                                <th>글제목</th>
+                                                <th>작성자</th>
+                                                <th>작성일</th>
+                                                <th>조회수</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+<!-- 게시물 목록 가져오기 -->
+      <c:forEach var="article" items="${articleList }">
+      		<tr>
+			<td align="center">${article.num }</td>
+			   			<td align="center" ><a href='<c:url value="AcademyDetail.ac?num=${article.num}"/>'>${article.subject }</a></td>
+			    
+					<td >${article.nickname}</td>
+					<c:if test="${article.date==today}">
+							<td>${article.time}</td>
+					</c:if>
+					<c:if test="${article.date<today}">
+							<td id="date">${article.date}</td>
+					</c:if>
+					<td >${article.readcount}</td>
 				</tr>
-			<%for(int i = 0; i < articleList.size(); i++) {%>
-					<tr>
-						<td align="center"><%=articleList.get(i).getNum() %></td>
-						<td>
-							<a href="AcademyDetail.ac?num=<%=articleList.get(i).getNum()%>&page=<%=nowPage%>">
-								<%=articleList.get(i).getSubject() %>
-							</a>
-						</td>
-						<td align="center"><%=articleList.get(i).getNickname() %></td>
-						<%if(articleList.get(i).getDate().compareTo(today)==0){ //날짜 같으면 %>						
-						<td align="center" id="date"><%=articleList.get(i).getTime()%></td> <!--시간출력-->
-						<%}else{ %>
-						<td align="center" id="date"><%=articleList.get(i).getDate()%></td>
-						<%}%>
-						<td align="center"><%=articleList.get(i).getReadcount() %></td>
-					</tr>
-			<%} %>
-		</table>		
-	</section>
+    	</c:forEach>
+	 </table>
+                                </div>
+                            </div>
+                            <div class="text-right">
+<%--                             <button type="button" class="bs_btn btn-info" onclick="location.href='AcademyWriteForm.ac?nickname=${sessionScope.nickname }'">글쓰기</button> --%>
+                            <button type="button" class="bs_btn btn-info" onclick="location.href='AcademyWriteForm.ac'">글쓰기</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+		
+		<!-- END .gtco-services -->
+
+		<!-- footer page -->
+		<jsp:include page="../inc/bottom.jsp"/>
+		<!-- footer page -->
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+		
+	</div>
+		
 	
-	<section id="writeButton">
-		<a href="AcademyWriteForm.ac"><input type="button" value="Post"></a>
-	</section>
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="js/chart-area-demo.js"></script>
+    <script src="js/chart-bar-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="js/datatables-demo.js"></script>
+		
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
 	
-	<!-- 페이지 목록 버튼 표시 -->
-	<!-- 이전 페이지 또는 다음 페이지가 존재할 경우에만 해당 하이퍼링크 활성화 -->
-	<!-- 존재하는 페이지 번호만 표시(현재 페이지는 번호만 표시하고, 나머지 페이지는 하이퍼링크 활성화) -->
-	<section id="pageList">
-	<%if(nowPage <= 1) { %>
-			[Prev]&nbsp;
-	<%} else {%>
-			<a href="AcademyList.ac?page=<%=nowPage - 1%>">[Prev]</a>&nbsp;
-	<%} %>
-	
-	<%for(int i = startPage; i <= endPage; i++) {
-		    if(i == nowPage) {%>
-				[<%=i %>]
-		<%} else {%>
-				<a href="AcademyList.ac?page=<%=i %>">[<%=i %>]</a>&nbsp;
-		<%} %>
-	<%} %>
-	
-	<%if(nowPage >= maxPage) {%>
-			&nbsp;[Next]
-	<%} else { %>
-			<a href="AcademyList.ac?page=<%=nowPage + 1%>">&nbsp;[Next]</a>
-	<%} %>
-	</section>
-<%} else {%>
-	<section id="emptyArea">등록된 글이 없습니다.</section>
-	<section id="writeButton">
-		<a href="AcademyWriteForm.ac"><input type="button" value="Post"></a>
-	</section>
-<%} %>
-</body>
+	</body>
 </html>

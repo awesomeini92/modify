@@ -9,42 +9,40 @@ import coding.vo.CodingBean;
 import coding.vo.Coding_refBean;
 
 public class CodingReplyListService {
-
-	public ArrayList<Coding_refBean> getReplyList(int post_num, int reply_page, int reply_limit) {
-		ArrayList<Coding_refBean> article_refList = null;
-		Connection con = getConnection();
-		CodingDAO codingDAO = CodingDAO.getInstance();
-		codingDAO.setConnection(con);
-		
-		article_refList = codingDAO.selectArticleReplyList(post_num, reply_page, reply_limit);
-		
-		close(con);
-		
-		return article_refList;
-	}
-
 	
 	public int getReplyListCount(int post_num) {
-		int listCount = 0;
+		System.out.println("getReplyListCount");
 		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		
-		listCount = codingDAO.selectReplyListCount(post_num);
+		int listCount = codingDAO.selectReplyListCount(post_num);
 		
 		close(con);
 		
 		return listCount;
 	}
 
-	//????
-	public ArrayList<Coding_refBean> getArticleReplyList(int post_num, int reply_page, int reply_limit) {
-		ArrayList<Coding_refBean> article_refList = null;
+	public ArrayList<Coding_refBean> getReplyList(int post_num, int reply_page, int reply_limit) {
+		
 		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		
-		article_refList = codingDAO.selectArticleReplyList(post_num, reply_page, reply_limit);
+		ArrayList<Coding_refBean>  article_refList = codingDAO.selectArticleReplyList(post_num, reply_page, reply_limit);
+		
+		close(con);
+		
+		return article_refList;
+	}
+
+	public ArrayList<Coding_refBean> getReplyList(int post_num) {
+		System.out.println("getReplyList");
+		Connection con = getConnection();
+		CodingDAO codingDAO = CodingDAO.getInstance();
+		codingDAO.setConnection(con);
+		
+		ArrayList<Coding_refBean> article_refList = codingDAO.selectArticleReplyList(post_num);
 		
 		close(con);
 		
@@ -52,19 +50,19 @@ public class CodingReplyListService {
 	}
 
 
-	public Coding_refBean getReplyArticle(int post_num) {
-		Coding_refBean article_ref = null;
-		
-		Connection con = getConnection();
-		CodingDAO codingDAO = CodingDAO.getInstance();
-		codingDAO.setConnection(con);
-		
-//		article_ref = codingDAO.selectArticleReply(post_num);
-		
-		close(con);
-		
-		return article_ref;
-	}
+//	public Coding_refBean getReplyArticle(int post_num) {
+//		Coding_refBean article_ref = null;
+//		
+//		Connection con = getConnection();
+//		CodingDAO codingDAO = CodingDAO.getInstance();
+//		codingDAO.setConnection(con);
+//		
+//		article_ref = codingDAO.selectArticle_ref(post_num);
+//		
+//		close(con);
+//		
+//		return article_ref;
+//	}
 
 
 }

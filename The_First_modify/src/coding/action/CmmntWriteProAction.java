@@ -9,11 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import coding.svc.CmmntListService;
 import coding.svc.CmmntWriteProService;
-import coding.svc.CodingDetailService;
-import coding.svc.CodingReplyListService;
 import coding.vo.CmmntBean;
-import coding.vo.CodingBean;
-import coding.vo.Coding_refBean;
 import coding.vo.PageInfo;
 import svc.AllService;
 import vo.ActionForward;
@@ -32,7 +28,6 @@ public class CmmntWriteProAction implements Action {
 		int cmmnt_limit = 10; // 
 		
 		System.out.println("CmmntWriteProAction");
-		System.out.println(request.getParameter("comment"));
 		
 		cmmntBean.setPost_num(Integer.parseInt(request.getParameter("post_num")));
 		cmmntBean.setNickname(request.getParameter("nickname"));
@@ -75,8 +70,9 @@ public class CmmntWriteProAction implements Action {
 		
 		
 		forward = new ActionForward();
-		forward.setPath("/coding/cmmntView_ajax.jsp");
+//		forward.setPath("/coding/cmmntView_ajax.jsp");
 //		forward.setPath("/coding/cmmntView.jsp");
+		forward.setPath("/coding/make_cmmntView.jsp");
 		
 		return forward;
 	}

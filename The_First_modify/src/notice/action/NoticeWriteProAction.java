@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import action.Action;
 import notice.svc.NoticeWriteProService;
+import notice.vo.ActionForward;
 import notice.vo.NoticeBean;
-import vo.ActionForward;
 
 public class NoticeWriteProAction implements Action {
 
@@ -25,7 +24,7 @@ public class NoticeWriteProAction implements Action {
 		
 		// 파일 업로드를 위한 업로드 정보 설정
 		// 1. 이클립스에서 생성한 폴더의 위치 = 가상 위치
-		String saveFolder = "/noticeUpload";
+		String saveFolder = "/notice/noticeUpload";
 		// 2. 업로드 폴더 가상 위치에 대한 실제 폴더의 위치
 		ServletContext context = request.getServletContext(); // request 객체로부터 컨텍스트 객체 가져오기
 		String realFolder = context.getRealPath(saveFolder); // 가상 위치로부터 실제 폴더 위치를 가져오기

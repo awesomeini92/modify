@@ -24,7 +24,8 @@ public class CodingDetailService {
 		return article;
 	}
 
-	public void updateReadcount(int num) {
+	public boolean updateReadcount(int num) {
+		boolean isUpdated = false;
 		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
@@ -36,12 +37,14 @@ public class CodingDetailService {
 		// 리턴된 결과(updateCount) 가 0보다 크면 commit, 아니면 rollback 수행 
 		if(updateCount > 0) {
 			commit(con);
+			isUpdated = true;
 		} else {
 			rollback(con);
 		}
 		
 		close(con);
 		
+		return isUpdated;
 	}
 
 	public Coding_refBean getArticle_ref(int num) {
@@ -49,11 +52,10 @@ public class CodingDetailService {
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		
-		Coding_refBean article_ref = null;
-		
-		article_ref = codingDAO.selectArticle_ref(num);
+		Coding_refBean article_ref = codingDAO.selectArticle_ref(num);
 		
 		close(con);
+		
 		return article_ref;
 	}
 

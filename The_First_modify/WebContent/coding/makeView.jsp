@@ -7,99 +7,83 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<%
-
-	String nickname = null;
-	// 로그인이 되지 않은 상태일 경우 로그인 페이지로 강제 이동 처리
-	/*
-	if(session.getAttribute("id") == null) {
-		out.println("<script>");
-	    out.println("alert('로그인이 필요한 서비스입니다!')");
-	    out.println("location.href='LoginForm.me'");
-	    out.println("</script>");
-	} else { // 로그인 된 상태일 경우 세션 ID 가져오기
-		id = (String)session.getAttribute("id");
-	}
-	*/
+<c:if test="${sessionScope.nickname==null }">
+    <script type="text/javascript">
+		alert("로그인 해주세요");
+		location.href="LoginForm.me"
+	</script>
+</c:if>
+<%	
 	// 전달받은 request 객체에서 데이터 가져오기
 	CodingBean article = (CodingBean)request.getAttribute("article");
-	ArrayList<Coding_refBean> article_refList = (ArrayList<Coding_refBean>)request.getAttribute("article_refList");
+	int reply_count = (int)request.getAttribute("reply_count");
 // 	ArrayList<CmmntBean> cmmntList = (ArrayList<CmmntBean>)request.getAttribute("cmmntList");
 	String nowPage = (String)request.getAttribute("page");
 	Date today = (Date)request.getAttribute("today");
-	
+	int post_num = (int)request.getAttribute("post_num");
 	// PageInfo 객체로부터 페이징 정보 가져오기
-	PageInfo reply_pageInfo = (PageInfo)request.getAttribute("replyPageInfo");
-	
-	
+	PageInfo reply_pageInfo = (PageInfo)request.getAttribute("replyPageInfo");	
 %> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<script src="js/jquery-3.4.1.js"> </script>
 <script type="text/javascript">
 function openCmmnt(){  
-    window.open("CmmntList.code?post_num="+<%=article.getNum()%>, "", width=800, height=700);
+    window.open("CmmntList.code?post_num=${article.num}", "Commnets", "resizable=no, width=730px, height=550px");
     
 }
-function getReplyListCount(){
-	$.ajax({	
-		url: "CodingReplyList.code", // 요청 url
-        type: "POST", // post 방식
-        data: {
-        	post_num : <%=article.getNum()%> // board_no의 값을 넘겨줌
-        },
-        success : function(pageInfo){
-        	pageInfo = pageInfo.replace(/\n/gi,"\\r\\n"); // 개행문자 대체
-        	alert(pageInfo);
-        	$("#pageInfoList").text(""); // 댓글리스트 영역 초기화
-        	var obj = JSON.parse(pageInfo); // service 클래스로 부터 전달된 문자열 파싱
-        	var pageInfoList =obj.pageInfoList; // replyList는 전달된 json의 키값을 의미
-        	var output="";
-        	var reply_nowPage = 0;
-        	var reply_page="";
-        	var reply_maxPage="";
-        	var reply_startPage="";
-        	var reply_endPage="";
-        	var reply_count ="";
-        	
-         for (var j = 0; j < pageInfoList.length; j++) {
-   			  var reply = pageInfoList[j];
-                   if(j === 0){
-                	   reply_page = reply.reply_page;
-                    }else  if(j === 1){
-                    	reply_maxPage = reply.reply_maxPage;
-                    }else  if(j === 2){
-                    	reply_startPage = reply.reply_startPage;
-                    }else  if(j === 3){
-                    	reply_endPage = reply.reply_endPage;
-                    }else  if(j === 4){
-                    	reply_count = reply.reply_count;
-                    }
-            }
-       for(var i = reply_startPage; i <= reply_endPage; i++) {
-    	   $("#replyPage").html(i);	
-     	    if(i == reply_nowPage){
-     	    	getReply(i);   	    	
-     		}else 
-     			getReply(i);   
-       		}  	     
-      }
-	});
+
+function modify_article(num){  
+	if (confirm("수정하시겠습니까?") == true){    //확인
+		location.href="CodingModifyForm.code?num="+num;
+	}else{
+			return false;
+		}
 }
 
-// 		$('.dup').click(function(){
+
+function delete_article(post_num){  
+	if (confirm("삭제하시겠습니까?") == true){    //확인
+		location.href="CodingDeleteForm.code?nickname=${sessionScope.nickname }&post_num="+post_num;
+	}else{
+			return false;
+		}
+}
+
+function write_reply(){  
+	location.href="CodingReplyWrite.code?nickname=${sessionScope.nickname }&post_num=${post_num }";
+}
+
+function selected(ref_num){  
+	if (confirm("공개 채택하시겠습니까?") == true){    //확인
+		alert("공개 채택하셨습니다.")
+		location.href = "CodingReplySelected.code?post_num=${post_num}&ref_num="+ref_num+"&page=${nowPage}&CP=${article.CP}&pNum=1";
+	}else{   //취소
+		if (confirm("비공개 채택하시겠습니까?") == true){    //확인
+			alert("비공개 채택하셨습니다.")
+			location.href = "CodingReplySelected.code?post_num=${post_num}&ref_num="+ref_num+"&page=${nowPage}&CP=${article.CP}&pNum=0";
+
+		}else{
+			return false;
+		}
+	}
+}
+
+$(document).ready(function() {
+	
+});
+
 		function getReply(i){
 			$.ajax({		
-    			url: "CodingReplyDetail.code", // 요청 url
+    			url: "pre_CodingReplyDetail.code?s_nick=${sessionScope.nickname } ", // 요청 url
                 type: "POST", // post 방식
                 data: {
-                	post_num : <%=article.getNum()%> // board_no의 값을 넘겨줌
+                	post_num : ${article.num } // board_no의 값을 넘겨줌
+//                 	reply_page : i
                 },
                 success : function (json){
                 	json = json.replace(/\n/gi,"\\r\\n"); // 개행문자 대체
@@ -107,108 +91,221 @@ function getReplyListCount(){
                 	var obj = JSON.parse(json); // service 클래스로 부터 전달된 문자열 파싱
                 	var replyList =obj.replyList; // replyList는 전달된 json의 키값을 의미
                 	var output = ""; // 댓글 목록을 누적하여 보여주기 위한 변수
-                	var page_addr="";
+                	var CP ="";
+                	var ref_num ="";
+                	var isWriter="";
 //                 	alert(json);
 //                 	var reply = replyList[0][0];
 //                 	alert(reply.nickname);
 //                 	output += "<i class='fa fa-user'></i>&nbsp;&nbsp;" + reply.nickname;
-                	var i =0;
-                //	for (var i = 0; i < replyList.length; i++) { // 반복문을 통해 output에 누적
-                		alert(replyList.length);               	
+//                 		alert("i값은 " + i);
+                		paging(i);
+                		i=i-1;
+                		
+                		
+//                 	for (var i = 0; i < replyList.length; i++) { // 반복문을 통해 output에 누적
    	                    output += "<div class='w3-border w3-padding'>";
-//    	                	page_addr += "<a href='#'> " + (i+1) +"</a>";
+   	                    
 	   	                 for (var j = 0; j < replyList[i].length; j++) {
 	 	                    var reply = replyList[i][j];
 	 	                    if(j === 0){
 	 	                    	output += "<i class='fa fa-user'></i> <a href='#'> " + reply.nickname +"</a><br>";
+// 	 	                    output += "<div class='w3-right'><span>채택하기</span> </div><br>";
 	 	                    }else  if(j === 1){
-	 	     					output += "<i class='fa fa-calendar'></i>" + reply.reply_date;
+	 	     					output += "<i class='fa fa-calendar'></i>" + reply.reply_date+"</div>";
 	 	                    }else  if(j === 2){
-	 	     					output += "<div class='w3-right'><span><i class='fa fa-eye'></i>"+reply.readcount+"</span>&nbsp;";
-	 	     					output += "<i class='fa fa-heart' style='color:red'></i>&nbsp;<span class='rec_count'></span>";
-	 	                    	output += "<i class='fa fa-commenting-o'></i>&nbsp;<span class='reply_count'></span></div></div>";
+	 	                    	CP =reply.ref_CP;
 	 	                    }else  if(j === 3){
-	 	                    	output += "<div class='w3-border w3-padding'> No."+reply.ref_num+"&nbsp;&nbsp;&nbsp"; 
-	 	                    }else  if(j === 4){
-	 	                    	output += "<span class='w3-center w3-xlarge w3-text-blue'>"+reply.subject+"</span></div>";
+	 	                    	isWriter = parseInt(reply.isWriter);
+	 	                    }else  if(j === 4){	 	                    	
+	 	                    	output += "<div class='w3-border w3-padding'> No."+reply.ref_num+"&nbsp;&nbsp;&nbsp";
+	 	                    	ref_num = reply.ref_num; 	                    	
 	 	                    }else  if(j === 5){
-	 	                    	if(reply.file!=""){
-	 	                    		output += "<article class='w3-border w3-large w3-padding reply_content'><img src='/codingUpload/"+reply.file+"' width=200px ><br><br><br>";
-	 	                    	}
+	 	                    	output += "<span class='w3-center w3-xlarge w3-text-blue'>"+reply.subject+"</span>";
+	 	                    	if(isWriter===1){
+		 	                    	output += "<span style='float: right!important;'> <i class='fas fa-check' style='font-size:36px;color:pink' onclick='javascript:selected("+ref_num+");'></i></span></div>";
+		 	                    }else{
+		 	                    	output += "</div>"
+		 	                    }
 	 	                    }else  if(j === 6){
-	 	                   		output += reply.content+"<br><br></article>";
+	 	                    	if(reply.file!=""){
+	 	                    		output += "<article class='w3-border w3-large w3-padding reply_content'><img src='./codingUpload/"+reply.file+"' width=800px ><br><br><br>";
+	 	                    	}
 	 	                    }else  if(j === 7){
+	 	                   		output += reply.content+"<br><br></article>";
+	 	                    }else  if(j === 8){
 	 	                    	output += "<div class='w3-border w3-padding'>첨부파일: <a href='CodingFileDown.code?file_name='"+reply.file+" target='blank'>"+reply.file+"</a></div><br>";
+	 	                    	output += "<div class='dataTables_paginate paging_simple_numbers pageList' id='dataTable_paginate'''>"
 	 	                    }
 	 	                    
 	   	                 }
-	   	                 //<a href="CmmntList.code?cmmnt_page=
-// 	   	              	page_addr += "<a href='codingDetail.code?i='"+page_num;
 	  	              	$("#replyList").html(output); // replyList 영역에 output 출력
-	   	              	$(".reply_count").html(i);
-	   	           //  }
-                	$("#replyPage").html(page_addr);
-				}
+	   	             }
+			});
+		}
+		
+			
+		function paging(nowPage){
+			alert("nowPage: "+nowPage);
+			$.ajax({		
+				//url: "CodingReplyDetail.code", // 요청 url
+				url: "CodingReplyDetail.code?nowPage="+nowPage, // 요청 url
+	            type: "POST", // post 방식
+	            data: {
+	            	post_num : <%=article.getNum()%> // board_no의 값을 넘겨줌
+// 	            	reply_page : nowPage
+	            },
+	            success : function (page){
+	            	
+// 	            page = page.replace(/\n/gi,"\\r\\n"); // 개행문자 대체
+// 	            	$("#check").text(""); // 댓글리스트 영역 초기화
+	            	var page_obj = JSON.parse(page); // service 클래스로 부터 전달된 문자열 파싱
+// 	            	alert("pageArr: " + page_obj);
+	            	var pageInfo =page_obj.pageInfo;
+//              		alert(pageInfo.length);
+             		var output="";
+             		var nowPage, reply_page, reply_maxPage, reply_startPage, reply_endPage, reply_count;
+             		
+// 	            alert(pageVal.reply_count);
+	            	for(var i=0; i<pageInfo.length; i++){
+	            		var pageVar = pageInfo[i];
+	            		if(i==0){
+// 	            			reply_page=pageVar.reply_page;
+	            			nowPage=pageVar.reply_page;
+	            		}else if(i==1){
+	            			reply_maxPage=pageVar.reply_maxPage;
+	            		}else if(i==2){
+	            			reply_startPage=pageVar.reply_startPage;
+	            		}else if(i==3){
+	            			reply_endPage=pageVar.reply_endPage;
+	            		}else if(i==4){
+	            			reply_count=pageVar.reply_count;
+	            		}
+	            	}
+	            	output += "<div> <ul class='pagination pagination-sm'>";
+	            	if(nowPage<= 1) {
+	            		output += "<li class='page-item disabled'> <a class='page-link' href='#'>&laquo;</a></li>";
+//         				output += "[이전]&nbsp";
+        			}else{
+        				var sub = parseInt(nowPage)-1;
+        				output += " <li class='page-item active'><a class='page-link' href='javascript:getReply("+sub+")'>&laquo;</a>&nbsp  </li>";
+        			}
+	            	for(var j = reply_startPage; j <= reply_endPage; j++) {
+            		    if(j ==nowPage){
+            		    	output +="<li class='page-item active'><a class='page-link'>"+j+"</a></li>"
+            			} else {
+            				output += "<li class='page-item'><a class='page-link' href='javascript:getReply("+j+")'>"+j+"</a>&nbsp";
+//             				nowPage=j;
+            			}
+	            	}
+	            	if(nowPage >= reply_maxPage) {
+// 	            		output += "&nbsp[다음]";
+	            		output += "<li class='page-item disabled'> <a class='page-link' href='#'>&raquo;</a></li></div>";
+	    			} else { 
+	    				var add = parseInt(nowPage)+1;
+	    				output += " <li class='page-item active'><a class='page-link' href='javascript:getReply("+add+")'>&raquo;</a>&nbsp  </li>";
+	    				output +="</ul></div>"
+// 	    				output += "<a href='javascript:getReply("+add+")'>&nbsp[다음]</a>";
+	    			}
+
+	            	output +="<span style='float: right!important;' ><button type='button' class='btn btn-outline-danger' onclick='write_reply()'>답글쓰기</button></span>";
+	            	
+	            	$(".pageList").html(output);
+	            }
+ // 	                	$(".check").append(pageVal.reply_count);
+// 	            	   alert(pageV.reply_count);
+
+// 				}
 			});
 		}
 
-
-
-
 </script>  
 
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<style type="text/css">
+#empty-box{
+	padding: 10% 10%;
+	text-align: center;
+}
 
+</style>
 </head>
 <body>
 
 		<!-- header page -->
+		<jsp:include page="../inc/link.jsp"/>
 		<jsp:include page="../inc/top.jsp"/>
+		<jsp:include page="../inc/green.jsp"/>
 		<!-- header page -->
-
+		
 <section class="gtco-section">
+
 <div class="gtco-container">
 
 	<div class="w3-article">
 	 <div class="left-box"> 
 			<div class="w3-border w3-padding">
-				<i class="fa fa-user"></i> <a href="#"> <%=article.getNickname() %></a><br>
+				<i class="fa fa-user"></i> <a href="#">${article.nickname }</a>
+				<i class='fas fa-coins' style="float: right!important;">${article.CP }</i>
+				<br>
 				<i class="fa fa-calendar">
-					<%if(article.getDate().compareTo(today)==0){ //날짜가 같으면 %> 
-						<td style="width: 20%" id="date"><%=article.getTime()%> <!-- 시간출력 --></td>
-					<%}else{ %>
-						<td style="width: 20%" id="date"><%=article.getDate()%></td>
-					<%} %>
+					<c:if test="${article.date==today}">
+							<td>${article.time}</td>
+					</c:if>
+					<c:if test="${article.date<today}">
+							<td id="date">${article.date}</td>
+					</c:if>
 				</i>
 				<div class="w3-right">
-					<!-- 조회수 --><span><i class="fa fa-eye"></i><%=article.getReadcount() %></span>&nbsp;
-					<!-- 추천수 --><i class="fa fa-heart" style="color:red"></i>&nbsp;<span class="rec_count"></span>
+					<!-- 조회수 --><span><i class="fa fa-eye"></i>${article.readcount }</span>&nbsp;
 					<!-- 댓글수 --><i class="fa fa-commenting-o"  onclick="javascript:openCmmnt();"></i>&nbsp;<span class="reply_count"></span>
 				</div>
 			</div>
 			<div class="w3-border w3-padding">
-				No.<%=article.getNum() %> &nbsp;&nbsp;&nbsp; <span class="w3-center w3-xlarge w3-text-blue"><%=article.getSubject() %></span>
+				No.${article.num }&nbsp;&nbsp;&nbsp; <span class="w3-center w3-xlarge w3-text-blue">${article.subject }</span>
 			</div>
 <%-- 			<article class="w3-border w3-large w3-padding">${article.content }</article> --%>
-			<%if(article.getFile() != null) { %>
-				<article class="w3-border w3-large w3-padding article_content">
-					<img src="/codingUpload/<%=article.getFile()%>" width=200px >	<br><br><br>
-					<%=article.getContent() %> <br><br>
+				<c:if test="${article.file != null}">
+							<article class="w3-border w3-large w3-padding article_content">
+					<img src="./codingUpload/${article.file }" width=800px >	<br><br><br>
+					${article.content } <br><br>
 				</article>
-			<%}%>
-			<div class="w3-border w3-padding">첨부파일: <a href="CodingFileDown.code?file_name=<%=article.getFile()%>" target="blank"><%=article.getFile() %></a></div><br>
+					</c:if>
+			<div class="w3-border w3-padding">첨부파일: <a href="CodingFileDown.code?file_name=${article.file }" target="blank">${article.file }</a></div><br>
+<!-- 			<div class="check" > 체크</div> -->
 			
-		</div>	
+			<c:if test="${article.nickname == sessionScope.nickname }">
+			<div>
+			    <button type="button" class="btn btn-outline-secondary" onclick="modify_article(${article.num})">글수정</button>&nbsp;&nbsp;
+			     <button type="button" class="btn btn-outline-secondary" onclick="delete_article(${article.num})">글삭제</button>
+			</div>
+			</c:if>
+		</div>
+<c:if test="${reply_count != 0}">		
+		<div class="w3-article" id="reply_article">
+			 <div class="right-box " id="replyList"> 
+				 <script type="text/javascript">
+				 	getReply(1);
+				 </script>
+			 <!-- 페이지 목록 버튼 표시 -->
+			<!-- 이전 페이지 또는 다음 페이지가 존재할 경우에만 해당 하이퍼링크 활성화 -->
+			
+			</div>
+		<div>
+</c:if>
 
-<div class="w3-article" id="reply_article">
-	 <div class="right-box " id="replyList"> 
-	 	<input type=button value="답글보기" onclick="getReplyListCount()">
-	 	
-	 	
+<c:if test="${reply_count == 0}">		
+	<div class="right-box" id="empty-box"> 등록된 답글이 없습니다. <br><br><br>
+	<button type="button" class="btn btn-outline-danger" onclick="location.href='CodingReplyWrite.code?nickname=${sessionScope.nickname }&post_num=${post_num }'">답글쓰기</button></div>
+</c:if>
+	 
+<!-- 	 <a href="javascript:getReplyListCount()">답글보기</a> -->
+<!-- 	 	<input type=button value="답글보기" onclick="getReply()"> -->
 	</div>
 		
 </div>
+
 <section id="replyPage"> </section>	
-	
 </div>
 	</div>
 	
@@ -220,7 +317,7 @@ function getReplyListCount(){
 	
 	<!-- header page -->
 		<jsp:include page="../inc/bottom.jsp"/>
-		<!-- header page -->
+	<!-- header page -->
 	
 	
 </body>

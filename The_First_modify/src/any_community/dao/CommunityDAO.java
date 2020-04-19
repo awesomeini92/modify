@@ -86,7 +86,7 @@ public class CommunityDAO {
 		int startRow = (page - 1) * 10;
 		
 		try {
-			String sql = "SELECT * FROM any_community ORDER BY num DESC LIMIT ?,?";
+			String sql = "SELECT *, time(date) AS time FROM any_community ORDER BY num DESC LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
@@ -101,6 +101,7 @@ public class CommunityDAO {
 				cb.setReadcount(rs.getInt("readcount"));
 				cb.setFile(rs.getString("file"));
 				cb.setDate(rs.getDate("date"));
+				cb.setTime(rs.getString("time"));
 				articleList.add(cb);
 			}
 
@@ -141,7 +142,7 @@ public class CommunityDAO {
 		CommunityBean cb = null;
 		
 		try {
-			String sql = "SELECT * FROM any_community WHERE num=?";
+			String sql = "SELECT *, time(date) AS time FROM any_community WHERE num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -155,6 +156,7 @@ public class CommunityDAO {
 				cb.setReadcount(rs.getInt("readcount"));
 				cb.setFile(rs.getString("file"));
 				cb.setDate(rs.getDate("date"));
+				cb.setTime(rs.getString("time"));
 			}
 
 		} catch (SQLException e) {

@@ -13,6 +13,7 @@ public class Coding_refBean {
 	private Date date;
 	private int isSelected;
 	private String time;
+	private int CP;
 	
 	
 	public int getRef_num() {
@@ -74,6 +75,12 @@ public class Coding_refBean {
 	}
 	public void setTime(String time) {
 		this.time = time;
+	}
+	public int getCP() {
+		return CP;
+	}
+	public void setCP(int cP) {
+		CP = cP;
 	}
 	
 }

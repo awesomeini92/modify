@@ -222,7 +222,7 @@ public class NoticeDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "UPDATE notice SET subject=?,content=? WHERE num=?";
+			String sql = "UPDATE notice SET subject=?, content=? WHERE num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, article.getSubject());
 			pstmt.setString(2, article.getContent());

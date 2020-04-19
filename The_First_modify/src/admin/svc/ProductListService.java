@@ -5,7 +5,6 @@ import static db.JdbcUtil.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-
 import shop.dao.ShopDAO;
 import shop.vo.ShopBean;
 

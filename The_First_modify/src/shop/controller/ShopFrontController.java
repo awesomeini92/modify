@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
-import shop.action.ShopCartAddAction;
-import shop.action.ShopCartListAction;
-import shop.action.ShopCartQtyChangeAction;
-import shop.action.ShopCartRemoveAction;
+import shop.action.ShopGifticonGetAction;
+import shop.action.ShopGifticonSendAction;
 import shop.action.ShopListAction;
+import shop.action.ShopPaymentAction;
+import shop.action.Action;
+import shop.action.PShopPaymentSuccessAction;
 import shop.action.ShopViewAction;
-import vo.ActionForward;
+import shop.vo.ActionForward;
 
 @WebServlet("*.shop")
 public class ShopFrontController extends HttpServlet {
@@ -35,26 +35,44 @@ public class ShopFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		//상품 목록
-		if(command.equals("/ShopList.shop")) {
-			action = new ShopListAction();
+		//shop 메인
+		if(command.equals("/ShopMain.shop")) {
+			forward = new ActionForward();
+			forward.setPath("/shop/shop_main.jsp");
+			
+//----------------------포인트샵--------------------
+			
+		//포인트충전 목록
+		}else if(command.equals("/PShopList.shop")) {
+			forward = new ActionForward();
+			forward.setPath("/shop/pshop_list.jsp");
+			
+		//포인트 결제 API
+		} else if(command.equals("/PShopPayment.shop")) {
+			forward = new ActionForward();
+			forward.setPath("/shop/pshop_payment.jsp");
+		
+		//포인트 결제완료
+		} else if(command.equals("/PShopPaymentSuccess.shop")) {
+			action = new PShopPaymentSuccessAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-//		//상품 등록
-//		}else if(command.equals("/ShopRegistForm.shop")) {
-//			forward = new ActionForward();
-//			forward.setPath("/shop/shop_regist.jsp");
-//
-//		}else if(command.equals("/ShopRegist.shop")) {
-//			action = new ShopRegistProAction();
-//			try {
-//				forward = action.execute(request, response);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
+			
+			
+//----------------기프티콘샵----------------------
+			
+		//기프티콘 상품 목록
+		} else if(command.equals("/ShopList.shop")) {
+			action = new ShopListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
+			
 		//상품 상세정보 보기
 		} else if(command.equals("/ShopView.shop")) {
 			action = new ShopViewAction();
@@ -63,38 +81,38 @@ public class ShopFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/ShopCartAdd.shop")) {
-			action = new ShopCartAddAction();
+
+		//포인트로 교환하기
+		} else if(command.equals("/ShopPayment.shop")) {
+			action = new ShopPaymentAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
-		//장바구니 목록
-		} else if(command.equals("/ShopCartList.shop")) {
-			action = new ShopCartListAction();
+			}		
+		
+		//기프티콘 이메일로 전송
+		} else if(command.equals("/ShopGifticonSend.shop")) {
+			action = new ShopGifticonSendAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
-		} else if(command.equals("/ShopCartQtyChange.shop")) {
-			action = new ShopCartQtyChangeAction();
+			}		
+			
+		//이메일 기프티콘 링크
+		} else if(command.equals("/ShopGifticonGet.shop")) {
+			action = new ShopGifticonGetAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
-		} else if(command.equals("/ShopCartRemove.shop")) {
-			action = new ShopCartRemoveAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			}	
 		}
+				
 		
 
+			
 		
 		if(forward != null) {
 			if (forward.isRedirect()) {
@@ -107,6 +125,7 @@ public class ShopFrontController extends HttpServlet {
 			System.out.println("ActionForward 객체 값이 null 입니다.");
 		}
 	}
+	
 	
 	
 	@Override

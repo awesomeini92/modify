@@ -33,69 +33,73 @@ public class CodingReplyDetailAction implements Action {
 		System.out.println("CodingReplyDetailAction");
 		
 		int post_num = Integer.parseInt(request.getParameter("post_num"));
-		String page = request.getParameter("page"); 
+//		 reply_page = Integer.parseInt(request.getParameter("nowPage"));
 		
-		int reply_page = 1;
-		int reply_limit = 2;
+//		System.out.println("nowPage    " + request.getParameter("nowPage"));
+		 int reply_page = 1;
+		int reply_limit = 1;
 		
-		if(request.getParameter("reply_page") != null) {
-			reply_page = Integer.parseInt(request.getParameter("reply_page")); // 정수로 변환하여 저장
+		if(request.getParameter("nowPage") != null) {
+			reply_page = Integer.parseInt(request.getParameter("nowPage")); // 정수로 변환하여 저장
+//			System.out.println("reply_page: " + reply_page);
 		}
 		
-		System.out.println(reply_page);
+		
 		
 		CodingReplyListService codingReplyListService = new CodingReplyListService();
-		List<Coding_refBean> replyList = codingReplyListService.getArticleReplyList(post_num, reply_page, reply_limit);
-		
-//		Coding_refBean article_ref= codingReplyListService.getReplyArticle(post_num);
-		
-		
-		// 리턴받은 BoardBean 객체가 null 이 아닐 경우 BoardDetailService 클래스의 plusReadcount() 메서드 호출
-//		if(article_ref != null) {
-////			codingDetailService.updateReadcount(post_num);
-//		}
-		
-	
-		AllService allService = new AllService();
-		Date today = allService.getToday();
 		
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		
-		String json = "{\"replyList\":["; // replyList는 키값이 됨
-		for (int i = 0; i < replyList.size(); i++) {
-			String nickname = replyList.get(i).getNickname();
-			String subject = replyList.get(i).getSubject();
-			String content = replyList.get(i).getContent();
-			String file = replyList.get(i).getFile();
-			Date date = replyList.get(i).getDate();
-			String time = replyList.get(i).getTime();
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			int readcount = replyList.get(i).getReadcount();
-			int ref_num = replyList.get(i).getRef_num();
-			
-			json += "[{\"nickname\":\"" + nickname + "\"},"; //0
-			if(date.compareTo(today)==0) {
-				json += "{\"reply_date\":\"" + time + "\"},";		//1
-			}else {
-				json += "{\"reply_date\":\"" + df.format(date) + "\"},";		//1
-			}
-			json += "{\"readcount\":\"" + readcount + "\"},";		//2
-			json += "{\"ref_num\":\"" + ref_num + "\"},";		//3
-			json += "{\"subject\":\"" + subject + "\"},"; //4
-			json += "{\"file\":\"" + file + "\"},";		//5
-			json += "{\"content\":\"" + content + "\"},";		//6
-			json += "{\"file\":\"" + file + "\"}]";		//7
-			
-			if (i != replyList.size() - 1) {
-				json += ",";
-			}
+
+		int reply_count = codingReplyListService.getReplyListCount(post_num);
+		//답글 페이지
+		int reply_maxPage = (int)((double)reply_count / reply_limit + 0.95);
+		// 2. 시작 페이지 번호 계산
+		int reply_startPage = (((int)((double)reply_page / 10 + 0.9)) - 1) *10 + 1;
+		// 3. 마지막 페이지 번호 계산
+		int reply_endPage = reply_startPage + 10 - 1;
+		
+		// 마지막 페이지 번호가 총 페이지 수 보다 클 경우 총 페이지 수를 마지막 페이지 번호로 설정
+		if(reply_endPage > reply_maxPage) {
+			reply_endPage = reply_maxPage;
 		}
-		json += "]}";
+		// PageInfo 객체에 페이지 정보 저장
+		PageInfo replyPageInfo = new PageInfo(reply_page, reply_maxPage, reply_startPage, reply_endPage, reply_count);
+//		System.out.println(reply_page+", "+reply_maxPage+", "+reply_startPage+", "+reply_endPage+", "+reply_count+", ");
+		
+		
+		String page = "{\"pageInfo\":["; // replyList는 키값이 됨
+//		String page = "";
+//		for (int i = 0; i <5; i++) {
+			
+//			page += reply_page +",";
+//			page += reply_maxPage +",";
+//			page += reply_startPage +",";
+//			page += reply_endPage +",";
+//			page += reply_count;
+		
+			page += "{\"reply_page\":\"" + reply_page + "\""; //0
+			page += "},";
+			page += "{\"reply_maxPage\":\"" + reply_maxPage + "\"";		//1
+			page += "},";
+			page += "{\"reply_startPage\":\"" + reply_startPage+ "\"";		//1
+			page += "},";
+			page += "{\"reply_endPage\":\"" + reply_endPage + "\"";		//2
+			page += "},";
+			page += "{\"reply_count\":\"" + reply_count + "\"";			//3
+			page += "}";
+//			if (i != 4) {
+//				page += ",";
+//			}
+//		}
+		page += "]}";
+		
 		
 		// 누적된 json 형식의 문자열을 호출한 페이지(뷰페이지)로 보내줌
-		out.print(json);
 
+		out.print(page);
+		
 		return forward;
 	}
 
