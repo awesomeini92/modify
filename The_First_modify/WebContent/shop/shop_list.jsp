@@ -59,14 +59,12 @@
 </style>
 </head>
 <body>
-<header>
 		
 		<!-- header page -->
-		<jsp:include page="../inc/link.jsp"/>
+<%-- 		<jsp:include page="../inc/link.jsp"/> --%>
 		<jsp:include page="../inc/top.jsp"/>
-		<jsp:include page="../inc/green.jsp"/>
+<%-- 		<jsp:include page="../inc/green.jsp"/> --%>
 		<!-- header page -->
-	</header>
 	<section id="listForm">
 	<c:if test="${shopList != null }"> 
 	<h1>기프티콘 상품 목록</h1>

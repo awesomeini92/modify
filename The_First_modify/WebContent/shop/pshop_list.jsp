@@ -27,12 +27,6 @@
 </head>
 <body>
 
-		<!-- header page -->
-		<jsp:include page="../inc/link.jsp"/>
-		<jsp:include page="../inc/top.jsp"/>
-		<jsp:include page="../inc/green.jsp"/>
-		<!-- header page -->
-
 <form action="PShopPayment.shop" method="post">
 
 <input type="hidden" name="name" value="point">

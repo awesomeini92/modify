@@ -2,21 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<%
-String nickname = null;
-
-// 로그인이 되지 않은 상태일 경우 로그인 페이지로 강제 이동 처리
-if(session.getAttribute("sId") == null) {
-	out.println("<script>");
-    out.println("alert('로그인이 필요한 서비스입니다!')");
-    out.println("location.href='LoginForm.me'");
-    out.println("</script>");
-} else { // 로그인 된 상태일 경우 세션 nickname 가져오기
-	nickname = (String)session.getAttribute("nickname");
-}	
-%>
-
+<c:if test="${sessionScope.nickname==null }">
+    <script type="text/javascript">
+		alert("로그인 해주세요");
+		location.href="LoginForm.me"
+	</script>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,13 +62,11 @@ if(session.getAttribute("sId") == null) {
 
 </head>
 <body>
-	<header>
-		<%if(nickname == null) {  %>
-			<a href="LoginForm.me">로그인</a> | <a href="JoinForm.me">회원가입</a>
-		<%} else { %>
-			${nickname }님  | <a href="Mypage.me">마이페이지</a> | <a href="Logout.me">로그아웃</a>
-		<%} %>
-	</header>
+		<!-- header page -->
+<%-- 		<jsp:include page="../inc/link.jsp"/> --%>
+		<jsp:include page="../inc/top.jsp"/>
+<%-- 		<jsp:include page="../inc/green.jsp"/> --%>
+		<!-- header page -->
 	<section id="viewForm">
 		<h2>${shop.product_name }의 상세정보</h2>
 	
