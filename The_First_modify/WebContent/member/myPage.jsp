@@ -12,6 +12,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+function textCheck() {
+	$.ajax({
+		url: "/The_First/TextCheck.te",
+       		type: "POST",
+       	    data: {
+			receiver : '${sessionScope.nickname}'
+       	 	},
+        	success: function (count) {
+				if(count > 0) {
+				window.open("/The_First/member/textCheck.jsp");
+				} 
+       		 }
+		});
+}
+
+	setInterval(hing(), 6000);
+
+</script>
 </head>
 <body>
 <table border="1">
@@ -33,5 +53,6 @@
 	</tr>
 </table>
 	<a href="UpdateForm.me?id=<%=mb.getId()%>"><input type="button" value="회원수정"></a>
+	<a href="TextList.te?receiver=<%=mb.getNickname()%>"><input type="button" value="쪽지함"></a>
 </body>
 </html>
