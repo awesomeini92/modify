@@ -17,15 +17,15 @@ public class JobBoardModifyProAction implements Action {
 		
 		ActionForward forward = null;
 		
-		int board_num = Integer.parseInt(request.getParameter("board_num"));
+		int num = Integer.parseInt(request.getParameter("num"));
 		String page = request.getParameter("page");
 		
 		JobBoardModifyProService boardModifyProService = new JobBoardModifyProService();
 		
 		JobBoardBean article = new JobBoardBean();
-		article.setBoard_num(board_num);
-		article.setBoard_subject(request.getParameter("board_subject"));
-		article.setBoard_content(request.getParameter("content"));
+		article.setNum(num);
+		article.setSubject(request.getParameter("subject"));
+		article.setContent(request.getParameter("content"));
 		
 		boolean isModifySuccess = boardModifyProService.modifyArticle(article);
 			
@@ -38,7 +38,7 @@ public class JobBoardModifyProAction implements Action {
 				out.println("</script>");
 			} else {
 				forward = new ActionForward();
-				forward.setPath("JobBoardDetail.bo?board_num=" + board_num + "&page=" + page);
+				forward.setPath("JobBoardDetail.job?num=" + num + "&page=" + page);
 				forward.setRedirect(true);
 			}
 		

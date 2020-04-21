@@ -7,48 +7,67 @@ import java.util.Date;
  *
  */
 public class JobBoardBean {
-	private int board_num;
-	private String board_nickname;
-	private String board_subject;
-	private String board_content;
-	private int board_readcount;
-	private Date board_date;
-	public int getBoard_num() {
-		return board_num;
-	}
-	public void setBoard_num(int board_num) {
-		this.board_num = board_num;
-	}
-	public String getBoard_nickname() {
-		return board_nickname;
-	}
-	public void setBoard_nickname(String board_nickname) {
-		this.board_nickname = board_nickname;
-	}
-	public String getBoard_subject() {
-		return board_subject;
-	}
-	public void setBoard_subject(String board_subject) {
-		this.board_subject = board_subject;
-	}
-	public String getBoard_content() {
-		return board_content;
-	}
-	public void setBoard_content(String board_content) {
-		this.board_content = board_content;
-	}
-	public int getBoard_readcount() {
-		return board_readcount;
-	}
-	public void setBoard_readcount(int board_readcount) {
-		this.board_readcount = board_readcount;
-	}
-	public Date getBoard_date() {
-		return board_date;
-	}
-	public void setBoard_date(Date board_date) {
-		this.board_date = board_date;
+	private int num;
+	private String nickname;
+	private String subject;
+	private String content;
+	private int readcount;
+	private Date date;
+	private String file;
+	
+	public JobBoardBean() {
+		super();
 	}
 	
+	public JobBoardBean(String nickname, String subject, String content,String file) {
+		super();
+		this.nickname = nickname;
+		this.subject = subject;
+		this.content = content;
+		this.file = file;
+	}
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public int getReadcount() {
+		return readcount;
+	}
+	public void setReadcount(int readcount) {
+		this.readcount = readcount;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+		
 	
 }

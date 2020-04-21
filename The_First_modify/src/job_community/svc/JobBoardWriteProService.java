@@ -10,15 +10,17 @@ import job_community.vo.JobBoardBean;
 
 public class JobBoardWriteProService {
 
-	public boolean registArticle(JobBoardBean jobBoardBean) {
+	public boolean insertArticle(JobBoardBean jobBoardBean) {
+		System.out.println("JobBoardWriteService");
+		boolean isWriteSuccess = false;
+		
 		Connection con = getConnection();
 		JobBoardDAO jobBoardDAO = JobBoardDAO.getInstance();
 		jobBoardDAO.setConnection(con);
 		
 		int insertCount = jobBoardDAO.insertArticle(jobBoardBean);
-		boolean isWriteSuccess = false;
 		
-		if(insertCount>0) {
+		if(insertCount > 0) {
 			commit(con);
 			isWriteSuccess = true;
 			

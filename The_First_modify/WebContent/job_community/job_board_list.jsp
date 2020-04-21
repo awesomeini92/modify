@@ -9,7 +9,7 @@
 		alert("로그인 해주세요");
 		location.href="LoginForm.me"
 	</script>
-</c:if>  
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +58,7 @@
 									<tr>
 										<td align="center">${article.num }</td>
 										<td align="center"><a
-											href='<c:url value="JobBoardDetail.job?board_num=${article.num}"/>'>${article.subject }</a></td>
+											href='<c:url value="JobBoardDetail.job?num=${article.num}"/>'>${article.subject }</a></td>
 
 										<td>${article.nickname}</td>
 										<c:if test="${article.date==today}">

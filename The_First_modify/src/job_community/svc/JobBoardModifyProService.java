@@ -13,7 +13,7 @@ import job_community.vo.JobBoardBean;
 public class JobBoardModifyProService {
 
 	public boolean modifyArticle(JobBoardBean article) throws Exception {
-		// 글 번호에 해당하는 게시물에 저장된 패스워드와 입력받은 패스워드를 비교하여 일치여부 리턴
+		System.out.println("JobModifyProService");
 		int updateCount = 0;
 		boolean isModifySuccess = false;
 		
@@ -29,7 +29,6 @@ public class JobBoardModifyProService {
 		} else {
 			rollback(con);
 		}
-		
 		
 		close(con);
 		

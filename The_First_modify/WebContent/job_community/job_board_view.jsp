@@ -1,6 +1,8 @@
 <%@page import="job_community.vo.JobBoardBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 	String sId = null;
 	// 로그인이 되지 않은 상태일 경우 로그인 페이지로 강제 이동 처리
@@ -22,35 +24,86 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
-<body>
-<header>
-		<!-- 세션ID(sId) 가 없을 경우 로그인(LoginForm.me), 회원가입(JoinForm.me) 링크 표시 -->
-		<!-- 세션ID(sId) 가 있을 경우 회원ID, 로그아웃(Logout.me)링크 표시 -->
-		<%if(sId == null) {%>
-			<a href="LoginForm.me">로그인</a> | <a href="JoinForm.me">회원가입</a>
-		<%} else { %>
-			<%=sId %>님 | <a href="Logout.me">로그아웃</a>
-		<%} %>
-	</header>
-	
-	<!-- 게시판 글 조회 -->
-	<section id="articleForm">
-		<h2>글 내용 상세보기</h2>
-		<section id="basicInfoArea">
-			제목 : <%=article.getBoard_subject() %><br>
-			작성자 : <%=article.getBoard_nickname() %><br>
-			조회수 : <%=article.getBoard_readcount() %><br>
-		</section>
-		<section id="articleContentArea">
-			내용 : <%=article.getBoard_content() %>	
-		</section>
-	</section>
-	<section id="commandList">
-		<a href="JobBoardModifyForm.job?board_num=<%=article.getBoard_num()%>&page=<%=nowPage %>"><input type="button" value="수정" ></a>
-		<a href="JobBoardDeleteForm.job?board_num=<%=article.getBoard_num()%>&page=<%=nowPage %>"><input type="button" value="삭제" ></a>
-		<a href="JobBoardList.job?page=<%=nowPage %>"><input type="button" value="목록" ></a>
-	</section>
+<script type="text/javascript">
+function modify_article(num){  
+	if (confirm("수정하시겠습니까?") == true){    //확인
+		location.href="CodingModifyForm.code?num="+num;
+	}else{
+			return false;
+		}
+}
 
+
+function delete_article(post_num){  
+	if (confirm("삭제하시겠습니까?") == true){    //확인
+		location.href="JobBoardDeletePro.job?nickname=${sessionScope.nickname }&num="+num;
+	}else{
+			return false;
+		}
+}
+</script>
+</head>
+
+<body>
+
+		<!-- header page -->
+		<jsp:include page="../inc/link.jsp"/>
+		<jsp:include page="../inc/top.jsp"/>
+		<jsp:include page="../inc/green.jsp"/>
+		<!-- header page -->
+		
+<section class="gtco-section">
+
+<div class="gtco-container">
+
+	<div class="w3-article">
+	 <div class="left-box"> 
+			<div class="w3-border w3-padding">
+				<i class="fa fa-user"></i> <a href="#">${article.nickname }</a>
+				<br>
+				<i class="fa fa-calendar">
+<%-- 					<c:if test="${article.date==today}"> --%>
+<%-- 							<td>${article.time}</td> --%>
+<%-- 					</c:if> --%>
+<%-- 					<c:if test="${article.date<today}"> --%>
+							<td id="date">${article.date}</td>
+<%-- 					</c:if> --%>
+				</i>
+				<div class="w3-right">
+					<!-- 조회수 --><span><i class="fa fa-eye"></i>${article.readcount }</span>&nbsp;
+				</div>
+			</div>
+			<div class="w3-border w3-padding">
+				No.${article.num }&nbsp;&nbsp;&nbsp; <span class="w3-center w3-xlarge w3-text-blue">${article.subject }</span>
+			</div>
+<%-- 			<article class="w3-border w3-large w3-padding">${article.content }</article> --%>
+				
+							<article class="w3-border w3-large w3-padding article_content">
+							<c:if test="${article.file != null}">
+					<img src="job_community/images/${article.file }" width=800px >	<br><br><br>
+					</c:if>	
+					${article.content } <br><br>
+				</article>
+															<!-- 수정@@@@ -->
+			<div class="w3-border w3-padding">첨부파일: <a href="JobFileDown.job?file_name=${article.file }" target="blank">${article.file }</a></div><br>
+<!-- 			<div class="check" > 체크</div> -->
+			
+			<c:if test="${article.nickname == sessionScope.nickname }">
+			<div>
+			    <button type="button" class="btn btn-outline-secondary" onclick="modify_article(${article.num})">글수정</button>&nbsp;&nbsp;
+			     <button type="button" class="btn btn-outline-secondary" onclick="delete_article(${article.num})">글삭제</button>
+			</div>
+			</c:if>
+		</div>
+			
+			</div>
+			</div>
+			</section>
+			
+	<!-- header page -->
+		<jsp:include page="../inc/bottom.jsp"/>
+	<!-- header page -->
+	
+	
 </body>
 </html>

@@ -14,12 +14,12 @@ public class JobBoardDeleteProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		int board_num = Integer.parseInt(request.getParameter("board_num"));
+		int num = Integer.parseInt(request.getParameter("num"));
 		String page = request.getParameter("page");
 				
 		JobBoardDeleteProService boardDeleteProService = new JobBoardDeleteProService();
 		
-			boolean isDeleteSuccess = boardDeleteProService.removeArticle(board_num);
+			boolean isDeleteSuccess = boardDeleteProService.removeArticle(num);
 					
 			if(!isDeleteSuccess) {
 				response.setContentType("text/html; charset=UTF-8");

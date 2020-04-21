@@ -49,7 +49,7 @@ public class KakaoLoginProAction implements Action {
 			// index.jsp 로 이동
 			forward = new ActionForward();
 //			forward.setPath("index.jsp");
-			forward.setPath(""); // MVC_Board 프로젝트의 홈으로 이동 = index.jsp
+			forward.setPath("main.all"); // MVC_Board 프로젝트의 홈으로 이동 = index.jsp
 			forward.setRedirect(true);
 		}
 		

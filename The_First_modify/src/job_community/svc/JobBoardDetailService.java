@@ -12,8 +12,8 @@ import job_community.vo.JobBoardBean;
 
 public class JobBoardDetailService {
 
-	public JobBoardBean getArticle(int board_num) throws Exception {
-		System.out.println("BoardDetailService - getArticle()");
+	public JobBoardBean getArticle(int num) {
+		System.out.println("JobBoardDetailService - getArticle()");
 
 		Connection con = getConnection();
 		JobBoardDAO boardDAO = JobBoardDAO.getInstance();
@@ -21,15 +21,15 @@ public class JobBoardDetailService {
 		
 		JobBoardBean article = null;
 		
-		article = boardDAO.selectArticle(board_num);
+		article = boardDAO.selectArticle(num);
 		
 		close(con);
 		
 		return article;
 	}
 	
-	public void plusReadcount(int num) throws Exception {
-
+	public void plusReadcount(int num) {
+		System.out.println("JobBoardDetailService - plusreadcount");
 		Connection con = getConnection();
 		JobBoardDAO boardDAO = JobBoardDAO.getInstance();
 		boardDAO.setConnection(con);

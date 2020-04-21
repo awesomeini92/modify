@@ -10,11 +10,16 @@ import job_community.dao.JobBoardDAO;
 import job_community.vo.JobBoardBean;
 
 
+
+
+
+
+
 public class JobBoardListService {
 
 	public int getListCount() {
-		System.out.println("BoardListService - getListCount()");
-		int listCount = 0; // 총 게시물 수 저장할 변수
+		System.out.println("JobBoardListService - getListCount()");
+		int listCount = 0; 
 		
 		Connection con = getConnection();
 		JobBoardDAO boardDAO = JobBoardDAO.getInstance();

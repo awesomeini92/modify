@@ -14,24 +14,18 @@ public class JobBoardListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("JobBoardListAction");
 		ActionForward forward = null;
 		
-		int page = 1; // 현재 페이지 번호
-		int limit = 10; // 한 페이지 당 출력할 게시물 수
-		// page 파라미터가 존재할 경우 파라미터에 전달된 데이터를 현재 페이지 번호로 대체
-		// => URL 주소 뒤에 XXX.bo?page=XXX 형태로 파라미터 전달됨
+		int page = 1; 
+		int limit = 10; 
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page")); // 정수로 변환하여 저장
 		}
 		
-		// BoardListService 인스턴스 생성 후 게시물 목록 갯수 가져오기
 		JobBoardListService boardListService = new JobBoardListService();
 		int listCount = boardListService.getListCount();
-//		System.out.println("총 게시물 수 : " + listCount);
 		
-		// BoardListService 객체의 getArticleList() 메서드를 호출하여 게시물 목록 가져오기
-		// => 파라미터로 현재 페이지(page) 와 게시물 수(limit) 를 전달
-		// => ArrayList<BoardBean> 타입 객체 리턴
 		ArrayList<JobBoardBean> articleList = boardListService.getArticleList(page, limit);
 		
 		int maxPage = (int)((double)listCount / limit + 0.95);

@@ -20,10 +20,10 @@ public class KakaoJoinProAction implements Action{
 		System.out.println("kakoJoinProAction!");
 		ActionForward forward = null;
 		String id = request.getParameter("id");
-		String pass = request.getParameter("id") + "pass";
+		String password = request.getParameter("id") + "pass";
 		String nickname = request.getParameter("nickname");
 		String email = request.getParameter("id") + "@kakao.com";
-		MemberBean member = new MemberBean(id, pass, nickname, email);
+		MemberBean member = new MemberBean(id, password, nickname, email);
 		
 		KakaoJoinProService kakaoJoinProService = new KakaoJoinProService();
 		MemberBean mb = KakaoJoinProService.getMember(id);
@@ -32,20 +32,20 @@ public class KakaoJoinProAction implements Action{
 			//아이디가있음
 			System.out.println("아이디있음");
 			session.setAttribute("sId", id);
-			session.setAttribute("pass", pass); //세션값 생성이 그냥 아에 로그인
+			session.setAttribute("pass", password); //세션값 생성이 그냥 아에 로그인
 			session.setAttribute("nickname", nickname);
 //			session.setAttribute("nickname", nickname);
 			forward = new ActionForward();
-			forward.setPath("index.jsp");//main 가상주소
+			forward.setPath("main.all");//main 가상주소
 			forward.setRedirect(true);
 		}else {
 			System.out.println("아이디없음");
 			kakaoJoinProService.joinMember(member);
 			session.setAttribute("sId", id);
-			session.setAttribute("pass", pass); //세션값 생성이 그냥 아에 로그인
+			session.setAttribute("pass", password); //세션값 생성이 그냥 아에 로그인
 			session.setAttribute("nickname", nickname);
 			forward = new ActionForward();
-			forward.setPath("index.jsp");
+			forward.setPath("main.all");
 			forward.setRedirect(true);
 		}
 		

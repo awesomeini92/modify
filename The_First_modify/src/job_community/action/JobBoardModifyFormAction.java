@@ -14,18 +14,18 @@ public class JobBoardModifyFormAction implements Action{
 		
 		System.out.println("JobBoardModifyFormAction");
 
-		int board_num = Integer.parseInt(request.getParameter("board_num"));
+		int num = Integer.parseInt(request.getParameter("num"));
 		String page = request.getParameter("page");
 		
 		JobBoardBean article = null;
 		JobBoardDetailService boardDetailService = new JobBoardDetailService();
-		article = boardDetailService.getArticle(board_num);
+		article = boardDetailService.getArticle(num);
 		
 		request.setAttribute("article", article);
 		request.setAttribute("page", page);
 		
 		ActionForward forward = new ActionForward();
-		forward.setPath("/jobBoard/job_board_update.jsp"); 
+		forward.setPath("/job_community/job_board_update.jsp"); 
 		return forward;
 	}
 

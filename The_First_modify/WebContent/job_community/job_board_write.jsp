@@ -36,19 +36,19 @@
 			<form action="JobBoardWritePro.job" method="post" enctype="multipart/form-data" class="code_wf">
 					<div class="form-group">					
 				    <label class="control-label" for="readOnlyInput">글쓴이</label>
-				    <input class="form-control" id="nickname" name="board_name" type="text" value="${sessionScope.nickname }" readonly=""></div>
+				    <input class="form-control" id="nickname" name="nickname" type="text" value="${sessionScope.nickname }" readonly></div>
 						
 						<div class="form-group">
 							  <label class="control-label" for="subject">제목</label>
-							  <input class="form-control form-control-lg" type="text" placeholder="제목" id="subject" name="board_subject">
+							  <input class="form-control form-control-lg" type="text" placeholder="제목" id="subject" name="subject">
 						</div>
 							<div class="form-group mg10 ">
 								<label class="control-label" for="file">파일첨부</label>
-							     <input type="file" class="form-control-file text-right" name="any_file" >
+							     <input type="file" class="form-control-file text-right" name="file" >
 							</div>
 														
 							<div class="form-group mg3"><label class="control-label" for="content">내용</label>
-		  					<textarea class="form-contrdiv" name="board_content" id="content" cols="100" rows="12" required></textarea></div>
+		  					<textarea class="form-contrdiv" name="content" id="content" cols="100" rows="12" required></textarea></div>
 				
 								<div class="wsr" >
 									<input type="reset"  class="btn btn-outline-secondary btn-lg" value="다시쓰기" />
@@ -70,37 +70,5 @@
 		<jsp:include page="../inc/bottom.jsp"/>
 		<!-- footer page -->
 
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-		
-	</div>
-		
-		
-	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="js/chart-area-demo.js"></script>
-    <script src="js/chart-bar-demo.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-    <script src="js/datatables-demo.js"></script>
-		
-	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
-	<!-- Carousel -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- Magnific Popup -->
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
-	<!-- Main -->
-	<script src="js/main.js"></script>
-	
 	</body>
 </html>

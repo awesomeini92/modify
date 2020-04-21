@@ -13,7 +13,7 @@
 	}
 
 	// 전달받은 request 객체로부터 게시물 번호(board_num)와 페이지번호(page) 가져오기
-    int board_num = Integer.parseInt(request.getParameter("board_num"));
+    int num = Integer.parseInt(request.getParameter("num"));
     String nowPage = request.getParameter("page");
 %>    
 <!DOCTYPE html>
@@ -34,7 +34,7 @@
 	</header>
 	
 	<section id="passForm">
-		<form name="deleteForm" action="JobBoardDeletePro.job?board_num=<%=board_num %>&page=<%=nowPage %>" method="post">
+		<form name="deleteForm" action="JobBoardDeletePro.job?num=<%=num %>&page=<%=nowPage %>" method="post">
 <%-- 			<input type="hidden" name="board_num" value="<%=board_num %>" /> --%>
 <%-- 			<input type="hidden" name="page" value="<%=nowPage %>" /> --%>
 			
