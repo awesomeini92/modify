@@ -114,11 +114,6 @@ public class AcademyFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/AcademyDeleteForm.ac")) {
-			// 글 삭제 폼 요청 => DB 작업이 필요없으므로 바로 뷰페이지로 이동
-			forward = new ActionForward();
-			forward.setPath("/academy/academy_delete.jsp");
-            
 		} else if(command.equals("/AcademyDeletePro.ac")) {
 			// 글 삭제 요청 => DB 작업을 통해 삭제해야하므로 BoardDeleteProAction 클래스 작업 수행
 			action = new AcademyDeleteProAction();

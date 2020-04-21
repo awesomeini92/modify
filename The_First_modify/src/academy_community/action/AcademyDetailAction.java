@@ -42,8 +42,9 @@ public class AcademyDetailAction implements Action {
 				
 		// 게시물 정보(BoardBean 객체), 페이지번호(page) 를 request 객체에 저장
 		request.setAttribute("article", article);
-		request.setAttribute("page", page);
+//		request.setAttribute("page", page);
 		request.setAttribute("today", today);
+		request.setAttribute("post_num", num);
 				
 		// ActionForward 객체를 생성하여 board 폴더 내의 qna_board_view.jsp 로 이동 설정
 		ActionForward forward = new ActionForward();

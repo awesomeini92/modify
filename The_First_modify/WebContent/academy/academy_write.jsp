@@ -1,152 +1,63 @@
-<%@page import="academy_community.vo.AcademyBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String sId = null;
-	String nickname = null;
-	// 로그인이 되지 않은 상태일 경우 로그인 페이지로 강제 이동 처리
-	if(session.getAttribute("sId") == null) {
-		out.println("<script>");
-	    out.println("alert('로그인이 필요한 서비스입니다!')");
-	    out.println("location.href='LoginForm.me'");
-	    out.println("</script>");
-	} else { // 로그인 된 상태일 경우 세션 ID 가져오기
-		sId = (String)session.getAttribute("sId");
-	}
-	nickname = (String)session.getAttribute("nickname");
-%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<c:if test="${sessionScope.nickname==null }">
+    <script type="text/javascript">
+		alert("로그인 해주세요");
+		location.href="LoginForm.me"
+	</script>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="css/map.css">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript">
-	function checkadd() {
-		new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-//                 var extraAddr = ''; // 참고항목 변수
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-//                 if(data.userSelectedType === 'R'){
-//                     // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-//                     // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-//                     if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-//                         extraAddr += data.bname;
-//                     }
-//                     // 건물명이 있고, 공동주택일 경우 추가한다.
-//                     if(data.buildingName !== '' && data.apartment === 'Y'){
-//                         extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-//                     }
-//                     // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-//                     if(extraAddr !== ''){
-//                         extraAddr = ' (' + extraAddr + ')';
-//                     }
-//                     // 조합된 참고항목을 해당 필드에 넣는다.
-//                     document.getElementById("sample6_extraAddress").value = extraAddr;
-                
-//                 } 
-//                 else {
-//                     document.getElementById("sample6_extraAddress").value = '';
-//                 }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-//                 document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("board_add").value = addr;
-                document.getElementById("academy_name").value = data.buildingName;
-                
-            }
-        }).open();
-	}
-</script>
-
+<meta charset="UTF-8">
+<title>Do you have any Questions?</title>
+<style type="text/css">
+.mg10{
+	margin-top: 10% !important;
+}
+.mg5{
+	margin-top: 3% !important;
+}
+</style>
 </head>
 
 <body>
-	<!-- header page -->
-<%-- 	<jsp:include page="../inc/green.jsp"/> --%>
-		<jsp:include page="../inc/link.jsp"/>	
-		<jsp:include page="../inc/top.jsp"/>
 		<!-- header page -->
-		
-		<nav class="gtco-nav" role="navigation">
-			<div class="gtco-container">
-				
-				<div class="row">
-					<div class="col-sm-2 col-xs-12">
-						<div id="gtco-logo"><a href="index.html"><img src="images/logo.png" alt="Do you have any questions?"></a></div>
-					</div>
-					<div class="col-xs-10 text-right menu-1">
-						<ul>
-							<li class="active"><a href="index.html">Home</a></li>
-							<li><a href="about.html">About</a></li>
-							<li class="has-dropdown">
-								<a href="#">Boards</a>
-								<ul class="dropdown">
-									<li><a href=" JobList.job">취업</a></li>
-									<li><a href=" AcademyList.ac">학원추천</a></li>
-									<li><a href=" CommunityList.any">자유</a></li>
-								</ul>
-						</li>
-							<li class="has-dropdown">
-								<a href="#">CodingQ&A</a>
-								<ul class="dropdown">
-									<li><a href="CodingFreeList.cf">Free</a></li>
-									<li><a href="CodingList.code">Charged</a></li>
-								</ul>
-							</li>
-							<li><a href="NoticeList.no">Notice</a></li>
-							<li><a href="ShopList.shop">SHOP</a></li>
-							<li><a href="contact.html">Contact</a></li>
-						</ul>
-					</div>
-				</div>
-				
-			</div>
-		</nav>
-	
+		<jsp:include page="../inc/top.jsp"/>
+		<jsp:include page="../inc/link.jsp"/>
+		<jsp:include page="../inc/green.jsp"/>
+		<!-- header page -->
+
 		<div class="gtco-section">
 			<div class="gtco-container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-<!-- 						<img src="../images/cube_img" alt="Do you have any questions?" width="100px"> -->
+						<h2> </h2>
 					</div>
 				</div>
 		</div>
-		
-		<div class="gtco-container">
-			<div class="row">
-				<!-- 게시물 목록 가져오기 -->
-				<form action="AcademyWritePro.ac" method="post" name="boardform" class="acdemy_wf">
-					<div class="form-group">
-						<label class="control-label" for="readOnlyInput">글쓴이</label> <input
-							class="form-control" id="nickname" name="nickname" type="text" value="<%=nickname%>" readonly="">
-					</div>
 
-					<div class="form-group">
-						<label class="control-label" " for="subject">제목</label> <input
-							class="form-control form-control-lg" type="text" placeholder="제목"
-							id="subject" name="subject">
-					</div>
-
-					<div class="form-group">
-						<label class="control-label" for="content">내용</label><br>
-						<textarea class="form-contrdiv" name="content" id="content"
-							cols="100" rows="12" required=""></textarea>
-					</div>
-					
-					<div class="form-group">
+			<div class="gtco-container">
+			<div class="center-box row">
+							<!-- 게시물 목록 가져오기 -->
+			<form action="AcademyWritePro.ac" method="post" name="boardform" class="acdemy_wf">
+					<div class="form-group">					
+				    <label class="control-label" for="readOnlyInput">글쓴이</label>
+				    <input class="form-control" id="nickname" name="nickname" type="text" value="${sessionScope.nickname }" readonly=""></div>
+						
+						<div class="form-group">
+							  <label class="control-label" for="subject">제목</label>
+							  <input class="form-control form-control-lg" type="text" placeholder="제목" id="subject" name="subject">
+						</div>
+														
+							<div class="form-group mg3"><label class="control-label" for="content">내용</label>
+		  					<textarea class="form-contrdiv" name="content" id="content" cols="100" rows="12" required></textarea>
+		  					</div>
+				
+							<div class="form-group">
 					<div class="map_wrap">
 						<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 							<div id="menu_wrap" class="bg_white">
@@ -163,9 +74,10 @@
 								<ul id="placesList"></ul>
 								<div id="pagination"></div>
 							</div>
-						</div> <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=99e4787a897671e1cd06a99afee54577&libraries=services"></script>
+						</div>
 					</div>
-				<script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=99e4787a897671e1cd06a99afee54577&libraries=services"></script>
+<script>
 // 마커를 담을 배열입니다
 var markers = [];
 
@@ -388,29 +300,63 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
-</script><br>
+</script><br>					
+					
 	<div class="wsr">
-			학원주소 <input type="text" name="address" id="address" required="required" style="width:200px">
-			학원명 <input type="text" name="academy_name" id="academy_name" required="required" style="width:200px"><br><br>
+			학원명 <input type="text" name="academy_name" id="academy_name" required="required" style="width:200px" readonly="readonly">&nbsp;&nbsp;
+			학원주소 <input type="text" name="address" id="address" required="required" style="width:200px" readonly="readonly"><br><br>
 <!-- 					<input type="button" value="search" id="board_add" onclick="checkadd()"> -->
 	</div>
 					<div class="wsr">
-						<input type="reset" class="btn btn-outline-primary btn-lg"
-							value="다시쓰기" /> <input type="submit"
-							class="btn btn-primary btn-lg" value="등록">&nbsp;&nbsp;
+						<input type="reset"  class="btn btn-outline-secondary btn-lg" value="다시쓰기" />
+						<input type="submit" class="btn btn-secondary btn-lg" value="등록">&nbsp;&nbsp;
 
-					</div>
-				</form>
-			</div>
-		</div>	
+	</div>					
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+		
+		<!-- END .gtco-services -->
+
+		<!-- footer page -->
+		<jsp:include page="../inc/bottom.jsp"/>
+		<!-- footer page -->
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+		
 	</div>
 		
-	
 		
-	
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="js/chart-area-demo.js"></script>
+    <script src="js/chart-bar-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="js/datatables-demo.js"></script>
 		
-
-		
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
 	
-</body>
+	</body>
 </html>

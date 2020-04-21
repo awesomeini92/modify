@@ -17,7 +17,7 @@ public class AcademyDeleteProAction implements Action {
 		ActionForward forward = null;
 		
 		// 파라미터로 전달된 글번호(board_num), 페이지번호(page) 가져와서 변수에 저장
-		int num = Integer.parseInt(request.getParameter("num"));
+		int num = Integer.parseInt(request.getParameter("post_num"));
 		
 		// 게시물 삭제를 위한 본인 확인 작업 => BoardDeleteProService 클래스의 isArticleWriter() 메서드 호출
 		// => 파라미터 : 글번호(board_num) & 패스워드(board_pass), 리턴타입 : boolean(isRightUser)

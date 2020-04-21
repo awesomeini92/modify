@@ -32,10 +32,11 @@ public class AcademyModifyProAction implements Action {
 		// => 파라미터 : BoardBean   리턴타입 : boolean(isModifySuccess)
 			AcademyBean article = new AcademyBean();
 			article.setNum(num);
-		//article.setBoard_name(request.getParameter("board_name"));
-			article.setSubject(request.getParameter("board_subject"));
-			article.setContent(request.getParameter("board_content"));
-			article.setAddress(request.getParameter("board_add"));
+			article.setNickname(request.getParameter("nickname"));
+			article.setSubject(request.getParameter("subject"));
+			article.setContent(request.getParameter("content"));
+			article.setAddress(request.getParameter("address"));
+			article.setAcademy_name(request.getParameter("academy_name"));
 					
 			boolean isModifySuccess = boardModifyProService.modifyArticle(article);
 					

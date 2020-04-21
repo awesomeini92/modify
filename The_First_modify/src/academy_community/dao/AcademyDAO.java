@@ -214,12 +214,13 @@ public class AcademyDAO {
 			PreparedStatement pstmt = null;
 			
 			try {
-				String sql = "UPDATE academy_community SET subject=?, content=?, address=? WHERE num=?";
+				String sql = "UPDATE academy_community SET subject=?, content=?, address=?, academy_name=? WHERE num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, article.getSubject());
 				pstmt.setString(2, article.getContent());
 				pstmt.setString(3, article.getAddress());
-				pstmt.setInt(4, article.getNum());
+				pstmt.setString(4, article.getAcademy_name());
+				pstmt.setInt(5, article.getNum());
 				
 				updateCount = pstmt.executeUpdate();
 			} catch (SQLException e) {
