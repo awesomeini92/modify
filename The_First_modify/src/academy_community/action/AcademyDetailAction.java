@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import academy_community.svc.AcademyCommentService;
+import academy_community.svc.AcademyCommentListService;
 import academy_community.svc.AcademyDetailService;
 import academy_community.vo.AcademyBean;
 import academy_community.vo.AcademyCommentBean;
@@ -23,6 +23,10 @@ public class AcademyDetailAction implements Action {
 		int num = Integer.parseInt(request.getParameter("num")); // 실제 사용을 위해 형변환 필요
 		String page = request.getParameter("page"); // 단순 전달용이므로 별도의 형변환 불필요
 		
+		if (page == null) {
+			page ="1";
+		}
+		
 		// date 시간
 		AllService allService = new AllService();
 		Date today = allService.getToday();
@@ -32,7 +36,7 @@ public class AcademyDetailAction implements Action {
 		AcademyDetailService boardDetailService = new AcademyDetailService();
 		AcademyBean article = boardDetailService.getArticle(num);
 		
-		AcademyCommentService academyCommentService = new AcademyCommentService();
+		AcademyCommentListService academyCommentService = new AcademyCommentListService();
 		int cmmntListCount = academyCommentService.getCommentListCount(num);
 		
 		// 리턴받은 BoardBean 객체가 null 이 아닐 경우 BoardDetailService 클래스의 plusReadcount() 메서드 호출

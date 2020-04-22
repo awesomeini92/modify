@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import academy_community.vo.AcademyCommentBean;
+import any_community.vo.AnyCommentBean;
 import coding_free.vo.CodingFreeCommentBean;
 
 public class AcademyCommentDAO {
@@ -28,47 +29,55 @@ public class AcademyCommentDAO {
 		this.con = con;
 	}
 
-// ============ 댓글 쓰기 ============= 
+	// 댓글 작성
 	public int insertComment(AcademyCommentBean commentBean) {
-//		System.out.println("CommentDAO - insertComment()");
-		
-		int insertCount = 0; // executeUpdate() 메서드를 통해 글쓰기 작업 수행 결과를 저장할 변수
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int insertCount = 0;
+		int num = 0;
 		
 		try {
-			String sql = "INSERT INTO academy_comment VALUES (?,?,?,?,now())";
-			
-			// Connection 객체로부터 PreparedStatement 객체 가져와서 쿼리 전달
+			String sql = "SELECT max(comment_num) as mnum FROM academy_comment";
 			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 			
-			// ? 파라미터값 채우기
-			pstmt.setInt(1, 0); //댓글번호 comment_num
+			if (rs.next()) {
+				num = rs.getInt("mnum") + 1;
+			}
+			
+		    sql = "INSERT INTO academy_comment VALUES (?,?,?,?,now())";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
 			pstmt.setInt(2, commentBean.getPost_num());
 			pstmt.setString(3, commentBean.getNickname());
 			pstmt.setString(4, commentBean.getComment());
 			
-			// 쿼리 실행
 			insertCount = pstmt.executeUpdate();
-			
-		} catch (Exception e) {
-			System.out.println("insertComment() 에러 : " + e.getMessage());
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
 			close(pstmt);
+			close(rs);
 		}
-		
+
 		return insertCount;
 	}
 
-	public List<AcademyCommentBean> getCommentList(int post_num) {
-		List<AcademyCommentBean> list = new ArrayList<AcademyCommentBean>();
+	// 댓글 리스트 출력
+	public ArrayList<AcademyCommentBean> getCommentList(int post_num, int cmmnt_page, int cmmnt_limit) {
+		ArrayList<AcademyCommentBean> list = new ArrayList<AcademyCommentBean>();
+		int startRow = (cmmnt_page - 1) * cmmnt_limit;
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			// ORDER BY comment_num
-			String sql = "SELECT *, time(date) AS time FROM academy_comment where post_num = ?";
+			String sql = "SELECT *, time(date) AS time FROM academy_comment WHERE post_num = ? LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, post_num);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, cmmnt_limit);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -85,12 +94,14 @@ public class AcademyCommentDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rs);
 			close(pstmt);
 		}
 
 		return list;
 	}
 
+	// 댓글 카운팅
 	public int getCommentListCount(int num) {
 		int commentListCount = 0;
 		PreparedStatement pstmt = null;
@@ -114,6 +125,100 @@ public class AcademyCommentDAO {
 		}
 
 		return commentListCount;
+	}
+
+	// 댓글 삭제
+	public int deleteComment(int comment_num) {
+		int deleteCount = 0 ;
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "DELETE FROM academy_comment WHERE comment_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, comment_num);
+			deleteCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
+
+	// 댓글 전체 삭제
+	public int deleteAllComment(int num) {
+		int deleteCount = 0 ;
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "DELETE FROM academy_comment WHERE post_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			deleteCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
+
+	// 댓글 가져오기
+	public AcademyCommentBean getComment(int post_num, int modify_num) {
+		AcademyCommentBean comment = new AcademyCommentBean();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT * FROM academy_comment WHERE post_num = ? AND comment_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, post_num);
+			pstmt.setInt(2, modify_num);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				comment.setComment_num(rs.getInt("comment_num"));
+				comment.setPost_num(rs.getInt("post_num"));
+				comment.setNickname(rs.getString("nickname"));
+				comment.setComment(rs.getString("comment"));
+				comment.setDate(rs.getDate("date"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return comment;
+	}
+
+	// 댓글 수정
+	public int updateComment(AcademyCommentBean academyCommentBean) {
+		AnyCommentBean comment = new AnyCommentBean();
+		PreparedStatement pstmt = null;
+		int updateCount = 0;
+		boolean isUpdateSuccess = false;
+		
+		try {
+			String sql = "UPDATE academy_comment SET comment = ?, date = now() WHERE comment_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, academyCommentBean.getComment());
+			pstmt.setInt(2, academyCommentBean.getComment_num());
+			
+			updateCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
 	}
 
 }

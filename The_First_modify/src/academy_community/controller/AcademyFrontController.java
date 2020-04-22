@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import academy_community.action.AcademyCommentDeleteProAction;
 import academy_community.action.AcademyCommentListAction;
+import academy_community.action.AcademyCommentModifyFormAction;
+import academy_community.action.AcademyCommentModifyProAction;
+import academy_community.action.AcademyCommentPagingDetailAction;
 import academy_community.action.AcademyCommentWriteProAction;
 import academy_community.action.AcademyDeleteProAction;
 import academy_community.action.AcademyDetailAction;
@@ -133,7 +137,34 @@ public class AcademyFrontController extends HttpServlet {
 			}
 		}else if(command.equals("/AcademyCommentList.ac")) {
 				action = new AcademyCommentListAction();
-//			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/AcademyCommentPagingDetail.ac")) {
+			action = new AcademyCommentPagingDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/AcademyCommentDeletePro.ac")) {
+			action = new AcademyCommentDeleteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/AcademyCommentModifyForm.ac")) {
+			action = new AcademyCommentModifyFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/AcademyCommentModifyPro.ac")) {
+			action = new AcademyCommentModifyProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
