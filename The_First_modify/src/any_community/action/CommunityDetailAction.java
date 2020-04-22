@@ -26,13 +26,6 @@ public class CommunityDetailAction implements Action {
 		CommunityDetailService communityDetailService = new CommunityDetailService();
 		CommunityBean article = communityDetailService.getArticle(num);
 		
-		CommentListService commentListService = new CommentListService();
-		ArrayList<AnyCommentBean> comentList = commentListService.getCommentList(num);
-		
-		if (comentList.size() > 0) {
-			request.setAttribute("commentList", comentList);
-		}
-		
 		if (article != null) {
 			CommunityDetailService.plusReadcount(num);
 		}

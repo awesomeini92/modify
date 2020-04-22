@@ -17,8 +17,6 @@ import any_community.action.CommunityModifyFormAction;
 import any_community.action.CommunityModifyProAction;
 import any_community.action.CommunityWriteProAction;
 import any_community.action.NewLoginFormAction;
-import any_community.action.RecCountAction;
-import any_community.action.RecUpdateAction;
 import any_community.vo.ActionForward;
 
 @WebServlet("*.any")
@@ -80,25 +78,6 @@ public class CommunityFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 		} 
-		// 추천
-		else if(command.equals("/RecUpdate.any")) {
-			action = new RecUpdateAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/RecCount.any")) {
-			action = new RecCountAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} 
-
-		
-		
 		
 		//
 		if (forward != null) {
