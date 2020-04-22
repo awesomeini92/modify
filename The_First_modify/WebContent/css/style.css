@@ -23,7 +23,7 @@ body {
   position: relative;
   overflow-x: hidden;
   width: 100%;
-  height: 100%;
+/*   height: 100%; */
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
@@ -1414,7 +1414,7 @@ form label {
 }
 
 .row-pb-md {
-  padding-bottom: 4em !important;
+  padding-bottom: 0 !important;
 }
 
 .row-pb-sm {

@@ -132,35 +132,36 @@ public class MemberDAO {
 	}
 	
 	// 회원 가져오기
-	public MemberBean getMember(String nickname) {
-		con = getConnection();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		MemberBean mb = new MemberBean();
-		
-		try {
-			String sql = "SELECT * FROM member WHERE nickname = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, nickname);
-			rs = pstmt.executeQuery();
+		public MemberBean getMember(String nickname) {
+			con = getConnection();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			MemberBean mb = new MemberBean();
 			
-			if (rs.next()) {
-				mb.setId(rs.getString("id"));
-				mb.setNickname(rs.getString("nickname"));
-				mb.setEmail(rs.getString("email"));
-				mb.setCp(rs.getInt("cp"));
-				mb.setLevel(rs.getInt("level"));
-				mb.setDate(rs.getDate("date"));
+			try {
+				String sql = "SELECT * FROM member WHERE nickname = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, nickname);
+				rs = pstmt.executeQuery();
+				
+				if (rs.next()) {
+					mb.setId(rs.getString("id"));
+					mb.setNickname(rs.getString("nickname"));
+					mb.setEmail(rs.getString("email"));
+					mb.setCp(rs.getInt("cp"));
+					mb.setLp(rs.getInt("lp"));
+					mb.setLevel(rs.getInt("level"));
+					mb.setDate(rs.getDate("date"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
+			
+			return mb;
 		}
-		
-		return mb;
-	}
 	
 	// 정보수정
 	public int updateMember(MemberBean mb) {

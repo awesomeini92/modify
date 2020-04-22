@@ -14,10 +14,10 @@ public class MemberUpdateFormAction implements Action {
 		System.out.println("MemberUpdateFormAction");
 		ActionForward forward = null;
 		
-		String id = request.getParameter("id");
+		String nickname = request.getParameter("nickname");
 		
 		MemberDetailService memberDetailService = new MemberDetailService();
-		MemberBean mb = memberDetailService.getMember(id);
+		MemberBean mb = memberDetailService.getMember(nickname);
 		
 		request.setAttribute("mb", mb);
 		

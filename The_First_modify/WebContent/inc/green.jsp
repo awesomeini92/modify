@@ -16,12 +16,12 @@
 				
 				<div class="row">
 					<div class="col-sm-2 col-xs-12">
-						<div id="gtco-logo"><a href="index.html"><img src="images/make_cube_text.png" alt="Do you have any questions?" width="200px"></a></div>
+						<div id="gtco-logo"><a href="index.html"><img src="images/make_cube_text.png" alt="Do you have any questions?" style="width: 150px;"></a></div>
 					</div>
 					<div class="col-xs-10 text-right menu-1">
-						<ul>
+						<ul style="margin-top:110px;">
 							<li class="active"><a href="index.html">Home</a></li>
-							<li><a href="about.html">About</a></li>
+<!-- 							<li><a href="about.html">About</a></li> -->
 							<li class="has-dropdown">
 								<a href="#">Boards</a>
 								<ul class="dropdown">
@@ -39,7 +39,7 @@
 							</li>
 							<li><a href="NoticeList.no">Notice</a></li>
 							<li><a href="ShopMain.shop">SHOP</a></li>
-							<li><a href="contact.html">Contact</a></li>
+<!-- 							<li><a href="contact.html">Contact</a></li> -->
 						</ul>
 					</div>
 				</div>

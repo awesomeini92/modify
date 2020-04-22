@@ -9,6 +9,7 @@ public class MemberBean {
 	private String nickname;
 	private String email;
 	private int cp;
+	private int lp;
 	private int level;
 	private String emailHash;
 	private boolean emailChecked;
@@ -84,6 +85,14 @@ public class MemberBean {
 
 	public void setCp(int cp) {
 		this.cp = cp;
+	}
+
+	public int getLp() {
+		return lp;
+	}
+
+	public void setLp(int lp) {
+		this.lp = lp;
 	}
 
 	public int getLevel() {

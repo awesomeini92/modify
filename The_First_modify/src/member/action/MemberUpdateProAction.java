@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import member.svc.MemberUpdateProService;
 import member.vo.ActionForward;
@@ -34,6 +35,8 @@ public class MemberUpdateProAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
+			HttpSession session = request.getSession();
+			session.setAttribute("nickname", nickname);
 			forward = new ActionForward();
 			forward.setPath("");
 			forward.setRedirect(true);
