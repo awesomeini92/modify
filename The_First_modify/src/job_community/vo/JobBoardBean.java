@@ -14,6 +14,7 @@ public class JobBoardBean {
 	private int readcount;
 	private Date date;
 	private String file;
+	private String time;
 	
 	private String name;
 	private String title;
@@ -141,6 +142,14 @@ public class JobBoardBean {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 		
 	

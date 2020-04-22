@@ -493,8 +493,44 @@ public class MemberDAO {
 			return memberList;
 		}
 
+		public int updateHeartLP(String nickname) {
+			int updateNum = 0;
+			PreparedStatement pstmt = null;
+			
+			try {
+				String sql = "UPDATE member SET LP=LP+30 WHERE nickname =?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, nickname);
+				updateNum = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+
+			return updateNum;
+		}
 
 
+		public int minusHeartLP(String nickname) {
+			int updateNum = 0;
+			PreparedStatement pstmt = null;
+			
+			try {
+				String sql = "UPDATE member SET LP=LP-30 WHERE nickname =?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, nickname);
+				updateNum = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+
+			return updateNum;
+		}
 	
 	
 }

@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import any_community.svc.CommentDeleteProService;
 import any_community.svc.CommentListService;
 import any_community.svc.CommunityDeleteProService;
+import any_community.svc.CommunityDetailService;
 import any_community.vo.ActionForward;
+import any_community.vo.CommunityBean;
+import member.svc.MemberUpdateProService;
 
 public class CommunityDeleteProAction implements Action {
 
@@ -18,12 +21,7 @@ public class CommunityDeleteProAction implements Action {
 		ActionForward forward = null;
 		
 		int num = Integer.parseInt(request.getParameter("num"));
-		String nowPage = request.getParameter("page");
 
-		// test
-		if (nowPage == null) {
-			nowPage = "1";
-		}
 		
 		// 1)post_num에 대한 댓글 카운팅 
 		// 2) 댓글이 존재할경우 CommentDeleteProService에서 post_num으로 댓글 전부삭제
@@ -39,6 +37,11 @@ public class CommunityDeleteProAction implements Action {
 		CommunityDeleteProService communityDeleteProService = new CommunityDeleteProService();
 		boolean isArticleDeleteSuccess = communityDeleteProService.deleteArticle(num);
 		
+		CommunityDetailService communityDetailService = new CommunityDetailService();
+		CommunityBean communityBean = communityDetailService.getArticle(num);
+		String nickname = communityBean.getNickname();
+		
+		
 		if (!isArticleDeleteSuccess) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -47,9 +50,14 @@ public class CommunityDeleteProAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
-			forward = new ActionForward();
-			forward.setPath("CommunityList.any?page=" + nowPage);
-			forward.setRedirect(true);
+			MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
+			boolean isSuccess = memberUpdateProService.minusArticletLP(nickname);
+			
+			if(isSuccess) {
+				forward = new ActionForward();
+				forward.setPath("CommunityList.any");
+				forward.setRedirect(true);
+			}
 		}
 		
 		return forward;

@@ -55,9 +55,13 @@ public class CmmntWriteProAction implements Action {
 		
 		request.setAttribute("today", today);		
 		if(isWriteSuccess) {
-			forward = new ActionForward();
-			forward.setPath("CodingFreeDetail.cf?post_num="+post_num);
-			forward.setRedirect(true);
+			MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
+			boolean isSuccess = memberUpdateProService.updateCommentLP(nickname);
+			if(isSuccess) {
+				forward = new ActionForward();
+				forward.setPath("CodingFreeDetail.cf?post_num="+post_num);
+				forward.setRedirect(true);
+			}
 		}
 		return forward;
 	}

@@ -4,7 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import coding_free.svc.CodingFreeCommentHeartService;
+import coding_free.svc.CodingFreeCommentListService;
 import coding_free.vo.ActionForward;
+import member.svc.MemberUpdateProService;
 
 public class CmmntFreeUpdateHeartAction implements Action {
 
@@ -20,10 +22,17 @@ public class CmmntFreeUpdateHeartAction implements Action {
 		CodingFreeCommentHeartService codingFreeCommentHeartService = new CodingFreeCommentHeartService();
 		boolean isSuccess = codingFreeCommentHeartService.insertHeart(post_num, cmmnt_num, recommender);
 		
+		CodingFreeCommentListService codingFreeCommentListService = new CodingFreeCommentListService();
+		String nickname = codingFreeCommentListService.getNickname(cmmnt_num);
+		
 		if(isSuccess) {
 			isSuccess = codingFreeCommentHeartService.updateHeartCount(cmmnt_num);
 			if(isSuccess) {
-				System.out.println("-~~~~~~~~~~~~~~~update 성공");
+				MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
+				isSuccess = memberUpdateProService.updateHeartLP(nickname);
+				if(isSuccess) {
+					System.out.println("-~~~~~~~~~~~~~~~update 성공");
+				}			
 			}
 		}
 		

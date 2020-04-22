@@ -45,6 +45,14 @@ public class AcademyDAO {
 				// 답글 순서 번호(board_re_seq) : 현재 글이 원본 글이므로 0 사용
 				// 조회수(board_readcount) : 새 글이므로 0 사용
 				// 작성일(board_date) : 현재 DB 의 날짜 및 시각 정보 전달(now() 함수를 사용하여 쿼리에서 직접 전달)
+				String content = "";
+				
+				if(boardBean.getContent().contains("\r\n")) {
+					content = boardBean.getContent().replace("\r\n", "<br>");
+				}else {
+					content = boardBean.getContent();
+				}
+				
 				String sql = "INSERT INTO academy_community VALUES (?,?,?,?,?,?,?,now());";
 				
 				// Connection 객체로부터 PreparedStatement 객체 가져와서 쿼리 전달
@@ -53,7 +61,7 @@ public class AcademyDAO {
 				pstmt.setInt(1, 0); //num
 				pstmt.setString(2, boardBean.getNickname());
 				pstmt.setString(3, boardBean.getSubject());
-				pstmt.setString(4, boardBean.getContent());
+				pstmt.setString(4, content);
 				pstmt.setInt(5, 0); // readcount
 				pstmt.setString(6, boardBean.getAddress());
 				pstmt.setString(7, boardBean.getAcademy_name());
@@ -214,10 +222,18 @@ public class AcademyDAO {
 			PreparedStatement pstmt = null;
 			
 			try {
+				String content = "";
+				
+				if(article.getContent().contains("\r\n")) {
+					content = article.getContent().replace("\r\n", "<br>");
+				}else {
+					content = article.getContent();
+				}
+				
 				String sql = "UPDATE academy_community SET subject=?, content=?, address=?, academy_name=? WHERE num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, article.getSubject());
-				pstmt.setString(2, article.getContent());
+				pstmt.setString(2, content);
 				pstmt.setString(3, article.getAddress());
 				pstmt.setString(4, article.getAcademy_name());
 				pstmt.setInt(5, article.getNum());

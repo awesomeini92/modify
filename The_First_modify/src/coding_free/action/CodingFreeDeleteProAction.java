@@ -10,7 +10,10 @@ import coding.svc.CmmntListService;
 import coding_free.svc.CmmntFreeDeleteProService;
 import coding_free.svc.CodingFreeCommentListService;
 import coding_free.svc.CodingFreeDeleteProService;
+import coding_free.svc.CodingFreeDetailService;
 import coding_free.vo.ActionForward;
+import coding_free.vo.CodingFreeBean;
+import member.svc.MemberUpdateProService;
 
 public class CodingFreeDeleteProAction implements Action {
 
@@ -24,6 +27,11 @@ public class CodingFreeDeleteProAction implements Action {
 
 		CodingFreeCommentListService codingFreeCommentListService = new CodingFreeCommentListService();
 		ArrayList<Integer> numList =  codingFreeCommentListService.checkCommentNumList(num);
+		
+		CodingFreeDetailService codingFreeDetailService = new CodingFreeDetailService();
+		CodingFreeBean codingFreeBean = codingFreeDetailService.getArticle(num);
+		String nickname = codingFreeBean.getNickname();
+		
 		
 		boolean isCommentDeleteSuccess = false;
 		
@@ -54,9 +62,13 @@ public class CodingFreeDeleteProAction implements Action {
 				out.println("history.back()");
 				out.println("</script>");
 			} else {
-				forward = new ActionForward();
-				forward.setPath("CodingFreeList.cf");
-				forward.setRedirect(true);
+				MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
+				boolean isSuccess = memberUpdateProService.minusArticletLP(nickname);
+				if(isSuccess) {
+					forward = new ActionForward();
+					forward.setPath("CodingFreeList.cf");
+					forward.setRedirect(true);
+				}
 			}
 		}
 

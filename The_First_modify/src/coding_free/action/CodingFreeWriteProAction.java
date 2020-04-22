@@ -12,6 +12,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import coding_free.svc.CodingFreeWriteService;
 import coding_free.vo.ActionForward;
 import coding_free.vo.CodingFreeBean;
+import member.svc.MemberUpdateProService;
 
 public class CodingFreeWriteProAction implements Action {
 
@@ -32,6 +33,7 @@ public class CodingFreeWriteProAction implements Action {
 		String realFilesystemName = multi.getFilesystemName((String) multi.getFileNames().nextElement());
 		System.out.println("실제 파일명 : " + realFilesystemName);
 
+		String nickname = multi.getParameter("nickname");
 		CodingFreeBean cb = new CodingFreeBean(
 				multi.getParameter("nickname"),
 				multi.getParameter("subject"),
@@ -49,9 +51,13 @@ public class CodingFreeWriteProAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
-			forward = new ActionForward(); 
-			forward.setPath("CodingFreeList.cf");
-			forward.setRedirect(true);
+			MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
+			boolean isSuccess = memberUpdateProService.updateCommentLP(nickname);
+			if(isSuccess) {
+				forward = new ActionForward(); 
+				forward.setPath("CodingFreeList.cf");
+				forward.setRedirect(true);
+			}
 		}
 		
 		return forward;

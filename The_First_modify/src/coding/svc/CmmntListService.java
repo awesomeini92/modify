@@ -65,6 +65,18 @@ public class CmmntListService {
 		
 		return c_numList;
 	}
+	public String getNickname(int cmmnt_num) {
+		Connection con = getConnection();
+		CodingDAO codingDAO = CodingDAO.getInstance();
+		codingDAO.setConnection(con);
+		
+		String nickname = codingDAO.getNickname(cmmnt_num); 
+		
+		
+		close(con);
+		
+		return nickname;
+	}
 
 	
 

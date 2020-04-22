@@ -37,7 +37,13 @@ public class AcademyCommentDAO {
 		int num = 0;
 		
 		try {
-			String sql = "SELECT max(comment_num) as mnum FROM academy_comment";
+			String comment ="";
+			if(commentBean.getComment().contains("\r\n")) {
+				comment = commentBean.getComment().replace("\r\n", "<br>");
+			}else {
+				comment = commentBean.getComment();
+			}
+			String sql = "SELECT max(comment_num) as mnum FROM any_comment";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -47,10 +53,10 @@ public class AcademyCommentDAO {
 			
 		    sql = "INSERT INTO academy_comment VALUES (?,?,?,?,now())";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, commentBean.getPost_num());
 			pstmt.setInt(2, commentBean.getPost_num());
 			pstmt.setString(3, commentBean.getNickname());
-			pstmt.setString(4, commentBean.getComment());
+			pstmt.setString(4, comment);
 			
 			insertCount = pstmt.executeUpdate();
 
@@ -200,15 +206,20 @@ public class AcademyCommentDAO {
 
 	// 댓글 수정
 	public int updateComment(AcademyCommentBean academyCommentBean) {
-		AnyCommentBean comment = new AnyCommentBean();
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
-		boolean isUpdateSuccess = false;
 		
 		try {
+			String comment ="";
+			if(academyCommentBean.getComment().contains("\r\n")) {
+				comment = academyCommentBean.getComment().replace("\r\n", "<br>");
+			}else {
+				comment = academyCommentBean.getComment();
+			}
+			
 			String sql = "UPDATE academy_comment SET comment = ?, date = now() WHERE comment_num = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, academyCommentBean.getComment());
+			pstmt.setString(1, comment);
 			pstmt.setInt(2, academyCommentBean.getComment_num());
 			
 			updateCount = pstmt.executeUpdate();

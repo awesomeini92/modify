@@ -11,7 +11,9 @@ import coding.svc.CmmntListService;
 import coding.vo.CmmntBean;
 import coding.vo.PageInfo;
 import coding_free.svc.CodingFreeCommentListService;
+import coding_free.svc.CodingFreeDetailService;
 import coding_free.vo.ActionForward;
+import coding_free.vo.CodingFreeBean;
 import coding_free.vo.CodingFreeCommentBean;
 
 public class CmmntModifyFormAction implements Action {
@@ -32,10 +34,11 @@ public class CmmntModifyFormAction implements Action {
 //		ArrayList<CmmntBean> cmmntList = cmmntListService.getCmmntList(post_num,cmmnt_page,cmmnt_limit);
 
 		CodingFreeCommentListService codingFreeCommentListService = new CodingFreeCommentListService();
-		CodingFreeCommentBean cmmnt = codingFreeCommentListService.getComment(post_num,modify_num);
+		CodingFreeCommentBean cmmntBean = codingFreeCommentListService.getComment(post_num,modify_num);
+		String cmmnt = cmmntBean.getComment();
 		
-		
-		
+		CodingFreeDetailService codingFreeDetailService = new CodingFreeDetailService();
+		CodingFreeBean article = codingFreeDetailService.getArticle(post_num);
 		
 		
 		
@@ -56,7 +59,7 @@ public class CmmntModifyFormAction implements Action {
 //		PageInfo cmmnt_pageInfo = new PageInfo(cmmnt_page, cmmnt_maxPage, cmmnt_startPage, cmmnt_endPage, cmmnt_count);
 		
 		// 게시물 정보(BoardBean 객체), 페이지번호(page) 를 request 객체에 저장
-//		request.setAttribute("article", article);
+		request.setAttribute("article", article);
 //		request.setAttribute("article_refList", article_refList);
 //		request.setAttribute("cmmnt_pageInfo", cmmnt_pageInfo);
 		request.setAttribute("cmmnt", cmmnt);

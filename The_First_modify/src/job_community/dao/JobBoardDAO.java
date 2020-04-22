@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import static db.JdbcUtil.*;
 
 import job_community.vo.JobBoardBean;
+import job_community.vo.JobCommentBean;
 
 public class JobBoardDAO {
 	
@@ -35,13 +36,19 @@ public class JobBoardDAO {
 		System.out.println("JobBOardDAO insertArticle");
 		
 		PreparedStatement pstmt = null;
+		String content = "";
 		
+		if(jobBoardBean.getContent().contains("\r\n")) {
+			content = jobBoardBean.getContent().replace("\r\n", "<br>");
+		}else {
+			content = jobBoardBean.getContent();
+		}
 		try {
 			String sql = "INSERT INTO job_community VALUES (null, ?, ?, ?, ?, ?, now());";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, jobBoardBean.getNickname());
 			pstmt.setString(2, jobBoardBean.getSubject());
-			pstmt.setString(3, jobBoardBean.getContent());
+			pstmt.setString(3, content);
 			pstmt.setString(4, jobBoardBean.getFile());
 			pstmt.setInt(5, 0);
 			
@@ -95,7 +102,7 @@ public class JobBoardDAO {
 			int startRow = (page - 1) * 10;
 			
 			try {
-				String sql = "SELECT * FROM job_community ORDER BY num DESC LIMIT ?, ?";
+				String sql = "SELECT *, time(date) AS time FROM job_community ORDER BY num DESC LIMIT ?, ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, startRow);
 				pstmt.setInt(2, limit);
@@ -112,7 +119,7 @@ public class JobBoardDAO {
 	                boardBean.setReadcount(rs.getInt("readcount"));
 	                boardBean.setFile(rs.getString("file"));
 	                boardBean.setDate(rs.getDate("date"));
-	                
+	                boardBean.setTime(rs.getString("time"));
 	                articleList.add(boardBean);
 	            }
 				
@@ -135,7 +142,7 @@ public class JobBoardDAO {
 			
 			// 글번호(num)에 해당하는 게시물 정보 조회
 			try {
-				String sql = "SELECT * FROM job_community WHERE num=?";
+				String sql = "SELECT *, time(date) AS time FROM job_community WHERE num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, num);
 				rs = pstmt.executeQuery();
@@ -150,6 +157,7 @@ public class JobBoardDAO {
 	                article.setReadcount(rs.getInt("readcount"));
 	                article.setFile(rs.getString("file"));
 	                article.setDate(rs.getDate("date"));
+	                article.setTime(rs.getString("time"));
 				}
 				
 			} catch (SQLException e) {
@@ -185,12 +193,20 @@ public class JobBoardDAO {
 			int updateCount = 0;
 			PreparedStatement pstmt = null;
 			
+			String content = "";
+			if(article.getContent().contains("\r\n")) {
+				content = article.getContent().replace("\r\n", "<br>");
+			}else {
+				content = article.getContent();
+			}
+			
 			try {
-				String sql = "UPDATE job_community SET subject=?, content=? WHERE num=?";
+				String sql = "UPDATE job_community SET subject=?, content=?, file=?, date=now() WHERE num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, article.getSubject());
-				pstmt.setString(2, article.getContent());
-				pstmt.setInt(3, article.getNum());
+				pstmt.setString(2, content);
+				pstmt.setString(3, article.getFile());
+				pstmt.setInt(4, article.getNum());
 				
 				updateCount = pstmt.executeUpdate();
 			} catch (SQLException e) {
@@ -220,6 +236,215 @@ public class JobBoardDAO {
 				close(pstmt);
 			}
 			
+			return deleteCount;
+		}
+		
+		
+		//댓글
+		public int writeComment(JobCommentBean jobCommentBean) {
+			PreparedStatement pstmt = null;
+			int insertCount = 0;
+			
+			try {
+//				String sql = "SELECT max(comment_num) as mnum FROM job_comment";
+//				pstmt = con.prepareStatement(sql);
+//				rs = pstmt.executeQuery();
+//				
+//				if (rs.next()) {
+//					num = rs.getInt("mnum") + 1;
+//				}
+				String comment ="";
+				if(jobCommentBean.getComment().contains("\r\n")) {
+					comment = jobCommentBean.getComment().replace("\r\n", "<br>");
+				}else {
+					comment = jobCommentBean.getComment();
+				}
+				
+				String sql = "INSERT INTO job_comment VALUES (null,?,?,?,now())";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, jobCommentBean.getPost_num());
+				pstmt.setString(2, jobCommentBean.getNickname());
+				pstmt.setString(3, comment);
+				
+				insertCount = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+			return insertCount;
+		}
+		
+		// 댓글 목록 가져오기
+		public ArrayList<JobCommentBean> getCommentList(int post_num, int page, int limit) {
+			ArrayList<JobCommentBean> list = new ArrayList<JobCommentBean>();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			int startRow = (page - 1) * 3;
+			
+			try {
+				// ORDER BY comment_num
+				String sql = "SELECT *, time(date) AS time FROM job_comment where post_num = ? ORDER BY comment_num DESC LIMIT ?,?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, post_num);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, limit);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					JobCommentBean jobCommentBean = new JobCommentBean();
+					jobCommentBean.setComment_num(rs.getInt("comment_num"));
+					jobCommentBean.setPost_num(rs.getInt("post_num"));
+					jobCommentBean.setNickname(rs.getString("nickname"));
+					jobCommentBean.setComment(rs.getString("comment"));
+					jobCommentBean.setDate(rs.getDate("date"));
+					jobCommentBean.setTime(rs.getString("time"));
+					list.add(jobCommentBean);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+			return list;
+		}
+		
+		public int selectCommentListCount(int post_num) {
+			int listCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "SELECT COUNT(*) FROM job_comment WHERE post_num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, post_num);
+				rs = pstmt.executeQuery();
+				
+				if (rs.next()) {
+					listCount = rs.getInt(1);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return listCount;
+		}
+		
+		public ArrayList<Integer> checkCommentNumList(int post_num) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ArrayList<Integer> numList = new ArrayList<Integer>();
+			int num=0;
+			
+			try {
+				String sql = "select comment_num from job_comment where post_num=?";
+//				String sql = "SELECT recommender FROM coding_charge_comment WHERE recommender= ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, post_num);
+//				pstmt.setInt(2, comment_num);
+	            rs = pstmt.executeQuery();
+	            
+	            // ResultSet 객체 내의 모든 레코드를 각각 레코드별로 BoardBean 에 담아서 ArrayList 객체에 저장
+	            // => 패스워드 제외
+	            while(rs.next()) {
+	            	num = rs.getInt("comment_num");
+	            	numList.add(num);
+	            }
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return numList;
+		}
+
+		public JobCommentBean getComment(int post_num, int modify_num) {
+			JobCommentBean cmmnt = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				// ORDER BY comment_num
+				String sql = "SELECT *, time(date) AS time FROM job_comment WHERE post_num = ? AND comment_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, post_num);
+				pstmt.setInt(2, modify_num);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					cmmnt = new JobCommentBean();
+					cmmnt.setComment_num(rs.getInt("comment_num"));
+					cmmnt.setPost_num(rs.getInt("post_num"));
+					cmmnt.setNickname(rs.getString("nickname"));
+					cmmnt.setComment(rs.getString("comment"));
+//					cmmnt.setDate(rs.getDate("date"));
+//					cmmnt.setTime(rs.getString("time"));
+//					cmmnt.setHeart(rs.getInt("heart"));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+			return cmmnt;
+		}
+		public int updateCmmntJob(JobCommentBean jobCommentBean) {
+			int updateCount = 0;
+			PreparedStatement pstmt = null;
+			
+			try {
+				String comment ="";
+				if(jobCommentBean.getComment().contains("\r\n")) {
+					comment = jobCommentBean.getComment().replace("\r\n", "<br>");
+				}else {
+					comment = jobCommentBean.getComment();
+				}
+				String sql = "UPDATE job_comment SET comment=?, date=now() WHERE comment_num=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, comment);
+					pstmt.setInt(2, jobCommentBean.getComment_num());
+					
+					updateCount = pstmt.executeUpdate();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return updateCount;
+		}
+		
+		public int deleteComment(int comment_num) {
+			PreparedStatement pstmt = null;
+			int deleteCount = 0;
+			
+			try {
+				
+				String sql = "DELETE FROM job_comment WHERE comment_num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, comment_num);
+				
+				deleteCount = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
 			return deleteCount;
 		}
 	

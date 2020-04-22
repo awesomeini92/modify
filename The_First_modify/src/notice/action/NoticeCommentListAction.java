@@ -23,9 +23,6 @@ public class NoticeCommentListAction implements Action {
 		ActionForward forward = null;
 		
 		int post_num = Integer.parseInt(request.getParameter("post_num"));
-		String session_nick = request.getParameter("session_nick");
-		
-		System.out.println(post_num);
 		
 		// date 시간
 		AllService allService = new AllService();
@@ -62,7 +59,7 @@ public class NoticeCommentListAction implements Action {
 
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		String json = "{\"cmmntList\":["; // replyList는 키값이 됨
+		String json = "{\"cList\":["; // replyList는 키값이 됨
 		
 		for (int i = 0; i < commentList.size(); i++) {
 			String nickname = commentList.get(i).getNickname();
@@ -79,8 +76,7 @@ public class NoticeCommentListAction implements Action {
 				json += "{\"cmmnt_date\":\"" + df.format(date) + "\"},";		//1
 			}
 			json += "{\"nickname\":\"" + nickname + "\"},";//2
-			json += "{\"session_nick\":\"" + session_nick + "\"},";		//3
-			json += "{\"comment\":\"" +comment + "\"}]";   //4
+			json += "{\"comment\":\"" +comment + "\"}]";   //3
 			
 			if (i != commentList.size() - 1) {
 				json += ",";

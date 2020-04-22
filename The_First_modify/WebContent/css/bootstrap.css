@@ -6174,11 +6174,11 @@ margin-bottom: 5%;
    margin-bottom: 20%;
 }
 .center-box {
-  margin: auto;
+/*   margin: 20%; */
   width: 50%;
 /*   border: 3px solid green; */
   padding-bottom: 10%;
-  padding-left: 32%;
+  padding-left: 18%;
 }
 .code_wf{ /*writeform */
 	border: 1px solid grey;

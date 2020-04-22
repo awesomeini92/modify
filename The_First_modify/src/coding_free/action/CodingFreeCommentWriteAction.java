@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import coding_free.svc.CodingFreeCommentWriteService;
 import coding_free.vo.CodingFreeCommentBean;
+import member.svc.MemberUpdateProService;
 import coding_free.vo.ActionForward;
 
 public class CodingFreeCommentWriteAction implements Action {
@@ -35,9 +36,13 @@ public class CodingFreeCommentWriteAction implements Action {
 			out.println("history.back()"); 
 			out.println("</script>"); 
 		} else {
-			forward = new ActionForward();
-			forward.setPath("CodingFreeCommunityDetail.cfC?num=" + post_num + "&page=" + nowPage); 
-			forward.setRedirect(true);
+			MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
+			boolean isSuccess = memberUpdateProService.updateCommentLP(nickname);
+			if(isSuccess) {
+				forward = new ActionForward();
+				forward.setPath("CodingFreeCommunityDetail.cfC?num=" + post_num + "&page=" + nowPage); 
+				forward.setRedirect(true);
+			}
 		}
 		
 		return forward;

@@ -5,11 +5,22 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:if test="${sessionScope.nickname==null }">
-	<script type="text/javascript">
+<c:choose>
+	<c:when test="${sessionScope.sId != null }">
+    <script type="text/javascript">
+		alert("이메일 인증 받으세요.");
+		location.href="NewLoginForm.me"
+	</script>
+	</c:when>
+	<c:otherwise>
+		<script type="text/javascript">
 		alert("로그인 해주세요");
 		location.href="LoginForm.me"
-	</script>
+		</script>
+	</c:otherwise>
+</c:choose>
 </c:if>
+
 
 <!DOCTYPE html>
 <html>
@@ -86,7 +97,7 @@ $(document).ready(function() {
         			output += "<input type='hidden' name='post_num' value='${post_num }'>";
                 	
         			output += "<div><input type='text' class='bd_color' name='nickname' value=${comment.nickname } readonly>";
-        			output += "<span class='w3-right'><input type='submit' class='btn btn-success btn-sm' value='댓글등록'></span></div>";
+        			output += "<span class='w3-right'><input type='submit' class='btn btn-success btn-sm' value='댓글수정'></span></div>";
         			output += "<textarea class='form-control' id='exampleTextarea' rows='3' name='comment'>${comment.comment }</textarea></form>";
         			
 					for (var i = 0; i < cmmntList.length; i++) { // 반복문을 통해 output에 누적 

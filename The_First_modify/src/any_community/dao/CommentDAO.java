@@ -33,6 +33,13 @@ public class CommentDAO {
 		int num = 0;
 		
 		try {
+			String comment ="";
+			if(anyCommentBean.getComment().contains("\r\n")) {
+				comment = anyCommentBean.getComment().replace("\r\n", "<br>");
+			}else {
+				comment = anyCommentBean.getComment();
+			}
+			
 			String sql = "SELECT max(comment_num) as mnum FROM any_comment";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -46,7 +53,7 @@ public class CommentDAO {
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, anyCommentBean.getPost_num());
 			pstmt.setString(3, anyCommentBean.getNickname());
-			pstmt.setString(4, anyCommentBean.getComment());
+			pstmt.setString(4, comment);
 			
 			insertCount = pstmt.executeUpdate();
 
@@ -197,16 +204,21 @@ public class CommentDAO {
 
 	// 댓글 수정
 	public int updateComment(AnyCommentBean anyCommentBean) {
-		AnyCommentBean comment = new AnyCommentBean();
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
-		boolean isUpdateSuccess = false;
 		
 
 		try {
+			String comment ="";
+			if(anyCommentBean.getComment().contains("\r\n")) {
+				comment = anyCommentBean.getComment().replace("\r\n", "<br>");
+			}else {
+				comment = anyCommentBean.getComment();
+			}
+			
 			String sql = "UPDATE any_comment SET comment = ?, date = now() WHERE comment_num = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, anyCommentBean.getComment());
+			pstmt.setString(1, comment);
 			pstmt.setInt(2, anyCommentBean.getComment_num());
 			
 			updateCount = pstmt.executeUpdate();

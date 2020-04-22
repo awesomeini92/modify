@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import coding.svc.CodingDetailService;
+import coding.vo.CodingBean;
+import notice.svc.NoticeDetailService;
 import notice.svc.NoticeModifyProService;
 import notice.vo.ActionForward;
 import notice.vo.NoticeBean;
@@ -38,6 +41,12 @@ public class NoticeModifyProAction implements Action {
 		String content =multi.getParameter("content");
 		String file = multi.getOriginalFileName((String)multi.getFileNames().nextElement());
 		
+		NoticeDetailService noticeDetailService = new NoticeDetailService();
+		NoticeBean noticeBean = noticeDetailService.getArticle(num);
+		
+		if( file==null) {
+			file=noticeBean.getFile();
+		}
 		
 			NoticeBean article = new NoticeBean();
 //			article.setNum(num);
@@ -47,6 +56,7 @@ public class NoticeModifyProAction implements Action {
 			article.setSubject(subject);
 			article.setContent(content);
 			article.setFile(file);
+			
 			
 
 			NoticeModifyProService noticeModifyProService = new NoticeModifyProService();

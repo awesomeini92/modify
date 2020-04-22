@@ -9,14 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import academy_community.action.AcademyCommentListAction;
-import academy_community.action.AcademyCommentWriteProAction;
-import coding_free.action.CmmntDeleteProAction;
-import coding_free.action.CmmntListAction;
-import coding_free.action.CmmntModifyFormAction;
-import coding_free.action.CmmntModifyProAction;
-import coding_free.action.CmmntPagingDetailAction;
-import coding_free.action.CmmntWriteProAction;
 import notice.action.Action;
 import notice.action.CommentPagingDetailAction;
 import notice.action.NoticeCommentDeleteProAction;

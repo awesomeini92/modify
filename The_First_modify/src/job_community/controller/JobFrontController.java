@@ -16,6 +16,12 @@ import job_community.action.JobBoardListAction;
 import job_community.action.JobBoardModifyFormAction;
 import job_community.action.JobBoardModifyProAction;
 import job_community.action.JobBoardWriteProAction;
+import job_community.action.JobCommentDeleteProAction;
+import job_community.action.JobCommentListAction;
+import job_community.action.JobCommentModifyFormAction;
+import job_community.action.JobCommentModifyProAction;
+import job_community.action.JobCommentPagingAction;
+import job_community.action.JobCommentWriteProAction;
 import job_community.vo.ActionForward;
 
 @WebServlet("*.job")
@@ -78,7 +84,53 @@ public class JobFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/JobCommentWritePro.job")) {
+			action = new JobCommentWriteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/JobCommentList.job")) {
+			action = new JobCommentListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/JobCommentPaging.job")) {
+			action = new JobCommentPagingAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/JobCommentModifyForm.job")) {
+			action = new JobCommentModifyFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/JobCommentModifyPro.job")) {
+			action = new JobCommentModifyProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/JobCommentDeletePro.job")) {
+			action = new JobCommentDeleteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		
+		
+		
+		
 		
 		if (forward != null) {
 			if (forward.isRedirect()) {

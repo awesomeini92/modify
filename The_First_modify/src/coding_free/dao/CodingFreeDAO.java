@@ -216,7 +216,7 @@ public class CodingFreeDAO {
 	public int writeComment(CodingFreeCommentBean codingFreeCommentBean) {
 		PreparedStatement pstmt = null;
 		int insertCount = 0;
-		String comment ="";
+		
 		try {
 //			String sql = "SELECT max(comment_num) as mnum FROM coding_free_comment";
 //			pstmt = con.prepareStatement(sql);
@@ -225,9 +225,9 @@ public class CodingFreeDAO {
 //			if (rs.next()) {
 //				num = rs.getInt("mnum") + 1;
 //			}
+			String comment ="";
 			if(codingFreeCommentBean.getComment().contains("\r\n")) {
 				comment = codingFreeCommentBean.getComment().replace("\r\n", "<br>");
-				System.out.println("DB@@@@@"+comment);
 			}else {
 				comment = codingFreeCommentBean.getComment();
 			}
@@ -379,9 +379,17 @@ public class CodingFreeDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
+			
+			String comment ="";
+			if(codingFreeCommentBean.getComment().contains("\r\n")) {
+				comment = codingFreeCommentBean.getComment().replace("\r\n", "<br>");
+			}else {
+				comment = codingFreeCommentBean.getComment();
+			}
+			
 			String sql = "UPDATE coding_free_comment SET comment=?, date=now() WHERE comment_num=?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, codingFreeCommentBean.getComment());
+				pstmt.setString(1, comment);
 				pstmt.setInt(2, codingFreeCommentBean.getComment_num());
 				
 				updateCount = pstmt.executeUpdate();
@@ -449,11 +457,10 @@ public class CodingFreeDAO {
 			
 			try {
 //				String sql = "UPDATE coding_free_comment SET heart=heart+1, recommender=? WHERE comment_num=?";
-				String sql = "INSERT INTO free_heart values(?, ?, ?)";
+				String sql = "INSERT INTO free_heart values(?, ?)";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, cmmnt_num);
 				pstmt.setString(2, recommender);
-				pstmt.setInt(3, post_num);
 				insertCount = pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -560,6 +567,32 @@ public class CodingFreeDAO {
 			}
 			
 			return recList;
+		}
+
+		public String getNickname(int comment_num) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			String nickname="";
+			
+			try {
+				// ORDER BY comment_num
+				String sql = "SELECT nickname FROM coding_free_comment WHERE comment_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, comment_num);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					nickname = rs.getString(1);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+			return nickname;
 		}
 
 		

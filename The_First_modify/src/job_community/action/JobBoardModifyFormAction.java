@@ -15,14 +15,12 @@ public class JobBoardModifyFormAction implements Action{
 		System.out.println("JobBoardModifyFormAction");
 
 		int num = Integer.parseInt(request.getParameter("num"));
-		String page = request.getParameter("page");
 		
 		JobBoardBean article = null;
 		JobBoardDetailService boardDetailService = new JobBoardDetailService();
 		article = boardDetailService.getArticle(num);
 		
 		request.setAttribute("article", article);
-		request.setAttribute("page", page);
 		
 		ActionForward forward = new ActionForward();
 		forward.setPath("/job_community/job_board_update.jsp"); 

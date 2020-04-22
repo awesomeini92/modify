@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import any_community.svc.CommunityDetailService;
 import any_community.svc.CommunityModifyService;
 import any_community.vo.ActionForward;
 import any_community.vo.CommunityBean;
+import coding_free.svc.CodingFreeDetailService;
+import coding_free.vo.CodingFreeBean;
 
 public class CommunityModifyProAction implements Action {
 
@@ -33,11 +36,17 @@ public class CommunityModifyProAction implements Action {
 		String realFilesystemName = multi.getFilesystemName((String) multi.getFileNames().nextElement());
 		System.out.println("실제 파일명 : " + realFilesystemName);
 		
-		//
 		int num = Integer.parseInt(multi.getParameter("post_num"));
 		String page = request.getParameter("page");
 		String subject = multi.getParameter("subject");
 		String content = multi.getParameter("content");
+		
+		CommunityDetailService communityDetailService = new CommunityDetailService();
+		CommunityBean communityBean = communityDetailService.getArticle(num);
+		
+		if(realFilesystemName==null) {
+			realFilesystemName = communityBean.getFile();
+		}
 		
 		CommunityModifyService communityModifyService = new CommunityModifyService();
 		

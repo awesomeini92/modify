@@ -12,6 +12,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import any_community.svc.CommunityWriteService;
 import any_community.vo.ActionForward;
 import any_community.vo.CommunityBean;
+import member.svc.MemberUpdateProService;
 
 public class CommunityWriteProAction implements Action {
 
@@ -23,7 +24,7 @@ public class CommunityWriteProAction implements Action {
 		String saveFolder = "/any_community/images";
 		ServletContext context = request.getServletContext();
 		String realFolder = context.getRealPath(saveFolder);
-
+		
 		int fileSize = 1024 * 1024 * 10;
 
 		MultipartRequest multi = new MultipartRequest(request, realFolder, fileSize, "UTF-8",
@@ -32,6 +33,7 @@ public class CommunityWriteProAction implements Action {
 		String realFilesystemName = multi.getFilesystemName((String) multi.getFileNames().nextElement());
 		System.out.println("실제 파일명 : " + realFilesystemName);
 
+		String nickname = multi.getParameter("any_nickname");
 		CommunityBean cb = new CommunityBean(
 				multi.getParameter("any_nickname"),
 				multi.getParameter("any_subject"),
@@ -49,9 +51,13 @@ public class CommunityWriteProAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
-			forward = new ActionForward(); 
-			forward.setPath("CommunityList.any");
-			forward.setRedirect(true);
+			MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
+			boolean isSuccess = memberUpdateProService.minusArticletLP(nickname);
+			if(isSuccess) {
+				forward = new ActionForward(); 
+				forward.setPath("CommunityList.any");
+				forward.setRedirect(true);
+			}
 		}
 		
 		return forward;

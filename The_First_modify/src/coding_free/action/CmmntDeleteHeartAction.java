@@ -4,7 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import coding_free.svc.CodingFreeCommentHeartService;
+import coding_free.svc.CodingFreeCommentListService;
 import coding_free.vo.ActionForward;
+import coding_free.vo.CodingFreeBean;
+import member.svc.MemberUpdateProService;
 
 public class CmmntDeleteHeartAction implements Action {
 
@@ -16,7 +19,10 @@ public class CmmntDeleteHeartAction implements Action {
 		
 		int cmmnt_num = Integer.parseInt(request.getParameter("comment_num"));
 		String recommender = request.getParameter("recommender");
-//		int cmmnt_num = 2;
+
+		
+		CodingFreeCommentListService codingFreeCommentListService = new CodingFreeCommentListService();
+		String nickname = codingFreeCommentListService.getNickname(cmmnt_num);
 		 
 		CodingFreeCommentHeartService codingFreeCommentHeartService = new CodingFreeCommentHeartService();
 		boolean isSuccess = codingFreeCommentHeartService.deleteHeart(cmmnt_num,recommender);
@@ -25,10 +31,13 @@ public class CmmntDeleteHeartAction implements Action {
 			System.out.println("delete 성공");
 			boolean isSuccessUpdate = codingFreeCommentHeartService.updateHeartCount(cmmnt_num);
 			if(isSuccessUpdate) {
-				System.out.println("update 성공");
+				MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
+					isSuccess = memberUpdateProService.minusHeartLP(nickname);
+					if(isSuccess) {
+						System.out.println("update 성공");
+					}
 			}
 		}
-		
 		
 		
 		return forward;

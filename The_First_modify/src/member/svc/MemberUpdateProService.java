@@ -173,4 +173,46 @@ public class MemberUpdateProService {
 		
 		return isSuccess;
 	}
+	
+	public boolean updateHeartLP(String nickname) {
+		boolean isSuccess =false;
+		
+		Connection con = getConnection();
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		memberDAO.setConnection(con);
+			
+		int updateNum = memberDAO.updateHeartLP(nickname);
+		
+		if(updateNum>0) {
+			commit(con);
+			isSuccess = true;
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return isSuccess;
+	}
+	
+	public boolean minusHeartLP(String nickname) {
+		boolean isSuccess =false;
+		
+		Connection con = getConnection();
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		memberDAO.setConnection(con);
+			
+		int updateNum = memberDAO.minusHeartLP(nickname);
+		
+		if(updateNum>0) {
+			commit(con);
+			isSuccess = true;
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return isSuccess;
+	}
 }

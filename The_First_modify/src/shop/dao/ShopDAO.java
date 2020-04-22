@@ -144,6 +144,13 @@ public class ShopDAO {
 			PreparedStatement pstmt = null;
 			
 			try {
+				String info ="";
+				if(shopBean.getProduct_info().contains("\r\n")) {
+					info = shopBean.getProduct_info().replace("\r\n", "<br>");
+				}else {
+					info = shopBean.getProduct_info();
+				}
+				
 				String sql = "INSERT INTO shop VALUES (?,null,?,?,?,?,?,null,null,now(),?);";
 				
 				pstmt = con.prepareStatement(sql);
@@ -153,7 +160,7 @@ public class ShopDAO {
 				pstmt.setInt(3, shopBean.getPrice());
 				pstmt.setInt(4, shopBean.getStock());
 				pstmt.setString(5, shopBean.getProduct_image());
-				pstmt.setString(6, shopBean.getProduct_info());
+				pstmt.setString(6, info);
 				pstmt.setString(7, shopBean.getBarcode_image());
 
 				

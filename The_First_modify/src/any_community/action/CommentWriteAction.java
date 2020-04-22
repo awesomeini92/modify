@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import any_community.svc.CommentWriteService;
 import any_community.vo.AnyCommentBean;
+import member.svc.MemberUpdateProService;
 import any_community.vo.ActionForward;
 
 public class CommentWriteAction implements Action {
@@ -38,9 +39,14 @@ public class CommentWriteAction implements Action {
 			out.println("</script>"); 
 		} else { // 글쓰기 성공
 			System.out.println("댓글 작성 완료");
-			forward = new ActionForward();
-			forward.setPath("CommunityDetail.any?num=" + post_num + "&page=" + nowPage);
-			forward.setRedirect(true);
+			MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
+			boolean isSuccess = memberUpdateProService.updateCommentLP(nickname);
+			
+			if(isSuccess) {
+				forward = new ActionForward();
+				forward.setPath("CommunityDetail.any?num=" + post_num + "&page=" + nowPage);
+				forward.setRedirect(true);
+			}
 		}
 		
 		return forward;

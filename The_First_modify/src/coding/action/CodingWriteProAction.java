@@ -10,8 +10,11 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import action.Action;
+import coding.svc.CodingDetailService;
+import coding.svc.CodingReplyDetailService;
 import coding.svc.CodingWriteProService;
 import coding.vo.CodingBean;
+import coding.vo.Coding_refBean;
 import member.svc.MemberDetailService;
 import member.svc.MemberUpdateProService;
 import member.vo.MemberBean;
@@ -41,8 +44,6 @@ public class CodingWriteProAction implements Action {
 		String file = multi.getOriginalFileName((String)multi.getFileNames().nextElement());
 		int article_CP = Integer.parseInt(multi.getParameter("CP"));
 //		int password = Integer.parseInt(multi.getParameter("password"));
-		
-//		System.out.println("CP는"+CP);
 		
 		CodingBean codingBean = new CodingBean();
 		codingBean.setNickname(nickname);

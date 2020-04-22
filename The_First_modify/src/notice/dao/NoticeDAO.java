@@ -40,6 +40,13 @@ public class NoticeDAO {
 		
 		try {
 			// INSERT 구문을 사용하여 전달된 항목들 및 기타 데이터를 notice 테이블에 추가
+			String content = "";
+			
+			if(noticeBean.getContent().contains("\r\n")) {
+				content = noticeBean.getContent().replace("\r\n", "<br>");
+			}else {
+				content = noticeBean.getContent();
+			}
 			String sql = "INSERT INTO notice VALUES (null,?,?,?,?,?,now());";
 			
 			// Connection 객체로부터 PreparedStatement 객체 가져와서 쿼리 전달
@@ -47,7 +54,7 @@ public class NoticeDAO {
 			// ? 파라미터값 채우기
 			pstmt.setString(1, noticeBean.getNickname());
 			pstmt.setString(2, noticeBean.getSubject());
-			pstmt.setString(3, noticeBean.getContent());
+			pstmt.setString(3, content);
 			pstmt.setInt(4, 0); //readcount
 			pstmt.setString(5, noticeBean.getFile());
 			// 쿼리 실행
@@ -224,10 +231,17 @@ public class NoticeDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
+			String content = "";
+			
+			if(article.getContent().contains("\r\n")) {
+				content = article.getContent().replace("\r\n", "<br>");
+			}else {
+				content = article.getContent();
+			}
 			String sql = "UPDATE notice SET subject=?, content=? WHERE num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, article.getSubject());
-			pstmt.setString(2, article.getContent());
+			pstmt.setString(2, content);
 			pstmt.setInt(3, article.getNum());
 			
 			updateCount = pstmt.executeUpdate();
@@ -273,7 +287,8 @@ public class NoticeDAO {
 		
 		try {
 			// ORDER BY comment_num
-			String sql = "SELECT *, time(date) AS time FROM notice_comment WHERE post_num = ? AND comment_num = ?";
+			
+			String sql = "SELECT * FROM notice_comment WHERE post_num = ? AND comment_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, post_num);
 			pstmt.setInt(2, modify_num);
@@ -285,7 +300,6 @@ public class NoticeDAO {
 				cmmnt.setPost_num(rs.getInt("post_num"));
 				cmmnt.setNickname(rs.getString("nickname"));
 				cmmnt.setComment(rs.getString("comment"));
-
 			}
 			
 		} catch (SQLException e) {
@@ -300,30 +314,22 @@ public class NoticeDAO {
 	public int insertComment(NoticeCommentBean commentBean) {
 		System.out.println("NoticeCommentDAO - insertComment()");
 		
-		ResultSet rs = null;
 		PreparedStatement pstmt = null;
 		int insertCount = 0;
-		
-		int num = 0;
-		
-		
 		try {
-			String sql = "SELECT max(comment_num) as mnum FROM notice_comment";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			if (rs.next()) {
-				num = rs.getInt("mnum") + 1;
+			String comment ="";
+			if(commentBean.getComment().contains("\r\n")) {
+				comment = commentBean.getComment().replace("\r\n", "<br>");
+			}else {
+				comment = commentBean.getComment();
 			}
-			
-			sql = "INSERT INTO notice_comment VALUES (?,?,?,?,now())";
+			String sql = "INSERT INTO notice_comment VALUES (null,?,?,?,now())";
 
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setInt(1, num); //댓글번호 comment_num
-			pstmt.setInt(2, commentBean.getPost_num());
-			pstmt.setString(3, commentBean.getNickname());
-			pstmt.setString(4, commentBean.getComment());
+			pstmt.setInt(1, commentBean.getPost_num());
+			pstmt.setString(2, commentBean.getNickname());
+			pstmt.setString(3, comment);
 			
 			insertCount = pstmt.executeUpdate();
 			
@@ -332,7 +338,6 @@ public class NoticeDAO {
 			System.out.println("insertComment() 에러 : " + e.getMessage());
 		} finally {
 			close(pstmt);
-			close(rs);
 		}
 		
 		return insertCount;
@@ -423,9 +428,15 @@ public class NoticeDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
+			String comment ="";
+			if(noticeCommentBean.getComment().contains("\r\n")) {
+				comment = noticeCommentBean.getComment().replace("\r\n", "<br>");
+			}else {
+				comment = noticeCommentBean.getComment();
+			}
 			String sql = "UPDATE notice_comment SET comment=?, date=now() WHERE comment_num=?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, noticeCommentBean.getComment());
+				pstmt.setString(1, comment);
 				pstmt.setInt(2, noticeCommentBean.getComment_num());
 				
 				updateCount = pstmt.executeUpdate();

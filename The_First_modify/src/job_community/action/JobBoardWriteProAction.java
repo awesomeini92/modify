@@ -12,6 +12,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import job_community.svc.JobBoardWriteProService;
 import job_community.vo.ActionForward;
 import job_community.vo.JobBoardBean;
+import member.svc.MemberUpdateProService;
 
 public class JobBoardWriteProAction implements Action {
 
@@ -32,7 +33,7 @@ public class JobBoardWriteProAction implements Action {
 		String realFilesystemName = multi.getFilesystemName((String) multi.getFileNames().nextElement());
 		System.out.println("실제 파일명 : " + realFilesystemName);
 
-		
+		String nickname = multi.getParameter("nickname");
 //		JobBoardBean jobBoardBean = new JobBoardBean();
 //		jobBoardBean.setNickname(multi.getParameter("nickname"));
 //		jobBoardBean.setSubject(multi.getParameter("subject"));
@@ -53,9 +54,13 @@ public class JobBoardWriteProAction implements Action {
 			out.println("history.back()"); 
 			out.println("</script>"); 
 		} else { 
-			forward = new ActionForward(); 
-			forward.setPath("JobBoardList.job");
-			forward.setRedirect(true); 
+			MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
+			boolean isSuccess = memberUpdateProService.updateArticleLP(nickname);
+			if(isSuccess) {
+				forward = new ActionForward(); 
+				forward.setPath("JobBoardList.job");
+				forward.setRedirect(true); 
+			}
 		}
 		
 		return forward;

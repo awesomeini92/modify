@@ -3,6 +3,23 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:if test="${sessionScope.nickname==null }">
+<c:choose>
+	<c:when test="${sessionScope.sId != null }">
+    <script type="text/javascript">
+		alert("이메일 인증 받으세요.");
+		location.href="NewLoginForm.me"
+	</script>
+	</c:when>
+	<c:otherwise>
+		<script type="text/javascript">
+		alert("로그인 해주세요");
+		location.href="LoginForm.me"
+		</script>
+	</c:otherwise>
+</c:choose>
+</c:if>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,6 +86,7 @@ $(document).ready(function() {
                 	var comment_num = "";
                 	var comment_nick = "";
 
+                	var index = parseInt(nowPage)*3-2;
         			paging(nowPage);
         			
                 	output += "<form action='CommentWritePro.anyC?post_num=${article.num }' method='post'>";
@@ -81,7 +99,7 @@ $(document).ready(function() {
 	 	                    var cmmnt = cmmntList[i][j];
 	 	                    if(j === 0){
 	 	                    	comment_num = cmmnt.comment_num;
-	 	                    	output += " No." + comment_num +"&nbsp;&nbsp;&nbsp";
+	 	                    	output += " No." + index++ +"&nbsp;&nbsp;&nbsp";
 	 	                    }else  if(j === 1){
 	 	     					output += "<span class='w3-right'> <i class=' fa fa-calendar'></i>" + cmmnt.reply_date +"</span>";
 	 	                    }else  if(j === 2){

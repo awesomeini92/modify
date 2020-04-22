@@ -11,7 +11,9 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import action.Action;
 import coding.svc.CodingModifyProService;
+import coding.svc.CodingReplyDetailService;
 import coding.vo.CodingBean;
+import coding.vo.Coding_refBean;
 import vo.ActionForward;
 
 public class CodingReplyModifyProAction implements Action {
@@ -39,6 +41,13 @@ public class CodingReplyModifyProAction implements Action {
 
 		//		System.out.println("CP는"+CP);
 
+		CodingReplyDetailService codingReplyDetailService = new CodingReplyDetailService();
+		Coding_refBean coding_refBean = codingReplyDetailService.getArticle_ref(num);
+		
+		if( file==null) {
+			file=coding_refBean.getFile();
+		}
+		
 		CodingBean article = new CodingBean();
 		article.setNum(num);
 		article.setSubject(subject);

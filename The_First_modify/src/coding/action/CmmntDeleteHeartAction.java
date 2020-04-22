@@ -5,6 +5,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import coding.svc.CmmntHeartService;
+import coding.svc.CmmntListService;
+import coding_free.svc.CodingFreeCommentHeartService;
+import coding_free.svc.CodingFreeCommentListService;
+import member.svc.MemberUpdateProService;
 import vo.ActionForward;
 
 public class CmmntDeleteHeartAction implements Action {
@@ -22,11 +26,19 @@ public class CmmntDeleteHeartAction implements Action {
 		CmmntHeartService cmmntHeartService = new CmmntHeartService();
 		boolean isSuccess = cmmntHeartService.deleteHeart(cmmnt_num,recommender);
 		
+		CmmntListService cmmntListService = new CmmntListService();
+		String nickname = cmmntListService.getNickname(cmmnt_num);
+		 
+		
 		if(isSuccess) {
 			System.out.println("delete 성공");
 			boolean isSuccessUpdate = cmmntHeartService.updateHeartCount(cmmnt_num);
 			if(isSuccessUpdate) {
-				System.out.println("update 성공");
+				MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
+				isSuccess = memberUpdateProService.minusHeartLP(nickname);
+				if(isSuccess) {
+					System.out.println("update 성공");
+				}
 			}
 		}
 		

@@ -34,11 +34,18 @@ public class CommunityDAO {
 		PreparedStatement pstmt = null;
 
 		try {
+			String content = "";
+			
+			if(cb.getContent().contains("\r\n")) {
+				content = cb.getContent().replace("\r\n", "<br>");
+			}else {
+				content = cb.getContent();
+			}
 			String sql = "INSERT INTO any_community VALUES (null,?,?,?,?,?,now())";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, cb.getNickname());
 			pstmt.setString(2, cb.getSubject());
-			pstmt.setString(3, cb.getContent());
+			pstmt.setString(3, content);
 			pstmt.setInt(4, 0);
 			pstmt.setString(5, cb.getFile());
 			insertCount = pstmt.executeUpdate();
@@ -175,10 +182,18 @@ public class CommunityDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
+			String content = "";
+			
+			if(article.getContent().contains("\r\n")) {
+				content = article.getContent().replace("\r\n", "<br>");
+			}else {
+				content = article.getContent();
+			}
+			
 			String sql = "UPDATE any_community SET subject=?,content=? where num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, article.getSubject());
-			pstmt.setString(2, article.getContent());
+			pstmt.setString(2, content);
 			pstmt.setInt(3, article.getNum());
 			updateCount = pstmt.executeUpdate();
 		} catch (SQLException e) {

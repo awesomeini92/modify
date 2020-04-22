@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.svc.MemberUpdateProService;
 import notice.svc.NoticeCommentDeleteProService;
 import notice.vo.ActionForward;
 
@@ -32,9 +33,9 @@ public class NoticeCommentDeleteProAction implements Action {
 				out.println("history.back()");
 				out.println("</script>");
 			}else {
-//				MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
-//				boolean isSuccess = memberUpdateProService.minusCommentLP(nickname);
-//				if(isSuccess) {
+				MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
+				boolean isSuccess = memberUpdateProService.minusCommentLP(nickname);
+				if(isSuccess) {
 	//				request.setAttribute("post_num", post_num);
 					forward = new ActionForward();
 		//			forward.setPath("NoticeDetail.no");
@@ -42,7 +43,7 @@ public class NoticeCommentDeleteProAction implements Action {
 		//			forward.setPath("NoticeDetail.no?page=" + nowPage);
 					forward.setRedirect(true);
 				}
-			
+			}
 		
 		return forward;
 	}

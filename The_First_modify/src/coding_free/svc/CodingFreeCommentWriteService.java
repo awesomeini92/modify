@@ -4,7 +4,7 @@ import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 
-import coding_free.dao.CodingFreeCommentDAO;
+import coding_free.dao.CodingFreeDAO;
 import coding_free.vo.CodingFreeCommentBean;
 
 public class CodingFreeCommentWriteService {
@@ -14,7 +14,7 @@ public class CodingFreeCommentWriteService {
 		boolean isWriteSuccess = false;
 
 		Connection con = getConnection();
-		CodingFreeCommentDAO cdao = CodingFreeCommentDAO.getInstance();
+		CodingFreeDAO cdao = CodingFreeDAO.getInstance();
 		cdao.setConnection(con);
 
 		int insertCount = cdao.writeComment(codingFreeCommentBean);

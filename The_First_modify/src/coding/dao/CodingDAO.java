@@ -35,10 +35,18 @@ public class CodingDAO {
 //		num | nickname  |	subject   | content  | readcount	| file 	| date |  isPublic 	| password | CP
 		String sql = "insert into coding_charge values(null,?,?,?,?,?,now(),1,0,?)";
 		try {
+			String content = "";
+			
+			if(codingBean.getContent().contains("\r\n")) {
+				content = codingBean.getContent().replace("\r\n", "<br>");
+			}else {
+				content = codingBean.getContent();
+			}
+			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, codingBean.getNickname());
 			pstmt.setString(2, codingBean.getSubject());
-			pstmt.setString(3, codingBean.getContent());
+			pstmt.setString(3, content);
 			pstmt.setInt(4, codingBean.getReadcount() );
 			pstmt.setString(5, codingBean.getFile());
 //			pstmt.setInt(6, codingBean.getIsPublic());
@@ -189,7 +197,6 @@ public class CodingDAO {
 		try {
 			if(article.getContent().contains("\r\n")) {
 				content = article.getContent().replace("\r\n", "<br>");
-				System.out.println("DB@@@@@"+content);
 			}else {
 				content = article.getContent();
 			}
@@ -218,11 +225,18 @@ public class CodingDAO {
 //		ref_num | post_num | nickname  |	subject   | content  | readcount	| file 	| date |  isSelected 
 		String sql = "insert into coding_charge_ref values(null,?,?,?,?,?,?,now(),0,0)";
 		try {
+			String content = "";
+			
+			if(coding_refBean.getContent().contains("\r\n")) {
+				content = coding_refBean.getContent().replace("\r\n", "<br>");
+			}else {
+				content = coding_refBean.getContent();
+			}
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, coding_refBean.getPost_num());
 			pstmt.setString(2, coding_refBean.getNickname());
 			pstmt.setString(3, coding_refBean.getSubject());
-			pstmt.setString(4, coding_refBean.getContent());
+			pstmt.setString(4, content);
 			pstmt.setInt(5, coding_refBean.getReadcount() );
 			pstmt.setString(6, coding_refBean.getFile());
 //			pstmt.setInt(7, coding_refBean.getIsSelected()); //0 이면 무료, 1이면 유료
@@ -245,11 +259,18 @@ public class CodingDAO {
 //		ref_num | post_num | nickname  |	subject   | content  | readcount	| file 	| date |  isSelected 
 		String sql = "insert into coding_charge_ref values(null,?,?,?,?,?,?,now(),0,0)";
 		try {
+			String content = "";
+			
+			if(ref.getContent().contains("\r\n")) {
+				content = ref.getContent().replace("\r\n", "<br>");
+			}else {
+				content = ref.getContent();
+			}
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, ref.getPost_num());
 			pstmt.setString(2, ref.getNickname());
 			pstmt.setString(3, ref.getSubject());
-			pstmt.setString(4, ref.getContent());
+			pstmt.setString(4,content);
 			pstmt.setInt(5, ref.getReadcount() );
 			pstmt.setString(6, ref.getFile());
 			pstmt.setInt(7, ref.getIsSelected()); //0 이면 무료, 1이면 유료
@@ -586,10 +607,16 @@ public class CodingDAO {
 //		insert into coding_charge_comment values(null, 1, 'kim', 'kim-com', now(), 0);
 		String sql = "INSERT INTO coding_charge_comment VALUES(null, ?, ?, ?, now(), 0)";
 		try {
+			String comment ="";
+			if(cmmntBean.getComment().contains("\r\n")) {
+				comment = cmmntBean.getComment().replace("\r\n", "<br>");
+			}else {
+				comment = cmmntBean.getComment();
+			}
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, cmmntBean.getPost_num());
 			pstmt.setString(2, cmmntBean.getNickname());
-			pstmt.setString(3, cmmntBean.getComment());
+			pstmt.setString(3, comment);
 
 			insertCount = pstmt.executeUpdate();
 			
@@ -741,6 +768,12 @@ public class CodingDAO {
 		
 		
 		try {
+			String comment ="";
+			if(cmmntBean.getComment().contains("\r\n")) {
+				comment = cmmntBean.getComment().replace("\r\n", "<br>");
+			}else {
+				comment = cmmntBean.getComment();
+			}
 			String sql = "select count(recommender) AS hearts from charge_heart where comment_num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, cmmntBean.getComment_num());
@@ -749,7 +782,7 @@ public class CodingDAO {
             	int hearts = rs.getInt("hearts");
 				sql = "UPDATE coding_charge_comment SET comment=?, date=now(), heart=? WHERE post_num=? AND comment_num=?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, cmmntBean.getComment());
+				pstmt.setString(1, comment);
 				pstmt.setInt(2, hearts);
 				pstmt.setInt(3, cmmntBean.getPost_num());
 				pstmt.setInt(4, cmmntBean.getComment_num());
@@ -984,6 +1017,32 @@ public class CodingDAO {
 		}
 		
 		return updateCount;
+	}
+
+	public String getNickname(int cmmnt_num) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String nickname="";
+		
+		try {
+			// ORDER BY comment_num
+			String sql = "SELECT nickname FROM coding_charge_comment WHERE comment_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cmmnt_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				nickname = rs.getString(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return nickname;
 	}
 
 

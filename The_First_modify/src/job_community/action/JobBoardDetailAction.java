@@ -18,9 +18,6 @@ public class JobBoardDetailAction implements Action {
 		System.out.println("BoardDetailAction");
 		
 		int num = Integer.parseInt(request.getParameter("num"));
-		String nowPage = request.getParameter("page");
-		System.out.println("nowPage : " + nowPage);
-		System.out.println(num);
 		
 		JobBoardDetailService boardDetailService = new JobBoardDetailService();
 		JobBoardBean article = boardDetailService.getArticle(num);
@@ -35,7 +32,6 @@ public class JobBoardDetailAction implements Action {
 		// 게시물 정보(BoardBean 객체), 페이지번호(page) 를 request 객체에 저장
 		request.setAttribute("article", article);
 		request.setAttribute("today", today);
-		request.setAttribute("page", nowPage);
 		
 		
 		// ActionForward 객체를 생성하여 board 폴더 내의 qna_board_view.jsp 로 이동 설정

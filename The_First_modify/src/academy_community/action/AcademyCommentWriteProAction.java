@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import academy_community.svc.AcademyCommentWriteProService;
 import academy_community.vo.AcademyCommentBean;
 import academy_community.vo.ActionForward;
+import member.svc.MemberUpdateProService;
 
 public class AcademyCommentWriteProAction implements Action {
 
@@ -40,10 +41,14 @@ public class AcademyCommentWriteProAction implements Action {
 			out.println("history.back()"); 
 			out.println("</script>"); 
 		} else { // 글쓰기 성공
-			System.out.println("댓글 작성 완료");
-			forward = new ActionForward();
-			forward.setPath("AcademyDetail.ac?num=" + num + "&page=" + nowPage);
-			forward.setRedirect(true);
+			MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
+			boolean isSuccess = memberUpdateProService.updateCommentLP(nickname);
+			if(isSuccess) {
+				System.out.println("댓글 작성 완료");
+				forward = new ActionForward();
+				forward.setPath("AcademyDetail.ac?num=" + num + "&page=" + nowPage);
+				forward.setRedirect(true);
+			}
 		}
 		
 		return forward; 

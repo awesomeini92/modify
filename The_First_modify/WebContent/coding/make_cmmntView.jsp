@@ -18,21 +18,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%
-	ArrayList<CmmntBean> cmmntList = (ArrayList<CmmntBean>)request.getAttribute("cmmntList");
-	String nowPage = (String)request.getAttribute("page");
-	int post_num = (int)request.getAttribute("post_num");
 
-	Date today = (Date)request.getAttribute("today");
-	
-	// PageInfo 객체로부터 페이징 정보 가져오기
-	PageInfo cmmnt_pageInfo = (PageInfo)request.getAttribute("cmmnt_pageInfo");
-	int cmmnt_count = cmmnt_pageInfo.getListCount();
-	int cmmnt_nowPage = cmmnt_pageInfo.getPage(); // page 디렉티브의 이름과 중복되므로 nowPage 라는 변수명으로 사용
-	int cmmnt_startPage = cmmnt_pageInfo.getStartPage();
-	int cmmnt_endPage = cmmnt_pageInfo.getEndPage();
-	int cmmnt_maxPage = cmmnt_pageInfo.getMaxPage();
-%>
 <style type="text/css">
 #cdiv{
 	  border-bottom: 1px dotted #d3d3d3;
@@ -53,7 +39,7 @@ function insert_comment(){
 
 function delete_comment(comment_num){
 	if (confirm("댓글 삭제하시겠습니까?") == true){    //확인
-		location.href="CmmntDeletePro.code?post_num=${post_num }&comment_num="+comment_num;
+		location.href="CmmntDeletePro.code?nickname=${sessionScope.nickname }&post_num=${post_num }&comment_num="+comment_num;
 	}else{   //취소
 		return false;
 	}

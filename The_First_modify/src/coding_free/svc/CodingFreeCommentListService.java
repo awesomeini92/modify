@@ -40,6 +40,19 @@ public class CodingFreeCommentListService {
 		
 		return cmmnt;
 	}
+	
+	public String getNickname(int comment_num) {
+		
+		Connection con = getConnection();
+		CodingFreeDAO cdao = CodingFreeDAO.getInstance();
+		cdao.setConnection(con);
+		
+		String nickname = cdao.getNickname(comment_num);
+		
+		close(con);
+		
+		return nickname;
+	}
 
 	public int getCommentListCount(int post_num) {
 		int cmmntListCount = 0;

@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import notice.svc.NoticeCommentListService;
+import notice.svc.NoticeDetailService;
 import notice.vo.ActionForward;
+import notice.vo.NoticeBean;
 import notice.vo.NoticeCommentBean;
 
 
@@ -31,9 +33,11 @@ public class NoticeCommentModifyFormAction implements Action {
 //		ArrayList<CmmntBean> cmmntList = cmmntListService.getCmmntList(post_num,cmmnt_page,cmmnt_limit);
 
 		NoticeCommentListService noticeCommentListService = new NoticeCommentListService();
-		NoticeCommentBean cmmnt = noticeCommentListService.getComment(post_num,modify_num);
+		NoticeCommentBean noticeCommentBean = noticeCommentListService.getComment(post_num,modify_num);
+		String cmmnt = noticeCommentBean.getComment();
 		
-		
+		NoticeDetailService noticeDetailService = new NoticeDetailService();
+		NoticeBean article = noticeDetailService.getArticle(post_num);
 		
 		//댓글페이지 계산
 		// 1. 총 페이지 수 계산
@@ -52,7 +56,7 @@ public class NoticeCommentModifyFormAction implements Action {
 //		PageInfo cmmnt_pageInfo = new PageInfo(cmmnt_page, cmmnt_maxPage, cmmnt_startPage, cmmnt_endPage, cmmnt_count);
 		
 		// 게시물 정보(BoardBean 객체), 페이지번호(page) 를 request 객체에 저장
-//		request.setAttribute("article", article);
+		request.setAttribute("article", article);
 //		request.setAttribute("article_refList", article_refList);
 //		request.setAttribute("cmmnt_pageInfo", cmmnt_pageInfo);
 		request.setAttribute("cmmnt", cmmnt);
