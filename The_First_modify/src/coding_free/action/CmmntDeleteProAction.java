@@ -22,6 +22,7 @@ public class CmmntDeleteProAction implements Action {
 		String nickname = request.getParameter("nickname");
 //		String page = request.getParameter("page");
 		
+		
 		CmmntFreeDeleteProService cmmntDeleteProService = new CmmntFreeDeleteProService();
 		boolean isDeleteSuccess = cmmntDeleteProService.deleteCmmntHeart(comment_num);
 		

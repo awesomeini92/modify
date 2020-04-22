@@ -48,7 +48,7 @@ $(document).ready(function() {
 
 function getReply(i){
 	$.ajax({		
-		url: "pre_CodingReplyDetail.code?s_nick=${sessionScope.nickname }", // 요청 url
+		url: "CodingReplyDetail.code?s_nick=${sessionScope.nickname }", // 요청 url
         type: "POST", // post 방식
         data: {
         	post_num : <%=article.getNum()%> // board_no의 값을 넘겨줌
@@ -61,6 +61,8 @@ function getReply(i){
         	var replyList =obj.replyList; // replyList는 전달된 json의 키값을 의미
         	var output = ""; // 댓글 목록을 누적하여 보여주기 위한 변수
         	var CP ="";
+        	var ref_num = "";
+        	var nickname ="";
 //         	alert(json);
 //         	var reply = replyList[0][0];
 //         	alert(reply.nickname);
@@ -75,6 +77,7 @@ function getReply(i){
 	                 for (var j = 0; j < replyList[i].length; j++) {
 	                    var reply = replyList[i][j];
 	                    if(j === 0){
+	                    	nickname =reply.nickname;
 	                    	output += "<i class='fa fa-user'></i> <a href='#'> " + reply.nickname +"</a><br>";
 //	                    output += "<div class='w3-right'><span>채택하기</span> </div><br>";
 	                    }else  if(j === 1){
@@ -84,22 +87,37 @@ function getReply(i){
 	                    }else  if(j === 3){
  	                    	isWriter = reply.isWriter;
  	                    }else  if(j === 4){
-	                    	output += "<div class='w3-border w3-padding'> No."+reply.ref_num+"&nbsp;&nbsp;&nbsp";
+	                    	output += "<div class='w3-border w3-padding'> No."+(i+1)+"&nbsp;&nbsp;&nbsp";
+	                    	ref_num = reply.ref_num;
 	                    	if(${isSelected }==reply.ref_num){
-	                    	output += "<i class='fas fa-coins' style='float: right!important;color:#DBBF41; font-size: 24px;''>"+ CP +"</i>";
-	                   			 }
+	                    		output += "<i class='fas fa-coins' style='float: right!important;color:#DBBF41; font-size: 24px;''>"+ CP +"</i>";
+	                   		}
 	                    }else  if(j === 5){
 	                    	output += "<span class='w3-center w3-xlarge w3-text-blue'>"+reply.subject+"</span></div>";
 	                    }else  if(j === 6){
-	                    	if(reply.file!=""){
-	                    		output += "<article class='w3-border w3-large w3-padding reply_content'><img src='./codingUpload/"+reply.file+"' width=800px ><br><br><br>";
-	                    	}
-	                    }else  if(j === 7){
+	 	                    	output += "</div><article class='w3-border w3-large w3-padding reply_content'>"
+	 	                    	file_name = reply.file;
+	 	                    	if(reply.file!="null"){
+	 	                    		output += "<img src='./codingUpload/"+reply.file+"' width=800px ><br><br><br>";
+	 	                    	}
+	 	                }else  if(j === 7){
 	                   		output += reply.content+"<br><br></article>";
 	                    }else  if(j === 8){
-	                    	output += "<div class='w3-border w3-padding'>첨부파일: <a href='CodingFileDown.code?file_name='"+reply.file+" target='blank'>"+reply.file+"</a></div><br>";
-	                    	output += "<div class='dataTables_paginate paging_simple_numbers pageList' id='dataTable_paginate'''>"
-	                    }
+ 	                    	if(file_name!="null"){
+ 	                    		output += "<div class='w3-border w3-padding'>첨부파일: <a href='CodingFileDown.code?file_name='"+reply.file+" target='blank'>"+reply.file+"</a></div>";
+ 	                    	}else{
+ 	                    		output += "<div class='w3-border w3-padding'>첨부파일 없어용</div>";
+ 	                    	}
+ 	                    	output += "<br>";
+ 	                    	var s_nick = '${sessionScope.nickname }'
+ 	                    	if(s_nick === nickname){
+ 	                    		output += "<div>";
+ 	                    		output += "<button type='button' class='btn btn-outline-secondary' onclick='modify_ref("+ref_num+")'>글수정</button>&nbsp;&nbsp;";
+ 	                    		output += "<button type='button' class='btn btn-outline-secondary' onclick='delete_ref("+ref_num+")'>글삭제</button>";
+ 	           			 		output += "</div>";
+ 	                    	}
+ 	                    	output += "<div class='dataTables_paginate paging_simple_numbers pageList' id='dataTable_paginate'''>"
+ 	                    }
 	                    
 	                 }
 	              	$("#replyList").html(output); // replyList 영역에 output 출력
@@ -107,76 +125,78 @@ function getReply(i){
 	});
 }
 			
-		function paging(nowPage){
-			$.ajax({		
-				//url: "CodingReplyDetail.code", // 요청 url
-				url: "CodingReplyDetail.code?nowPage="+nowPage, // 요청 url
-	            type: "POST", // post 방식
-	            data: {
-	            	post_num : <%=article.getNum()%> // board_no의 값을 넘겨줌
-// 	            	reply_page : nowPage
-	            },
-	            success : function (page){
-// 	            	alert(page);
-// 	            page = page.replace(/\n/gi,"\\r\\n"); // 개행문자 대체
-// 	            	$("#check").text(""); // 댓글리스트 영역 초기화
-	            	var page_obj = JSON.parse(page); // service 클래스로 부터 전달된 문자열 파싱
-// 	            	alert("pageArr: " + page_obj);
-	            	var pageInfo =page_obj.pageInfo;
-//              		alert(pageInfo.length);
-             		var output="";
-             		var nowPage, reply_page, reply_maxPage, reply_startPage, reply_endPage, reply_count;
-             		
-// 	            alert(pageVal.reply_count);
-	            	for(var i=0; i<pageInfo.length; i++){
-	            		var pageVar = pageInfo[i];
-	            		if(i==0){
-// 	            			reply_page=pageVar.reply_page;
-	            			nowPage=pageVar.reply_page;
-	            		}else if(i==1){
-	            			reply_maxPage=pageVar.reply_maxPage;
-	            		}else if(i==2){
-	            			reply_startPage=pageVar.reply_startPage;
-	            		}else if(i==3){
-	            			reply_endPage=pageVar.reply_endPage;
-	            		}else if(i==4){
-	            			reply_count=pageVar.reply_count;
-	            		}
-	            	}
-	            	output += "<div> <ul class='pagination pagination-sm'>";
-	            	if(nowPage<= 1) {
-	            		output += "<li class='page-item disabled'> <a class='page-link'>&laquo;</a></li>";
-//         				output += "[이전]&nbsp";
-        			}else{
-        				var sub = parseInt(nowPage)-1;
-        				output += " <li class='page-item active'><a class='page-link' href='javascript:getReply("+sub+")'>&laquo;</a>&nbsp  </li>";
-        			}
-	            	for(var j = reply_startPage; j <= reply_endPage; j++) {
-            		    if(j ==nowPage){
-            		    	output +="<li class='page-item active'><a class='page-link' href='#'>"+j+"</a></li>"
-            			} else {
-            				output += "<li class='page-item'><a class='page-link' href='javascript:getReply("+j+")'>"+j+"</a>&nbsp";
-//             				nowPage=j;
-            			}
-	            	}
-	            	if(nowPage >= reply_maxPage) {
-// 	            		output += "&nbsp[다음]";
-	            		output += "<li class='page-item disabled'> <a class='page-link' href='#'>&raquo;</a></li>";
-	    			} else { 
-	    				var add = parseInt(nowPage)+1;
-	    				output += " <li class='page-item active'><a class='page-link' href='javascript:getReply("+add+")'>&raquo;</a>&nbsp  </li>";
-	    				output +="</ul></div>"
-// 	    				output += "<a href='javascript:getReply("+add+")'>&nbsp[다음]</a>";
-	    			}
+function paging(nowPage){
+	$.ajax({		
+		//url: "CodingReplyDetail.code", // 요청 url
+		url: "CodingReplyPaging.code?nowPage="+nowPage, // 요청 url
+        type: "POST", // post 방식
+        data: {
+        	post_num : ${article.num } // board_no의 값을 넘겨줌
+//         	reply_page : nowPage
+        },
+        success : function (page){
+        	
+//         page = page.replace(/\n/gi,"\\r\\n"); // 개행문자 대체
+//         	$("#check").text(""); // 댓글리스트 영역 초기화
+        	var page_obj = JSON.parse(page); // service 클래스로 부터 전달된 문자열 파싱
+//         	alert("pageArr: " + page_obj);
+        	var pageInfo =page_obj.pageInfo;
+//      		alert(pageInfo.length);
+     		var output="";
+     		var nowPage, reply_page, reply_maxPage, reply_startPage, reply_endPage, reply_count;
+     		
+//         alert(pageVal.reply_count);
+        	for(var i=0; i<pageInfo.length; i++){
+        		var pageVar = pageInfo[i];
+        		if(i==0){
+//         			reply_page=pageVar.reply_page;
+        			nowPage=pageVar.reply_page;
+        		}else if(i==1){
+        			reply_maxPage=pageVar.reply_maxPage;
+        		}else if(i==2){
+        			reply_startPage=pageVar.reply_startPage;
+        		}else if(i==3){
+        			reply_endPage=pageVar.reply_endPage;
+        		}else if(i==4){
+        			reply_count=pageVar.reply_count;
+        		}
+        	}
+        	output += "<div> <ul class='pagination pagination-sm'>";
+        	if(nowPage<= 1) {
+        		output += "<li class='page-item disabled'> <a class='page-link' href='#'>&laquo;</a></li>";
+// 				output += "[이전]&nbsp";
+			}else{
+				var sub = parseInt(nowPage)-1;
+				output += " <li class='page-item active'><a class='page-link' href='javascript:getReply("+sub+")'>&laquo;</a>&nbsp  </li>";
+			}
+        	for(var j = reply_startPage; j <= reply_endPage; j++) {
+    		    if(j ==nowPage){
+    		    	output +="<li class='page-item active'><a class='page-link'>"+j+"</a></li>"
+    			} else {
+    				output += "<li class='page-item'><a class='page-link' href='javascript:getReply("+j+")'>"+j+"</a>&nbsp";
+//     				nowPage=j;
+    			}
+        	}
+        	if(nowPage >= reply_maxPage) {
+//         		output += "&nbsp[다음]";
+        		output += "<li class='page-item disabled'> <a class='page-link' href='#'>&raquo;</a></li></div>";
+			} else { 
+				var add = parseInt(nowPage)+1;
+				output += " <li class='page-item active'><a class='page-link' href='javascript:getReply("+add+")'>&raquo;</a>&nbsp  </li>";
+				output +="</ul></div>"
+// 				output += "<a href='javascript:getReply("+add+")'>&nbsp[다음]</a>";
+			}
 
-	            	$(".pageList").html(output);
-	            }
- // 	                	$(".check").append(pageVal.reply_count);
-// 	            	   alert(pageV.reply_count);
+//         	output +="<span style='float: right!important;' ><button type='button' class='btn btn-outline-danger' onclick='write_reply()'></button></span>";
+        	
+        	$(".pageList").html(output);
+        }
+// 	                	$(".check").append(pageVal.reply_count);
+//         	   alert(pageV.reply_count);
 
-// 				}
-			});
-		}
+//			}
+	});
+}
 
 </script>  
 
@@ -248,7 +268,7 @@ function getReply(i){
 <!-- 	 <a href="javascript:getReplyListCount()">답글보기</a> -->
 <!-- 	 	<input type=button value="답글보기" onclick="getReply()"> -->
 	</div>
-		
+		<span style='float: right!important;' ><button type='button' class='btn btn-outline-danger'>공개여부</button></span>
 </div>
 
 <section id="replyPage"> </section>	

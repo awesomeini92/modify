@@ -64,7 +64,7 @@ function private_article() {
                                         <thead>
                                             <tr>
                                                 <th >글번호</th>
-                                                 <th>Cash Point</th>
+                                                 <th>CP</th>
                                                 <th>글제목</th>
                                                 <th>작성자</th>
                                                 <th>작성일</th>
@@ -79,8 +79,14 @@ function private_article() {
 				<tr style="background-color: #A1E2DF">
 			</c:if>
 			<td align="center">${article.num }</td>
-
+			<c:choose>
+			<c:when test="${article.CP==0 }">
+				<td align="center">채택완료</td>
+			</c:when>
+			<c:otherwise>
 					<td align="center">${article.CP }</td>
+			</c:otherwise>
+			</c:choose>
 					<c:choose>
 			    <c:when test="${article.isPublic eq 0 && !(article.nickname eq sessionScope.nickname)}">
 			        	<td align="center"  onclick="private_article()"><i class="fas fa-lock" style="color:red;"></i>${article.subject }</td>

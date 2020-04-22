@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import coding.svc.CodingListService;
+import coding.svc.CodingReplyListService;
 import coding.vo.CodingBean;
 import coding.vo.PageInfo;
 import svc.AllService;
@@ -30,6 +31,9 @@ public class CodingListAction implements Action {
 		ArrayList<CodingBean> articleList = null;
 		articleList = codingListService.getArticleList();
 
+		CodingReplyListService codingReplyListService = new CodingReplyListService();
+//		int reply_count = codingReplyListService.getReplyListCount(          );
+		
 		
 		AllService allService = new AllService();
 		Date today = allService.getToday();
@@ -37,6 +41,7 @@ public class CodingListAction implements Action {
 		// request 객체의 setAttribute() 메서드를 호출하여 페이지 정보, 게시물 목록 저장
 		request.setAttribute("today", today);
 		request.setAttribute("articleList", articleList);
+//		request.setAttribute("reply_count", reply_count);
 		
 		forward = new ActionForward();
 		forward.setPath("/coding/make_codingList.jsp");

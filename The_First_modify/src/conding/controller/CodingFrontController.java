@@ -23,15 +23,18 @@ import coding.action.CodingDetailAction;
 import coding.action.CodingListAction;
 import coding.action.CodingModifyFormAction;
 import coding.action.CodingModifyProAction;
-import coding.action.CodingReplyDetailAction;
+import coding.action.CodingReplyDeleteAction;
+import coding.action.CodingReplyPagingAction;
 import coding.action.CodingReplyListAction;
+import coding.action.CodingReplyModifyFormAction;
+import coding.action.CodingReplyModifyProAction;
 import coding.action.CodingReplyWriteAction;
 import coding.action.CodingReplyWriteProAction;
 import coding.action.CodingWriteFormAction;
 import coding.action.CodingReplySelectedAction;
 import coding.action.CodingWriteProAction;
 import coding.action.CmmntUpdateHeartAction;
-import coding.action.pre_CodingReplyDetailAction;
+import coding.action.CodingReplyDetailAction;
 import vo.ActionForward;
 
 @WebServlet("*.code")
@@ -89,7 +92,21 @@ public class CodingFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/CodeFileDown.code")) {
+		} else if(command.equals("/CodingDeleteForm.code")) {
+			action = new CodingDeleteFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CodingDeletePro.code")) {
+		action = new CodingDeleteProAction();
+		try {
+			forward = action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}else if(command.equals("/CodeFileDown.code")) {
 			forward = new ActionForward();
 			forward.setPath("/coding/file_down.jsp");
 		}else if(command.equals("/CodingReplyWrite.code")) {
@@ -99,7 +116,7 @@ public class CodingFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/CodingReplyWirtePro.code")) {
+		}else if(command.equals("/CodingReplyWritePro.code")) {
 			action = new CodingReplyWriteProAction();
 			try {
 				forward = action.execute(request, response);
@@ -113,36 +130,43 @@ public class CodingFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/pre_CodingReplyDetail.code")) { //원래 디테일액션
-			action = new pre_CodingReplyDetailAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else if(command.equals("/CodingReplyDetail.code")) { //지금은 페이징
+		}else if(command.equals("/CodingReplyDetail.code")) { //원래 디테일액션
 			action = new CodingReplyDetailAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/CodingDeleteForm.code")) {
-				action = new CodingDeleteFormAction();
-				try {
-					forward = action.execute(request, response);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}else if(command.equals("/CodingDeletePro.code")) {
-			action = new CodingDeleteProAction();
+		}else if(command.equals("/CodingReplyPaging.code")) { //지금은 페이징
+			action = new CodingReplyPagingAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/CodingReplySelected.code")) {
+		}else if(command.equals("/CodingReplyModifyForm.code")) {
+			action = new CodingReplyModifyFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CodingReplyModifyPro.code")) {
+		action = new CodingReplyModifyProAction();
+		try {
+			forward = action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			}
+		}	else if(command.equals("/CodingReplySelected.code")) {
 			action = new CodingReplySelectedAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CodingReplyDelete.code")) {
+			action = new CodingReplyDeleteAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

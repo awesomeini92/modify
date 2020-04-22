@@ -103,10 +103,8 @@ public class CodingDAO {
 				article.setFile(rs.getString("file"));
 				article.setDate(rs.getDate("date"));
 				article.setIsPublic(rs.getInt("isPublic"));
-				article.setPassword(rs.getInt("password"));
 				article.setTime(rs.getString("time"));
 				article.setCP(rs.getInt("CP"));
-				
 			}
 			
 		} catch (SQLException e) {
@@ -185,15 +183,21 @@ public class CodingDAO {
 
 	public int updateArticle(CodingBean article) {
 		int updateCount = 0;
-		
+		String content = "";
 		PreparedStatement pstmt = null;
 		
 		try {
+			if(article.getContent().contains("\r\n")) {
+				content = article.getContent().replace("\r\n", "<br>");
+				System.out.println("DB@@@@@"+content);
+			}else {
+				content = article.getContent();
+			}
 //			String sql = "UPDATE board SET board_name=?,board_subject=?,board_content=? WHERE board_num=?";
 			String sql = "UPDATE coding_charge SET subject=?, content=?, file=?, date=now() WHERE num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, article.getSubject());
-			pstmt.setString(2, article.getContent());
+			pstmt.setString(2, content);
 			pstmt.setString(3, article.getFile());
 			pstmt.setInt(4, article.getNum());
 			
@@ -224,6 +228,34 @@ public class CodingDAO {
 //			pstmt.setInt(7, coding_refBean.getIsSelected()); //0 이면 무료, 1이면 유료
 
 			insertCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return insertCount;
+	}
+
+	public int modifyCodingArticle_ref(Coding_refBean ref) {
+		int insertCount = 0;
+		PreparedStatement pstmt = null;
+		
+//		ref_num | post_num | nickname  |	subject   | content  | readcount	| file 	| date |  isSelected 
+		String sql = "insert into coding_charge_ref values(null,?,?,?,?,?,?,now(),0,0)";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, ref.getPost_num());
+			pstmt.setString(2, ref.getNickname());
+			pstmt.setString(3, ref.getSubject());
+			pstmt.setString(4, ref.getContent());
+			pstmt.setInt(5, ref.getReadcount() );
+			pstmt.setString(6, ref.getFile());
+			pstmt.setInt(7, ref.getIsSelected()); //0 이면 무료, 1이면 유료
+
+			insertCount = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -271,6 +303,85 @@ public class CodingDAO {
 		
 		return article_ref;
 	}
+	
+	public Coding_refBean selectArticle_ref(int num, int ref_num) {
+		Coding_refBean article_ref = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		// 글번호(board_num)에 해당하는 게시물 정보 조회
+		try {
+			String sql = "SELECT * FROM coding_charge_ref WHERE post_num=? AND ref_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, ref_num);
+			rs = pstmt.executeQuery();
+			
+			// 게시물이 존재할 경우 BoardBean 객체에 저장
+//			if(rs.next()) { //while?
+			while(rs.next()) {
+				article_ref = new Coding_refBean();
+				article_ref.setRef_num(rs.getInt("ref_num"));
+				article_ref.setPost_num(rs.getInt("post_num"));
+				article_ref.setNickname(rs.getString("nickname"));
+				article_ref.setSubject(rs.getString("subject"));
+				article_ref.setContent(rs.getString("content"));
+				article_ref.setReadcount(rs.getInt("readcount"));
+				article_ref.setFile(rs.getString("file"));
+				article_ref.setDate(rs.getDate("date"));
+				article_ref.setIsSelected(rs.getInt("isSelected"));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return article_ref;
+	}
+	
+	public Coding_refBean selectReply(int ref_num) {
+		Coding_refBean refBean = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		// 글번호(board_num)에 해당하는 게시물 정보 조회
+		try {
+			String sql = "SELECT *, time(date) AS time FROM coding_charge WHERE ref_num=?";
+
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, ref_num);
+			rs = pstmt.executeQuery();
+			
+			// 게시물이 존재할 경우 BoardBean 객체에 저장
+//			if(rs.next()) { //while?
+			while(rs.next()) {
+				refBean = new Coding_refBean();
+				refBean.setPost_num(rs.getInt("post_num"));
+				refBean.setRef_num(rs.getInt("ref_num"));
+				refBean.setNickname(rs.getString("nickname"));
+				refBean.setSubject(rs.getString("subject"));
+				refBean.setContent(rs.getString("content"));
+				refBean.setReadcount(rs.getInt("readcount"));
+				refBean.setFile(rs.getString("file"));
+				refBean.setDate(rs.getDate("date"));
+				refBean.setIsSelected(rs.getInt("isSelected"));
+				refBean.setCP(rs.getInt("CP"));
+				refBean.setTime(rs.getString("time"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return refBean;
+	}
 
 	public int selectReplyListCount(int post_num) {
 		int listCount = 0;
@@ -292,7 +403,7 @@ public class CodingDAO {
 			close(rs);
 			close(pstmt);
 		}
-		return listCount;
+		return listCount;		
 	}
 	
 	//(num, reply_page, reply_limit
@@ -305,7 +416,6 @@ public class CodingDAO {
 		
 		System.out.println("CodingDAO"+startRow);
 		System.out.println("CodingDAO"+reply_limit);
-		
 		try {
 			String sql = "SELECT *, time(date) AS time FROM coding_charge_ref WHERE post_num=? LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
@@ -402,7 +512,7 @@ public class CodingDAO {
 		int deleteCount = 0 ;
 		PreparedStatement pstmt = null;
 		try {
-			String sql = "DELETE FROM coding_charge_ref WHERE post_num=? AND reply_num=?";
+			String sql = "DELETE FROM coding_charge_ref WHERE post_num=? AND ref_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, post_num);
 			pstmt.setInt(2, reply_num);
@@ -595,6 +705,35 @@ public class CodingDAO {
 		return cmmntBean;
 	}
 
+	public ArrayList<Integer> checkCommentNumList(int post_num) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Integer> numList = new ArrayList<Integer>();
+		int num=0;
+		
+		try {
+			String sql =  "select comment_num from coding_charge_comment where post_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, post_num);
+//			pstmt.setInt(2, comment_num);
+            rs = pstmt.executeQuery();
+            
+            // ResultSet 객체 내의 모든 레코드를 각각 레코드별로 BoardBean 에 담아서 ArrayList 객체에 저장
+            // => 패스워드 제외
+            while(rs.next()) {
+            	num = rs.getInt("comment_num");
+            	numList.add(num);
+            }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return numList;
+	}
+	
 	public int updateCmmnt(CmmntBean cmmntBean) {
 		int updateCount = 0;
 		ResultSet rs = null;
@@ -602,7 +741,7 @@ public class CodingDAO {
 		
 		
 		try {
-			String sql = "select count(recommender) AS hearts from heart where comment_num=?";
+			String sql = "select count(recommender) AS hearts from charge_heart where comment_num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, cmmntBean.getComment_num());
 	            rs = pstmt.executeQuery();
@@ -642,13 +781,16 @@ public class CodingDAO {
 		return deleteCount;
 	}
 	
-	public int insertHeart(int cmmnt_num, String recommender) {
+	
+	
+	//chargeheart
+	public int insertChargeHeart(int cmmnt_num, String recommender) {
 		PreparedStatement pstmt = null;
 		int insertCount = 0;
 		
 		try {
 //			String sql = "UPDATE coding_charge_comment SET heart=heart+1, recommender=? WHERE comment_num=?";
-			String sql = "INSERT INTO heart values(?, ?)";
+			String sql = "INSERT INTO charge_heart values(?, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, cmmnt_num);
 			pstmt.setString(2, recommender);
@@ -662,14 +804,14 @@ public class CodingDAO {
 		return insertCount;
 }
 	
-	public int updateHeartCount(int cmmnt_num) {
+	public int updateChargeHeartCount(int cmmnt_num) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int updateCount = 0;
 		int hearts = 0;
 		
 		try {
-			String sql = "select count(recommender) AS hearts from heart where comment_num=?";
+			String sql = "select count(recommender) AS hearts from charge_heart where comment_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, cmmnt_num);
             rs = pstmt.executeQuery();
@@ -691,7 +833,76 @@ public class CodingDAO {
 
 		return updateCount;
 	}
+	
+	public int deleteChargeHeart(int cmmnt_num, String recommender) {
+		PreparedStatement pstmt = null;
+		int deleteCount = 0;
+		
+		try {
+			String sql = "DELETE FROM charge_heart WHERE comment_num=? AND recommender=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cmmnt_num);
+			pstmt.setString(2, recommender);
+			deleteCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 
+		return deleteCount;
+	}
+	
+	public int deleteChargeCmmntHeart(int comment_num) {
+		PreparedStatement pstmt = null;
+		int deleteCount = 0;
+		
+		try {
+			String sql = "DELETE FROM charge_heart WHERE comment_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, comment_num);
+			deleteCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return deleteCount;
+	}
+	
+
+	public ArrayList<Integer> checkChargeRecommender(String recommender) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Integer> recList = new ArrayList<Integer>();
+		int num=0;
+		
+		try {
+			String sql = "SELECT ch.comment_num AS num FROM coding_charge_comment AS cc JOIN charge_heart as ch ON cc.comment_num=ch.comment_num AND ch.recommender=?"; 
+//			String sql = "SELECT recommender FROM coding_charge_comment WHERE recommender= ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, recommender);
+//			pstmt.setInt(2, comment_num);
+            rs = pstmt.executeQuery();
+            
+            // ResultSet 객체 내의 모든 레코드를 각각 레코드별로 BoardBean 에 담아서 ArrayList 객체에 저장
+            // => 패스워드 제외
+            while(rs.next()) {
+            	num = rs.getInt("num");
+            	recList.add(num);
+            }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return recList;
+	}
+
+	//채택
 	public int getSelectedRef_num(int post_num) {
 		int selectedRef_num=0;
 		PreparedStatement pstmt = null;
@@ -719,47 +930,6 @@ public class CodingDAO {
 
 		return selectedRef_num;
 	}
-
-	
-
-	
-	public int deleteHeart(int cmmnt_num, String recommender) {
-		PreparedStatement pstmt = null;
-		int deleteCount = 0;
-		
-		try {
-			String sql = "DELETE FROM heart WHERE comment_num=? AND recommender=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, cmmnt_num);
-			pstmt.setString(2, recommender);
-			deleteCount = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-
-		return deleteCount;
-	}
-	
-	public int deleteCmmntHeart(int comment_num) {
-		PreparedStatement pstmt = null;
-		int deleteCount = 0;
-		
-		try {
-			String sql = "DELETE FROM heart WHERE comment_num=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, comment_num);
-			deleteCount = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-
-		return deleteCount;
-	}
-	
 
 	public int updateReplySelected(int post_num, int ref_num, int CP) {
 		int updateCount =0;
@@ -799,80 +969,23 @@ public class CodingDAO {
 		return updateCount;
 	}
 
-
-
-
-	public ArrayList<Integer> checkRecommender(String recommender) {
+	public int minusCP(int post_num) {
+		int updateCount =0;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ArrayList<Integer> recList = new ArrayList<Integer>();
-		int num=0;
-		
 		try {
-			
-			String sql = "SELECT h.comment_num AS num FROM coding_charge_comment AS c JOIN heart as h ON c.comment_num=h.comment_num AND h.recommender=?"; 
-//			String sql = "SELECT recommender FROM coding_charge_comment WHERE recommender= ?";
+			String sql = "UPDATE coding_charge SET CP=0 WHERE num=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, recommender);
-//			pstmt.setInt(2, comment_num);
-            rs = pstmt.executeQuery();
-            
-            // ResultSet 객체 내의 모든 레코드를 각각 레코드별로 BoardBean 에 담아서 ArrayList 객체에 저장
-            // => 패스워드 제외
-            while(rs.next()) {
-            	num = rs.getInt("num");
-            	recList.add(num);
-            }
+			pstmt.setInt(1, post_num);
+			updateCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rs);
 			close(pstmt);
 		}
 		
-		return recList;
+		return updateCount;
 	}
 
-
-
-
-//	public Coding_refBean selectArticleReply(int post_num) {
-//		Coding_refBean article_ref = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		
-//		// 글번호(board_num)에 해당하는 게시물 정보 조회
-//		try {
-//			String sql = "SELECT *, time(date) AS time FROM coding_charge_ref WHERE post_num=?";
-//			pstmt = con.prepareStatement(sql);
-//			pstmt.setInt(1, post_num);
-//			rs = pstmt.executeQuery();
-//			
-//			// 게시물이 존재할 경우 BoardBean 객체에 저장
-////			if(rs.next()) { //while?
-//			while(rs.next()) {
-//				article_ref = new Coding_refBean();
-//				article_ref.setRef_num(rs.getInt("ref_num"));
-//				article_ref.setPost_num(rs.getInt("post_num"));
-//				article_ref.setNickname(rs.getString("nickname"));
-//				article_ref.setSubject(rs.getString("subject"));
-//				article_ref.setContent(rs.getString("content"));
-//				article_ref.setReadcount(rs.getInt("readcount"));
-//				article_ref.setFile(rs.getString("file"));
-//				article_ref.setDate(rs.getDate("date"));
-//				article_ref.setIsSelected(rs.getInt("isSelected"));
-//				article_ref.setTime(rs.getString("time"));
-//			}
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(rs);
-//			close(pstmt);
-//		}
-//		
-//		return article_ref;
-//	}
 
 	
 

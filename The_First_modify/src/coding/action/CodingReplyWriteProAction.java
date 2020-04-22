@@ -22,7 +22,7 @@ public class CodingReplyWriteProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		
+		System.out.println("CodingReplyWirtePro");
 		String saveFolder = "/codingUpload"; //가상위치 (이클립스가 생성한 폴더)
 		ServletContext context2 = request.getServletContext();
 		String realFolder = context2.getRealPath(saveFolder); //가상위치에 대한 실제파일주소

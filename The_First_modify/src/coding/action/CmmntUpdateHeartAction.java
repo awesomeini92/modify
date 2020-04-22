@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import coding.svc.CmmntHeartService;
+import coding_free.svc.CodingFreeCommentHeartService;
 import vo.ActionForward;
 
 public class CmmntUpdateHeartAction implements Action {
@@ -20,12 +21,12 @@ public class CmmntUpdateHeartAction implements Action {
 		String recommender = request.getParameter("recommender");
 //		int cmmnt_num = 2;
 		 
-		CmmntHeartService cmmntUpdateHeartService = new CmmntHeartService();
-		boolean isSuccess = cmmntUpdateHeartService.insertHeart(cmmnt_num,recommender);
+		CmmntHeartService cmmntHeartService = new CmmntHeartService();
+		boolean isSuccess = cmmntHeartService.insertHeart(cmmnt_num,recommender);
 		
 		if(isSuccess) {
 			System.out.println("insert 성공");
-			boolean isSuccessUpdate = cmmntUpdateHeartService.updateHeartCount(cmmnt_num);
+			boolean isSuccessUpdate = cmmntHeartService.updateHeartCount(cmmnt_num);
 			if(isSuccessUpdate) {
 				System.out.println("update 성공");
 			}

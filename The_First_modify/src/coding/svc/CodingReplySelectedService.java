@@ -75,6 +75,26 @@ public class CodingReplySelectedService {
 		
 		return isSuccess;
 	}
+
+	public boolean codingMinusCP(int post_num) {
+		boolean isSuccess =false;
+		
+		Connection con = getConnection();
+		CodingDAO codingDAO = CodingDAO.getInstance();
+		codingDAO.setConnection(con);
+		
+		int updateCount = codingDAO.minusCP(post_num);
+		if(updateCount>0) {
+			commit(con);
+			isSuccess=true;
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return isSuccess;
+	}
 	
 	
 

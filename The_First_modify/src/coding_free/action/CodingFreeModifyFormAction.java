@@ -14,14 +14,12 @@ public class CodingFreeModifyFormAction implements Action {
 		System.out.println("CodingFreeModifyFormAction");
 
 		int num = Integer.parseInt(request.getParameter("num"));
-		String page = request.getParameter("page");
 		
 		CodingFreeBean article = null;
 		CodingFreeDetailService codingFreeDetailService = new CodingFreeDetailService();
 		article = codingFreeDetailService.getArticle(num);
 		
 		request.setAttribute("article", article);
-		request.setAttribute("page", page);
 		
 		ActionForward forward = new ActionForward();
 		forward.setPath("/coding_free/codingFreeModify.jsp");

@@ -25,10 +25,15 @@ public class CmmntHeartListAction implements Action {
 		ActionForward forward = null;
 
 		int post_num = Integer.parseInt(request.getParameter("post_num"));
-//		int cmmnt_num = Integer.parseInt(request.getParameter("cmmnt_num"));
-//		String nickname = request.getParameter("nickname");
 		String recommender = request.getParameter("recommender");
-		int cmmnt_page = Integer.parseInt(request.getParameter("cmmnt_page"));
+//		String nickname = request.getParameter("nickname");
+		
+		int cmmnt_page = 1;
+		
+		if(request.getParameter("cmmnt_page")!=null) {
+			cmmnt_page = Integer.parseInt(request.getParameter("cmmnt_page"));
+		}
+	
 		
 		int cmmnt_limit =10;
 		int exist = 0;
@@ -36,8 +41,8 @@ public class CmmntHeartListAction implements Action {
 		CmmntListService cmmntListService = new CmmntListService();
 		List<CmmntBean> commentList = cmmntListService.getCmmntList(post_num, cmmnt_page, cmmnt_limit);
 		
-		CmmntHeartService cmmntUpdateHeartService = new CmmntHeartService();
-		ArrayList<Integer> numList = cmmntUpdateHeartService.checkRecommender(recommender);
+		CmmntHeartService cmmntHeartService = new CmmntHeartService();
+		ArrayList<Integer> numList = cmmntHeartService.checkRecommender(recommender);
 		
 //		if(comment_num == numList.get(j)) {
 //			exist=1;
@@ -87,7 +92,7 @@ public class CmmntHeartListAction implements Action {
 		
 		out.print(list);
 		
-		
+		request.setAttribute("post_num", post_num);
 		
 		return forward;
 	}

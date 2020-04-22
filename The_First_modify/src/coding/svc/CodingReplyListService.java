@@ -7,6 +7,7 @@ import static db.JdbcUtil.*;
 import coding.dao.CodingDAO;
 import coding.vo.CodingBean;
 import coding.vo.Coding_refBean;
+import coding_free.dao.CodingFreeDAO;
 
 public class CodingReplyListService {
 	
@@ -48,6 +49,8 @@ public class CodingReplyListService {
 		
 		return article_refList;
 	}
+
+
 
 
 //	public Coding_refBean getReplyArticle(int post_num) {

@@ -56,6 +56,10 @@ public class CmmntListAction implements Action {
 		for (int i = 0; i < cmmntList.size(); i++) {
 			String nickname = cmmntList.get(i).getNickname();
 			String comment = cmmntList.get(i).getComment();
+			if(comment.contains("\n")) {
+				comment = comment.replace("\n", "\\r\\n");
+			}
+			System.out.println(i+"@@@@@"+comment);
 //			post_num = cmmntList.get(i).getPost_num();
 			Date date = cmmntList.get(i).getDate();
 			String time = cmmntList.get(i).getTime();
@@ -90,6 +94,7 @@ public class CmmntListAction implements Action {
 			}
 		}
 		json += "]}";
+		
 		
 		// 누적된 json 형식의 문자열을 호출한 페이지(뷰페이지)로 보내줌
 		out.print(json);

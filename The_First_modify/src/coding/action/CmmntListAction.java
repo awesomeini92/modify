@@ -61,7 +61,7 @@ public class CmmntListAction implements Action {
 		AllService allService = new AllService();
 		Date today= allService.getToday();
 		
-		
+		System.out.println(post_num+"asdasdasdadsadasdasddasd");
 		// request 객체의 setAttribute() 메서드를 호출하여 페이지 정보, 게시물 목록 저장
 		request.setAttribute("today", today);
 		request.setAttribute("cmmntList", cmmntList);

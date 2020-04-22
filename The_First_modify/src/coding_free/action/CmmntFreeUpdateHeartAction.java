@@ -13,11 +13,12 @@ public class CmmntFreeUpdateHeartAction implements Action {
 		ActionForward forward = null;
 		System.out.println("CmmntFreeUpdateHeartAction");
 
+		int post_num = Integer.parseInt(request.getParameter("post_num"));
 		int cmmnt_num = Integer.parseInt(request.getParameter("cmmnt_num"));
 		String recommender = request.getParameter("recommender");
 		
 		CodingFreeCommentHeartService codingFreeCommentHeartService = new CodingFreeCommentHeartService();
-		boolean isSuccess = codingFreeCommentHeartService.insertHeart(cmmnt_num, recommender);
+		boolean isSuccess = codingFreeCommentHeartService.insertHeart(post_num, cmmnt_num, recommender);
 		
 		if(isSuccess) {
 			isSuccess = codingFreeCommentHeartService.updateHeartCount(cmmnt_num);

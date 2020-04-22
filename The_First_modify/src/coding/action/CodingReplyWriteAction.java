@@ -35,10 +35,7 @@ public class CodingReplyWriteAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
-		
-		
-		
-		
+	
 		AllService allService = new AllService();
 		Date today = allService.getToday();
 		

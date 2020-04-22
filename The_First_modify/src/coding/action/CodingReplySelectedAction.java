@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import coding.svc.CodingDetailService;
 import coding.svc.CodingReplySelectedService;
 import member.svc.MemberUpdateProService;
 import vo.ActionForward;
@@ -24,8 +25,10 @@ public class CodingReplySelectedAction implements Action {
 		boolean isSuccess = codingReplySelectedService.replySelected(post_num,ref_num,CP);
 		
 		if(isSuccess) {
-			isSuccess = codingReplySelectedService.updateIsPublic(pNum,post_num);
-			
+			isSuccess = codingReplySelectedService.updateIsPublic(pNum,post_num);	
+			if(isSuccess) {
+				isSuccess= codingReplySelectedService.codingMinusCP(post_num);
+			}
 		}
 		
 		

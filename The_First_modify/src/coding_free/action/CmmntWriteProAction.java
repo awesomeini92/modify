@@ -57,6 +57,7 @@ public class CmmntWriteProAction implements Action {
 		if(isWriteSuccess) {
 			forward = new ActionForward();
 			forward.setPath("CodingFreeDetail.cf?post_num="+post_num);
+			forward.setRedirect(true);
 		}
 		return forward;
 	}

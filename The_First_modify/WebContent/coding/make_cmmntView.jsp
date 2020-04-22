@@ -22,6 +22,7 @@
 	ArrayList<CmmntBean> cmmntList = (ArrayList<CmmntBean>)request.getAttribute("cmmntList");
 	String nowPage = (String)request.getAttribute("page");
 	int post_num = (int)request.getAttribute("post_num");
+
 	Date today = (Date)request.getAttribute("today");
 	
 	// PageInfo 객체로부터 페이징 정보 가져오기
@@ -47,12 +48,12 @@ span {
 
 function insert_comment(){
 	alert("코멘트 넣기");
-	location.href="CmmntWritePro.code?post_num="+<%=post_num%>;
+	location.href="CmmntWritePro.code?post_num=${post_num }";
 }
 
 function delete_comment(comment_num){
 	if (confirm("댓글 삭제하시겠습니까?") == true){    //확인
-		location.href="CmmntDeletePro.code?post_num="+<%=post_num%>+"&comment_num="+comment_num;
+		location.href="CmmntDeletePro.code?post_num=${post_num }&comment_num="+comment_num;
 	}else{   //취소
 		return false;
 	}
@@ -60,7 +61,7 @@ function delete_comment(comment_num){
 
 function modify_comment(comment_num){
 	if (confirm("댓글 수정하시겠습니까?") == true){    //확인
-		location.href="CmmntModifyForm.code?post_num="+<%=post_num%>+"&comment_num="+comment_num;
+		location.href="CmmntModifyForm.code?post_num=${post_num }&comment_num="+comment_num;
 	}else{   //취소
 		return false;
 	}
@@ -95,12 +96,10 @@ function getComment(){
 		url: "CmmntHeartList.code?recommender=${sessionScope.nickname}", // 요청 url
         type: "POST", // post 방식
         data: {
-        	post_num : <%=post_num%>, // board_no의 값을 넘겨줌
-        	cmmnt_page : <%=cmmnt_nowPage%>
+        	post_num : ${post_num }
 //         	reply_page : i
         },
         success : function (list){
-        	
          	list = list.replace(/\n/gi,"\\r\\n"); // 개행문자 대체
         	$("#cmmnt").text(""); // 댓글리스트 영역 초기화
         	var obj = JSON.parse(list); // service 클래스로 부터 전달된 문자열 파싱
@@ -108,8 +107,13 @@ function getComment(){
         	var output = ""; // 댓글 목록을 누적하여 보여주기 위한 변수
         	var comment_num ="";
         	var heart ="";
+        	 
+        	
 //         		paging(i);
 //         		i=i-1;
+			if(commentList==""){
+				output = "댓글이 없습니다. 댓글을 등록해주세요.";
+			}else{
         	for (var i = 0; i < commentList.length; i++) { // 반복문을 통해 output에 누적
 //                    output += "<div class='w3-border w3-padding'>";
 	                 for (var j = 0; j < commentList[i].length; j++) {
@@ -128,10 +132,6 @@ function getComment(){
 	                    	var post_num = parseInt(commentVar.post_num);
 						}else  if(j === 5){
 	                    	var session_nick = commentVar.session_nick;
-	                    	 if(session_nick===comment_nick){
-	      						output += "<span><input type='button' class='btn btn-secondary btn-sm' value='수정' onclick='modify_comment("+comment_num+");'></button>"; 
-	      						output += "<input type='button' class='btn btn-secondary btn-sm' value='삭제' onclick='delete_comment("+comment_num+");' ></span>";
-	      					}
 						}else  if(j === 6){
 	                    	var heart = parseInt(commentVar.heart);
 						}
@@ -141,23 +141,30 @@ function getComment(){
 // 	                    	alert(ss);
 							if(existNum>0){
 								output += "<button class='btn btn-danger btn-sm w3-round' onclick='cancle_heart("+comment_num+");'>";
-		    					output += "<i class='fa fa-heart' style='font-size:16px;color:white'></i>&nbsp;<span class='rec_count'>"+heart+"</span></button></div>";
+		    					output += "<i class='fa fa-heart' style='font-size:16px;color:white'></i>&nbsp;<span class='rec_count'>"+heart+"</span></button>";
 							}
 							else if(heart==0 && existNum==0){
 								output += "<button class='btn btn-outline-danger btn-sm w3-round' id='heart_count' onclick='update_heart("+comment_num+");'>";
-	    						output += "<i class='fa fa-heart' style='font-size:16px;color:red'></i>&nbsp;<span class='rec_count'>"+heart+"</span></button></div>";
+	    						output += "<i class='fa fa-heart' style='font-size:16px;color:red'></i>&nbsp;<span class='rec_count'>"+heart+"</span></button>";
 							}else if(heart>0 && existNum==0){
 								output += "<button class='btn btn-danger btn-sm w3-round' id='heart_count' onclick='update_heart("+comment_num+");'>";
-    							output += "<i class='fa fa-heart' style='font-size:16px;color:white'></i>&nbsp;<span class='rec_count'>"+heart+"</span></button></div>";
+    							output += "<i class='fa fa-heart' style='font-size:16px;color:white'></i>&nbsp;<span class='rec_count'>"+heart+"</span></button>";
 								}
 							}
 	                    }
+	                 if(session_nick===comment_nick){
+   						output += "<span><input type='button' class='btn btn-secondary btn-sm' value='수정' onclick='modify_comment("+comment_num+");'></button>"; 
+   						output += "<input type='button' class='btn btn-secondary btn-sm' value='삭제' onclick='delete_comment("+comment_num+");' ></span></div>";
+   					}else{
+   						output += "</div>";
+   					}
 	                 }
+			}
         			output += "<br><br><br><br>";
-        			output += "<form action='CmmntWritePro.code?post_num="+post_num+"' method='post'>";
-        			output += "<div><input type='text' name='nickname' value='"+session_nick+"' readonly></div>";
-        			output += "<textarea  name='comment' cols='60' rows='3' required=''></textarea></form>";
-        			output += "<input type='submit' class='btn btn-success btn-lg' value='등록'></div>";
+        			output += "<form action='CmmntWritePro.code?post_num=${post_num }' method='post'>";
+        			output += "<div><input type='text' name='nickname' value='${sessionScope.nickname }' readonly></div>";
+        			output += "<textarea  name='comment' cols='60' rows='3' required=''></textarea>";
+        			output += "<input type='submit' class='btn btn-success btn-lg' value='등록'></div></form>";
 //         			output += "<span style='width: 20px'><button class='btn btn-success btn-lg2' value='등록' onclick='insert_comment();'></span></div>";
 //         			output +="</form>";
 //         			<input type="submit" class="btn btn-success btn-lg" value="등록">
@@ -204,6 +211,7 @@ function cancleHeart(comment_num){
 	<jsp:include page="../inc/link.jsp"/>
 <%-- 	<jsp:include page="../inc/green.jsp"/> --%>
 
+	<input type="hidden" name="post_num" value="${post_num }" />
 	<!-- 댓글 보여주기 -->
 	<section class="cmmnt"> <!-- 코멘트 부분 div 시작 -->
 	

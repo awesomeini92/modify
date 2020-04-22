@@ -9,14 +9,14 @@ import coding_free.dao.CodingFreeDAO;
 
 public class CodingFreeCommentHeartService {
 
-	public boolean insertHeart(int cmmnt_num, String recommender) {
+	public boolean insertHeart(int post_num, int cmmnt_num, String recommender) {
 		boolean isSuccess = false;
 		System.out.println("CodingFreeCommentHeartService        insertHeart");
 		Connection con = getConnection();
 		CodingFreeDAO codingFreeDAO = CodingFreeDAO.getInstance();
 		codingFreeDAO.setConnection(con);
 		
-		int success = codingFreeDAO.insertHeart(cmmnt_num,recommender);
+		int success = codingFreeDAO.insertFreeHeart(post_num, cmmnt_num,recommender);
 		
 		if(success>0) {
 			System.out.println("insertHeart===========성공");
@@ -39,7 +39,7 @@ public class CodingFreeCommentHeartService {
 		CodingFreeDAO codingFreeDAO = CodingFreeDAO.getInstance();
 		codingFreeDAO.setConnection(con);
 		
-		int success = codingFreeDAO.updateHeartCount(cmmnt_num);
+		int success = codingFreeDAO.updateFreeHeartCount(cmmnt_num);
 		
 		if(success>0) {
 			System.out.println("updateHeartCount===========성공");
@@ -64,7 +64,7 @@ public class CodingFreeCommentHeartService {
 		CodingFreeDAO codingFreeDAO = CodingFreeDAO.getInstance();
 		codingFreeDAO.setConnection(con);
 		
-		numList = codingFreeDAO.checkRecommender(recommender);
+		numList = codingFreeDAO.checkFreeRecommender(recommender);
 		
 		close(con);
 		
@@ -78,7 +78,7 @@ public class CodingFreeCommentHeartService {
 	CodingFreeDAO codingFreeDAO = CodingFreeDAO.getInstance();
 	codingFreeDAO.setConnection(con);
 		
-		int success = codingFreeDAO.deleteHeart(cmmnt_num,recommender);
+		int success = codingFreeDAO.deleteFreeHeart(cmmnt_num,recommender);
 		
 		if(success>0) {
 			commit(con);

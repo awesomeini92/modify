@@ -22,6 +22,13 @@ function insert_comment(){
 	location.href="CmmntWritePro.code?post_num=${post_nume }";
 }
 
+function modify_comment(comment_num){
+	if (confirm("댓글 수정하시겠습니까?") == true){    //확인
+		location.href="CmmntModifyForm.cf?post_num=${post_num }&comment_num="+comment_num;
+	}else{   //취소
+		return false;
+	}
+}
 function delete_comment(comment_num){
 	if (confirm("댓글 삭제하시겠습니까?") == true){    //확인
 		location.href="CmmntDeletePro.cf?post_num=${post_num }&nickname=${sessionScope.nickname }&comment_num="+comment_num;
@@ -30,45 +37,35 @@ function delete_comment(comment_num){
 	}
 }
 
-
 function modify_article(post_num){
 	if (confirm("게시글 수정하시겠습니까?") == true){    //확인
-// 		location.href="CmmntModifyForm.cf?post_num=${post_num }&comment_num="+comment_num;
+		location.href="CodingFreeModifyForm.cf?num="+post_num;
 	}else{   //취소
 		return false;
 	}
 }
 
-function modify_article(post_num){
-	if (confirm("댓글 삭제하시겠습니까?") == true){    //확인
-// 		location.href="CmmntDeletePro.cf?post_num=${post_num }&nickname=${sessionScope.nickname }&comment_num="+comment_num;
+function delete_article(post_num){
+	if (confirm("게시글 삭제하시겠습니까?") == true){    //확인
+		location.href="CodingFreeDeletePro.cf?num="+post_num;
 	}else{   //취소
 		return false;
 	}
 }
 
-
-function modify_comment(comment_num){
-	if (confirm("댓글 수정하시겠습니까?") == true){    //확인
-		location.href="CmmntModifyForm.cf?post_num=${post_num }&comment_num="+comment_num;
-	}else{   //취소
-		return false;
-	}
-}
-
-function update_heart(comment_num){
+function update_heart(comment_num, nowPage){
 // 	alert(comment_num);
 	if (confirm("추천하시겠습니까?") == true){    //확인
-		updateHeart(comment_num);
+		updateHeart(comment_num, nowPage);
 	}else{   //취소
 		return false;
 	}
 }
 
-function cancle_heart(comment_num){
+function cancle_heart(comment_num, nowPage){
 // 	alert(comment_num);
 	if (confirm("추천을 취소하시겠습니까?") == true){    //확인
-		cancleHeart(comment_num);
+		cancleHeart(comment_num, nowPage);
 	}else{   //취소
 		return false;
 	}
@@ -95,27 +92,29 @@ $(document).ready(function() {
                 	var output = ""; // 댓글 목록을 누적하여 보여주기 위한 변수
                 	var comment_num ="";
                 	var comment_nick ="";
-
+			
         			paging(nowPage);
         			
+        			var index = parseInt(nowPage)*3-2;
                 	output += "<form action='CmmntWritePro.cf?post_num=${post_num }' method='post'>";
         			output += "<div><input type='text' class='bd_color'  name='nickname' value=${sessionScope.nickname } readonly>";
         			output += "<span class='w3-right'><input type='submit' class='btn btn-success btn-sm' value='댓글등록'></span></div>";
         			output += "<textarea class='form-control' id='exampleTextarea' rows='3' name='comment'></textarea></form>";
+					
         			
-					for (var i = 0; i < cmmntList.length; i++) { // 반복문을 통해 output에 누적 
+        			for (var i = 0; i < cmmntList.length; i++) { // 반복문을 통해 output에 누적 
 // 	   	                alert(cmmntList.length);
 						for (var j = 0; j < cmmntList[i].length; j++) {                	 
 	 	                    var cmmnt = cmmntList[i][j];
-	 	                    if(j === 0){
+	 	                    if(j===0){
+	 	                    	output += " No."+ index++ +"&nbsp;&nbsp;&nbsp";
 	 	                    	comment_num = cmmnt.cmmnt_num;
-	 	                    	output += " No."+cmmnt.cmmnt_num+"&nbsp;&nbsp;&nbsp";
 // 	 	                    output += "<div class='w3-right'><span>채택하기</span> </div><br>";
 	 	                    }else  if(j === 1){
 	 	     					output += "<span class='w3-right'> <i class=' fa fa-calendar'></i>" + cmmnt.cmmnt_date +"</span>";
 	 	                    }else  if(j === 2){
 	 	                    		comment_nick = cmmnt.nickname;
-	 	                    		output += "<i class='fa fa-user'></i> <a href='#'> " + cmmnt.nickname +"</a>&nbsp;&nbsp;&nbsp";    
+	 	                    		output += "<i class='fa fa-user'></i> <a href='#'>" + cmmnt.nickname +"</a>&nbsp;&nbsp;&nbsp";    
 // 	 	     					output += "<div class='w3-right'><span><i class='fa fa-eye'></i>"+reply.readcount+"</span>&nbsp;";
 // 	 	     					output += "<i class='fa fa-heart' style='color:red'></i>&nbsp;<span class='rec_count'></span>";
 	 	                    }else  if(j === 3){
@@ -125,23 +124,23 @@ $(document).ready(function() {
 		      						output += "<input type='button' class='btn btn-secondary btn-sm' value='댓글삭제' onclick='delete_comment("+comment_num+");'>";
 		      					}
 	 	                    }else  if(j === 4){
-	 	                    	output += "<div class='w3-border right-box_padding'>"+cmmnt.comment; //+"<br><br></article>"
+	 	                    	output += "<div class='w3-border right-box_padding'><div id='cmm'>"+cmmnt.comment+"</div>"; //+"<br><br></article>"
 	 	                    	
 	 	                    }else  if(j === 5){
 	 	                    	var heart = parseInt(cmmnt.heart);
 		                    }else  if(j === 6){
-									output += "<span class='w3-right'>";
+// 									output += "<span class='w3-right'>";
 			                    	var existNum = parseInt(cmmnt.exist);
 									if(existNum>0){
-										output += "<span><button class='btn btn-danger btn-lg w3-round' onclick='cancle_heart("+comment_num+");'>";
-				    					output += "<i class='fa fa-heart' style='font-size:20px;color:white'></i>&nbsp;<span class='rec_count'>"+heart+"</button><br></span>";
+										output += "<div id='hrt'><button class='btn btn-danger btn-lg w3-round' onclick='cancle_heart("+comment_num+", "+nowPage+");'>";
+				    					output += "<i class='fa fa-heart' style='font-size:20px;color:white'></i>&nbsp;<span class='rec_count'>"+heart+"</button><br></div>";
 									}
 									else if(heart==0 && existNum==0){
-										output += "<button class='btn btn-outline-danger btn-lg w3-round' id='heart_count' onclick='update_heart("+comment_num+");'>";
-			    						output += "<i class='fa fa-heart' style='font-size:20px;color:red'></i>&nbsp;<span class='rec_count'>"+heart+"</button><br></span>";
+										output += "<div id='hrt'><button class='btn btn-outline-danger btn-lg w3-round' id='heart_count' onclick='update_heart("+comment_num+", "+nowPage+");'>";
+			    						output += "<i class='fa fa-heart' style='font-size:20px;color:red'></i>&nbsp;<span class='rec_count'>"+heart+"</button><br></div>";
 									}else if(heart>0 && existNum==0){
-										output += "<button class='btn btn-danger btn-lg w3-round' id='heart_count' onclick='update_heart("+comment_num+");'>";
-		    							output += "<i class='fa fa-heart' style='font-size:20px;color:white'></i>&nbsp;<span class='rec_count'>"+heart+"</button><br></span>";
+										output += "<div id='hrt'><button class='btn btn-danger btn-lg w3-round' id='heart_count' onclick='update_heart("+comment_num+", "+nowPage+");'>";
+		    							output += "<i class='fa fa-heart' style='font-size:20px;color:white'></i>&nbsp;<span class='rec_count'>"+heart+"</button><br></div>";
 										}
 			                    	 output += "</div>";
 								}
@@ -175,27 +174,26 @@ $(document).ready(function() {
 	            		if(i==0){
 	            			nowPage=pageVar.cmmnt_page;
 	            		}else if(i==1){
-	            			reply_maxPage=pageVar.cmmnt_maxPage;
+	            			cmmnt_maxPage=pageVar.cmmnt_maxPage;
 	            		}else if(i==2){
-	            			reply_startPage=pageVar.cmmnt_startPage;
+	            			cmmnt_startPage=pageVar.cmmnt_startPage;
 	            		}else if(i==3){
-	            			reply_endPage=pageVar.cmmnt_endPage;
+	            			cmmnt_endPage=pageVar.cmmnt_endPage;
 	            		}else if(i==4){
-	            			reply_count=pageVar.cmmnt_count;
+	            			cmmnt_count=pageVar.cmmnt_count;
 	            		}
 	            	}
 	            	output += "<div> <ul class='pagination pagination-sm'>";
 	            	if(nowPage<= 1) {
-	            		output += "<li class='page-item disabled'> <a class='page-link' href='#'>&laquo;</a></li>";
+	            		output += "<li class='page-item disabled'> <a class='page-link'>&laquo;</a></li>";
 //         				output += "[이전]&nbsp";
         			}else{
         				var sub = parseInt(nowPage)-1;
         				output += " <li class='page-item active'><a class='page-link' href='javascript:getComment("+sub+")'>&laquo;</a>&nbsp  </li>";
         			}
 	            	for(var j = cmmnt_startPage; j <= cmmnt_endPage; j++) {
-	            		alert(j+"jjjjjjjjjj");
             		    if(j ==nowPage){
-            		    	output +="<li class='page-item active'><a class='page-link' href='#'>"+j+"</a></li>"
+            		    	output +="<li class='page-item active'><a class='page-link'>"+j+"</a></li>"
             			} else {
             				output += "<li class='page-item'><a class='page-link' href='javascript:getComment("+j+")'>"+j+"</a>&nbsp";
 //             				nowPage=j;
@@ -203,7 +201,7 @@ $(document).ready(function() {
 	            	}
 	            	if(nowPage >= cmmnt_maxPage) {
 // 	            		output += "&nbsp[다음]";
-	            		output += "<li class='page-item disabled'> <a class='page-link' href='#'>&raquo;</a></li>";
+	            		output += "<li class='page-item disabled'> <a class='page-link'>&raquo;</a></li>";
 	    			} else { 
 	    				var add = parseInt(nowPage)+1;
 	    				output += " <li class='page-item active'><a class='page-link' href='javascript:getComment("+add+")'>&raquo;</a>&nbsp  </li>";
@@ -221,31 +219,31 @@ $(document).ready(function() {
 			});
 		}
 
-		function updateHeart(comment_num){
+		function updateHeart(comment_num, nowPage){
 			$.ajax({		
 				url: "CmmntFreeUpdateHeart.cf?recommender=${sessionScope.nickname }", // 요청 url
 		        type: "POST", // post 방식
 		        data: {
-//		         	recommender: recommender,
+		         	post_num: ${post_num },
 		        	cmmnt_num: comment_num
 		        },
 		        success : function(){
-		        	getComment();
+		        	getComment(nowPage);
 			   }
 			});
 		}
 
 
-		function cancleHeart(comment_num){
+		function cancleHeart(comment_num, nowPage){
 			$.ajax({		
 				url: "CmmntDeleteHeart.cf?recommender=${sessionScope.nickname }", // 요청 url
 		        type: "POST", // post 방식
 		        data: {
-//		         	recommender: recommender,
+		         	post_num: ${post_num },
 		        	comment_num: comment_num
 		        },
 		        success : function(){
-		        	getComment();
+		        	getComment(nowPage);
 			   }
 			});
 		}
@@ -290,22 +288,22 @@ $(document).ready(function() {
 				No.${article.num }&nbsp;&nbsp;&nbsp; <span class="w3-center w3-xlarge w3-text-blue">${article.subject }</span>
 			</div>
 <%-- 			<article class="w3-border w3-large w3-padding">${article.content }</article> --%>
+				<article class="w3-border w3-large w3-padding article_content_free">
 				<c:if test="${article.file != null}">
-							<article class="w3-border w3-large w3-padding article_content_free">
-					<img src="/coding_free/images/${article.file }" width=800px >	<br><br><br>
-					${article.content } <br><br>
-				</article>
-					</c:if>
+					<img src="./coding_free/images/${article.file }" width=800px >	<br><br><br>
+				</c:if>
+				${article.content } <br><br>
+			</article>
 			<div class="w3-border w3-padding">첨부파일: <a href="CodingFreeFileDown.cf?file_name=${article.file }" target="blank">${article.file }</a></div><br>
 <!-- 			<div class="check" > 체크</div> -->
-			</div>
+
 			<c:if test="${article.nickname == sessionScope.nickname }">
-			<div class="w3-padding">
+			<div>
 			    <button type="button" class="btn btn-outline-secondary" onclick="modify_article(${article.num})">글수정</button>
 			     <button type="button" class="btn btn-outline-secondary" onclick="delete_article(${article.num})">글삭제</button>
 			</div>
 			</c:if>
-		
+	</div>		
 		
 
 <div class="w3-article" id="cmmnt_article">

@@ -28,6 +28,7 @@ public class CmmntWriteProAction implements Action {
 		int cmmnt_limit = 10; // 
 		
 		System.out.println("CmmntWriteProAction");
+		System.out.println(request.getParameter("nickname"));
 		
 		cmmntBean.setPost_num(Integer.parseInt(request.getParameter("post_num")));
 		cmmntBean.setNickname(request.getParameter("nickname"));

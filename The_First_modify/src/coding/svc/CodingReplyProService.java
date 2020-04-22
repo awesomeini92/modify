@@ -26,4 +26,22 @@ public class CodingReplyProService {
 		return isSuccess;
 	}
 
+	public boolean modifyArticle(Coding_refBean ref) {
+		boolean isSuccess = false;
+		Connection con = getConnection();
+		CodingDAO codingDAO = CodingDAO.getInstance();
+		codingDAO.setConnection(con);
+		
+		int insertCount = codingDAO.modifyCodingArticle_ref(ref);
+		if(insertCount>0) {
+			commit(con);
+			isSuccess=true;
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		return isSuccess;
+	}
+
 }

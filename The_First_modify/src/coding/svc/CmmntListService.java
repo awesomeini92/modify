@@ -51,5 +51,21 @@ public class CmmntListService {
 		return cmmnt;
 	}
 	
+	public ArrayList<Integer> checkCommentNumList(int num) {
+		ArrayList<Integer> c_numList = null;
+		
+		Connection con = getConnection();
+		CodingDAO codingDAO = CodingDAO.getInstance();
+		codingDAO.setConnection(con);
+		
+		c_numList = codingDAO.checkCommentNumList(num); 
+		
+		
+		close(con);
+		
+		return c_numList;
+	}
+
+	
 
 }

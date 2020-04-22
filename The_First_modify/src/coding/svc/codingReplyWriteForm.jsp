@@ -85,7 +85,7 @@
 
 <div class="w3-article" >
 	 <div class="right-box " > 
-				<form action="CodingReplyWritePro.code?post_num=${post_num }&ref_num=${ref_num }"	 method="post" enctype="multipart/form-data" name="boardform" class="code_rwf">
+				<form action="CodingReplyWirtePro.code?post_num=${post_num }" method="post" enctype="multipart/form-data" name="boardform" class="code_rwf">
 					<div class="form-group">					
 				    <label class="control-label" for="readOnlyInput">글쓴이</label>
 				    <input class="rform-control" id="nickname" name="nickname" type="text" value="${sessionScope.nickname }" readonly=""></div>

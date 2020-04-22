@@ -21,6 +21,21 @@ function insert_comment(){
 	alert("코멘트 넣기");
 	location.href="CmmntWritePro.code?post_num=${post_num }";
 }
+function modify_article(comment_num){
+	if (confirm("글 수정하시겠습니까?") == true){    //확인
+		location.href="CmmntDeletePro.cf?post_num=${post_num }";
+	}else{   //취소
+		return false;
+	}
+}
+
+function delete_article(comment_num){
+	if (confirm("글 삭제하시겠습니까?") == true){    //확인
+		location.href="CmmntDeletePro.cf?post_num=${post_num }";
+	}else{   //취소
+		return false;
+	}
+}
 
 function delete_comment(comment_num){
 	if (confirm("댓글 삭제하시겠습니까?") == true){    //확인
@@ -30,14 +45,13 @@ function delete_comment(comment_num){
 	}
 }
 
-
-// function modify_comment(comment_num){
-// 	if (confirm("댓글 수정?") == true){    //확인
-<%-- 		location.href="CmmntModifyForm.cf?post_num="+<%=post_num%>+"&comment_num="+comment_num; --%>
-// 	}else{   //취소
-// 		return false;
-// 	}
-// }
+function modify_comment(comment_num){
+	if (confirm("댓글 수정하시겠습니까?") == true){    //확인
+		location.href="CmmntModifyForm.cf?post_num=${post_num }&comment_num="+comment_num;
+	}else{   //취소
+		return false;
+	}
+}
 
 
 function update_heart(comment_num){

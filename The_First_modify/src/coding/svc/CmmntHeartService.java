@@ -18,7 +18,7 @@ public class CmmntHeartService {
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		
-		int success = codingDAO.insertHeart(cmmnt_num,recommender);
+		int success = codingDAO.insertChargeHeart(cmmnt_num,recommender);
 		
 		if(success>0) {
 			commit(con);
@@ -39,7 +39,7 @@ public class CmmntHeartService {
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		
-		int success = codingDAO.updateHeartCount(cmmnt_num);
+		int success = codingDAO.updateChargeHeartCount(cmmnt_num);
 		
 		if(success>0) {
 			commit(con);
@@ -62,7 +62,7 @@ public class CmmntHeartService {
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		
-		numList = codingDAO.checkRecommender(recommender);
+		numList = codingDAO.checkChargeRecommender(recommender);
 		
 		close(con);
 		
@@ -76,7 +76,7 @@ public class CmmntHeartService {
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		
-		int success = codingDAO.deleteHeart(cmmnt_num,recommender);
+		int success = codingDAO.deleteChargeHeart(cmmnt_num,recommender);
 		
 		if(success>0) {
 			commit(con);

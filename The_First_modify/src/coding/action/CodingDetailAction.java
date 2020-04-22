@@ -39,12 +39,13 @@ public class CodingDetailAction implements Action {
 
 		CodingDetailService codingDetailService = new CodingDetailService();
 		CodingBean article = codingDetailService.getArticle(post_num);
-		
+
 		CodingReplyListService codingReplyListService = new CodingReplyListService();
 		int reply_count = codingReplyListService.getReplyListCount(post_num);
 
 		CmmntListService cmmntListService = new CmmntListService();
 		ArrayList<CmmntBean>cmmntList = cmmntListService.getCmmntList(post_num, 1, 2);
+		int comment_count = cmmntListService.getCommentListCount(post_num);
 		
 		// 리턴받은 BoardBean 객체가 null 이 아닐 경우 BoardDetailService 클래스의 plusReadcount() 메서드 호출
 		if(article != null) {
@@ -63,6 +64,7 @@ public class CodingDetailAction implements Action {
 		request.setAttribute("today", today);
 		request.setAttribute("article", article);
 		request.setAttribute("reply_count", reply_count);
+		request.setAttribute("comment_count", comment_count);
 		request.setAttribute("cmmntList", cmmntList);
 		request.setAttribute("post_num", post_num);
 ;

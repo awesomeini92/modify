@@ -55,4 +55,20 @@ public class CodingFreeCommentListService {
 		return cmmntListCount;
 	}
 
+	
+	public ArrayList<Integer> checkCommentNumList(int num) {
+		ArrayList<Integer> numList = null;
+		
+		Connection con = getConnection();
+		CodingFreeDAO cdao = CodingFreeDAO.getInstance();
+		cdao.setConnection(con);
+		
+		numList = cdao.checkCommentNumList(num);
+		
+		
+		close(con);
+		
+		return numList;
+	}
+
 }

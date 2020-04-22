@@ -2,9 +2,14 @@ package coding_free.action;
 
 import java.io.PrintWriter;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import coding_free.svc.CodingFreeDetailService;
 import coding_free.svc.CodingFreeModifyService;
 import coding_free.vo.ActionForward;
 import coding_free.vo.CodingFreeBean;
@@ -14,20 +19,38 @@ public class CodingFreeModifyProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("CodingFreeModifyProAction");
-
-		ActionForward forward = null;
-		
 		int num = Integer.parseInt(request.getParameter("num"));
-		String page = request.getParameter("page");
+		
+		ActionForward forward = null;
+
+		String saveFolder = "/coding_free/images";
+		ServletContext context = request.getServletContext();
+		String realFolder = context.getRealPath(saveFolder);
+
+		int fileSize = 1024 * 1024 * 10;
+
+		MultipartRequest multi = new MultipartRequest(request, realFolder, fileSize, "UTF-8",
+				new DefaultFileRenamePolicy());
+
+		String realFilesystemName = multi.getFilesystemName((String) multi.getFileNames().nextElement());
+		System.out.println("실제 파일명 : " + realFilesystemName);
+		
+		CodingFreeDetailService codingFreeDetailService = new CodingFreeDetailService();
+		CodingFreeBean codingFreeBean = codingFreeDetailService.getArticle(num);
+		
+		if(realFilesystemName==null) {
+			realFilesystemName = codingFreeBean.getFile();
+		}
+		
+		CodingFreeBean cb = new CodingFreeBean(
+				multi.getParameter("nickname"),
+				multi.getParameter("subject"),
+				multi.getParameter("content"),
+				realFilesystemName);
+		cb.setNum(num);
 		
 		CodingFreeModifyService codingFreeModifyService = new CodingFreeModifyService();
-		
-		CodingFreeBean article = new CodingFreeBean();
-		article.setNum(num);
-		article.setSubject(request.getParameter("subject"));
-		article.setContent(request.getParameter("content"));
-			
-		boolean isModifySuccess = codingFreeModifyService.modifyArticle(article);
+		boolean isModifySuccess = codingFreeModifyService.modifyArticle(cb);
 	
 		if(!isModifySuccess) {
 			response.setContentType("text/html; charset=UTF-8");
@@ -37,8 +60,10 @@ public class CodingFreeModifyProAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
+			request.setAttribute("num", num);
+			
 			forward = new ActionForward();
-			forward.setPath("CodingFreeDetail.any?num=" + num + "&page=" + page);
+			forward.setPath("CodingFreeDetail.cf?num=" + num);
 			forward.setRedirect(true);
 		}
 		

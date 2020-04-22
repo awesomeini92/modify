@@ -85,23 +85,29 @@
 
 <div class="w3-article" >
 	 <div class="right-box " > 
-				<form action="CodingReplyWritePro.code?post_num=${post_num }&ref_num=${ref_num }"	 method="post" enctype="multipart/form-data" name="boardform" class="code_rwf">
+				<form action="CodingReplyModifyPro.code?post_num=${post_num }&ref_num=${ref_num }&isSelected=${isSelected }" method="post" enctype="multipart/form-data" name="boardform" class="code_rwf">
 					<div class="form-group">					
 				    <label class="control-label" for="readOnlyInput">글쓴이</label>
 				    <input class="rform-control" id="nickname" name="nickname" type="text" value="${sessionScope.nickname }" readonly=""></div>
 						
 						<div class="form-group">
 							  <label class="control-label"" for="subject">제목</label>
-							  <input class="rform-control form-control-lg" type="text" placeholder="제목" id="subject" name="subject">
+							  <input class="rform-control form-control-lg" type="text" placeholder="제목" id="subject" name="subject" value="${ref.subject }">
 						</div>
 
+							<article class="w3-border w3-large w3-padding article_content">
+												<c:if test="${article.file != null}">
+												<img src="./codingUpload/${article.file }" width=800px >	<br><br><br>
+													</c:if>
+												${article.content } <br><br>
+											</article>
 							<div class="form-group">
 								<label class="rcontrol-label" for="file">파일첨부</label>
 							     <input type="file" class="form-control-file text-right" name="file" >
 							</div>
 														
 						<div class="form-group"><label class="control-label" for="content">내용</label>
-		  					<textarea class="form-contrdiv" name="content" id="content" cols="86" rows="12" required=""></textarea></div>
+		  					<textarea class="form-contrdiv" name="content" id="content" cols="86" rows="12" required="">${ref.content }</textarea></div>
 				
 								<div class="wsr" >
 									<input type="reset"  class="btn btn-outline-danger btn-lg" value="다시쓰기" />

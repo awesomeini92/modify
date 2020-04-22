@@ -65,7 +65,7 @@
 		<div class="gtco-container">
 			<div class="center-box row">
 				<!-- 게시물 목록 가져오기 -->
-				<form action="CodingModifyPro.code?num=${num }" method="post"  enctype="multipart/form-data" name="boardform" class="code_wf">
+				<form action="CodingModifyPro.code?num=${post_num }" method="post"  enctype="multipart/form-data" name="boardform" class="code_wf">
 					<div class="form-group">
 						<label class="control-label" for="readOnlyInput">글쓴이</label> <input
 							class="form-control" id="nickname" name="nickname" type="text"
@@ -83,7 +83,7 @@
 					</div>
 
 			<div class="form-group mg10 ">
-				<label class="control-label" for="file">파일첨부</label> <input type="file" class="form-control-file text-right" name="file" value="${article.file }">
+				<label class="control-label" for="file">파일첨부</label> <input type="file" class="form-control-file text-right" name="file">
 			</div>
 
 			<div class="form-group mg3">
@@ -111,46 +111,6 @@
 	<jsp:include page="../inc/bottom.jsp" />
 	<!-- footer page -->
 
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-
-	</div>
-
-
-	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/chart-area-demo.js"></script>
-	<script src="js/chart-bar-demo.js"></script>
-	<script
-		src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/datatables-demo.js"></script>
-
-	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
-	<!-- Carousel -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- Magnific Popup -->
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
-	<!-- Main -->
-	<script src="js/main.js"></script>
 
 </body>
 </html>

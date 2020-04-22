@@ -10,12 +10,11 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import action.Action;
-import coding.svc.CodingDetailService;
 import coding.svc.CodingModifyProService;
 import coding.vo.CodingBean;
 import vo.ActionForward;
 
-public class CodingModifyProAction implements Action {
+public class CodingReplyModifyProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -39,16 +38,8 @@ public class CodingModifyProAction implements Action {
 		//		int password = Integer.parseInt(multi.getParameter("password"));
 
 		//		System.out.println("CP는"+CP);
-		
-		CodingDetailService codingDetailService = new CodingDetailService();
-		CodingBean article = codingDetailService.getArticle(num);
-		
-		if(file==null) {
-			file = article.getFile();
-		}
-		 	
-		
-		article = new CodingBean();
+
+		CodingBean article = new CodingBean();
 		article.setNum(num);
 		article.setSubject(subject);
 		article.setContent(content);
