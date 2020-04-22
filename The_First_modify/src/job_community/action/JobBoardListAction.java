@@ -26,6 +26,8 @@ public class JobBoardListAction implements Action {
 		JobBoardListService boardListService = new JobBoardListService();
 		int listCount = boardListService.getListCount();
 		
+		ArrayList<JobBoardBean> jobList = boardListService.getJobList();
+		
 		ArrayList<JobBoardBean> articleList = boardListService.getArticleList(page, limit);
 		
 		int maxPage = (int)((double)listCount / limit + 0.95);
@@ -43,6 +45,7 @@ public class JobBoardListAction implements Action {
 		// request 객체의 setAttribute() 메서드를 호출하여 페이지 정보, 게시물 목록 저장
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("articleList", articleList);
+		request.setAttribute("jobList", jobList);
 		
 		// ActionForward 객체를 생성하여 board 폴더의 qna_board_list.jsp 페이지로 이동(Dispatch 방식)
 		forward = new ActionForward();

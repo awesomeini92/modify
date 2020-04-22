@@ -6,14 +6,10 @@ import static db.JdbcUtil.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.mysql.fabric.xmlrpc.base.Array;
+
 import job_community.dao.JobBoardDAO;
 import job_community.vo.JobBoardBean;
-
-
-
-
-
-
 
 public class JobBoardListService {
 
@@ -30,6 +26,21 @@ public class JobBoardListService {
 		close(con);
 		
 		return listCount;
+	}
+	
+	public ArrayList<JobBoardBean> getJobList(){
+		System.out.println("JobBoardService - getJobList()");
+		ArrayList<JobBoardBean> jobList = null;
+		
+		OpenApi http = new OpenApi();
+		try {
+			jobList = http.sendGet();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return jobList;
 	}
 
 	public ArrayList<JobBoardBean> getArticleList(int page, int limit) {

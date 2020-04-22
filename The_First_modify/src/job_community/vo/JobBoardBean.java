@@ -15,6 +15,80 @@ public class JobBoardBean {
 	private Date date;
 	private String file;
 	
+	private String name;
+	private String title;
+	private String worktype;
+	private String pay;
+	private String opendate;
+	private String closedate;
+	private String area;
+	private String url;
+	
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getWorktype() {
+		return worktype;
+	}
+
+	public void setWorktype(String worktype) {
+		this.worktype = worktype;
+	}
+
+	public String getPay() {
+		return pay;
+	}
+
+	public void setPay(String pay) {
+		this.pay = pay;
+	}
+
+	public String getOpendate() {
+		return opendate;
+	}
+
+	public void setOpendate(String opendate) {
+		this.opendate = opendate;
+	}
+
+	public String getClosedate() {
+		return closedate;
+	}
+
+	public void setClosedate(String closedate) {
+		this.closedate = closedate;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public JobBoardBean() {
 		super();
 	}

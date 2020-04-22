@@ -15,6 +15,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="jobboardcss.css" rel="stylesheet">
 </head>
 <body>
 	<!-- header page -->
@@ -26,18 +27,83 @@
 
 	<div class="gtco-section">
 		<div class="gtco-container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-					<h2>Check Our Works</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Phasellus placerat enim et urna sagittis, rhoncus euismod erat
-						tincidunt. Donec tincidunt volutpat erat.</p>
+			<div class="text-center">
+					<h1>구인정보</h1>
+						
+			
+				<div>
+				   <span class="">구인공고를 확인 하세요</span>
 				</div>
-			</div>
+			</div>	 
+			<div class="jobList">
+				 <div style="width: 100%; margin-bottom: 5%;">
+				 <table class="table-bordered" >
+				 <tr>
+				 <c:forEach var="job" items="${jobList }" varStatus="status">
+					<td style="width: 25%;">
+						<ul>
+				   		<li>
+				   		<strong class="">${job.name }</strong><br>
+				   		<span class=""><a href='<c:url value="${job.url}"/>'>${job.title }</a></span><br>
+				   		<span class="">
+				       		<span>연봉 : ${job.pay }</span><br>
+				       		<span>근무지역 : ${job.area }</span><br>
+	   				        <span>근로형태 : ${job.worktype }</span><br>
+				       		<span>채용마감 : ${job.closedate}</span><br>
+				   		</span>
+				   		</li>
+				  		</ul>
+				  	</td>
+				  <c:if test="${(status.index+1)%4 == 0}">
+				  </tr> <tr>
+				  </c:if>
+				  </c:forEach>
+				  </tr>
+				  </table>
+				 </div>
+				</div>
+			
 			<div class="">
 				<div class="card-header">
-					<i class="fas fa-table mr-1"></i>Charged Coding Q&A
+					<i class="fas fa-table mr-1"></i>Job Board Community
 				</div>
+			
+				
+<!-- 				<div class="card-body"> -->
+<!-- 					<div class="table-responsive"> -->
+<!-- 						<table class="table table-bordered" id="dataTable" width="100%" -->
+<!-- 							cellspacing="0"> -->
+<!-- 							<thead> -->
+<!-- 								<tr> -->
+<!-- 									<th>회사명</th> -->
+<!-- 									<th>공고제목</th> -->
+<!-- 									<th>근로형태</th> -->
+<!-- 									<th>연봉</th> -->
+<!-- 									<th>채용시작일</th> -->
+<!-- 									<th>채용종료일</th> -->
+<!-- 									<th>근무지역</th> -->
+<!-- 								</tr> -->
+<!-- 							</thead> -->
+
+<!-- 							<tbody> -->
+<!-- 								게시물 목록 가져오기 -->
+<%-- 								<c:forEach var="job" items="${jobList }"> --%>
+<!-- 									<tr> -->
+<%-- 										<td align="center">${job.name }</td> --%>
+<!-- 										<td align="center"><a -->
+<%-- 											href='<c:url value="${job.url}"/>'>${job.title }</a></td> --%>
+
+<%-- 										<td>${job.worktype}</td> --%>
+<%-- 										<td>${job.pay }</td> --%>
+<%-- 										<td>${job.opendate }</td> --%>
+<%-- 										<td>${job.closedate }</td> --%>
+<%-- 										<td>${job.area }</td> --%>
+<!-- 									</tr> -->
+<%-- 								</c:forEach> --%>
+<!-- 						</table> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+				
 				<div class="card-body">
 					<div class="table-responsive">
 						<table class="table table-bordered" id="dataTable" width="100%"
@@ -73,6 +139,7 @@
 						</table>
 					</div>
 				</div>
+				
 				<div class="text-right">
 					<%--                             <button type="button" class="bs_btn btn-info" onclick="location.href='AcademyWriteForm.ac?nickname=${sessionScope.nickname }'">글쓰기</button> --%>
 					<button type="button" class="bs_btn btn-info"
