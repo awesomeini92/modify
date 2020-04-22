@@ -80,7 +80,8 @@ public class ShopDAO {
  		}
 				
 		return shopList;
-	}
+}
+
 	
 	
 	// =========== 상품 상세 정보 조회 ============
@@ -318,8 +319,6 @@ public class ShopDAO {
 			
 			return updateCount;
 		}
-		
-		
-		
+	
 	
 }
