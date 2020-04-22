@@ -17,15 +17,21 @@ public class CommentListAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("CommentListAction!");
-		request.setCharacterEncoding("UTF-8");
 
 		int post_num = Integer.parseInt(request.getParameter("post_num"));
-
+		
+	    int cmmnt_page = 1;
+		int cmmnt_limit = 3;
+		
+		if(request.getParameter("nowPage") != null) {
+			cmmnt_page = Integer.parseInt(request.getParameter("nowPage")); // 정수로 변환하여 저장
+		}
+		
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
 		CommentListService commentListService = new CommentListService();
-		ArrayList<AnyCommentBean> list = commentListService.getCommentList(post_num);
+		ArrayList<AnyCommentBean> list = commentListService.getCommentList(post_num,cmmnt_page,cmmnt_limit);
 		
 		// 구해온 댓글 목록을 반복문을 이용하여 json 형식으로 문자열 변수(json)에 누적 저장
 		String json = "{\"replyList\":["; // replyList는 키값이 됨
@@ -36,10 +42,10 @@ public class CommentListAction implements Action {
 			SimpleDateFormat df = new SimpleDateFormat("YY-MM-dd");
 			int comment_num = list.get(i).getComment_num();
 			
-			json += "[{\"nickname\":\"" + nickname + "\"},";
-			json += "{\"reply_date\":\"" + df.format(date) + "\"},";
-			json += "{\"comment\":\"" + comment + "\"},";
-			json += "{\"comment_num\":\"" + comment_num + "\"}]";
+			json += "[{\"comment_num\":\"" + comment_num + "\"},"; //0
+			json += "{\"reply_date\":\"" + df.format(date) + "\"},"; // 1
+			json += "{\"nickname\":\"" + nickname + "\"},"; // 2
+			json += "{\"comment\":\"" + comment + "\"}]"; // 3
 			
 			if (i != list.size() - 1) {
 				json += ",";
@@ -47,7 +53,6 @@ public class CommentListAction implements Action {
 		}
 		json += "]}";
 		
-		// 누적된 json 형식의 문자열을 호출한 페이지(뷰페이지)로 보내줌
 		out.print(json);
 
 		return null;

@@ -10,7 +10,7 @@ import any_community.vo.AnyCommentBean;
 public class CommentWriteService {
 
 	public boolean writeComment(AnyCommentBean anyCommentBean) {
-		System.out.println("CommunityWriteService");
+		System.out.println("CommentWriteService");
 		boolean isWriteSuccess = false;
 
 		Connection con = getConnection();

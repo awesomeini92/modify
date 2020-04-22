@@ -1,5 +1,7 @@
 package any_community.action;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,23 +13,37 @@ public class CommentWriteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("CommunityWriteProAction!");
-		request.setCharacterEncoding("UTF-8");
-		
+		System.out.println("CommentWriteAction!");
+		ActionForward forward = null;
+	
 		//파라미터 가져오기
-		String nowPage = request.getParameter("nowPage");
-		int post_num = Integer.parseInt(request.getParameter("comment_board"));
-		String nickname = request.getParameter("comment_nickname");
-		String comment = request.getParameter("comment_content");
+		int post_num = Integer.parseInt(request.getParameter("post_num"));
+		String nickname = request.getParameter("nickname");
+		String comment = request.getParameter("comment");
+		
+		// test
+		String nowPage = "1";
 		
 		AnyCommentBean anyCommentBean = new AnyCommentBean(post_num, nickname, comment);
 		
 		CommentWriteService commentWriteService = new CommentWriteService();
-	
-		// js로 넘기니까 체크 필요없음
 		boolean isWriteSuccess = commentWriteService.writeComment(anyCommentBean);
+	
+		if(!isWriteSuccess) { // 글쓰기 실패
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter(); 
+			out.println("<script>"); 
+			out.println("alert('댓글 등록 실패')"); 
+			out.println("history.back()"); 
+			out.println("</script>"); 
+		} else { // 글쓰기 성공
+			System.out.println("댓글 작성 완료");
+			forward = new ActionForward();
+			forward.setPath("CommunityDetail.any?num=" + post_num + "&page=" + nowPage);
+			forward.setRedirect(true);
+		}
 		
-		return null;
+		return forward;
 	}
 
 }

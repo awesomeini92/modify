@@ -13,8 +13,14 @@ public class CommunityModifyFormAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("CommunityModifyFormAction");
 
+		// 게시글번호
 		int num = Integer.parseInt(request.getParameter("num"));
 		String page = request.getParameter("page");
+		
+		// test
+		if (page == null) {
+			page = "1";
+		}
 		
 		CommunityBean article = null;
 		CommunityDetailService communityDetailService = new CommunityDetailService();
