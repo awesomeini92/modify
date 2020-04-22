@@ -60,10 +60,10 @@ public class CodingFreeModifyProAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
-			request.setAttribute("num", num);
+			request.setAttribute("post_num", num);
 			
 			forward = new ActionForward();
-			forward.setPath("CodingFreeDetail.cf?num=" + num);
+			forward.setPath("CodingFreeDetail.cf?post_num=" + num);
 			forward.setRedirect(true);
 		}
 		
