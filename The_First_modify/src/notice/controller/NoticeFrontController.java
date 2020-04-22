@@ -9,7 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import academy_community.action.AcademyCommentListAction;
+import academy_community.action.AcademyCommentWriteProAction;
+import coding_free.action.CmmntDeleteProAction;
+import coding_free.action.CmmntListAction;
+import coding_free.action.CmmntModifyFormAction;
+import coding_free.action.CmmntModifyProAction;
+import coding_free.action.CmmntPagingDetailAction;
+import coding_free.action.CmmntWriteProAction;
 import notice.action.Action;
+import notice.action.CommentPagingDetailAction;
+import notice.action.NoticeCommentDeleteProAction;
+import notice.action.NoticeCommentListAction;
+import notice.action.NoticeCommentModifyFormAction;
+import notice.action.NoticeCommentModifyProAction;
+import notice.action.NoticeCommentWriteProAction;
 import notice.action.NoticeDeleteProAction;
 import notice.action.NoticeDetailAction;
 import notice.action.NoticeListAction;
@@ -86,26 +100,80 @@ public class NoticeFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		//글 삭제	
-		} else if(command.equals("/NoticeDeleteForm.no")) {
-			forward = new ActionForward();
-			forward.setPath("/notice/notice_delete.jsp");
-			
+		
+		//글 삭제
 		} else if(command.equals("/NoticeDeletePro.no")) {
 			action = new NoticeDeleteProAction();
-//			
+
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 		//첨부파일 다운	
 		} else if(command.equals("/NoticeFileDown.no")) {
 			forward = new ActionForward();
 			forward.setPath("/notice/file_down.jsp");
+			
+//		==================댓글==================
+		
+		//댓글 작성
+		} else if(command.equals("/NoticeCommentWritePro.no")) {
+			action = new NoticeCommentWriteProAction();
+				
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		//댓글 목록
+		}else if(command.equals("/NoticeCommentList.no")) {
+			action = new NoticeCommentListAction();
+				
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		//댓글 페이징
+		} else if(command.equals("/CommentPagingDetail.no")) {
+			action = new CommentPagingDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		//댓글 수정
+		}else if(command.equals("/NoticeCommentModifyForm.no")) {
+			action = new NoticeCommentModifyFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} else if(command.equals("/NoticeCommentModifyPro.no")) {
+			action = new NoticeCommentModifyProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		//댓글 삭제
+		}else if(command.equals("/NoticeDeletePro.no")) {
+			action = new NoticeCommentDeleteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		
-		
+	
 		
 		
 		

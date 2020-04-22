@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <c:if test="${sessionScope.nickname==null }">
     <script type="text/javascript">
 		alert("로그인 해주세요");
@@ -16,7 +17,6 @@
 <style type="text/css">
 	#viewForm {
 		width: 640px;
-		border: 1px solid gray;
 		margin: auto;
 	}
 	
@@ -61,24 +61,39 @@
 
 
 </head>
+
+
 <body>
-		<!-- header page -->
-<%-- 		<jsp:include page="../inc/link.jsp"/> --%>
+
+	<!-- header page -->
 		<jsp:include page="../inc/top.jsp"/>
-<%-- 		<jsp:include page="../inc/green.jsp"/> --%>
-		<!-- header page -->
-	<section id="viewForm">
-		<h2>${shop.product_name }의 상세정보</h2>
+		<jsp:include page="../inc/green.jsp"/>
+		<jsp:include page="../inc/link.jsp"/>	
+	<!-- header page -->
+
+		<div class="gtco-section">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+						<h2>SHOP</h2>
+<!-- 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat enim et urna sagittis, rhoncus euismod erat tincidunt. Donec tincidunt volutpat erat.</p> -->
+					</div>
+				</div>
+				 <div class="">
+				 
+				
+				
+				<section id="viewForm">
 	
 		<section id="content_main">
 			<section id="content_left">
 				<img src="admin/productUpload/${shop.product_image }"/>		
 			</section>
 			<section id="content_right">
-				<b>상품명 : </b> ${shop.product_name } <br>
+				<h2>${shop.product_name } <h2><br>
 				
 				<c:set var="price" value="${shop.price }"/>
-				<b>가격 : </b> <fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/> CP<br>
+				<h3><fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/> CP </h3><br>
 				
 				<p id="desc">
 					${shop.product_info } <br>
@@ -93,16 +108,31 @@
 			<input type="hidden" name="stock" value="${shop.stock }">
 			<input type="hidden" name="purchase_count" value="${shop.purchase_count }">
 			<input type="hidden" name="product_cod" value="${shop.product_cod }">
-			<input type="submit" value="교환" onclick="return confirm('${shop.price} 포인트가 차감됩니다. 교환하시겠습니까?');">
+			<input type="submit" value="교환" class="bs_btn btn-info" onclick="return confirm('${shop.price} 포인트가 차감됩니다. 교환하시겠습니까?');">
 			
-			<a href="ShopList.shop"><input type="button" value="목록"></a>
+			<a href="ShopList.shop"><input type="button" value="목록" class="bs_btn btn-info"></a>
 			</form> 
 			
 			</nav>
 		</section>
 	</section>
+				
+				
+                           
+                            </div>
+                        </div>
+                    </div>
 
-</body>
+
+
+		<!-- footer page -->
+		<jsp:include page="../inc/bottom.jsp"/>
+		<!-- footer page -->
+		
+	</body>
+
+
+
 </html>
 
 

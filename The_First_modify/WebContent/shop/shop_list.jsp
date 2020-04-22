@@ -21,7 +21,6 @@
 	#listForm {
 		width:700px;
 		height: 500px;
-		border: 1px solid gray;
 		margin: auto;
 	}
 	
@@ -58,16 +57,33 @@
 	}
 </style>
 </head>
+
 <body>
-		
-		<!-- header page -->
-<%-- 		<jsp:include page="../inc/link.jsp"/> --%>
+
+	<!-- header page -->
 		<jsp:include page="../inc/top.jsp"/>
-<%-- 		<jsp:include page="../inc/green.jsp"/> --%>
-		<!-- header page -->
-	<section id="listForm">
+		<jsp:include page="../inc/green.jsp"/>
+		<jsp:include page="../inc/link.jsp"/>	
+	<!-- header page -->
+
+		<div class="gtco-section">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+					
+					<div>
+					
+					<h2>기프티콘 SHOP</h2>
+					</div>
+						
+<!-- 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat enim et urna sagittis, rhoncus euismod erat tincidunt. Donec tincidunt volutpat erat.</p> -->
+					</div>
+				</div>
+				 <div class="">
+				 
+				 
+				 	<section id="listForm">
 	<c:if test="${shopList != null }"> 
-	<h1>기프티콘 상품 목록</h1>
 	<table>
 		<tr>
 			<c:forEach var="shop" items="${shopList}" varStatus="status">
@@ -80,11 +96,39 @@
 					<fmt:formatNumber type="number" maxFractionDigits="3" value="${price}" />CP
 				</td>
 			<c:if test="${((status.index + 1) mod 4) == 0 }">
-				<tr>
-				</tr>
+				<ul>
+				</ul>
 			</c:if>
 			</c:forEach>
 		</tr>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<!-- 		<tr> -->
+<%-- 			<c:forEach var="shop" items="${shopList}" varStatus="status"> --%>
+<!-- 				<td> -->
+<%-- 					<a href="ShopView.shop?product_cod=${shop.product_cod}"> --%>
+<%-- 					<img src="admin/productUpload/${shop.product_image }" id="productImage" /> --%>
+<!-- 					</a><br> -->
+<%-- 					${shop.product_name }<br> --%>
+<%-- 					<c:set var="price" value="${shop.price }"/> --%>
+<%-- 					<fmt:formatNumber type="number" maxFractionDigits="3" value="${price}" />CP --%>
+<!-- 				</td> -->
+<%-- 			<c:if test="${((status.index + 1) mod 4) == 0 }"> --%>
+<!-- 				<tr> -->
+<!-- 				</tr> -->
+<%-- 			</c:if> --%>
+<%-- 			</c:forEach> --%>
+<!-- 		</tr> -->
 	</table>
 	</c:if>	
 	<c:if test="${shopList == null }">
@@ -92,8 +136,23 @@
 	</c:if>
 
 	</section>
-	
-</body>
+				 
+				 
+		
+                           
+                            </div>
+                        </div>
+                    </div>
+
+
+
+		<!-- footer page -->
+		<jsp:include page="../inc/bottom.jsp"/>
+		<!-- footer page -->
+		
+	</body>
+
+
 </html>
 
 

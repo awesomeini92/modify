@@ -8,7 +8,7 @@
 	</script>
 </c:if>
 
-<c:if test="${!(sessionScope.nickname eq 'admin') }">
+<c:if test="${!(sessionScope.sId eq 'admin') }">
     <script type="text/javascript">
 		alert("접근 권한이 없습니다.");
 		history.back();
@@ -52,18 +52,13 @@
 			<form action="NoticeWritePro.no" method="post" enctype="multipart/form-data" name="boardform" class="code_wf">
 					<div class="form-group">					
 				    <label class="control-label" for="readOnlyInput">글쓴이</label>
-				    <input class="form-control" id="nickname" name="nickname" type="text" value="${sessionScope.nickname }" readonly=""></div>
+				    <input class="form-control" id="nickname" name="nickname" type="text" value="${sessionScope.nickname }" readonly="readonly"></div>
 						
 						<div class="form-group">
 							  <label class="control-label" for="subject">제목</label>
-							  <input class="form-control form-control-lg" type="text" placeholder="제목" id="subject" name="subject">
+							  <input class="form-control form-control-lg" type="text" placeholder="제목"  required="required" id="subject" name="subject">
 						</div>
-						
-<!-- 							  <span class="w3-left"><label class="control-label" for="isPublic">금액</label></span> -->
-							 
-<!-- 									<div class="input-group-append"> -->
-<!-- 								        <span class="input-group-text" id="">Upload</span> -->
-<!-- 								      </div> -->
+
 							<div class="form-group mg10 ">
 								<label class="control-label" for="file">파일첨부</label>
 							     <input type="file" class="form-control-file text-right" name="file" >
@@ -79,7 +74,7 @@
 								</div>
 								</form>
 				  </div>
-                            </div>
+              </div>
                            
 </div>
 

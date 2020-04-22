@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import admin.action.Action;
+import admin.action.MemberDeleteProAction;
+import admin.action.MemberListAction;
 import admin.action.ProductDeleteProAction;
 import admin.action.ProductListAction;
 import admin.action.ProductModifyFormAction;
@@ -87,6 +89,22 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		// 회원목록
+		} else if(command.equals("/MemberList.ad")) {
+			action = new MemberListAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}  else if(command.equals("/MemberDeletePro.ad")) {
+			action = new MemberDeleteProAction();	
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		

@@ -38,7 +38,7 @@
 								</ul>
 							</li>
 							<li><a href="NoticeList.no">Notice</a></li>
-							<li><a href="ShopList.shop">SHOP</a></li>
+							<li><a href="ShopMain.shop">SHOP</a></li>
 							<li><a href="contact.html">Contact</a></li>
 						</ul>
 					</div>

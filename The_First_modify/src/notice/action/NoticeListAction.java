@@ -64,6 +64,7 @@ public class NoticeListAction implements Action {
 		// request 객체의 setAttribute() 메서드를 호출하여 페이지 정보, 게시물 목록 저장
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("articleList", articleList);
+		request.setAttribute("today", today);
 		
 		// ActionForward 객체를 생성하여 notice 폴더의 notice_list.jsp 페이지로 이동(Dispatch 방식)
 		forward = new ActionForward();

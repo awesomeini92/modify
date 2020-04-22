@@ -1,10 +1,6 @@
-<%@page import="shop.vo.ShopBean"%>
-<%@page import="java.io.PrintWriter"%>
-<%@page import="member.dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:if test="${sessionScope.nickname==null }">
     <script type="text/javascript">
 		alert("로그인 해주세요");
@@ -18,13 +14,11 @@
 		history.back();
 	</script>
 </c:if>	
-
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 페이지</title>
+<title>회원목록</title>
 
 <style type="text/css">
       .table { 
@@ -53,63 +47,92 @@
         
     </style>
 
+<script type="text/javascript">
+	function deleteMember(id) {
+		if(confirm("선택한 회원을 강퇴하시겠습니까?") == true){
+			location.href="MemberDeletePro.ad?id="+id;
+		} else{
+			return;
+		}
+	}
+</script>
 </head>
-
 <body>
 
-<!-- header page -->
-		<jsp:include page="../inc/link.jsp"/>	
+	<!-- header page -->
 		<jsp:include page="../inc/top.jsp"/>
 		<jsp:include page="../inc/green.jsp"/>
+		<jsp:include page="../inc/link.jsp"/>	
 	<!-- header page -->
 
 		<div class="gtco-section">
 			<div class="gtco-container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-						<h2>상품목록 및 추가</h2>
+						<h2>회원목록</h2>
 <!-- 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat enim et urna sagittis, rhoncus euismod erat tincidunt. Donec tincidunt volutpat erat.</p> -->
 					</div>
 				</div>
 				 <div class="">
 				 
-		<section id="listForm">
-	<c:if test="${shopList != null }"> 
-<!-- 		<h2>상품목록</h2> -->
+					<section id="listForm">
+	<c:if test="${memberList != null }"> 
+<!-- 		<h2>회원목록</h2> -->
 <!-- 		<form method="post" id="listForm"> -->
 			<table class="table">
+<%-- 			<caption>회원목록</caption> --%>
 				<tr class="table-info">
-					<th>상품코드</th>
-					<th>상품명</th>
-					<th>가격</th>
-					<th>상품재고량</th>
-					<th>상품판매량</th>
-					<th>수정</th>
+					<th>아이디</th>
+					<th>비밀번호</th>
+					<th>닉네임</th>
+					<th>이메일</th>
+					<th>CP</th>
+<!-- 					<th>LP</th> -->
+					<th>Level</th>
+					<th>이메일 인증</th>
+					<th>가입날짜</th>
 					<th>삭제</th>
 				</tr>
 				
-				<c:forEach var="product" items="${shopList}" varStatus="status">
+				<c:forEach var="member" items="${memberList}" varStatus="status">
 
 				<tr class="tr_list">
 					<td>
-						${product.product_cod }
+						${member.id }
 					</td>
 					<td>
-						${product.product_name }
+						${member.password }
 					</td>
 					<td>
-						${product.price }
+						${member.nickname }
 					</td>
 					<td>
-						${product.stock }
+						${member.email }
 					</td>
 					<td>
-						${product.purchase_count }
+						${member.cp }
 					</td>
-<%-- 					<td><a href="ProductModifyForm.ad?product_cod="${product.product_cod}><b>수정</b></a> --%>
-					
-					<td><a href="ProductModifyForm.ad?product_cod=${product.product_cod }"><b>수정</b></a></td>
-					<td><a href="ProductDeletePro.ad?product_cod=${product.product_cod}" onclick="return confirm('정말로 삭제하시겠습니까?');"><b>삭제</b></a></td>
+<!-- 					<td> -->
+<%-- 						${member.lp } --%>
+<!-- 					</td> -->
+					<td>
+						${member.level }
+					</td>
+					<td>
+						<c:set var="check" value="${member.emailChecked}"/>
+						<c:choose>
+							<c:when test="${check eq true}">
+								Y
+							</c:when>
+							<c:when test="${check eq false}">
+								N
+							</c:when>
+						</c:choose>
+					</td>	
+					<td>
+						${member.date}
+					</td>
+					<td onclick="deleteMember('${member.id}')" style="cursor: pointer; font-weight: bold;">강퇴</td>
 				</tr>
 				</c:forEach>
 			</table>
@@ -117,17 +140,12 @@
 <!-- 		</form> -->
 
 
-
-
-	<c:if test="${cartList = null }">
-		<section class="div_empty">상품 정보가 없습니다. </section>
+	<c:if test="${memberList = null }">
+		<section class="div_empty">회원 정보가 없습니다. </section>
 	</c:if>	
 	
-	<div class="text-center">
-		<a href="ProductRegistForm.ad"><input type="button" value="상품등록" class="bs_btn btn-info"></a>
-	</div>
-	
 	</section>
+                            
                            
                             </div>
                         </div>
@@ -138,11 +156,10 @@
 		<!-- footer page -->
 		<jsp:include page="../inc/bottom.jsp"/>
 		<!-- footer page -->
-                            
-                           
-
+		
 	</body>
 
 
 
+</body>
 </html>

@@ -35,7 +35,7 @@
 					</div>
 				</div>
 				 <div class="">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>Charged Coding Q&A</div>
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>notice</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -54,7 +54,7 @@
       <c:forEach var="article" items="${articleList }">
       		<tr>
 			<td align="center">${article.num }</td>
-			   			<td align="center" ><a href='<c:url value="NoticeDetail.no?num=${article.num}"/>'>${article.subject }</a></td>
+			   			<td align="center" ><a href='<c:url value="NoticeDetail.no?post_num=${article.num}"/>'>${article.subject }</a></td>
 			    
 					<td >${article.nickname}</td>
 					<c:if test="${article.date==today}">
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
 
-		<c:if test="${sessionScope.nickname eq 'admin'}">
+		<c:if test="${sessionScope.sId eq 'admin'}">
 		<div class="text-right">
             <button type="button" class="bs_btn btn-info" onclick="location.href='NoticeWriteForm.no'">글쓰기</button>	
 		 </div>
@@ -83,8 +83,7 @@
                     </div>
 
 
-		
-		<!-- END .gtco-services -->
+	<!-- END .gtco-services -->
 
 		<!-- footer page -->
 		<jsp:include page="../inc/bottom.jsp"/>
@@ -137,7 +136,6 @@
 	
 	</body>
 </html>
-
 
 
 

@@ -55,7 +55,7 @@ public class NoticeDeleteProAction implements Action {
 				out.println("</script>");
 			} else {
 				forward = new ActionForward();
-				forward.setPath("NoticeList.no?page=" + page);
+				forward.setPath("NoticeList.no");
 				forward.setRedirect(true);
 			}
 			

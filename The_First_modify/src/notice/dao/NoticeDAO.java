@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import notice.vo.NoticeBean;
+import notice.vo.NoticeCommentBean;
 
 import static db.JdbcUtil.*;
 
@@ -261,8 +263,180 @@ public class NoticeDAO {
 	}
 
 	
+	//=================댓글==================
+	
+	//댓글 가져오기
+	public NoticeCommentBean getComment(int post_num, int modify_num) {
+		NoticeCommentBean cmmnt = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// ORDER BY comment_num
+			String sql = "SELECT *, time(date) AS time FROM notice_comment WHERE post_num = ? AND comment_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, post_num);
+			pstmt.setInt(2, modify_num);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				cmmnt = new NoticeCommentBean();
+				cmmnt.setComment_num(rs.getInt("comment_num"));
+				cmmnt.setPost_num(rs.getInt("post_num"));
+				cmmnt.setNickname(rs.getString("nickname"));
+				cmmnt.setComment(rs.getString("comment"));
+
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return cmmnt;
+	}	
+
+	public int insertComment(NoticeCommentBean commentBean) {
+		System.out.println("NoticeCommentDAO - insertComment()");
+		
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		int insertCount = 0;
+		
+		int num = 0;
+		
+		
+		try {
+			String sql = "SELECT max(comment_num) as mnum FROM notice_comment";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				num = rs.getInt("mnum") + 1;
+			}
+			
+			sql = "INSERT INTO notice_comment VALUES (?,?,?,?,now())";
+
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, num); //댓글번호 comment_num
+			pstmt.setInt(2, commentBean.getPost_num());
+			pstmt.setString(3, commentBean.getNickname());
+			pstmt.setString(4, commentBean.getComment());
+			
+			insertCount = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("insertComment() 에러 : " + e.getMessage());
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return insertCount;
+	}
 
 	
+	
+	public List<NoticeCommentBean> getCommentList(int post_num , int cmmnt_page, int cmmnt_limit ) {
+		System.out.println("getCommentList");
+		
+		List<NoticeCommentBean> list = new ArrayList<NoticeCommentBean>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int startRow = (cmmnt_page - 1) * 3;
+		
+		try {
+			String sql = "SELECT *, time(date) AS time FROM notice_comment where post_num = ? ORDER BY comment_num limit ?,?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, post_num);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, 3);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				NoticeCommentBean noticeCommentBean = new NoticeCommentBean();
+				noticeCommentBean.setComment_num(rs.getInt("comment_num"));
+				noticeCommentBean.setPost_num(rs.getInt("post_num"));
+				noticeCommentBean.setNickname(rs.getString("nickname"));
+				noticeCommentBean.setComment(rs.getString("comment"));
+				noticeCommentBean.setDate(rs.getDate("date"));
+				noticeCommentBean.setTime(rs.getString("time"));
+				list.add(noticeCommentBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return list;
+	}
+
+	
+	public int getCommentListCount(int num) {
+		int commentListCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT count(*) FROM notice_comment where post_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				commentListCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return commentListCount;
+	}
+
+	public int deleteCmmnt(int comment_num) {
+		int deleteCount = 0 ;
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "DELETE FROM notice_comment WHERE comment_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, comment_num);
+			deleteCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return deleteCount;
+	}
+	
+	public int updateComment(NoticeCommentBean noticeCommentBean) {
+		int updateCount = 0;
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "UPDATE notice_comment SET comment=?, date=now() WHERE comment_num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, noticeCommentBean.getComment());
+				pstmt.setInt(2, noticeCommentBean.getComment_num());
+				
+				updateCount = pstmt.executeUpdate();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
+	}
 	
 }
 

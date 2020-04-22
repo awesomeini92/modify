@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import member.vo.MemberBean;
 import member.vo.SHA256;
@@ -451,7 +452,46 @@ public class MemberDAO {
 			return updateNum;
 		}
 		
-		
+		public ArrayList<MemberBean> selectMemberList() {
+			
+//			System.out.println("MemberDAO - selectMemberList()");
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			ArrayList<MemberBean> memberList = null;
+			
+			try {
+				String sql = "SELECT * FROM member ORDER BY date";
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				memberList = new ArrayList<MemberBean>();
+				
+				while(rs.next()) {
+					MemberBean mb = new MemberBean();
+					mb.setId(rs.getString("id"));
+					mb.setPassword(rs.getString("password"));
+					mb.setNickname(rs.getString("nickname"));
+					mb.setEmail(rs.getString("email"));
+					mb.setCp(rs.getInt("CP"));
+//					mb.setLp(rs.getInt("LP"));
+					mb.setLevel(rs.getInt("level"));
+					mb.setEmailHash(rs.getString("emailHash"));
+					mb.setEmailChecked(rs.getBoolean("emailChecked"));
+					mb.setDate(rs.getDate("date"));
+					
+					memberList.add(mb);
+				}
+			} catch (Exception e) {
+				System.out.println("selectMemberList() 에러! - " + e.getMessage());
+			} finally {
+	 			close(rs);
+	 			close(pstmt);
+	 		}
+			return memberList;
+		}
+
 
 
 	
