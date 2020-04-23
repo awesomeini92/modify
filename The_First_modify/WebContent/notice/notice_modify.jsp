@@ -220,9 +220,9 @@ $(document).ready(function() {
 <body>
 
 	<!-- header page -->
+		<jsp:include page="../inc/link.jsp"/>	
 		<jsp:include page="../inc/top.jsp"/>
 		<jsp:include page="../inc/green.jsp"/>
-		<jsp:include page="../inc/link.jsp"/>	
 	<!-- header page -->
 
 		<section class="gtco-section">
@@ -239,6 +239,10 @@ $(document).ready(function() {
 				 	<section id="writeForm">
 				 	
 		<h2>게시판 글 수정</h2>
+		
+		<div class="gtco-container">
+			<div class="center-box row">
+		
 		<form action="NoticeModifyPro.no?num=${num }" method="post" name="boardForm"  enctype="multipart/form-data" class="code_wf">
 <%-- 			<input type="hidden" name="num" value="${article.num }" /> --%>
 
@@ -254,29 +258,32 @@ $(document).ready(function() {
 					 <input class="form-control form-control-lg" type="text" id="subject" name="subject" value="${article.subject }">
 				</div>
 				
-				<div class="form-group mg3">
-					<label class="control-label" for="content">내용</label>
-					<article class="w3-border w3-large w3-padding article_content">
-						<img src="./notice/noticeUpload/${article.file }" width=800px><br>
-						<textarea class="form-contrdiv" name="content" id="content"	cols="100" rows="12" required>${article.content }</textarea>
-					</article>
-				</div>
+													
+				<div class="form-group mg10 ">
+								<label class="control-label" for="file">파일첨부</label>
+							     <input type="file" class="form-control-file text-right" name="file" >
+							</div>
+							<c:if test="${article.file != null}">
+									<article class="w3-border w3-large w3-padding article_content">
+							<img src="./notice/noticeUpload/${article.file }" width=800px >	<br><br><br>
+								</article>
+								</c:if>
+					
+														
+		<div class="form-group mg3"><label class="control-label" for="content">내용</label>
+		<textarea class="form-contrdiv" name="content" id="content" cols="100" rows="12" required>${article.content }</textarea></div>
 				
-			<div class="form-group mg10 ">
-					<label class="control-label" for="file">파일첨부</label>
-					<input type="file" class="form-control-file text-right" name="file" id="file"/>${article.file }
-				</div>
-
-									
-				
+			
 				
 <!-- 			</table> -->
 			
 			<div class="wsr" >
-				<input type="submit" class="btn btn-secondary btn-lg" value="등록">&nbsp;&nbsp;<br>
-				<a href="NoticeList.no"><input type="button" class="btn-secondary btn-sm" value="목록" ></a>
+				<input type="submit" class="btn btn-secondary btn-lg" value="등록">&nbsp;&nbsp;
+				<a href="NoticeList.no"><input type="button" class="btn btn-secondary btn-lg" value="목록" ></a>
 			</div>
 		</form>	
+		</div>
+		</div>
 	</section>
 <div class="w3-article" id="cmmnt_article">
 	 <div class="right-box " id="cmmntList"> 

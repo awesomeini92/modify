@@ -28,17 +28,20 @@
 	   	 height: 300px;
 	   	 text-align: center;
 	   	 margin: 0 auto;
+	   	 
 	}
 	
 	div.adminList_Inner {
 		float: left;
 	    margin: 100px;
+	    
 	}
 	
 	#Contents {
     width: 1020px;
     height: 100%;
     margin: 0 auto;
+    
 
 </style>
 <title>관리자페이지</title>
@@ -47,24 +50,24 @@
 <body>
 
 	<!-- header page -->
+		<jsp:include page="../inc/link.jsp"/>	
 		<jsp:include page="../inc/top.jsp"/>
 		<jsp:include page="../inc/green.jsp"/>
-		<jsp:include page="../inc/link.jsp"/>	
 	<!-- header page -->
 
 		<div class="gtco-section">
 			<div class="gtco-container">
-<!-- 				<div class="row"> -->
-<!-- 					<div class="col-md-8 col-md-offset-2 gtco-heading text-center"> -->
-<!-- 						<h2>관리자 메뉴</h2> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+						<h2>관리자 메뉴</h2>
+					</div>
+				</div>
 				
 			<div id="Contents">
 				 <div class="adminList">
 				 
 				 	<div class="adminList_Inner">
-					<a href="MemberList.ad"><img src="./images/memberList.png" alt="MemberList"><h2>회원목록 </h2></a>
+					<a href="MemberList.ad"><img src="./images/memberList.png" alt="MemberList" ><h2>회원목록 </h2></a>
 					</div>
 					
 					<div class="adminList_Inner">

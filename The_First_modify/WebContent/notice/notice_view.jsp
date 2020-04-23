@@ -64,7 +64,6 @@ $(document).ready(function() {
 });
 
 		function getComment(nowPage){
-			alert(nowPage);
 			$.ajax({		
     			url: "NoticeCommentList.no", // 요청 url
                 type: "POST", // post 방식
@@ -223,9 +222,8 @@ $(document).ready(function() {
               			 ${article.content } <br><br>
            			</article>
 					
-					<div class="w3-border w3-padding">
 						<div class="w3-border w3-padding">첨부파일: <a href="NoticeFileDown.no?file_name=${article.file }" target="blank">${article.file }</a></div><br>
-					</div>
+					
 					<br>
 				
 				<c:if test="${article.nickname == sessionScope.nickname }">

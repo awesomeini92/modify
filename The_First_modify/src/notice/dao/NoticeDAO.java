@@ -238,11 +238,13 @@ public class NoticeDAO {
 			}else {
 				content = article.getContent();
 			}
-			String sql = "UPDATE notice SET subject=?, content=? WHERE num=?";
+			String sql = "UPDATE notice SET subject=?, content=?, file=? WHERE num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, article.getSubject());
 			pstmt.setString(2, content);
-			pstmt.setInt(3, article.getNum());
+			pstmt.setString(3, article.getFile());
+			pstmt.setInt(4, article.getNum());
+			
 			
 			updateCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -263,10 +265,19 @@ public class NoticeDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "DELETE FROM notice WHERE num=?";
+			String sql = "DELETE FROM notice_comment WHERE post_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			deleteCount = pstmt.executeUpdate();
+			
+			if(deleteCount>=0) {
+				
+				sql = "DELETE FROM notice WHERE num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				deleteCount = pstmt.executeUpdate();
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

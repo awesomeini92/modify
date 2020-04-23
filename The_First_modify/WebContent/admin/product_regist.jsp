@@ -57,9 +57,9 @@
 <body>
 
 <!-- header page -->
+		<jsp:include page="../inc/link.jsp"/>	
 		<jsp:include page="../inc/top.jsp"/>
 		<jsp:include page="../inc/green.jsp"/>
-		<jsp:include page="../inc/link.jsp"/>	
 	<!-- header page -->
 
 		<div class="gtco-section">
@@ -103,8 +103,8 @@
 					<td class="td_right"><input type="file" name="product_image" id="product_image" required="required"/></td>
 				</tr>
 				<tr>
-					<th class="td_left"><label for="product_image">바코드이미지</label></th>
-					<td class="td_right"><input type="file" name="product_image" id="product_image" required="required"/></td>
+					<th class="td_left"><label for="barcode_image">바코드이미지</label></th>
+					<td class="td_right"><input type="file" name="barcode_image" id="barcode_image" required="required"/></td>
 				</tr>
 				<tr>
 					<td colspan="2" id="commandCell">

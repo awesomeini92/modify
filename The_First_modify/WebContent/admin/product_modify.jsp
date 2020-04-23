@@ -116,12 +116,22 @@
 						<input type="text" name="purchase_count" id="purchase_count" value="${shopBean.purchase_count }" required="required" />
 					</td>
 				</tr>
-<!-- 				<tr> -->
-<!-- 					<th class="td_left"><label for="product_info">상품설명</label></th> -->
-<!-- 					<td class="td_right" > -->
-<%-- 						<textarea rows="13" cols="40" name="product_info" id="product_info" value="${shopBean.product_info }" required="required"></textarea> --%>
-<!-- 					</td> -->
-<!-- 				</tr> -->
+				<tr>
+					<th class="td_left"><label for="product_info">상품설명</label></th>
+					<td class="td_right" >
+						<textarea rows="13" cols="40" name="product_info" id="product_info" required="required">${shopBean.product_info }</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th class="td_left"><label for="product_image">상품이미지</label></th>
+					<td class="td_right"><input type="file" name="product_image" id="product_image" required="required" value="${shopBean.product_image }"/>${shopBean.product_image }</td>
+				</tr>
+				<tr>
+					<th class="td_left"><label for="barcode_image">바코드이미지</label></th>
+					<td class="td_right"><input type="file" name="barcode_image" id="barcode_image" required="required"/>${shopBean.barcode_image }</td>
+				</tr>
+				
+				
 				
 			</table>
 			<section id="commandCell">

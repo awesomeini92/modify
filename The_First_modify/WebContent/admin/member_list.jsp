@@ -60,9 +60,9 @@
 <body>
 
 	<!-- header page -->
+		<jsp:include page="../inc/link.jsp"/>	
 		<jsp:include page="../inc/top.jsp"/>
 		<jsp:include page="../inc/green.jsp"/>
-		<jsp:include page="../inc/link.jsp"/>	
 	<!-- header page -->
 
 		<div class="gtco-section">
@@ -87,7 +87,7 @@
 					<th>닉네임</th>
 					<th>이메일</th>
 					<th>CP</th>
-<!-- 					<th>LP</th> -->
+					<th>LP</th>
 					<th>Level</th>
 					<th>이메일 인증</th>
 					<th>가입날짜</th>
@@ -112,9 +112,9 @@
 					<td>
 						${member.cp }
 					</td>
-<!-- 					<td> -->
-<%-- 						${member.lp } --%>
-<!-- 					</td> -->
+					<td>
+						${member.lp }
+					</td>
 					<td>
 						${member.level }
 					</td>
@@ -132,7 +132,16 @@
 					<td>
 						${member.date}
 					</td>
-					<td onclick="deleteMember('${member.id}')" style="cursor: pointer; font-weight: bold;">강퇴</td>
+					
+					<c:set var="id" value="${member.id }"/>
+							<c:if test="${id ne 'admin'}">
+								<td onclick="deleteMember('${member.id}')" style="cursor: pointer; font-weight: bold;">강퇴</td>
+							</c:if>
+							<c:if test="${id eq 'admin'}">
+								<td></td>
+							</c:if>
+							
+							
 				</tr>
 				</c:forEach>
 			</table>

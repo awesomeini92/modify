@@ -44,8 +44,10 @@ public class NoticeModifyProAction implements Action {
 		NoticeDetailService noticeDetailService = new NoticeDetailService();
 		NoticeBean noticeBean = noticeDetailService.getArticle(num);
 		
-		if( file==null) {
+		if(file==null) {
 			file=noticeBean.getFile();
+
+			
 		}
 		
 			NoticeBean article = new NoticeBean();
@@ -56,7 +58,6 @@ public class NoticeModifyProAction implements Action {
 			article.setSubject(subject);
 			article.setContent(content);
 			article.setFile(file);
-			
 			
 
 			NoticeModifyProService noticeModifyProService = new NoticeModifyProService();
@@ -76,7 +77,7 @@ public class NoticeModifyProAction implements Action {
 				// => ActionForward 객체를 사용하여 수정된 게시물로 이동(Redirect 방식)
 				//    (URL : NoticeDetail.no?num=x&page=y)
 				forward = new ActionForward();
-				forward.setPath("NoticeDetail.no?num=" + num); /* + "&page=" + page */
+				forward.setPath("NoticeDetail.no?post_num=" + num); /* + "&page=" + page */
 				forward.setRedirect(true);
 			}
 			

@@ -22,7 +22,13 @@ String name= request.getParameter("name");
 String price = request.getParameter("price");
 String nickname = request.getParameter("nickname");
 
+System.out.println(name);
+System.out.println(price);
+System.out.println(nickname);
+
+
 %>
+
         IMP.request_pay({
 
     	  pg : 'html5_inicis', // pg 사 선택
@@ -38,10 +44,11 @@ String nickname = request.getParameter("nickname");
                 var msg = '결제가 완료되었습니다.';
                 location.href= "PShopPaymentSuccess.shop?price=<%=price%>"
                 
+                	
             }
             else {
                 var msg = '결제에 실패하였습니다. 관리자에게 문의하세요. 에러내용 : ' + rsp.error_msg
-                location.href= "PShopList.shop"
+                location.href= "Main.all"
             }
             alert(msg);
         });

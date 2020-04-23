@@ -13,36 +13,65 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style type="text/css">
+
+	div.shopMain {
+		 width: 100%;
+	   	 height: 300px;
+	   	 text-align: center;
+	   	 margin: 0 auto;
+	   	 
+	}
+	
+	div.shopMain_Inner {
+		float: left;
+	    margin: 100px;
+	    
+	    
+	}
+	
+	#Contents {
+    width: 1020px;
+    height: 100%;
+    margin: 0 auto;
+    
+
+</style>
 <title>SHOP</title>
 </head>
 <body>
 
 	<!-- header page -->
+		<jsp:include page="../inc/link.jsp"/>	
 		<jsp:include page="../inc/top.jsp"/>
 		<jsp:include page="../inc/green.jsp"/>
-		<jsp:include page="../inc/link.jsp"/>	
 	<!-- header page -->
 
-		<div class="gtco-section">
+                    	<div class="gtco-section">
 			<div class="gtco-container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-						<h2>SHOP 메인</h2>
-<!-- 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat enim et urna sagittis, rhoncus euismod erat tincidunt. Donec tincidunt volutpat erat.</p> -->
+						<h2>SHOP</h2>
 					</div>
 				</div>
-				 <div class="">
-				 
 				
+			<div id="Contents">
+				 <div class="shopMain">
 				 
-                            <h2><a href="PShopList.shop">포인트 구매</a></h2>
-							<h2><a href="ShopList.shop">기프티콘 교환</a></h2>
-		
+				 	<div class="shopMain_Inner">
+					<a href="PShopList.shop"><img src="./images/point.png" alt="MemberList"><h2>CASH POINT 충전</h2></a>
+					</div>
+					
+					<div class="shopMain_Inner">
+					<a href="ShopList.shop"><img src="./images/gifticon.png" alt="ProductList"><h2>기프티콘 교환</h2></a>
+					</div>
+					
+				</div>
+			</div>
                             
                            
-                            </div>
-                        </div>
-                    </div>
+                  </div>
+                </div>
 
 
 
