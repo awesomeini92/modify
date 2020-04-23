@@ -20,9 +20,9 @@
 
 <body>
 	<!-- header page -->
+		<jsp:include page="../inc/link.jsp"/>	
 		<jsp:include page="../inc/top.jsp"/>
 		<jsp:include page="../inc/green.jsp"/>
-		<jsp:include page="../inc/link.jsp"/>	
 	<!-- header page -->
 	
 		
@@ -30,12 +30,12 @@
 			<div class="gtco-container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-						<h2>Check Our Works</h2>
+						<h2>Notice</h2>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat enim et urna sagittis, rhoncus euismod erat tincidunt. Donec tincidunt volutpat erat.</p>
 					</div>
 				</div>
 				 <div class="">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>notice</div>
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Notice</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -93,20 +93,7 @@
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 		
 	</div>
-		
 
-		
-		<!-- END .gtco-services -->
-
-		<!-- footer page -->
-		<jsp:include page="../inc/bottom.jsp"/>
-		<!-- footer page -->
-
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-		
-	</div>
-		
 		
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>

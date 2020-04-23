@@ -29,21 +29,22 @@
 </head>
 <body>
 	<!-- header page -->
+	<jsp:include page="../inc/link.jsp" />
 	<jsp:include page="../inc/top.jsp" />
 	<jsp:include page="../inc/green.jsp" />
-	<jsp:include page="../inc/link.jsp" />
 	<!-- header page -->
 
 
 	<div class="gtco-section">
 		<div class="gtco-container">
 			<div class="text-center">
-					<h1>구인정보</h1>
+					<h1>취업 정보</h1>
 						
 			
 				<div>
 				   <span class="">구인공고를 확인 하세요</span>
 				</div>
+				<br>
 			</div>	 
 			<div class="jobList">
 				 <div style="width: 100%; margin-bottom: 5%;">
@@ -75,7 +76,7 @@
 			
 			<div class="">
 				<div class="card-header">
-					<i class="fas fa-table mr-1"></i>Job Board Community
+					<i class="fas fa-table mr-1"></i>Employment information
 				</div>
 			
 				
@@ -157,19 +158,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-
-
-
-	<!-- END .gtco-services -->
-
-	<!-- footer page -->
-	<jsp:include page="../inc/bottom.jsp" />
-	<!-- footer page -->
-
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-
 	</div>
 
 

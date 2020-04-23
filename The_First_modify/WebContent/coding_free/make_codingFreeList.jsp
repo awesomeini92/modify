@@ -20,9 +20,9 @@
 </head>
 	<body>
 	<!-- header page -->
+		<jsp:include page="../inc/link.jsp"/>	
 		<jsp:include page="../inc/top.jsp"/>
 		<jsp:include page="../inc/green.jsp"/>
-		<jsp:include page="../inc/link.jsp"/>	
 	<!-- header page -->
 	
 		
@@ -35,7 +35,7 @@
 					</div>
 				</div>
 				 <div class="">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>Charged Coding Q&A</div>
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Free Coding Q&A</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -77,19 +77,6 @@
                         </div>
                     </div>
 
-
-		
-		<!-- END .gtco-services -->
-
-		<!-- footer page -->
-		<jsp:include page="../inc/bottom.jsp"/>
-		<!-- footer page -->
-
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-		
-	</div>
-		
 
 		
 		<!-- END .gtco-services -->

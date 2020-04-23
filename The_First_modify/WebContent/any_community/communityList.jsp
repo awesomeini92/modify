@@ -48,7 +48,7 @@
 			</div>
 			<div class="">
 				<div class="card-header">
-					<i class="fas fa-table mr-1"></i>Charged Coding Q&A
+					<i class="fas fa-table mr-1"></i>Free Board
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
@@ -92,19 +92,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-
-
-
-	<!-- END .gtco-services -->
-
-	<!-- footer page -->
-	<jsp:include page="../inc/bottom.jsp" />
-	<!-- footer page -->
-
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-
 	</div>
 
 

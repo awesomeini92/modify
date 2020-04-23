@@ -38,9 +38,6 @@
 		<jsp:include page="../inc/green.jsp"/>	
 	</header>
 	
-	<section id="writeButton">
-		<a href="AcademyWriteForm.ac"><input type="button" value="Post"></a>
-	</section>
 		<div class="gtco-section">
 			<div class="gtco-container">
 				<div class="row">
@@ -50,7 +47,7 @@
 					</div>
 				</div>
 				 <div class="">
-                            <div class="card-header"><i class="fas fa-table mr-1"></i>Charged Coding Q&A</div>
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Recommendation for academy</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
