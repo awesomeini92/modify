@@ -25,7 +25,7 @@ public class KakaoLoginProAction implements Action {
 		int loginResult = kakaoLoginProService.isLoginMember(member);
 		
 		if(loginResult == 0) {
-//			System.out.println("아이디 없음!");
+			System.out.println("아이디 없음!");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
@@ -33,7 +33,7 @@ public class KakaoLoginProAction implements Action {
 			out.println("history.back()"); 
 			out.println("</script>");
 		} else if(loginResult == -1) {
-//			System.out.println("패스워드 틀림!");
+			System.out.println("패스워드 틀림!");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
@@ -41,7 +41,7 @@ public class KakaoLoginProAction implements Action {
 			out.println("history.back()"); 
 			out.println("</script>");
 		} else {
-//			System.out.println("로그인 성공!");
+			System.out.println("로그인 성공!");
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("sId", id);

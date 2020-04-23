@@ -29,20 +29,22 @@ public class KakaoDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "INSERT INTO member VALUES(?,?,?,?,?,?,null,?,now()";
+			String sql = "INSERT INTO member VALUES(?,?,?,?,?,?,?,?,?,now(),0)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getId());
 			pstmt.setString(2, member.getPassword());
 			pstmt.setString(3, member.getNickname());
 			pstmt.setString(4, member.getEmail());
 			pstmt.setInt(5, 0); // CP
-			pstmt.setInt(6, 1); // level
-			pstmt.setInt(7, 1); // false
+			pstmt.setInt(6, 0); // LP
+			pstmt.setInt(7, 1); // level
+			pstmt.setString(8, "test"); // email 인증
+			pstmt.setInt(9, 1); // false
 			insertCount = pstmt.executeUpdate();
-			
-			
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 		
 		return insertCount;
@@ -67,7 +69,7 @@ public class KakaoDAO {
 					loginResult = -1;
 				}
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(rs);
@@ -77,6 +79,7 @@ public class KakaoDAO {
 		return loginResult;
 	}
 
+	
 	public MemberBean getMember(String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -86,16 +89,28 @@ public class KakaoDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
+			
+			if(rs.next()) {
+				System.out.println("kakaoGetmember work??");
 				mb = new MemberBean();
 				mb.setId(rs.getString("id"));
+				mb.setNickname(rs.getString("nickname"));
+				mb.setEmail(rs.getString("email"));
+				mb.setCp(rs.getInt("cp"));
+				mb.setLp(rs.getInt("lp"));
+				mb.setLevel(rs.getInt("level"));
+				mb.setDate(rs.getDate("date"));
 			}
-		} catch (Exception e) {
+			
+		} catch (SQLException e) {
 			
 		}finally {
 			close(rs);
 			close(pstmt);
 		}
+		
+		System.out.println("KakaoDAO - getMember");
+		
 		return mb;
 	}
 

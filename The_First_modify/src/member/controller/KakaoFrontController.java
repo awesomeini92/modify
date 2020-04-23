@@ -29,7 +29,7 @@ public class KakaoFrontController extends HttpServlet {
 		
 		if(command.equals("/KakaoLoginPro.kakao")) {
 			action = new KakaoLoginProAction();
-			
+			System.out.println("Front controller > kakaoLoginPro");
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -37,7 +37,7 @@ public class KakaoFrontController extends HttpServlet {
 			}
 		} else if(command.equals("/KakaoJoinPro.kakao")) {
 			action = new KakaoJoinProAction();
-			System.out.println("kloginJoinpro!");
+			System.out.println("Fornt Controller  > kakaologinJoinpro!");
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

@@ -32,15 +32,18 @@ public class KakaoJoinProService {
 		}
 		
 		close(con);
-		
+		System.out.println(insertCount);
+		System.out.println(isJoinSuccess);
 		return isJoinSuccess;
 	}
 
 	public static MemberBean getMember(String id) {
-		System.out.println("getMember!");
+		System.out.println("KakaoJoinProService - getMember!");
 		Connection con = getConnection();
 		KakaoDAO kakaoDAO = KakaoDAO.getInstance();
 		kakaoDAO.setConnection(con);
+		
+		//close(con);
 		
 		return kakaoDAO.getMember(id);
 	}

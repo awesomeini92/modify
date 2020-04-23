@@ -10,7 +10,7 @@ import member.vo.MemberBean;
 public class KakaoLoginProService {
 
 	public int isLoginMember(MemberBean member) {
-		System.out.println("KakaoLoginService");
+		System.out.println("KakaoLoginService - isLoginMember");
 		int loginResult = 0;
 		
 		Connection con = getConnection();
