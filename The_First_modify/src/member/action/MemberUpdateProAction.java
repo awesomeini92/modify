@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import member.svc.MemberUpdateProService;
+import member.svc.TextUpdateService;
 import member.vo.ActionForward;
 import member.vo.MemberBean;
 
@@ -25,9 +26,9 @@ public class MemberUpdateProAction implements Action {
 		MemberBean mb = new MemberBean(id, password, nickname, email);
 		
 		MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
-		boolean isUpdateSuccess = memberUpdateProService.updateMember(mb);
+		boolean isMemberUpdateSuccess = memberUpdateProService.updateMember(mb);
 		
-		if(!isUpdateSuccess) {
+		if(!isMemberUpdateSuccess) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
@@ -35,11 +36,26 @@ public class MemberUpdateProAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
-			HttpSession session = request.getSession();
-			session.setAttribute("nickname", nickname);
-			forward = new ActionForward();
-			forward.setPath("");
-			forward.setRedirect(true);
+			
+			//
+			TextUpdateService textUpdateService = new TextUpdateService();
+			boolean isTextUpdate = textUpdateService.updateReceiver(nickname);
+			
+			if (isTextUpdate) {
+				HttpSession session = request.getSession();
+				session.setAttribute("nickname", nickname);
+				forward = new ActionForward();
+				forward.setPath("");
+				forward.setRedirect(true);
+			} else {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('회원정보 수정 실패')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+			
 		}
 		
 		return forward;

@@ -3,9 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%
-	MemberBean mb = (MemberBean)request.getAttribute("mb");
-%>
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
@@ -35,9 +32,50 @@
     
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
+	$(function () {
+		var submitNickname = false;
+
+		// 닉네임 중복체크
+		$('#nicknameDup').click(function() {
+			var nicknameValue = $('#nickname').val();
+			if (nicknameValue == "") {
+				alert("Nickname 입력하세요");
+				$('#nickname').focus();
+				return;
+			}
+			$.ajax({
+				url: "nicknameDupCheck.me?nickname=" + nicknameValue,
+				type: "GET",
+				success: function(count) {
+					if (count == 1) {
+						alert('중복된 Nickname입니다 ');
+						$('#nickname').focus();
+					} else {
+						alert('사용가능한 Nickname입니다');
+						submitNickname = true;
+					}
+				}
+			});
+		});
+		
+		// 유무 판단
+		$('#submit').click(function() {
+			if(submitNickname == false) {
+				alert('닉네임 중복체크를 해주세요');
+				return false;
+			} else if (passRegex == false) {
+				alert('패스워드는 8~16자리 영문,숫자 조합');
+				return false;
+			} else if (submitNickname == true && passRegex == true) {
+				$('#form').submit();
+			}
+		});
+		
+	});
 	
-	// 비밀번호 정규표현식 확인 
-	 // 8~16자리 영문,숫자 조합
+		// 비밀번호 정규표현식 확인 
+		// 8~16자리 영문,숫자 조합
+		var passRegex = false;
 	 	function checkPassword(password) {
 		 	const lengthRegex = /^[A-Za-z0-9]{8,16}$/;
 		 	const englishCaseRegex = /[A-Za-z]/;
@@ -46,6 +84,7 @@
 		 	var element = document.querySelector('#checkPasswordResult');
 		 	if (lengthRegex.exec(password.value) && englishCaseRegex.exec(password.value) 
 		 			&& digitRegex.exec(password.value)) {
+		 		passRegex = true;
 				element.innerHTML = "적합한 Password";
 			} else {
 				element.innerHTML = "부적합한 Password";
@@ -83,15 +122,15 @@
                                 <div class="row row-space">
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="nickname" value="${mb.nickname }" required="required">
+                                            <input class="input--style-5" type="text" name="nickname" id="nickname" value="${mb.nickname }" required="required">
                                         </div>
                                     </div>
-                                    
+                                    <button class="btn btn--radius-2 btn--red" id="nicknameDup">Dup.check</button>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row m-b-55">
-                            <div class="name">Password</div>
+                            <div class="name">변경할  Password</div>
                             <div class="value">
                                 <div class="row row-space">
                                     <div class="col-2">
@@ -169,8 +208,7 @@
                         </div>
                        
                         <div style="text-align:center;">
-                            <button class="btn btn--radius-2 btn--red" type="submit"> 수   정 </button>
-                            <button class="btn btn--radius-2 btn--red" onClick="location.href='<c:url value="MemberDelete.me"/>'"> 탈   퇴 </button>
+                            <button class="btn btn--radius-2 btn--red" type="submit" id="submit"> 수   정 </button>
                         </div>
                     </form>
                 </div>

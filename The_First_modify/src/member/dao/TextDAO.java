@@ -211,6 +211,26 @@ public class TextDAO {
 		return updateCount;
 	}
 
+	public int updateReceiver(String nickname) {
+		int updateCount = 0;
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "UPDATE text SET receiver=? WHERE receiver=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			pstmt.setString(2, nickname);
+			updateCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
+	}
+
 	
 	
 }

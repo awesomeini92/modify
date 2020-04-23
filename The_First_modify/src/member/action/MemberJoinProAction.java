@@ -36,7 +36,6 @@ public class MemberJoinProAction implements Action {
 		} else { // 가입 성공
 			HttpSession session = request.getSession(); // 가입 성공하자마자 세션 부여
 			session.setAttribute("sId", id);
-//			session.setAttribute("nickname", nickname);
 			
 			forward = new ActionForward();
 			forward.setPath("MemberMailSendAction.me"); 

@@ -111,16 +111,17 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "INSERT INTO member VALUES(?,?,?,?,?,?,?,?,now())";
+			String sql = "INSERT INTO member VALUES(?,?,?,?,?,?,?,?,?,now())";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getId());
 			pstmt.setString(2, member.getPassword());
 			pstmt.setString(3, member.getNickname());
 			pstmt.setString(4, member.getEmail());
 			pstmt.setInt(5, 0); // CP
-			pstmt.setInt(6, 1); // level
-			pstmt.setString(7, SHA256.getSHA256(member.getEmail())); // email 인증
-			pstmt.setInt(8, 0); // false
+			pstmt.setInt(6, 0); // LP
+			pstmt.setInt(7, 1); // level
+			pstmt.setString(8, SHA256.getSHA256(member.getEmail())); // email 인증
+			pstmt.setInt(9, 0); // false
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -493,10 +494,11 @@ public class MemberDAO {
 			return memberList;
 		}
 
+		//
 		public int updateHeartLP(String nickname) {
 			int updateNum = 0;
 			PreparedStatement pstmt = null;
-			
+
 			try {
 				String sql = "UPDATE member SET LP=LP+30 WHERE nickname =?";
 				pstmt = con.prepareStatement(sql);
@@ -507,16 +509,15 @@ public class MemberDAO {
 			} finally {
 				close(pstmt);
 			}
-			
+
 
 			return updateNum;
 		}
 
-
 		public int minusHeartLP(String nickname) {
 			int updateNum = 0;
 			PreparedStatement pstmt = null;
-			
+
 			try {
 				String sql = "UPDATE member SET LP=LP-30 WHERE nickname =?";
 				pstmt = con.prepareStatement(sql);
@@ -527,11 +528,10 @@ public class MemberDAO {
 			} finally {
 				close(pstmt);
 			}
-			
+
 
 			return updateNum;
 		}
-	
 	
 }
 

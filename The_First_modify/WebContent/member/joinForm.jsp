@@ -36,8 +36,9 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(function () {
-	submitId = false;
-	submitNickname = false;
+	var submitId = false;
+	var submitNickname = false;
+	var pwDupChkResult = false;
 	$('#pwDupChkResult_ture').hide();
 	$('#pwDupChkResult_false').hide();
 	
@@ -76,9 +77,6 @@ $(function () {
 		$.ajax({
 			url: "nicknameDupCheck.me?nickname=" + nicknameValue,
 			type: "GET",
-			data: {
-				nickname: nicknameValue
-			},
 			success: function(count) {
 				if (count == 1) {
 					alert('중복된 Nickname입니다 ');
@@ -103,30 +101,40 @@ $(function () {
 			} else {
 				$('#pwDupChkResult_ture').show();
 				$('#pwDupChkResult_false').hide();
+				pwDupChkResult = true;
 			}
 		}
 		
 	});
 	
-	// 중복체크 했는지 유무 판단
+	// 중복체크 했는지 유무 판단 
 	$('#submit').click(function () {
-			if (submitId == false) {
+			if (idRegex == false) {
+				alert('아이디는 4~12자리 영문,숫자 조합');
+				return false;
+			} else if (passRegex == false) {
+				alert('패스워드는 8~16자리 영문,숫자 조합');
+				return false;
+			} if (submitId == false) {
 				alert('아이디 중복체크를 해주세요');
 				return false;
 			} else if (submitNickname == false) {
 				alert('닉네임 중복체크를 해주세요');
 				return false;
-			} else if (passRegex == false) {
-				alert('패스워드는 8~16자리 영문,숫자 조합');
+			} else if (pwDupChkResult == false) {
+				alert('패스워드 일치여부 확인해주세요');
 				return false;
-			} else if (sumbitId == true && submitNickname == true) {
+			} else if (idRegex == true && passRegex == true && submitId == true 
+					&& submitNickname == true && pwDupChkResult == true) {
 				$("#form").submit();
 			}
 		});
 		
 });
-	
 
+	var idRegex = false;
+	var passRegex = false;
+	
  // 아이디 정규표현식 확인
  // 4~12자리 영문,숫자 조합
 	function checkId(id) {
@@ -134,6 +142,7 @@ $(function () {
 		const element = document.querySelector('#checkIdResult');
 		
 		if (regex.exec(id.value)) {
+			idRegex = true;
 			element.innerHTML = "적합";
 		} else {
 			element.innerHTML = "부적합";
@@ -150,17 +159,16 @@ $(function () {
 	 	var element = document.querySelector('#checkPasswordResult');
 	 	if (lengthRegex.exec(password.value) && englishCaseRegex.exec(password.value) 
 	 			&& digitRegex.exec(password.value)) {
+			passRegex = true;
 			element.innerHTML = "적합한 Password";
 		} else {
 			element.innerHTML = "부적합한 Password";
 		}
  	}
- 
 </script>
 
 </head>
 <body>
-
 	
 	<div class="container-contact100">
 		<div class="wrap-contact100">
@@ -176,7 +184,6 @@ $(function () {
 						<button class="contact100-form-btn" id="idDup">
 							<span>
 								Dup.check
-<!-- 								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i> -->
 							</span>
 						</button>
 					</div>
@@ -191,12 +198,10 @@ $(function () {
 						<button class="contact100-form-btn" id="nicknameDup">
 							<span>
 								Dup.check
-<!-- 								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i> -->
 							</span>
 						</button>
 					</div>
 				</div>
-				
 				
 				<div class="wrap-input100 validate-input">
 					<span class="label-input100">Password</span>
@@ -207,11 +212,9 @@ $(function () {
 				<div class="wrap-input100 validate-input">
 					<span class="label-input100">Confirm Password </span>
 					<input class="input100" type="password" name="passwordCheck" id="pwCheck" required="required" placeholder="8~16자리 영문,숫자 조합">
-					<span id="pwCheckResult"></span>
 						<span id="pwDupChkResult_ture">Password 일치</span>
 						<span id="pwDupChkResult_false">Password 불일치</span>
 				</div>
-
 
 				<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 					<span class="label-input100">Email</span>
@@ -222,10 +225,9 @@ $(function () {
 				<div class="container-contact100-form-btn">
 					<div class="wrap-contact100-form-btn">
 						<div class="contact100-form-bgbtn"></div>
-						<button class="contact100-form-btn" type="submit">
+						<button class="contact100-form-btn" type="submit" id="submit">
 							<span>
 								Submit
-<!-- 								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i> -->
 							</span>
 						</button>
 					</div>

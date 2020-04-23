@@ -2,6 +2,7 @@
 <%@page import="member.dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%
 	String nickname = (String)session.getAttribute("nickname");
 	MemberDAO mdao = MemberDAO.getInstance();
@@ -33,6 +34,18 @@
 
     <!-- Main CSS-->
     <link href="regform/css/main.css" rel="stylesheet" media="all">
+    
+<script src="js/jquery-3.4.1.js"> </script>
+<script type="text/javascript">
+// 회원 삭제
+function delete_member() {
+	if (confirm("회원탈퇴하시겠습니까 ?") == true) {
+		location.href="MemberDelete.me?id=${sessionScope.sId }";
+	} else {
+		return false;
+	}
+}
+</script>
 </head>
 
 <body>
@@ -134,8 +147,11 @@
                             </div>
                         </div>
                        
-                        <div style="text-align:center;">
-                            <button class="btn btn--radius-2 btn--red" type="submit">E d i t</button>
+                        <div style="text-align:left;">
+                            <button class="btn btn--radius-2 btn--red" type="submit">회원정보수정</button>
+                            <button class="btn btn--radius-2 btn--red" onclick="location.href='TextList.te?receiver=<%=mb.getNickname() %>'" >쪽지함</button>
+                            <!-- 쪽지함 클릭시 페이지 이동안하고 그대로 UpdateForm에 머무름 / 삭제시에도 Main으로 가지않고 updateForm에 머무름 -->
+                            <button class="btn btn--radius-2 btn--red" onclick="delete_member()">회원탈퇴</button>
                         </div>
                     </form>
                 </div>
