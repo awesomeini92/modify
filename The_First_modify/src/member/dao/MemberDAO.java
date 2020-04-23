@@ -111,7 +111,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "INSERT INTO member VALUES(?,?,?,?,?,?,?,?,?,now(),null)";
+			String sql = "INSERT INTO member VALUES(?,?,?,?,?,?,?,?,?,now(),0)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getId());
 			pstmt.setString(2, member.getPassword());
