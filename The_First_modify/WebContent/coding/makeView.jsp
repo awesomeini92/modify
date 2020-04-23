@@ -272,12 +272,7 @@ $(document).ready(function() {
 	<div class="w3-article">
 	 <div class="left-box"> 
 			<div class="w3-border w3-padding">
-				<c:if test="${sessionScope.level==2 }">
-   					<i class="fa fa-pencil" style="font-size:26px; color: brown">${article.nickname }</i>
-				</c:if>
-				<c:if test="${sessionScope.level==3 }">
-   					<i class="fa fa-star" style="font-size:26px; color: gold">${article.nickname }</i>
-				</c:if>
+					<i class="fa fa-user"></i>${article.nickname }
 				 
 				<i class='fas fa-coins' style="float: right!important;">${article.CP }</i>
 				<br>

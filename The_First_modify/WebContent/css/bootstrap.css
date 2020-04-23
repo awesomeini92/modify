@@ -6073,7 +6073,7 @@ button.close {
 .visible-lg-inline-block {
   display: none !important;
 }
- /*dain-css*/
+  /*dain-css*/
 .notice-box {
   margin: auto;
   width: 70%;
@@ -6161,8 +6161,24 @@ margin-bottom: 5%;
 
 /* table:nth-child(even) {background-color: #f2f2f2;} */
 .right-box_padding {
-   padding: 8%;
+	height: 140px;
+/*    padding: 2%; */
+/*    overflow: scroll; */
    margin-bottom: 10%;
+   position: relative;
+}
+#cmm{
+	padding-left: 5%;
+	padding-top: 2%;
+	width: 700px;
+	height: 138px;
+	overflow: scroll;
+	float: left;
+}
+#hrt{
+	display: inline-block;
+	margin-left: 40px;
+	margin-top: 40px;
 }
 .left-box_padding {
    padding: 50% 0;
@@ -6174,11 +6190,11 @@ margin-bottom: 5%;
    margin-bottom: 20%;
 }
 .center-box {
-/*   margin: 20%; */
+  margin-left: 20%;
   width: 50%;
 /*   border: 3px solid green; */
   padding-bottom: 10%;
-  padding-left: 18%;
+  padding-left: 32%;
 }
 .code_wf{ /*writeform */
 	border: 1px solid grey;
