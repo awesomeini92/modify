@@ -179,6 +179,7 @@ $(function () {
 				<div class="wrap-input100 validate-input" data-validate="Name is required">
 					<span class="label-input100">ID</span>
 					<input class="input100" type="text" name="id" id="id" required="required" placeholder="4~12자리 영문,숫자 조합" onkeyup="checkId(this)">
+					<span id="checkIdResult"></span>
 					<div class="wrap-contact100-form-btn" style="width:120px;">
 						<div class="contact100-form-bgbtn"></div>
 						<button class="contact100-form-btn" id="idDup">
@@ -187,7 +188,6 @@ $(function () {
 							</span>
 						</button>
 					</div>
-					<span id="checkIdResult"></span>
 				</div>
 				
 				<div class="wrap-input100 validate-input" data-validate="Name is required">
