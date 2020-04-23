@@ -43,7 +43,7 @@ public class JobBoardListService {
 		return jobList;
 	}
 
-	public ArrayList<JobBoardBean> getArticleList(int page, int limit) {
+	public ArrayList<JobBoardBean> getArticleList() {
 		System.out.println("BoardListService - getArticleList()");
 		ArrayList<JobBoardBean> articleList = null;
 		
@@ -51,7 +51,7 @@ public class JobBoardListService {
 		JobBoardDAO boardDAO = JobBoardDAO.getInstance();
 		boardDAO.setConnection(con);
 		
-		articleList = boardDAO.selectArticleList(page, limit);
+		articleList = boardDAO.selectArticleList();
 		
 		close(con);
 		

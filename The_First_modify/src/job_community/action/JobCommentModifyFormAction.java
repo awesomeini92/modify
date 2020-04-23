@@ -30,11 +30,13 @@ public class JobCommentModifyFormAction implements Action {
 	
 		AllService allService = new AllService();
 		Date today = allService.getToday();
+		
 		if(jobCommentBean != null) {
 				String comment = jobCommentBean.getComment();
 				request.setAttribute("comment", comment);
 				request.setAttribute("article", article);
 				request.setAttribute("today", today);
+				request.setAttribute("modify_num", comment_num);
 				
 				forward = new ActionForward();
 				forward.setPath("/job_community/job_comment_modify.jsp");

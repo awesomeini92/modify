@@ -1,6 +1,6 @@
 package job_community.svc;
 
-import static db.JdbcUtil.close;
+import static db.JdbcUtil.*;
 import static db.JdbcUtil.getConnection;
 
 import java.sql.Connection;
@@ -18,6 +18,9 @@ public class JobCommentDeleteProService {
 		int success = jobBoardDAO.deleteComment(comment_num);
 		if(success>0) {
 			isSuccess=true;
+			commit(con);
+		}else {
+			rollback(con);
 		}
 		
 		close(con);

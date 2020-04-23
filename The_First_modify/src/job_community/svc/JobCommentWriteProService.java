@@ -1,6 +1,6 @@
 package job_community.svc;
 
-import static db.JdbcUtil.close;
+import static db.JdbcUtil.*;
 import static db.JdbcUtil.getConnection;
 
 import java.sql.Connection;
@@ -19,6 +19,9 @@ public class JobCommentWriteProService {
 		int success = jobBoardDAO.writeComment(jobCommentBean);
 		if(success>0) {
 			isWriteSuccess=true;
+			commit(con);
+		}else {
+			rollback(con);
 		}
 		
 		close(con);

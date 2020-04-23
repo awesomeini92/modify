@@ -94,18 +94,15 @@ public class JobBoardDAO {
 		}
 
 		// 게시물 목록 조회 후 리턴
-		public ArrayList<JobBoardBean> selectArticleList(int page, int limit) {
+		public ArrayList<JobBoardBean> selectArticleList() {
 			ArrayList<JobBoardBean> articleList = new ArrayList<JobBoardBean>();
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			
-			int startRow = (page - 1) * 10;
 			
 			try {
-				String sql = "SELECT *, time(date) AS time FROM job_community ORDER BY num DESC LIMIT ?, ?";
+				String sql = "SELECT *, time(date) AS time FROM job_community ORDER BY num DESC";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, startRow);
-				pstmt.setInt(2, limit);
 	            rs = pstmt.executeQuery();
 	            
 	            // ResultSet 객체 내의 모든 레코드를 각각 레코드별로 BoardBean 에 담아서 ArrayList 객체에 저장

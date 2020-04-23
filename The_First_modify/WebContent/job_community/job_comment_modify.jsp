@@ -89,9 +89,9 @@ $(document).ready(function() {
                 	var index = parseInt(nowPage)*3-2;
         			paging(nowPage);
         			
-                	output += "<form action='JobCommentModifyPro.job?' method='post'>";
+                	output += "<form action='JobCommentModifyPro.job' method='post'>";
                 	output += "<input type='hidden' name='comment_num' value='${modify_num }'>";
-        			output += "<input type='hidden' name='post_num' value='${post_num }'>";
+                	output += "<input type='hidden' name='post_num' value='${article.num }'>";
         			output += "<div><input type='text' class='bd_color'  name='nickname' value=${sessionScope.nickname } readonly>";
         			output += "<span class='w3-right'><input type='submit' class='btn btn-success btn-sm' value='댓글수정'></span></div>";
         			output += "<textarea class='form-control' id='exampleTextarea' rows='3' name='comment'>${comment }</textarea></form>";

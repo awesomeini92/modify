@@ -20,10 +20,12 @@ public class JobCommentModifyProAction implements Action {
 		
 		int post_num = Integer.parseInt(request.getParameter("post_num"));
 		String comment = request.getParameter("comment");
+		int comment_num =  Integer.parseInt(request.getParameter("comment_num"));
 		
+		System.out.println(comment);
 		
 		JobCommentBean jobCommentBean = new JobCommentBean();
-		jobCommentBean.setPost_num(post_num);
+		jobCommentBean.setComment_num(comment_num);
 		jobCommentBean.setComment(comment);
 		
 		
