@@ -18,6 +18,12 @@
 	</script>
     </c:otherwise>
 </c:choose>
+<c:if test="${sessionScope.level==1 }">
+    <script type="text/javascript">
+		alert("LEVEL 2부터 읽으실 수 있습니다.");
+		history.back();
+	</script>
+</c:if>
 <%
 	// 전달받은 request 객체에서 데이터 가져오기
 	CodingBean article = (CodingBean)request.getAttribute("article");

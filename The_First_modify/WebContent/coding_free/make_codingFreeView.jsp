@@ -9,7 +9,12 @@
 		location.href="LoginForm.me"
 	</script>
 </c:if>
-
+<c:if test="${sessionScope.level==1 }">
+    <script type="text/javascript">
+		alert("LEVEL 2부터 읽으실 수 있습니다.");
+		history.back();
+	</script>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>

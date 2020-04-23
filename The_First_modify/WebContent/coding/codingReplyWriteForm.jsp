@@ -13,6 +13,12 @@
 		location.href="LoginForm.me"
 	</script>
 </c:if>
+<c:if test="${sessionScope.level<3 }">
+    <script type="text/javascript">
+		alert("LEVEL 3부터 작성할 수 있습니다.");
+		history.back();
+	</script>
+</c:if>
 <%	
 	// 전달받은 request 객체에서 데이터 가져오기
 	CodingBean article = (CodingBean)request.getAttribute("article");

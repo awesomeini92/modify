@@ -15,6 +15,7 @@
 		location.href="LoginForm.me"
 	</script>
 </c:if>
+
 <%
 	// Action 클래스에서 request 객체의 setAttibute() 메서드로 저장되어 전달된 객체 가져오기(Object 타입이므로 형변환 필요)
 	ArrayList<CodingBean> articleList = (ArrayList<CodingBean>)request.getAttribute("articleList");

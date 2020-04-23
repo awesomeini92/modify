@@ -13,6 +13,12 @@
 		location.href="LoginForm.me"
 	</script>
 </c:if>
+<c:if test="${sessionScope.level==1 }">
+    <script type="text/javascript">
+		alert("LEVEL 2부터 읽으실 수 있습니다.");
+		history.back();
+	</script>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -266,10 +272,13 @@ $(document).ready(function() {
 	<div class="w3-article">
 	 <div class="left-box"> 
 			<div class="w3-border w3-padding">
-				<c:if test="${article.date==today}">
-							<i class="fa fa-user"></i>
-					</c:if>
-				 <a href="#">${article.nickname }</a>
+				<c:if test="${sessionScope.level==2 }">
+   					<i class="fa fa-pencil" style="font-size:26px; color: brown">${article.nickname }</i>
+				</c:if>
+				<c:if test="${sessionScope.level==3 }">
+   					<i class="fa fa-star" style="font-size:26px; color: gold">${article.nickname }</i>
+				</c:if>
+				 
 				<i class='fas fa-coins' style="float: right!important;">${article.CP }</i>
 				<br>
 				<i class="fa fa-calendar">

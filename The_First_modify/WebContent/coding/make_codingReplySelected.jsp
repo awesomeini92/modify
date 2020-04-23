@@ -13,6 +13,12 @@
 		location.href="LoginForm.me"
 	</script>
 </c:if>
+<c:if test="${sessionScope.level==1 }">
+    <script type="text/javascript">
+		alert("LEVEL 2부터 읽으실 수 있습니다.");
+		history.back();
+	</script>
+</c:if>
 <%	
 CodingBean article = (CodingBean)request.getAttribute("article");
 ArrayList<Coding_refBean> article_refList = (ArrayList<Coding_refBean>)request.getAttribute("article_refList");
@@ -268,7 +274,6 @@ function paging(nowPage){
 <!-- 	 <a href="javascript:getReplyListCount()">답글보기</a> -->
 <!-- 	 	<input type=button value="답글보기" onclick="getReply()"> -->
 	</div>
-		<span style='float: right!important;' ><button type='button' class='btn btn-outline-danger'>공개여부</button></span>
 </div>
 
 <section id="replyPage"> </section>	
