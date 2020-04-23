@@ -14,9 +14,29 @@
 -->
 <html>
 	<head>
-
+		<style type="text/css">
+    		.channel-chat {
+    		position: fixed;
+     		bottom: 0;
+     		z-index: 99999;
+     		} 
+   		</style>
 	</head>
 	<body>
+	<!-- 카카오톡 채팅 -->
+   		<a id="channel-chat-button" href="#" onclick="void chatChannel();" class="channel-chat">
+  		<img src="images/consult_small_yellow_pc.png" style="width: 104px"/></a>
+
+ 		<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+   		<script type="text/javascript">
+        	// input your appkey
+     		Kakao.init('c089c8172def97eb00c07217cae17495')
+     		function chatChannel() {
+       		Kakao.Channel.chat({
+         	channelPublicId: '_CZgxnxb',
+       			})
+     		}
+	   	</script> 
 		<!-- header page -->
 		<jsp:include page="inc/link.jsp"/>
 		<jsp:include page="inc/top.jsp"/>

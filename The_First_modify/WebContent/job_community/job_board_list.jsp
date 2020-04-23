@@ -55,12 +55,13 @@
 						<ul>
 				   		<li>
 				   		<strong class="">${job.name }</strong><br>
-				   		<span class=""><a href='<c:url value="${job.url}"/>'>${job.title }</a></span><br>
+				   		<span class="">${job.title }</span><br>
 				   		<span class="">
 				       		<span>연봉 : ${job.pay }</span><br>
 				       		<span>근무지역 : ${job.area }</span><br>
 	   				        <span>근로형태 : ${job.worktype }</span><br>
-				       		<span>채용마감 : ${job.closedate}</span><br>
+				       		<span>채용마감 : ${job.closedate}</span>
+				       		<input type="button" value="상세보기" onclick="location.href='${job.url}'"/>
 				   		</span>
 				   		</li>
 				  		</ul>

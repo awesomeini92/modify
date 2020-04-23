@@ -91,9 +91,10 @@
 //                alert(JSON.stringify(res));
                var id = res.id;
                var email = res.kakao_account.email;
-               var nickname = res.kakao_account.nickname;
-               alert("id : " + id + "email : " + email + "nickname : " + nickname);
+               var nickname = res.properties.nickname;
+//                alert("id : " + id + "email : " + email + "nickname : " + nickname);
                //새창을 띄우든 다른페이지로 이동하던지해서 저장이 가능하다함 
+               alert("카카오톡 ID를 이용 하실 경우 Coding Q&A의 Charge게시판 이용에 제한이 있습니다");
                location.href="KakaoJoinPro.kakao?id="+id+"&email="+email+"&nickname="+nickname;
                
             }
