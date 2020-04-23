@@ -95,6 +95,7 @@
 </head>
 
 <body>
+	<a href="./main.all"><img alt="home" src="./images/home.png" style="width:40px; float:right; margin-right:20px; margin-top: 20px;"></a>
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
         <div class="wrapper wrapper--w790">
             <div class="card card-5">

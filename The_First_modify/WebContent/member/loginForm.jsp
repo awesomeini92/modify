@@ -32,6 +32,7 @@
 	<link rel="stylesheet" type="text/css" href="Login_v4/css/main.css">
 </head>
 <body>
+	<a href="./main.all"><img alt="home" src="./images/home.png" style="width:40px; float:right; margin-right:20px; margin-top: 20px;"></a>
 	<section id="loginFormArea">
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">

@@ -49,6 +49,7 @@ function delete_member() {
 </head>
 
 <body>
+	<a href="./main.all"><img alt="home" src="./images/home.png" style="width:40px; float:right; margin-right:20px; margin-top: 20px;"></a>
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
@@ -147,10 +148,11 @@ function delete_member() {
                             </div>
                         </div>
                        
-                        <div style="text-align:left;">
-                            <button class="btn btn--radius-2 btn--red" type="submit">회원정보수정</button>
-                            <button type="button" class="btn btn--radius-2 btn--red" onclick="location.href='TextList.te?receiver=<%=mb.getNickname() %>'" >쪽지함</button>
-                            <button type="button" class="btn btn--radius-2 btn--red" onclick="delete_member()">회원탈퇴</button>
+                        <div style="text-align:center;">
+                            <button class="btn btn--radius-2 btn--red" type="submit">수   정 </button>
+                            <button class="btn btn--radius-2 btn--red" onclick="location.href='TextList.te?receiver=<%=mb.getNickname() %>'" >쪽 지 함</button>
+                            <!-- 쪽지함 클릭시 페이지 이동안하고 그대로 UpdateForm에 머무름 / 삭제시에도 Main으로 가지않고 updateForm에 머무름 -->
+                            <button class="btn btn--radius-2 btn--red" onclick="delete_member()">탈   퇴 </button>
                         </div>
                     </form>
                 </div>

@@ -169,7 +169,7 @@ $(function () {
 
 </head>
 <body>
-	
+<!-- 	<a href="./main.all"><img alt="home" src="./images/home.png" style="width:40px; float:right; margin-right:20px; margin-top: 20px;"></a> -->
 	<div class="container-contact100">
 		<div class="wrap-contact100">
 			<form class="contact100-form validate-form" action="JoinPro.me" method="post" id="form">
