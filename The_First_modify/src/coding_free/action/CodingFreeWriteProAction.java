@@ -52,7 +52,7 @@ public class CodingFreeWriteProAction implements Action {
 			out.println("</script>");
 		} else {
 			MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
-			boolean isSuccess = memberUpdateProService.updateCommentLP(nickname);
+			boolean isSuccess = memberUpdateProService.updateArticleLP(nickname);
 			if(isSuccess) {
 				forward = new ActionForward(); 
 				forward.setPath("CodingFreeList.cf");

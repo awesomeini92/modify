@@ -33,9 +33,14 @@ public class CmmntDeleteHeartAction implements Action {
 		if(isSuccess) {
 			System.out.println("delete 성공");
 			boolean isSuccessUpdate = cmmntHeartService.updateHeartCount(cmmnt_num);
+			
+			CodingFreeCommentHeartService codingFreeCommentHeartService = new CodingFreeCommentHeartService();
+			int free_heart = codingFreeCommentHeartService.selectFreeHeartCount(nickname);
+			int charge_heart = cmmntHeartService.selectChargeHeartCount(nickname);
+			int hearts = free_heart + charge_heart;
 			if(isSuccessUpdate) {
 				MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
-				isSuccess = memberUpdateProService.minusHeartLP(nickname);
+				isSuccess = memberUpdateProService.updateMemberHeart(nickname,hearts);
 				if(isSuccess) {
 					System.out.println("update 성공");
 				}

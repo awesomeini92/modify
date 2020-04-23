@@ -9,14 +9,14 @@ import coding_free.dao.CodingFreeDAO;
 
 public class CodingFreeCommentHeartService {
 
-	public boolean insertHeart(int post_num, int cmmnt_num, String recommender) {
+	public boolean insertHeart(int cmmnt_num, String recommender, String nickname) {
 		boolean isSuccess = false;
 		System.out.println("CodingFreeCommentHeartService        insertHeart");
 		Connection con = getConnection();
 		CodingFreeDAO codingFreeDAO = CodingFreeDAO.getInstance();
 		codingFreeDAO.setConnection(con);
 		
-		int success = codingFreeDAO.insertFreeHeart(post_num, cmmnt_num,recommender);
+		int success = codingFreeDAO.insertFreeHeart( cmmnt_num, recommender, nickname);
 		
 		if(success>0) {
 			System.out.println("insertHeart===========성공");
@@ -90,6 +90,21 @@ public class CodingFreeCommentHeartService {
 		close(con);
 		
 		return isSuccess;
+	}
+
+	public int selectFreeHeartCount(String nickname) {
+		int free_heart = 0;
+		
+		
+		Connection con = getConnection();
+		CodingFreeDAO codingFreeDAO = CodingFreeDAO.getInstance();
+		codingFreeDAO.setConnection(con);
+		
+		free_heart = codingFreeDAO.selectFreeHeartCount(nickname);
+		
+		return free_heart;
+		
+		
 	}
 
 

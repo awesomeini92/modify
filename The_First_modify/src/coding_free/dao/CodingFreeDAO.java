@@ -451,16 +451,17 @@ public class CodingFreeDAO {
 	}
 	
 	//FreeHeart 프리하트
-		public int insertFreeHeart(int post_num, int cmmnt_num, String recommender) {
+		public int insertFreeHeart(int cmmnt_num, String recommender, String nickname) {
 			PreparedStatement pstmt = null;
 			int insertCount = 0;
 			
 			try {
-//				String sql = "UPDATE coding_free_comment SET heart=heart+1, recommender=? WHERE comment_num=?";
-				String sql = "INSERT INTO free_heart values(?, ?)";
+				String sql = "INSERT INTO free_heart values(?,?,?)";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, cmmnt_num);
-				pstmt.setString(2, recommender);
+				pstmt.setString(1, nickname);
+				pstmt.setInt(2, cmmnt_num);
+				pstmt.setString(3, recommender);
+				
 				insertCount = pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -489,6 +490,7 @@ public class CodingFreeDAO {
 	    			pstmt.setInt(1, hearts);
 	    			pstmt.setInt(2, cmmnt_num);
 	    			updateCount = pstmt.executeUpdate();
+	    			
 	            }
 				
 			} catch (SQLException e) {
@@ -596,6 +598,29 @@ public class CodingFreeDAO {
 		}
 
 		
+		public int selectFreeHeartCount(String nickname) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int hearts = 0;
+			
+			try {
+				String sql = "select count(nickname) AS hearts from free_heart where nickname=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, nickname);
+	            rs = pstmt.executeQuery();
+	            while(rs.next()) {
+	            	hearts = rs.getInt("hearts");
+	            }
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+
+			return hearts;
+		}
 		
 
 

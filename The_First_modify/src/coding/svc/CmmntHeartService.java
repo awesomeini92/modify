@@ -11,14 +11,14 @@ import coding.dao.CodingDAO;
 
 public class CmmntHeartService {
 
-	public boolean insertHeart(int cmmnt_num, String recommender) {
+	public boolean insertHeart(int cmmnt_num, String recommender, String nickname) {
 		boolean isSuccess = false;
 		
 		Connection con = getConnection();
 		CodingDAO codingDAO = CodingDAO.getInstance();
 		codingDAO.setConnection(con);
 		
-		int success = codingDAO.insertChargeHeart(cmmnt_num,recommender);
+		int success = codingDAO.insertChargeHeart(cmmnt_num, recommender, nickname);
 		
 		if(success>0) {
 			commit(con);
@@ -88,6 +88,19 @@ public class CmmntHeartService {
 		close(con);
 		
 		return isSuccess;
+	}
+
+	public int selectChargeHeartCount(String nickname) {
+		
+		int charge_heart=0;
+		
+		Connection con = getConnection();
+		CodingDAO codingDAO = CodingDAO.getInstance();
+		codingDAO.setConnection(con);
+		
+		charge_heart = codingDAO.selectChargeHeartCount(nickname);
+		
+		return charge_heart;
 	}
 
 

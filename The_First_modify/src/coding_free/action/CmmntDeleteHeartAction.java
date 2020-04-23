@@ -3,6 +3,7 @@ package coding_free.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import coding.svc.CmmntHeartService;
 import coding_free.svc.CodingFreeCommentHeartService;
 import coding_free.svc.CodingFreeCommentListService;
 import coding_free.vo.ActionForward;
@@ -31,11 +32,17 @@ public class CmmntDeleteHeartAction implements Action {
 			System.out.println("delete 성공");
 			boolean isSuccessUpdate = codingFreeCommentHeartService.updateHeartCount(cmmnt_num);
 			if(isSuccessUpdate) {
+				int free_heart = codingFreeCommentHeartService.selectFreeHeartCount(nickname);
+				CmmntHeartService cmmntHeartService = new CmmntHeartService();
+				int charge_heart = cmmntHeartService.selectChargeHeartCount(nickname);
+				
+				int hearts = free_heart + charge_heart;
+				
 				MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
-					isSuccess = memberUpdateProService.minusHeartLP(nickname);
-					if(isSuccess) {
-						System.out.println("update 성공");
-					}
+						isSuccess = memberUpdateProService.updateMemberHeart(nickname,hearts);
+						if(isSuccess) {
+							System.out.println("-~~~~~~~~~~~~~~~update 성공");
+						}
 			}
 		}
 		

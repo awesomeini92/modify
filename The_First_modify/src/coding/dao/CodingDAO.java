@@ -817,25 +817,25 @@ public class CodingDAO {
 	
 	
 	//chargeheart
-	public int insertChargeHeart(int cmmnt_num, String recommender) {
-		PreparedStatement pstmt = null;
-		int insertCount = 0;
-		
-		try {
-//			String sql = "UPDATE coding_charge_comment SET heart=heart+1, recommender=? WHERE comment_num=?";
-			String sql = "INSERT INTO charge_heart values(?, ?)";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, cmmnt_num);
-			pstmt.setString(2, recommender);
-			insertCount = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
+		public int insertChargeHeart(int cmmnt_num, String recommender, String nickname) {
+			PreparedStatement pstmt = null;
+			int insertCount = 0;
+			
+			try {
+				String sql = "INSERT INTO charge_heart values(?,?,?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, nickname);
+				pstmt.setInt(2, cmmnt_num);
+				pstmt.setString(3, recommender);
+				insertCount = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
 
-		return insertCount;
-}
+			return insertCount;
+	}
 	
 	public int updateChargeHeartCount(int cmmnt_num) {
 		PreparedStatement pstmt = null;
@@ -934,6 +934,35 @@ public class CodingDAO {
 		
 		return recList;
 	}
+	
+	public int selectChargeHeartCount(String nickname) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int hearts = 0;
+		
+		try {
+			String sql = "select count(nickname) AS hearts from charge_heart where nickname=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+            	hearts = rs.getInt("hearts");
+    			
+            }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return hearts;
+	}
+	
+
+	
+	
 
 	//채택
 	public int getSelectedRef_num(int post_num) {
@@ -1045,6 +1074,7 @@ public class CodingDAO {
 		return nickname;
 	}
 
+	
 
 	
 

@@ -3,6 +3,7 @@ package coding_free.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import coding.svc.CmmntHeartService;
 import coding_free.svc.CodingFreeCommentHeartService;
 import coding_free.svc.CodingFreeCommentListService;
 import coding_free.vo.ActionForward;
@@ -15,25 +16,28 @@ public class CmmntFreeUpdateHeartAction implements Action {
 		ActionForward forward = null;
 		System.out.println("CmmntFreeUpdateHeartAction");
 
-		int post_num = Integer.parseInt(request.getParameter("post_num"));
+
 		int cmmnt_num = Integer.parseInt(request.getParameter("cmmnt_num"));
 		String recommender = request.getParameter("recommender");
-		
-		CodingFreeCommentHeartService codingFreeCommentHeartService = new CodingFreeCommentHeartService();
-		boolean isSuccess = codingFreeCommentHeartService.insertHeart(post_num, cmmnt_num, recommender);
 		
 		CodingFreeCommentListService codingFreeCommentListService = new CodingFreeCommentListService();
 		String nickname = codingFreeCommentListService.getNickname(cmmnt_num);
 		
+		CodingFreeCommentHeartService codingFreeCommentHeartService = new CodingFreeCommentHeartService();
+		boolean isSuccess = codingFreeCommentHeartService.insertHeart(cmmnt_num, recommender,nickname);
+		
 		if(isSuccess) {
 			isSuccess = codingFreeCommentHeartService.updateHeartCount(cmmnt_num);
-			if(isSuccess) {
-				MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
-				isSuccess = memberUpdateProService.updateHeartLP(nickname);
+			int free_heart = codingFreeCommentHeartService.selectFreeHeartCount(nickname);
+			CmmntHeartService cmmntHeartService = new CmmntHeartService();
+			int charge_heart = cmmntHeartService.selectChargeHeartCount(nickname);
+			int hearts = free_heart + charge_heart;
+			MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
+				
+				isSuccess = memberUpdateProService.updateMemberHeart(nickname,hearts);
 				if(isSuccess) {
 					System.out.println("-~~~~~~~~~~~~~~~update 성공");
 				}			
-			}
 		}
 		
 		return forward;
