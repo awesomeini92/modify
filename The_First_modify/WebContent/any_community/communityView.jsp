@@ -112,7 +112,7 @@ $(document).ready(function() {
 			      						output += "<input type='button' class='btn btn-secondary btn-sm' value='댓글삭제' onclick='delete_comment("+comment_num+");'>";
 			      					}
 	 	                    }else  if(j === 3){
-	 	                    	output += "<div class='w3-border right-box_padding'>"+cmmnt.comment; 
+	 	                    	output += "<div class='w3-border right-box_padding cmmnt_scroll'>"+cmmnt.comment; 
 	 	                    	output += "</div>";
 	 	                    }
 	 	                    
@@ -223,7 +223,7 @@ $(document).ready(function() {
 					
 					<article class="w3-border w3-large w3-padding article_content">
               			<c:if test="${article.file != null}">
-               			<img src="/any_community/images/${article.file }" width=800px >   <br><br><br>
+               			<img src="./any_community/images/${article.file }" width=800px >   <br><br><br>
                   		</c:if>
               			 ${article.content } <br><br>
            			</article>

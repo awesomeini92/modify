@@ -27,4 +27,22 @@ public class JobCommentDeleteProService {
 		return isSuccess;
 	}
 
+	public boolean deleteCommentAll(int num) {
+		boolean isSuccess = false;
+		Connection con = getConnection();
+		JobBoardDAO jobBoardDAO = JobBoardDAO.getInstance();
+		jobBoardDAO.setConnection(con);
+		
+		int success = jobBoardDAO.deleteCommentAll(num);
+		if(success>0) {
+			isSuccess=true;
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		return isSuccess;
+	}
+
 }

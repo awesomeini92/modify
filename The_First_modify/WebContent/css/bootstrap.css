@@ -6167,6 +6167,11 @@ margin-bottom: 5%;
    margin-bottom: 10%;
    position: relative;
 }
+.cmmnt_scroll{
+	padding-left: 5%;
+	padding-top: 2%;
+	overflow: scroll;
+}
 #cmm{
 	padding-left: 5%;
 	padding-top: 2%;

@@ -6,16 +6,26 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <c:if test="${sessionScope.nickname==null }">
+<c:choose>
+	<c:when test="${sessionScope.sId != null }">
     <script type="text/javascript">
+		alert("이메일 인증 받으세요.");
+		location.href="emailSendConfirm.jsp"
+	</script>
+	</c:when>
+	<c:otherwise>
+		<script type="text/javascript">
 		alert("로그인 해주세요");
 		location.href="LoginForm.me"
-	</script>
+		</script>
+	</c:otherwise>
+</c:choose>
 </c:if>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Do you have any Questions?</title>
 
 </head>
 	<body>
@@ -70,8 +80,10 @@
                                 </div>
                             </div>
                             <div class="text-right">
-<%--                             <button type="button" class="bs_btn btn-info" onclick="location.href='AcademyWriteForm.ac?nickname=${sessionScope.nickname }'">글쓰기</button> --%>
-                            <button type="button" class="bs_btn btn-info" onclick="location.href='CodingFreeWriteForm.cf'">글쓰기</button>	
+                            <c:if test="${sessionScope.level>=2 }">
+								    <button type="button" class="bs_btn btn-info" onclick="location.href='CodingFreeWriteForm.cf'">글쓰기</button>
+								</c:if>
+                            	
                             </div>
                             </div>
                         </div>
@@ -89,33 +101,6 @@
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 		
 	</div>
-		
-		
-	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="js/chart-area-demo.js"></script>
-    <script src="js/chart-bar-demo.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-    <script src="js/datatables-demo.js"></script>
-		
-	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
-	<!-- Carousel -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- Magnific Popup -->
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
-	<!-- Main -->
-	<script src="js/main.js"></script>
-	
+
 	</body>
 </html>

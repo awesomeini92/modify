@@ -15,7 +15,7 @@
 	<c:otherwise>
 		<script type="text/javascript">
 		alert("로그인 해주세요");
-		location.href="LoginForm.me"
+		location.href="emailSendConfirm.jsp"
 		</script>
 	</c:otherwise>
 </c:choose>
@@ -115,7 +115,7 @@ $(document).ready(function() {
 			      						output += "<input type='button' class='btn btn-secondary btn-sm' value='댓글삭제' onclick='delete_comment("+comment_num+");'>";
 			      					}
 	 	                    }else  if(j === 3){
-	 	                    	output += "<div class='w3-border right-box_padding'>"+cmmnt.comment; 
+	 	                    	output += "<div class='w3-border right-box_padding cmmnt_scroll'>"+cmmnt.comment; 
 	 	                    	output += "</div>";
 	 	                    }
 	 	                    
@@ -246,7 +246,7 @@ $(document).ready(function() {
 
 				<!-- 댓글 출력 -->
 				<div class="w3-article" id="cmmnt_article">
-					<div class="right-box " id="commentList">
+					<div class="right-box" id="commentList" >
 					</div>
 				</div>
 			</div>

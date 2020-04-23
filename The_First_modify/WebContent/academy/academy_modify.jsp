@@ -13,7 +13,7 @@
 	<c:otherwise>
 		<script type="text/javascript">
 		alert("로그인 해주세요");
-		location.href="LoginForm.me"
+		location.href="emailSendConfirm.jsp"
 		</script>
 	</c:otherwise>
 </c:choose>

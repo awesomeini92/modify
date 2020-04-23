@@ -8,7 +8,7 @@
 	<c:when test="${sessionScope.sId != null }">
     <script type="text/javascript">
 		alert("이메일 인증 받으세요.");
-		location.href="NewLoginForm.me"
+		location.href="emailSendConfirm.jsp"
 	</script>
 	</c:when>
 	<c:otherwise>
@@ -24,7 +24,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Job community</title>
+<title>Do you have any Questions?</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="js/jquery-3.4.1.js"> </script>
 <script type="text/javascript">
@@ -114,7 +114,7 @@ $(document).ready(function() {
 			      						output += "<input type='button' class='btn btn-secondary btn-sm' value='댓글삭제' onclick='delete_comment("+comment_num+");'>";
 			      					}
 	 	                    }else  if(j === 3){
-	 	                    	output += "<div class='w3-border right-box_padding'>"+cmmnt.comment; 
+	 	                    	output += "<div class='w3-border right-box_padding cmmnt_scroll'>"+cmmnt.comment; 
 	 	                    	output += "</div>";
 	 	                    }
 	 	                    

@@ -444,6 +444,27 @@ public class JobBoardDAO {
 
 			return deleteCount;
 		}
+
+		public int deleteCommentAll(int num) {
+			PreparedStatement pstmt = null;
+			int deleteCount = 0;
+			
+			try {
+				
+				String sql = "DELETE FROM job_comment WHERE post_num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				
+				deleteCount = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+			return deleteCount;
+		}
 	
 	
 }

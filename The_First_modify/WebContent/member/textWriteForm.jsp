@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Text Write</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/png" href="Login_v4/images/icons/favicon.ico"/>
 	<link rel="stylesheet" type="text/css" href="Login_v4/vendor/bootstrap/css/bootstrap.min.css">

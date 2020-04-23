@@ -14,6 +14,7 @@ public class MemberBean {
 	private String emailHash;
 	private boolean emailChecked;
 	private Date date;
+	private int hearts;
 
 	public MemberBean() {
 	}
@@ -125,6 +126,14 @@ public class MemberBean {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public int getHearts() {
+		return hearts;
+	}
+
+	public void setHearts(int hearts) {
+		this.hearts = hearts;
 	}
 
 }

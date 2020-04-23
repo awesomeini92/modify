@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.dao.MemberDAO;
+import member.svc.MemberDetailService;
 import member.svc.MemberLoginService;
 import member.vo.ActionForward;
 import member.vo.MemberBean;
@@ -27,6 +29,10 @@ public class MemberLoginProAction implements Action {
 		boolean emailCheckResult = memberLoginService.isEmailChecked(id);
 		String nickname = memberLoginService.getNickname(id);
 		
+		MemberDetailService memberDetailService = new MemberDetailService();
+		MemberBean memberBean = memberDetailService.getMember(nickname);
+		int level = memberBean.getLevel();
+		
 		if(loginResult == 0) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -47,6 +53,7 @@ public class MemberLoginProAction implements Action {
 			
 			if (emailCheckResult) {
 				session.setAttribute("nickname", nickname);
+				session.setAttribute("level", level);
 				forward = new ActionForward();
 				forward.setPath(""); 
 				forward.setRedirect(true);

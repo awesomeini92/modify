@@ -7,7 +7,7 @@
 	<c:when test="${sessionScope.sId != null }">
     <script type="text/javascript">
 		alert("이메일 인증 받으세요.");
-		location.href="NewLoginForm.me"
+		location.href="emailSendConfirm.jsp"
 	</script>
 	</c:when>
 	<c:otherwise>
@@ -23,7 +23,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>article | page</title>
+<title>${article.subject }</title>
 <style type="text/css">
 .mg10 {
 	margin-top: 10% !important;
@@ -96,44 +96,6 @@
 	<jsp:include page="../inc/bottom.jsp" />
 	<!-- footer page -->
 
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-	</div>
-
-	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/chart-area-demo.js"></script>
-	<script src="js/chart-bar-demo.js"></script>
-	<script
-		src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/datatables-demo.js"></script>
-
-	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
-	<!-- Carousel -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- Magnific Popup -->
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
-	<!-- Main -->
-	<script src="js/main.js"></script>
 
 </body>
 </html>

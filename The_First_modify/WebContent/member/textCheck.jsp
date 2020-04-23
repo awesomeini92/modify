@@ -27,7 +27,7 @@ function textCheck() {
 // 	setInterval(textCheck(),60000);
 // }
 
-if(${sessionScope.nickname} != null) {
+if(${sessionScope.nickname } != null) {
 	StartTextCheck();
 }
 

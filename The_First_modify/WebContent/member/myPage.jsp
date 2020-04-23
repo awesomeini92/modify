@@ -122,6 +122,18 @@ function delete_member() {
                                 </div>
                             </div>
                         </div>
+                          <div class="form-row m-b-55">
+                            <div class="name">Hearts</div>
+                            <div class="value">
+                                <div class="row row-refine">
+                                    <div class="col-3">
+                                        <div class="input-group-desc">
+                                            <input class="input--style-5" type="text" name="lp" value="<%=mb.getHearts()%>" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-row m-b-55">
                             <div class="name">Level</div>
                             <div class="value">

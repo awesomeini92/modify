@@ -18,7 +18,15 @@ String id = (String)session.getAttribute("sId");
     </c:if>
     <c:if test="${! (sessionScope.sId eq 'admin')}">
         <header class="text-right" style="color:#945bf1; margin-right:20px;">
-		<b>${sessionScope.nickname}</b>님이 로그인하셨습니다 | <a href="Mypage.me">마이페이지</a>	| <a href=" Logout.me">로그아웃</a>
+        <c:if test="${sessionScope.level==1 }">
+   					<i class="fa fa-pagelines" style="font-size:26px; color: green"></i><b>${sessionScope.nickname}</b> 님이 로그인하셨습니다 | <a href="Mypage.me">마이페이지</a>	| <a href=" Logout.me">로그아웃</a>
+		</c:if>
+		<c:if test="${sessionScope.level==2 }">
+   			<i class="fa fa-pencil" style="font-size:26px; color: brown"></i><b>${sessionScope.nickname}</b>님이 로그인하셨습니다 | <a href="Mypage.me">마이페이지</a>	| <a href=" Logout.me">로그아웃</a>
+		</c:if>
+		<c:if test="${sessionScope.level==3 }">
+   			<i class="fa fa-star" style="font-size:26px; color: gold"></i><b>${sessionScope.nickname}</b>님이 로그인하셨습니다 | <a href="Mypage.me">마이페이지</a>	| <a href=" Logout.me">로그아웃</a>
+		</c:if>
 	</header>
 	</c:if>
     </c:when>

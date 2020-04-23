@@ -9,7 +9,7 @@
 	<c:when test="${sessionScope.sId != null }">
     <script type="text/javascript">
 		alert("이메일 인증 받으세요.");
-		location.href="NewLoginForm.me"
+		location.href="emailSendConfirm.jsp"
 	</script>
 	</c:when>
 	<c:otherwise>
@@ -24,7 +24,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Do you have any Questions?</title>
 <link href="jobboardcss.css" rel="stylesheet">
 </head>
 <body>

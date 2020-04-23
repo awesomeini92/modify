@@ -153,6 +153,7 @@ public class MemberDAO {
 					mb.setLp(rs.getInt("lp"));
 					mb.setLevel(rs.getInt("level"));
 					mb.setDate(rs.getDate("date"));
+					mb.setHearts(rs.getInt("hearts"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -306,6 +307,30 @@ public class MemberDAO {
 	
 	///dain
 
+	public int getHearts(String nickname) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int hearts = 0;
+		
+		try {
+			String sql = "SELECT hearts FROM member WHERE nickname = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				hearts = rs.getInt("hearts");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return hearts;
+	}
+	
 	public int updateCP(String nickname, int article_CP) {
 		int updateNum = 0;
 		PreparedStatement pstmt = null;

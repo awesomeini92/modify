@@ -4,10 +4,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:if test="${sessionScope.nickname==null }">
+<c:choose>
+	<c:when test="${sessionScope.sId != null }">
     <script type="text/javascript">
+		alert("이메일 인증 받으세요.");
+		location.href="emailSendConfirm.jsp"
+	</script>
+	</c:when>
+	<c:otherwise>
+		<script type="text/javascript">
 		alert("로그인 해주세요");
 		location.href="LoginForm.me"
-	</script>
+		</script>
+	</c:otherwise>
+</c:choose>
 </c:if>
 <!DOCTYPE html>
 <html>

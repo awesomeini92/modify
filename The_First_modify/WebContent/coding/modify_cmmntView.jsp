@@ -7,7 +7,22 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<c:if test="${sessionScope.nickname==null }">
+<c:choose>
+	<c:when test="${sessionScope.sId != null }">
+    <script type="text/javascript">
+		alert("이메일 인증 받으세요.");
+		location.href="emailSendConfirm.jsp"
+	</script>
+	</c:when>
+	<c:otherwise>
+		<script type="text/javascript">
+		alert("로그인 해주세요");
+		location.href="LoginForm.me"
+		</script>
+	</c:otherwise>
+</c:choose>
+</c:if>
 <%
 	ArrayList<CmmntBean> cmmntList = (ArrayList<CmmntBean>)request.getAttribute("cmmntList");
 	String nowPage = (String)request.getAttribute("page");
@@ -27,13 +42,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<c:if test="${sessionScope.nickname==null }">
-    <script type="text/javascript">
-		alert("로그인 해주세요");
-		location.href="LoginForm.me"
-	</script>
-</c:if>
+<title>Do you have any Questions?</title>
 <style type="text/css">
 #cdiv{
 	  border-bottom: 1px dotted #d3d3d3;

@@ -39,7 +39,7 @@ if (request.getAttribute("isSelected")!=null){
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Do you have any Questions?</title>
 
 <script src="js/jquery-3.4.1.js"> </script>
 <script type="text/javascript">
@@ -229,36 +229,45 @@ function paging(nowPage){
 	<div class="w3-article">
 	 <div class="left-box"> 
 			<div class="w3-border w3-padding">
-				<i class="fa fa-user"></i> <a href="#"> <%=article.getNickname() %></a>
-				
+					<i class="fa fa-user"></i>${article.nickname }
+				 
+				<i class='fas fa-coins' style="float: right!important;">${article.CP }</i>
 				<br>
 				<i class="fa fa-calendar">
-					<%if(article.getDate().compareTo(today)==0){ //날짜가 같으면 %> 
-						<td style="width: 20%" id="date"><%=article.getTime()%> <!-- 시간출력 --></td>
-					<%}else{ %>
-						<td style="width: 20%" id="date"><%=article.getDate()%></td>
-					<%} %>
+					<c:if test="${article.date==today}">
+							<td>${article.time}</td>
+					</c:if>
+					<c:if test="${article.date<today}">
+							<td id="date">${article.date}</td>
+					</c:if>
 				</i>
 				<div class="w3-right">
-					<!-- 조회수 --><span><i class="fa fa-eye"></i><%=article.getReadcount() %></span>&nbsp;
-					<!-- 댓글수 --><i class="fa fa-commenting-o"  onclick="javascript:openCmmnt();"></i>&nbsp;<span class="reply_count"></span>
+					<!-- 조회수 --><span><i class="fa fa-eye"></i>&nbsp;${article.readcount }</span>&nbsp;
+					<!-- 댓글수 --><i class="fa fa-commenting-o"  onclick="javascript:openCmmnt();">&nbsp;${comment_count }</i>&nbsp;<span class="reply_count"></span>
 				</div>
 			</div>
 			<div class="w3-border w3-padding">
-				No.<%=article.getNum() %> &nbsp;&nbsp;&nbsp; <span class="w3-center w3-xlarge w3-text-blue"><%=article.getSubject() %></span>
+				No.${article.num }&nbsp;&nbsp;&nbsp; <span class="w3-center w3-xlarge w3-text-blue">${article.subject }</span>
 			</div>
 <%-- 			<article class="w3-border w3-large w3-padding">${article.content }</article> --%>
-			<%if(article.getFile() != null) { %>
+				
 				<article class="w3-border w3-large w3-padding article_content">
-					<img src="./codingUpload/<%=article.getFile()%>" width=800px >	<br><br><br>
-					<%=article.getContent() %> <br><br>
+					<c:if test="${article.file != null}">
+					<img src="./codingUpload/${article.file }" width=800px >	<br><br><br>
+						</c:if>
+					${article.content } <br><br>
 				</article>
-			<%}%>
-			<div class="w3-border w3-padding">첨부파일: <a href="CodingFileDown.code?file_name=<%=article.getFile()%>" target="blank"><%=article.getFile() %></a></div><br>
+				
+			<div class="w3-border w3-padding">첨부파일: <a href="CodingFileDown.code?file_name=${article.file }" target="blank">${article.file }</a></div><br>
 <!-- 			<div class="check" > 체크</div> -->
-		</div>	
-		
-		
+			
+			<c:if test="${article.nickname == sessionScope.nickname }">
+			<div>
+			    <button type="button" class="btn btn-outline-secondary" onclick="modify_article(${article.num})">글수정</button>&nbsp;&nbsp;
+			     <button type="button" class="btn btn-outline-secondary" onclick="delete_article(${article.num})">글삭제</button>
+			</div>
+			</c:if>
+		</div>
 
 <div class="w3-article" id="reply_article">
 	 <div class="right-box " id="replyList"> 
