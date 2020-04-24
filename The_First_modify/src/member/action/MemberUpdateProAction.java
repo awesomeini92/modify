@@ -17,6 +17,7 @@ public class MemberUpdateProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("MemberUpdateProAction");
 		ActionForward forward = null;
+		boolean isTextUpdate = false;
 
 		String id = request.getParameter("id");
 		String nickname = request.getParameter("nickname");
@@ -37,24 +38,18 @@ public class MemberUpdateProAction implements Action {
 			out.println("</script>");
 		} else {
 			
-			//
 			TextUpdateService textUpdateService = new TextUpdateService();
-			boolean isTextUpdate = textUpdateService.updateReceiver(nickname);
+			int textCount = textUpdateService.getTextCount(nickname);
 			
-			if (isTextUpdate) {
-				HttpSession session = request.getSession();
-				session.setAttribute("nickname", nickname);
-				forward = new ActionForward();
-				forward.setPath("");
-				forward.setRedirect(true);
-			} else {
-				response.setContentType("text/html; charset=UTF-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script>");
-				out.println("alert('회원정보 수정 실패')");
-				out.println("history.back()");
-				out.println("</script>");
+			if (textCount > 0) {
+				isTextUpdate = textUpdateService.updateReceiver(nickname);
 			}
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("nickname", nickname);
+			forward = new ActionForward();
+			forward.setPath("");
+			forward.setRedirect(true);
 			
 		}
 		

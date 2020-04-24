@@ -10,7 +10,7 @@ import any_community.vo.CommunityBean;
 public class CommunityDetailService {
 
 	public CommunityBean getArticle(int num) {
-		System.out.println("CommunityDetailService");
+		System.out.println("CommunityDetailService - getArticle");
 
 		Connection con = getConnection();
 		CommunityDAO cdao = CommunityDAO.getInstance();
@@ -19,6 +19,10 @@ public class CommunityDetailService {
 		CommunityBean article = null;
 		
 		article = cdao.selectArticle(num);
+		
+		System.out.println("--------------------------");
+		System.out.println("닉네임 넘어오나 ??");
+		System.out.println(article.getNickname());
 		
 		close(con);
 		

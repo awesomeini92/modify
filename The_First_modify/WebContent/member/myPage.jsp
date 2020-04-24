@@ -162,9 +162,9 @@ function delete_member() {
                        
                         <div style="text-align:center;">
                             <button class="btn btn--radius-2 btn--red" type="submit">수   정 </button>
-                            <button class="btn btn--radius-2 btn--red" onclick="location.href='TextList.te?receiver=<%=mb.getNickname() %>'" >쪽 지 함</button>
+                            <button class="btn btn--radius-2 btn--red" type="button" onclick="location.href='TextList.te?receiver=<%=mb.getNickname() %>'" >쪽 지 함</button>
                             <!-- 쪽지함 클릭시 페이지 이동안하고 그대로 UpdateForm에 머무름 / 삭제시에도 Main으로 가지않고 updateForm에 머무름 -->
-                            <button class="btn btn--radius-2 btn--red" onclick="delete_member()">탈   퇴 </button>
+                            <button class="btn btn--radius-2 btn--red" type="button" onclick="delete_member()">탈   퇴 </button>
                         </div>
                     </form>
                 </div>

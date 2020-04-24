@@ -21,7 +21,6 @@ public class CommunityDeleteProAction implements Action {
 		ActionForward forward = null;
 		
 		int num = Integer.parseInt(request.getParameter("num"));
-
 		
 		// 1)post_num에 대한 댓글 카운팅 
 		// 2) 댓글이 존재할경우 CommentDeleteProService에서 post_num으로 댓글 전부삭제
@@ -34,13 +33,14 @@ public class CommunityDeleteProAction implements Action {
 			boolean isCommentDeleteSuccess = CommentDeleteProService.deleteAllComment(num);
 		}
 		
-		CommunityDeleteProService communityDeleteProService = new CommunityDeleteProService();
-		boolean isArticleDeleteSuccess = communityDeleteProService.deleteArticle(num);
-		
+		// 게시글에 대한 작성자 닉네임 가져오기 
 		CommunityDetailService communityDetailService = new CommunityDetailService();
 		CommunityBean communityBean = communityDetailService.getArticle(num);
 		String nickname = communityBean.getNickname();
 		
+		// 글삭제
+		CommunityDeleteProService communityDeleteProService = new CommunityDeleteProService();
+		boolean isArticleDeleteSuccess = communityDeleteProService.deleteArticle(num);
 		
 		if (!isArticleDeleteSuccess) {
 			response.setContentType("text/html; charset=UTF-8");
@@ -50,6 +50,7 @@ public class CommunityDeleteProAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
+			// 게시글 삭제한 유저에대해 LP 감소
 			MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
 			boolean isSuccess = memberUpdateProService.minusArticletLP(nickname);
 			

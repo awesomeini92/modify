@@ -27,7 +27,6 @@ public class CommentListAction implements Action {
 		if(request.getParameter("nowPage") != null) {
 			cmmnt_page = Integer.parseInt(request.getParameter("nowPage")); // 정수로 변환하여 저장
 		}
-		
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
@@ -48,11 +47,13 @@ public class CommentListAction implements Action {
 			int comment_num = list.get(i).getComment_num();
 			
 			json += "[{\"comment_num\":\"" + comment_num + "\"},"; //0
+			
 			if(date.compareTo(today)==0) {
 				json += "{\"reply_date\":\"" + time + "\"},";		//1
 			}else {
 				json += "{\"reply_date\":\"" + df.format(date) + "\"},";		//1
 			}
+			
 			json += "{\"nickname\":\"" + nickname + "\"},"; // 2
 			json += "{\"comment\":\"" + comment + "\"}]"; // 3
 			

@@ -34,4 +34,19 @@ public class TextUpdateService {
 		return isTextUpdate;
 	}
 
+	public int getTextCount(String nickname) {
+		System.out.println("TextUpdateService - getTextCount");
+		int textCount = 0;
+		
+		Connection con = getConnection();
+		TextDAO textDAO = TextDAO.getInstance();
+		textDAO.setConnection(con);
+		
+		textCount = textDAO.getTextCount(nickname);
+		
+		close(con);
+		
+		return textCount;
+	}
+
 }

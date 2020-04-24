@@ -231,6 +231,30 @@ public class TextDAO {
 		return updateCount;
 	}
 
+	public int getTextCount(String nickname) {
+		int textCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT count(receiver) FROM text WHERE receiver=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				textCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return textCount;
+	}
+
 	
 	
 }

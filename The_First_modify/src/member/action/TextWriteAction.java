@@ -41,8 +41,7 @@ public class TextWriteAction implements Action {
 			out.println("</script>");
 		} else {
 			forward = new ActionForward(); 
-			forward.setPath("TextList.te?receiver=receiver");
-//			forward.setRedirect(true);
+			forward.setPath("TextList.te?receiver=" + receiver);
 		}
 		
 		return forward;

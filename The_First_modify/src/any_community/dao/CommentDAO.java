@@ -76,7 +76,7 @@ public class CommentDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM any_comment where post_num = ? LIMIT ?,?";
+			String sql = "SELECT *,time(date) AS time FROM any_comment where post_num = ? LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, post_num);
 			pstmt.setInt(2, startRow);
@@ -90,6 +90,7 @@ public class CommentDAO {
 				anyCommentBean.setNickname(rs.getString("nickname"));
 				anyCommentBean.setComment(rs.getString("comment"));
 				anyCommentBean.setDate(rs.getDate("date"));
+				anyCommentBean.setTime(rs.getString("time"));
 				list.add(anyCommentBean);
 			}
 			
