@@ -36,14 +36,18 @@ public class CodingReplyModifyFormAction implements Action {
 		CodingDetailService codingDetailService = new CodingDetailService();
 		CodingBean article = codingDetailService.getArticle(post_num);
 		
+		AllService allService = new AllService();
+		Date today = allService.getToday();
 		
 		
 		
 		// 원본 게시물과 페이지번호를 request 객체에 저장
 		request.setAttribute("article", article);
 		request.setAttribute("post_num", post_num);
+		request.setAttribute("ref_num", ref_num);
 		request.setAttribute("ref", ref);
 		request.setAttribute("isSelected", isSelected);
+		request.setAttribute("today", today);
 		
 
 		

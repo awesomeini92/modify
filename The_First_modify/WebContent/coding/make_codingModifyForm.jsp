@@ -79,17 +79,20 @@
 					</div>
 
 			<div class="form-group mg10 ">
-				<label class="control-label" for="file">파일첨부</label> <input type="file" class="form-control-file text-right" name="file">
-			</div>
-
-			<div class="form-group mg3">
-				<label class="control-label" for="content">내용</label>
-				<article class="w3-border w3-large w3-padding article_content">
-					<img src="./codingUpload/${article.file }" width=800px><br><br>
-					<textarea class="form-contrdiv" name="content" id="content"	cols="100" rows="12" required>${article.content }</textarea>
-				</article>
-			</div>
-
+						<label class="control-label" for="file">파일첨부</label> 
+						<input type="file" class="form-control-file text-right" name="file">
+					</div>
+					<c:if test="${article.file != null}">
+						<article class="w3-border w3-large w3-padding article_content">
+							<img src="./codingUpload/${article.file }" width=800px> <br><br><br>
+						</article>
+					</c:if>
+					<div class="form-group mg3">
+						<label class="control-label" for="content">내용</label>
+						<textarea class="form-contrdiv" name="content" id="content" cols="80" rows="12" required="required">
+							${article.content }
+						</textarea>
+					</div>
 			<div class="wsr">
 				<input type="reset" class="btn btn-outline-secondary btn-lg"	value="다시쓰기" /> 
 				<input type="submit" class="btn btn-secondary btn-lg" value="등록">&nbsp;&nbsp;

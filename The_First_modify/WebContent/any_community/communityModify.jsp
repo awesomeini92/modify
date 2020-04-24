@@ -72,7 +72,7 @@
 					</div>
 					<c:if test="${article.file != null}">
 						<article class="w3-border w3-large w3-padding article_content">
-							<img src="./coding_free/images/${article.file }" width=800px> <br><br><br>
+							<img src="./any_community/images/${article.file }" width=800px> <br><br><br>
 						</article>
 					</c:if>
 					<div class="form-group mg3">

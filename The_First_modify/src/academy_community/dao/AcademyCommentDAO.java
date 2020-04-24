@@ -43,7 +43,7 @@ public class AcademyCommentDAO {
 			}else {
 				comment = commentBean.getComment();
 			}
-			String sql = "SELECT max(comment_num) as mnum FROM any_comment";
+			String sql = "SELECT max(comment_num) as mnum FROM academy_comment";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -53,7 +53,7 @@ public class AcademyCommentDAO {
 			
 		    sql = "INSERT INTO academy_comment VALUES (?,?,?,?,now())";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, commentBean.getPost_num());
+			pstmt.setInt(1, num);
 			pstmt.setInt(2, commentBean.getPost_num());
 			pstmt.setString(3, commentBean.getNickname());
 			pstmt.setString(4, comment);

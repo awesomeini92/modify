@@ -12,6 +12,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import action.Action;
 import coding.svc.CodingModifyProService;
 import coding.svc.CodingReplyDetailService;
+import coding.svc.CodingReplyProService;
 import coding.vo.CodingBean;
 import coding.vo.Coding_refBean;
 import vo.ActionForward;
@@ -21,7 +22,9 @@ public class CodingReplyModifyProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		int num = Integer.parseInt(request.getParameter("num"));
+		int num = Integer.parseInt(request.getParameter("post_num"));
+		int ref_num = Integer.parseInt(request.getParameter("ref_num"));
+		int isSelected = Integer.parseInt(request.getParameter("isSelected"));
 
 		String saveFolder = "/codingUpload"; //가상위치 (이클립스가 생성한 폴더)
 		ServletContext context2 = request.getServletContext();
@@ -37,6 +40,7 @@ public class CodingReplyModifyProAction implements Action {
 		String content =multi.getParameter("content");
 		//		int readcount = Integer.parseInt(multi.getParameter("readcount"));
 		String file = multi.getOriginalFileName((String)multi.getFileNames().nextElement());
+		String nickname =multi.getParameter("nickname");
 		//		int password = Integer.parseInt(multi.getParameter("password"));
 
 		//		System.out.println("CP는"+CP);
@@ -48,11 +52,14 @@ public class CodingReplyModifyProAction implements Action {
 			file=coding_refBean.getFile();
 		}
 		
-		CodingBean article = new CodingBean();
-		article.setNum(num);
-		article.setSubject(subject);
-		article.setContent(content);
-		article.setFile(file);
+		Coding_refBean ref = new Coding_refBean();
+		ref.setRef_num(ref_num);
+		ref.setPost_num(num);
+		ref.setNickname(nickname);
+		ref.setSubject(subject);
+		ref.setContent(content);
+		ref.setFile(file);
+		ref.setIsSelected(isSelected);
 		//		codingBean.setReadcount(readcount);
 		//		codingBean.setPassword(password);
 		
@@ -60,8 +67,11 @@ public class CodingReplyModifyProAction implements Action {
 		System.out.println(content);
 		System.out.println(file);
 		
-		CodingModifyProService codingModifyProService = new CodingModifyProService();
-		boolean isModifySuccess = codingModifyProService.modifyArticle(article);
+		CodingReplyProService codingReplyProService = new CodingReplyProService();
+		boolean isModifySuccess = codingReplyProService.modifyArticle(ref);
+		
+		
+		
 
 		if(!isModifySuccess) {
 			// 리턴받은 수정 결과(isModifySuccess)가 false 일 경우

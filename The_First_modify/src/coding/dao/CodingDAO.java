@@ -257,7 +257,7 @@ public class CodingDAO {
 		PreparedStatement pstmt = null;
 		
 //		ref_num | post_num | nickname  |	subject   | content  | readcount	| file 	| date |  isSelected 
-		String sql = "insert into coding_charge_ref values(null,?,?,?,?,?,?,now(),0,0)";
+		String sql = "UPDATE coding_charge_ref SET post_num=?, nickname=?, subject=?, content=?, file=?, isSelected=? WHERE ref_num=?";
 		try {
 			String content = "";
 			
@@ -271,9 +271,10 @@ public class CodingDAO {
 			pstmt.setString(2, ref.getNickname());
 			pstmt.setString(3, ref.getSubject());
 			pstmt.setString(4,content);
-			pstmt.setInt(5, ref.getReadcount() );
-			pstmt.setString(6, ref.getFile());
-			pstmt.setInt(7, ref.getIsSelected()); //0 이면 무료, 1이면 유료
+//			pstmt.setInt(5, ref.getReadcount() );
+			pstmt.setString(5, ref.getFile());
+			pstmt.setInt(6, ref.getIsSelected()); //0 이면 무료, 1이면 유료
+			pstmt.setInt(7, ref.getRef_num()); //0 이면 무료, 1이면 유료
 
 			insertCount = pstmt.executeUpdate();
 			

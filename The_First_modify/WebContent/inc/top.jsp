@@ -13,7 +13,7 @@ String id = (String)session.getAttribute("sId");
     <c:when test="${! empty sessionScope.nickname}">
     <c:if test="${sessionScope.sId eq 'admin'}">
     	<header class="text-right" style="color:#945bf1; margin-right:20px;">
-		<b>${sessionScope.nickname}</b>님이 로그인하셨습니다 | <a href="AdminList.ad">관리자페이지</a> | <a href=" Logout.me">로그아웃</a>
+		<i class="fa fa-cube" style="font-size:26px; color: #3ac1bc"></i><b>${sessionScope.nickname}</b> 님이 로그인하셨습니다 | <a href="AdminList.ad">관리자페이지</a> | <a href=" Logout.me">로그아웃</a>
 		</header>
     </c:if>
     <c:if test="${! (sessionScope.sId eq 'admin')}">
