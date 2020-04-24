@@ -4,20 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:if test="${sessionScope.nickname==null }">
-<c:choose>
-	<c:when test="${sessionScope.sId != null }">
     <script type="text/javascript">
-		alert("이메일 인증 받으세요.");
-		location.href="emailSendConfirm.jsp"
-	</script>
-	</c:when>
-	<c:otherwise>
-		<script type="text/javascript">
 		alert("로그인 해주세요");
 		location.href="LoginForm.me"
-		</script>
-	</c:otherwise>
-</c:choose>
+	</script>
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -43,6 +33,7 @@
     width: 550px;
     height: 300px;
      text-align: center; 
+    margin-bottom: 50px;
     }
     
 .right_area {
@@ -95,7 +86,6 @@
 
 
 	
-	
 	<div class="prd_detail_box">
 		<div class="left_area">
 			<div class="prd_img">
@@ -111,10 +101,20 @@
 				</p>
 				<p class="prd_info">${shop.product_info }</p>
 			</div>
+			
+			<form action="ShopPayment.shop" method="post">
+			<input type="hidden" name="price" value="${shop.price }">
+			<input type="hidden" name="barcode" value="${shop.barcode_image }">
+			<input type="hidden" name="stock" value="${shop.stock }">
+			<input type="hidden" name="purchase_count" value="${shop.purchase_count }">
+			<input type="hidden" name="product_cod" value="${shop.product_cod }">
+			
 			<div class="prd_btn">
 				<input type="submit" value="교환" class="bs_btn btn-info" onclick="return confirm('${shop.price} 포인트가 차감됩니다. 교환하시겠습니까?');">
 				<a href="ShopList.shop"><input type="button" value="목록" class="bs_btn btn-info"></a>	
 			</div>
+			
+			</form>
 		</div>
 	</div>
 				
@@ -130,6 +130,7 @@
 
 
 </html>
+
 
 
 

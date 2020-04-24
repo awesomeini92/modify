@@ -40,8 +40,8 @@
 			<div class="gtco-container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-						<h2>Check Our Works</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat enim et urna sagittis, rhoncus euismod erat tincidunt. Donec tincidunt volutpat erat.</p>
+						<h2>Free Coding Q&A</h2>
+						
 					</div>
 				</div>
 				 <div class="">

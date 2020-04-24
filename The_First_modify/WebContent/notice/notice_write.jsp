@@ -46,8 +46,8 @@
 				</div>
 		</div>
 
-			<div class="gtco-container">
-			<div class="center-box row">
+<!-- 			<div class="gtco-container"> -->
+			<div class="center-box row" style="padding: 10px 20% 30px 20% !important;">
 							<!-- 게시물 목록 가져오기 -->
 			<form action="NoticeWritePro.no" method="post" enctype="multipart/form-data" name="boardform" class="code_wf">
 					<div class="form-group">					
@@ -68,15 +68,14 @@
 		  					<textarea class="form-contrdiv" name="content" id="content" cols="100" rows="12" required></textarea></div>
 				
 								<div class="wsr" >
+									<a href="NoticeList.no"><input type="button" class="btn btn-outline-secondary btn-lg" value="목록"></a>
 									<input type="reset"  class="btn btn-outline-secondary btn-lg" value="다시쓰기" />
 									<input type="submit" class="btn btn-secondary btn-lg" value="등록">&nbsp;&nbsp;<br>
-									<a href="NoticeList.no"><input type="button" class="btn-secondary btn-sm" value="목록" ></a>
 								</div>
 								</form>
 				  </div>
               </div>
                            
-</div>
 
 
 
@@ -86,6 +85,11 @@
 		<!-- footer page -->
 		<jsp:include page="../inc/bottom.jsp"/>
 		<!-- footer page -->
+		
+		
+		<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+		</div>
 
 	</body>
 </html>

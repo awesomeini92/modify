@@ -38,11 +38,11 @@
 	<div class="gtco-section">
 		<div class="gtco-container">
 			<div class="text-center">
-					<h1>취업 정보</h1>
+					<h1>Employment information</h1>
 						
 			
 				<div>
-				   <span class="">구인공고를 확인 하세요</span>
+				   <span class="">구인공고를 확인하세요</span>
 				</div>
 				<br>
 			</div>	 
@@ -175,40 +175,6 @@
 	</div>
 
 
-	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/chart-area-demo.js"></script>
-	<script src="js/chart-bar-demo.js"></script>
-	<script
-		src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/datatables-demo.js"></script>
-
-	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
-	<!-- Carousel -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- Magnific Popup -->
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
-	<!-- Main -->
-	<script src="js/main.js"></script>
 
 </body>
 </html>

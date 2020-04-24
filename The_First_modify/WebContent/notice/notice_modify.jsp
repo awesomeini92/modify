@@ -255,7 +255,7 @@ $(document).ready(function() {
 				
 				<div class="form-group">
 					 <label class="control-label" for="subject">제목</label>
-					 <input class="form-control form-control-lg" type="text" id="subject" name="subject" value="${article.subject }">
+					 <input class="form-control form-control-lg" type="text" id="subject" name="subject" value="${article.subject }"required>
 				</div>
 				
 													
@@ -278,8 +278,8 @@ $(document).ready(function() {
 <!-- 			</table> -->
 			
 			<div class="wsr" >
+				<a href="NoticeList.no"><input type="button" class="btn btn-outline-secondary btn-lg" value="목록" ></a>
 				<input type="submit" class="btn btn-secondary btn-lg" value="등록">&nbsp;&nbsp;
-				<a href="NoticeList.no"><input type="button" class="btn btn-secondary btn-lg" value="목록" ></a>
 			</div>
 		</form>	
 		</div>

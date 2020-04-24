@@ -28,43 +28,7 @@
 <meta charset="UTF-8">
 <title>SHOP</title>
 <style type="text/css">
-/* 	#listForm { */
-/* 		width:700px; */
-/* 		height: 500px; */
-/* 		margin: auto; */
-/* 	} */
-	
-/* 	h2 { */
-/* 		text-align: center; */
-/* 	} */
-	
-/* 	table { */
-/* 		margin: auto; */
-/* 		width: 550px */
-/* 	} */
-	
-/* 	.div_empty { */
-/* 		background-color: gray; */
-/* 		width: 100%; */
-/* 		height: 100%; */
-/* 		text-align: center;		  */
-/* 	} */
-	
-/* 	#todayImageList { */
-/* 		text-align: center; */
-/* 	} */
-	
-/* 	#productImage { */
-/* 		width: 150px; */
-/* 		height: 150px; */
-/* 		border: none; */
-/* 	} */
-	
-/* 	#todayImage { */
-/* 		width: 100px; */
-/* 		height: 100px; */
-/* 		border: none; */
-/* 	} */
+
 #productList {
     width: 100%;
     float: left;

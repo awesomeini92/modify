@@ -64,7 +64,6 @@ $(document).ready(function() {
 });
 
 		function getComment(nowPage){
-			alert(nowPage);
 			$.ajax({		
     			url: "NoticeCommentList.no", // 요청 url
                 type: "POST", // post 방식

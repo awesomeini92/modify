@@ -53,11 +53,7 @@
     }
     .table caption{caption-side: bottom; display: none;}
 	}
-	
-	#commandCell{
-	margin-left: auto;
-	margin-right: auto;
-	}
+
 	
 </style>
 </head>
@@ -65,10 +61,9 @@
 <body>
 
 	<!-- header page -->
-		<jsp:include page="../inc/link.jsp"/>
+		<jsp:include page="../inc/link.jsp"/>	
 		<jsp:include page="../inc/top.jsp"/>
 		<jsp:include page="../inc/green.jsp"/>
-			
 	<!-- header page -->
 
 		<div class="gtco-section">
@@ -84,61 +79,64 @@
 				
 				 	<section id="writeForm">
 <!-- 		<h2>상품 수정</h2> -->
-		<form action="ProductModifyPro.ad" method="post" name="boardForm">
+		<form action="ProductModifyPro.ad?product_cod=${shopBean.product_cod }" method="post" name="boardForm" enctype="multipart/form-data">
 		
 			<input type="hidden" name="product_cod" id="product_cod" value="${shopBean.product_cod }" />
 			<table class="table">
 			
 				<tr>
 					<th class="td_left"><label for="product_cod">상품코드</label></th>
-					<td class="td_right"><input type="text" name="product_cod" id="product_cod" value="${shopBean.product_cod }" required="required"/></td>
+					<td class="td_right"><input type="text" name="product_cod" id="product_cod" value="${shopBean.product_cod }" readonly/></td>
 				</tr>
 				<tr>
 					<th class="td_left"><label for="product_name">상품명</label></th>
 					<td class="td_right">
-						<input type="text" name="product_name" id="product_name" value="${shopBean.product_name }" required="required" />
+						<input type="text" name="product_name" id="product_name" value="${shopBean.product_name }" required />
 					</td>
 				</tr>
 				<tr>
 					<th class="td_left"><label for="price">가격</label></th>
 					<td class="td_right">
-						<input type="text" name="price" id="price" value="${shopBean.price }" required="required" />
+						<input type="text" name="price" id="price" value="${shopBean.price }" required/>
 					</td>
 				</tr>
 				<tr>
 					<th class="td_left"><label for="stock">상품재고량</label></th>
 					<td class="td_right">
-						<input type="text" name="stock" id="stock" value="${shopBean.stock }" required="required" />
+						<input type="text" name="stock" id="stock" value="${shopBean.stock }" required />
 					</td>
 				</tr>
 				<tr>
 					<th class="td_left"><label for="purchase_count">상품구매량</label></th>
 					<td class="td_right">
-						<input type="text" name="purchase_count" id="purchase_count" value="${shopBean.purchase_count }" required="required" />
+						<input type="text" name="purchase_count" id="purchase_count" value="${shopBean.purchase_count }" required />
 					</td>
 				</tr>
 				<tr>
 					<th class="td_left"><label for="product_info">상품설명</label></th>
 					<td class="td_right" >
-						<textarea rows="13" cols="40" name="product_info" id="product_info" required="required">${shopBean.product_info }</textarea>
+						<textarea rows="13" cols="40" name="product_info" id="product_info" required>${shopBean.product_info }</textarea>
 					</td>
 				</tr>
-				<tr>
-					<th class="td_left"><label for="product_image">상품이미지</label></th>
-					<td class="td_right"><input type="file" name="product_image" id="product_image" required="required" value="${shopBean.product_image }"/>${shopBean.product_image }</td>
-				</tr>
+<!-- 				<tr> -->
+<!-- 					<th class="td_left"><label for="product_image">상품이미지</label></th> -->
+<!-- 					<td class="td_right"><input type="file" name="product_image" id="product_image" readonly/> -->
+<%-- 					<img src="./admin/productUpload/${shopBean.product_image }" width=400px> --%>
+<!-- 					</td> -->
+					
+<!-- 				</tr> -->
 				<tr>
 					<th class="td_left"><label for="barcode_image">바코드이미지</label></th>
-					<td class="td_right"><input type="file" name="barcode_image" id="barcode_image" required="required"/>${shopBean.barcode_image }</td>
+					<td class="td_right"><input type="file" name="barcode_image" id="barcode_image"/>
+					<img src="./admin/productUpload/${shopBean.barcode_image }" width=400px>
+					</td>
 				</tr>
 				
-				
-				
 			</table>
-			<section id="commandCell">
+			<div style="text-align: center;">
 				<input type="submit" value="수정" class="bs_btn btn-info" onclick="return confirm('상품을 수정하시겠습니까?');"/>&nbsp;&nbsp;
 				<input type="button" value="취소" class="bs_btn btn-info" onclick="history.back()" />
-			</section>
+			</div>
 		</form>	
 	</section>
                             
@@ -158,18 +156,3 @@
 
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

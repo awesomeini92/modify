@@ -157,7 +157,7 @@ public class NoticeFrontController extends HttpServlet {
 			}
 			
 		//댓글 삭제
-		}else if(command.equals("/NoticeDeletePro.no")) {
+		}else if(command.equals("/NoticeCommentDeletePro.no")) {
 			action = new NoticeCommentDeleteProAction();
 			try {
 				forward = action.execute(request, response);

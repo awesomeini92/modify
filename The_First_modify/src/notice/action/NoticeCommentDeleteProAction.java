@@ -33,17 +33,12 @@ public class NoticeCommentDeleteProAction implements Action {
 				out.println("history.back()");
 				out.println("</script>");
 			}else {
-				MemberUpdateProService memberUpdateProService = new MemberUpdateProService();
-				boolean isSuccess = memberUpdateProService.minusCommentLP(nickname);
-				if(isSuccess) {
-	//				request.setAttribute("post_num", post_num);
+
 					forward = new ActionForward();
-		//			forward.setPath("NoticeDetail.no");
 					forward.setPath("NoticeDetail.no?post_num="+post_num);
-		//			forward.setPath("NoticeDetail.no?page=" + nowPage);
 					forward.setRedirect(true);
 				}
-			}
+			
 		
 		return forward;
 	}

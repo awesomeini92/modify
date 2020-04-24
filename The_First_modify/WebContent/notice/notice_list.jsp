@@ -40,8 +40,8 @@
 			<div class="gtco-container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-						<h2>Check Our Works</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat enim et urna sagittis, rhoncus euismod erat tincidunt. Donec tincidunt volutpat erat.</p>
+						<h2>NOTICE</h2>
+						<p>공지사항을 확인하세요</p>
 					</div>
 				</div>
 				 <div class="">
@@ -99,22 +99,11 @@
 		<jsp:include page="../inc/bottom.jsp"/>
 		<!-- footer page -->
 
-
+<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+		
+	</div>
+	
 	</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

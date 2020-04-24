@@ -159,13 +159,17 @@ public class ShopDAO {
 		PreparedStatement pstmt = null;
 
 		try {
-			String sql = "UPDATE shop SET product_name=?,price=?,stock=?,purchase_count=? WHERE product_cod=?";
+				String sql = "UPDATE shop SET product_name=?,price=?,stock=?,purchase_count=?,product_info=?,barcode_image=? WHERE product_cod=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, product.getProduct_name());
 			pstmt.setInt(2, product.getPrice());
 			pstmt.setInt(3, product.getStock());
 			pstmt.setInt(4, product.getPurchase_count());
-			pstmt.setString(5, product.getProduct_cod());
+			pstmt.setString(5, product.getProduct_info());
+//			pstmt.setString(6, product.getProduct_image());
+			pstmt.setString(6, product.getBarcode_image());
+			pstmt.setString(7, product.getProduct_cod());
+			
 
 			updateCount = pstmt.executeUpdate();
 
@@ -177,7 +181,7 @@ public class ShopDAO {
 
 		return updateCount;
 	}
-
+	
 	// =============== 상품 삭제 ================
 	public int deleteProduct(String product_cod) {
 		int deleteCount = 0;

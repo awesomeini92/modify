@@ -62,6 +62,8 @@
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 						<h2>SHOP</h2>
+						<p>CASH POINT를 충전하여 코딩 문제를 질문하세요 <br>
+						코딩 문제에 답변하고 획득한 포인트로 기프티콘을 교환해보세요!</p>
 					</div>
 				</div>
 				
