@@ -46,7 +46,7 @@ public class MemberMailSendAction implements Action {
 		}
 		
 		// 사용자에게 보낼 메시지를 기입합니다.
-		String host = "http://localhost:8080/The_First/";
+		String host = "http://localhost:8080/The_First_modify/";
 		String from = "subin.lee1226@gmail.com";
 		String to = email;
 		String subject = "회원가입 확인 메일 입니다.";

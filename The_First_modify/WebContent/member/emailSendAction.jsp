@@ -45,8 +45,8 @@
 	}
 	
 	// 사용자에게 보낼 메시지를 기입합니다.
-	String host = "http://192.168.5.19:8080/FunWeb/member/";
-// 	String host = "http://localhost:8080/Funweb/member/";
+// 	String host = "http://192.168.5.19:8080/FunWeb/member/";
+	String host = "http://localhost:8080/Funweb/member/";
 	String from = "subin.lee1226@gmail.com";
 	String to = mdao.getUserEmail(id);
 	String subject = "회원가입 확인 메일 입니다.";

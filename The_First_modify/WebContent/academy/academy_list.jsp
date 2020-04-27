@@ -42,8 +42,8 @@
 			<div class="gtco-container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-						<h2>Check Our Works</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat enim et urna sagittis, rhoncus euismod erat tincidunt. Donec tincidunt volutpat erat.</p>
+						<h2>Recommendation for academy</h2>
+						<p>IT학원을 추천해보세요</p>
 					</div>
 				</div>
 				 <div class="">
