@@ -26,6 +26,7 @@ public class CommunityDeleteProService {
 			rollback(con);
 		}
 
+		close(con);
 		return isDeleteSuccess;
 	}
 

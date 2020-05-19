@@ -50,6 +50,7 @@ public class AcademyCommentDeleteProService {
 			rollback(con);
 		}
 		
+		close(con);
 		return isDeleteSuccess;
 	}
 

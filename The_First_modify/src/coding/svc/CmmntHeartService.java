@@ -100,6 +100,7 @@ public class CmmntHeartService {
 		
 		charge_heart = codingDAO.selectChargeHeartCount(nickname);
 		
+		close(con);
 		return charge_heart;
 	}
 

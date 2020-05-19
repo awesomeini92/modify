@@ -102,6 +102,7 @@ public class CodingFreeCommentHeartService {
 		
 		free_heart = codingFreeDAO.selectFreeHeartCount(nickname);
 		
+		close(con);
 		return free_heart;
 		
 		

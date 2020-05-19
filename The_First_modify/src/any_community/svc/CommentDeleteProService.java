@@ -49,7 +49,7 @@ public class CommentDeleteProService {
 		} else {
 			rollback(con);
 		}
-		
+		close(con);
 		return isDeleteSuccess;
 	}
 

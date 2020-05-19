@@ -25,7 +25,7 @@ public class CodingFreeDeleteProService {
 		} else {
 			rollback(con);
 		}
-
+		close(con);
 		return isDeleteSuccess;
 	}
 
