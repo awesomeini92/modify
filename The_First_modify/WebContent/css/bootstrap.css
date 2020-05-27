@@ -6184,6 +6184,7 @@ margin-bottom: 5%;
 	display: inline-block;
 	margin-left: 40px;
 	margin-top: 40px;
+/* 	position: fix; */
 }
 .left-box_padding {
    padding: 50% 0;

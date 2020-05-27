@@ -43,7 +43,7 @@ public class KakaoJoinProService {
 		KakaoDAO kakaoDAO = KakaoDAO.getInstance();
 		kakaoDAO.setConnection(con);
 		
-		//close(con);
+		close(con);
 		
 		return kakaoDAO.getMember(id);
 	}
